@@ -31,9 +31,9 @@ Use your **real name** (i.e., not a nickname or an abbreviation) and your offici
   * Robert Sama, GitLab handle: @roberts95
 * If you have specific questions regarding grading or team issues, please also open a GitLab Issue in this GitLab project and assign it to your team's supervisor. Your **team supervisor** can be identified based on your team id which is also visible in your GitLab Team Project name. The team id consists of 4 digits and the first two digits encode your supervisor:
   * Teams starting with `01` (e.g., team `0104`) are supervised by Amirali Amiri, GitLab handle: @amiralia57
-  * Teams starting with `02` (e.g., team `0213`) are supervised by **TODO**, GitLab handle: **TODO**
+  * Teams starting with `02` (e.g., team `0206`) are supervised by **TODO**, GitLab handle: **TODO**
   * Teams starting with `03` (e.g., team `0309`) are supervised by **TODO**, GitLab handle: **TODO**
-  * Teams starting with `04` (e.g., team `0406`) are supervised by Stephen Warnett, GitLab handle: **TODO**
+  * Teams starting with `04` (e.g., team `0403`) are supervised by Stephen Warnett, GitLab handle: **TODO**
 * As a last resort you can contact the course supervisors directly via [email](mailto:se2@swa.univie.ac.at).
 
  
