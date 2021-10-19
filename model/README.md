@@ -1,1 +1,1 @@
-*This folder must contain your model artifacts in high resolution, e.g., SVG files.
+*This folder must contain your model artifacts in high resolution, e.g., SVG files.*
