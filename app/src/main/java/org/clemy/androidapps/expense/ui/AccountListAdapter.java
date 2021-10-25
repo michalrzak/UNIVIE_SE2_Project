@@ -29,7 +29,7 @@ public class AccountListAdapter extends ListAdapter<Account, AccountListItemView
     public static final DiffUtil.ItemCallback<Account> DIFF_CALLBACK = new DiffUtil.ItemCallback<Account>() {
         @Override
         public boolean areItemsTheSame(@NonNull Account oldItem, @NonNull Account newItem) {
-            return oldItem == newItem;
+            return oldItem.getId().equals(newItem.getId());
         }
 
         @Override
