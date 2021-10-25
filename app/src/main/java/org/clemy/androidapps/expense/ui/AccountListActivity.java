@@ -1,29 +1,30 @@
-package org.clemy.androidapps.expense;
+package org.clemy.androidapps.expense.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.widget.ListView;
+
+import org.clemy.androidapps.expense.R;
+import org.clemy.androidapps.expense.database.Repository;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class AccountListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_account_list);
 
         RecyclerView list = findViewById(R.id.account_list);
         list.setLayoutManager(new LinearLayoutManager(this));
         AccountListAdapter adapter = new AccountListAdapter();
-        List<String> dataList = new java.util.ArrayList<>();
-        dataList.add("a");
-        dataList.add("b");
-        dataList.add("c");
-        adapter.submitList(dataList);
+
+        Repository repository = new Repository();
+
+        adapter.submitList(repository.getAccounts().getAccountList());
         list.setAdapter(adapter);
     }
 }

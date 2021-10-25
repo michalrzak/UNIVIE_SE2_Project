@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Expense">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.AccountListActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
