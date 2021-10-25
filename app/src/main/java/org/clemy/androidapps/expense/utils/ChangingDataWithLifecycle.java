@@ -21,40 +21,51 @@ public class ChangingDataWithLifecycle<T> extends ChangingDataDecorator<T> {
             @OnLifecycleEvent(Lifecycle.Event.ON_START)
             void OnStart(LifecycleOwner source) {
                 Log.d(TAG, "OnStart");
-                for (Observer<T> observer : lifecycleObservers) {
-                    changingData.observe(observer);
-                }
+                observeAll();
             }
 
             @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
             void OnStop(LifecycleOwner source) {
                 Log.d(TAG, "OnStop");
-                for (Observer<T> observer : lifecycleObservers) {
-                    changingData.unobserve(observer);
-                }
+                unobserveAll();
             }
 
             @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
             void OnDestroy(LifecycleOwner source) {
                 Log.d(TAG, "OnDestroy");
-                for (Observer<T> observer : lifecycleObservers) {
-                    changingData.unobserve(observer);
-                }
-                lifecycleObservers.clear();
+                unobserveAllAndClear();
             }
         });
     }
 
     @Override
-    public void observe(@NonNull Observer<T> observer) {
+    public synchronized void observe(@NonNull Observer<T> observer) {
         Log.d(TAG, "observe " + observer);
         lifecycleObservers.add(observer);
         super.observe(observer);
     }
 
     @Override
-    public void unobserve(@NonNull Observer<T> observer) {
+    public synchronized void unobserve(@NonNull Observer<T> observer) {
         super.unobserve(observer);
         lifecycleObservers.remove(observer);
+    }
+
+    private synchronized void observeAll() {
+        for (Observer<T> observer : lifecycleObservers) {
+            super.observe(observer);
+        }
+    }
+
+    private synchronized void unobserveAll() {
+        for (Observer<T> observer : lifecycleObservers) {
+            super.unobserve(observer);
+        }
+    }
+
+    private synchronized void unobserveAllAndClear() {
+        unobserveAll();
+        lifecycleObservers.clear();
+
     }
 }

@@ -21,11 +21,11 @@ public class ChangingDataBase<T> implements ChangingData<T> {
     }
 
     @Override
-    public T getData() {
+    public synchronized T getData() {
         return data;
     }
     @Override
-    public void setData(T data) {
+    public synchronized void setData(T data) {
         this.data = data;
         for (Observer<T> observer: observers) {
             observer.changed(this.data);
@@ -33,13 +33,13 @@ public class ChangingDataBase<T> implements ChangingData<T> {
     }
 
     @Override
-    public void observe(@NonNull Observer<T> observer) {
+    public synchronized void observe(@NonNull Observer<T> observer) {
         final boolean result = observers.add(observer);
         Log.d(TAG, "observe " + observer + " result: " + result);
         observer.changed(this.data);
     }
     @Override
-    public void unobserve(@NonNull Observer<T> observer) {
+    public synchronized void unobserve(@NonNull Observer<T> observer) {
         final boolean result = observers.remove(observer);
         Log.d(TAG, "unobserve " + observer + " result: " + result);
     }
