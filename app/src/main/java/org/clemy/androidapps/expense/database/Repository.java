@@ -11,7 +11,7 @@ public class Repository {
     private static final Repository INSTANCE = new Repository();
 
     // consider Strategy pattern for switching DB implementation
-    private final Dao dao = new SampleDao();
+    private final Dao dao = new RoomDao();
     private final ChangingData<AccountList> accountList = new ChangingDataBase<>();
 
     @NonNull

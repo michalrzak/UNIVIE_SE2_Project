@@ -16,6 +16,10 @@ public class Account {
         this.type = type;
     }
 
+    public Account(Account account) {
+        this(account.id, account.name, account.type);
+    }
+
     @NonNull
     public Integer getId() {
         return id;
