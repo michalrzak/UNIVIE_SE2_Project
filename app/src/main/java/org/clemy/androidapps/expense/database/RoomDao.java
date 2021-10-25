@@ -14,14 +14,16 @@ import org.clemy.androidapps.expense.utils.AppContextStore;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class RoomDao implements Dao {
     private final RoomAccountDao accountDao;
 
     public RoomDao() {
         ExpenseRoomDatabase db = Room.databaseBuilder(AppContextStore.getContext(),
-                ExpenseRoomDatabase.class, "expense-db-v001").build();
-        accountDao  = db.accountDao();
+                ExpenseRoomDatabase.class, "expense-db-v002").build();
+        accountDao = db.accountDao();
     }
 
     @NonNull

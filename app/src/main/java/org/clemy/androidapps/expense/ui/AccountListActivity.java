@@ -38,11 +38,13 @@ public class AccountListActivity extends AppCompatActivity {
         accountsData.observe(new ChangingData.Observer<AccountList>() {
             @Override
             public void changed(AccountList data) {
+                for (Account account: data.getAccountList()) {
+                    Log.d(TAG, "account " + account.getId());
+                }
                 Log.d(TAG, "changed " + data.getAccountList().size());
                 adapter.submitList(data.getAccountList());
             }
         });
-        final int[] i = {99};
         final Timer timer = new Timer(true);
         timer.schedule(new TimerTask() {
             @Override
@@ -51,8 +53,7 @@ public class AccountListActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        repository.addAccount(new Account(i[0], "newNew", AccountType.BANK));
-                        i[0] = i[0] + 1;
+                        repository.addAccount(new Account("newNew", AccountType.BANK));
                     }
                 });
                 //timer.cancel();

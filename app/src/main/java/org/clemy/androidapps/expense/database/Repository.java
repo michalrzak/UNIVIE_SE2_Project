@@ -7,12 +7,19 @@ import org.clemy.androidapps.expense.model.AccountList;
 import org.clemy.androidapps.expense.utils.ChangingData;
 import org.clemy.androidapps.expense.utils.ChangingDataBase;
 
+import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class Repository {
+    private static final int NUMBER_OF_THREADS = 4;
     private static final Repository INSTANCE = new Repository();
 
     // consider Strategy pattern for switching DB implementation
+    private final ExecutorService executor =
+            Executors.newFixedThreadPool(NUMBER_OF_THREADS);
     private final Dao dao = new RoomDao();
-    private final ChangingData<AccountList> accountList = new ChangingDataBase<>();
+    private final ChangingData<AccountList> accountList = new ChangingDataBase<>(new AccountList(new ArrayList<>()));
 
     @NonNull
     public static Repository getInstance() {
@@ -20,15 +27,21 @@ public class Repository {
     }
 
     private Repository() {
-        accountList.setData(dao.getAccounts());
+        updateAccounts();
     }
 
     public ChangingData<AccountList> getAccounts() {
         return accountList;
     }
-
+    private void updateAccounts() {
+        executor.execute(() -> {
+            accountList.setData(dao.getAccounts());
+        });
+    }
     public void addAccount(@NonNull final Account account) {
-        dao.addAccount(account);
-        accountList.setData(dao.getAccounts());
+        executor.execute(() -> {
+            dao.addAccount(account);
+            updateAccounts();
+        });
     }
 }

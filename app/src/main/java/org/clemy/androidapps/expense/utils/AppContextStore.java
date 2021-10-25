@@ -13,7 +13,7 @@ public class AppContextStore {
     }
 
     public static void setContext(Context context) {
-        if (AppContextStore.context != null) {
+        if (AppContextStore.context == null) {
             AppContextStore.context = context;
         }
     }
