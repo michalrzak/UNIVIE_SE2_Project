@@ -8,11 +8,18 @@ import org.clemy.androidapps.expense.utils.ChangingData;
 import org.clemy.androidapps.expense.utils.ChangingDataBase;
 
 public class Repository {
+    private static final Repository INSTANCE = new Repository();
+
     // consider Strategy pattern for switching DB implementation
     private final Dao dao = new SampleDao();
     private final ChangingData<AccountList> accountList = new ChangingDataBase<>();
 
-    public Repository() {
+    @NonNull
+    public static Repository getInstance() {
+        return INSTANCE;
+    }
+
+    private Repository() {
         accountList.setData(dao.getAccounts());
     }
 

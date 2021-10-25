@@ -30,7 +30,7 @@ public class AccountListActivity extends AppCompatActivity {
         list.setLayoutManager(new LinearLayoutManager(this));
         AccountListAdapter adapter = new AccountListAdapter();
 
-        Repository repository = new Repository();
+        Repository repository = Repository.getInstance();
 
         final ChangingDataWithLifecycle<AccountList> accountsData =
                 new ChangingDataWithLifecycle<>(repository.getAccounts(), getLifecycle());
