@@ -9,25 +9,23 @@ import org.clemy.androidapps.expense.model.AccountType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SampleDb implements Db {
+public class MemoryDb implements Db {
+    private Integer accountId = 1;
     private List<Account> accounts = new ArrayList<>();
 
-    public SampleDb() {
-        accounts.add(new Account(1, "bla", AccountType.BANK));
-        accounts.add(new Account(2, "blurb", AccountType.CASH));
+    public MemoryDb() {
     }
 
     @NonNull
     @Override
-    public AccountList getAccounts() {
-        return new AccountList(new ArrayList<>(accounts));
+    public synchronized AccountList getAccounts() {
+        return new AccountList(accounts);
     }
 
     @Override
-    public void addAccount(@NonNull Account account) {
-        // TODO: check for synchronization
+    public synchronized void addAccount(@NonNull Account account) {
         // do not change the old list!
         accounts = new ArrayList<>(accounts);
-        accounts.add(account);
+        accounts.add(new Account(accountId++, account.getName(), account.getType()));
     }
 }
