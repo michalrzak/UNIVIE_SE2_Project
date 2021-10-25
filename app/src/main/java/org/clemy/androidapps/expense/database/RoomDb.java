@@ -1,7 +1,5 @@
 package org.clemy.androidapps.expense.database;
 
-import android.content.Context;
-
 import androidx.annotation.NonNull;
 import androidx.room.Room;
 
@@ -12,15 +10,12 @@ import org.clemy.androidapps.expense.model.Account;
 import org.clemy.androidapps.expense.model.AccountList;
 import org.clemy.androidapps.expense.utils.AppContextStore;
 
-import java.util.Collection;
 import java.util.Collections;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
-public class RoomDao implements Dao {
+public class RoomDb implements Db {
     private final RoomAccountDao accountDao;
 
-    public RoomDao() {
+    public RoomDb() {
         ExpenseRoomDatabase db = Room.databaseBuilder(AppContextStore.getContext(),
                 ExpenseRoomDatabase.class, "expense-db-v002").build();
         accountDao = db.accountDao();

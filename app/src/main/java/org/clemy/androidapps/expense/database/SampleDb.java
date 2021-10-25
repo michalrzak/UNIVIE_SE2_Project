@@ -9,10 +9,10 @@ import org.clemy.androidapps.expense.model.AccountType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SampleDao implements Dao {
+public class SampleDb implements Db {
     private List<Account> accounts = new ArrayList<>();
 
-    public SampleDao() {
+    public SampleDb() {
         accounts.add(new Account(1, "bla", AccountType.BANK));
         accounts.add(new Account(2, "blurb", AccountType.CASH));
     }

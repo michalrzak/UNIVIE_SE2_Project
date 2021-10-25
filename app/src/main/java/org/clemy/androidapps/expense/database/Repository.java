@@ -18,7 +18,7 @@ public class Repository {
     // consider Strategy pattern for switching DB implementation
     private final ExecutorService executor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
-    private final Dao dao = new RoomDao();
+    private final Db db = new RoomDb();
     private final ChangingData<AccountList> accountList = new ChangingDataBase<>(new AccountList(new ArrayList<>()));
 
     @NonNull
@@ -35,12 +35,12 @@ public class Repository {
     }
     private void updateAccounts() {
         executor.execute(() -> {
-            accountList.setData(dao.getAccounts());
+            accountList.setData(db.getAccounts());
         });
     }
     public void addAccount(@NonNull final Account account) {
         executor.execute(() -> {
-            dao.addAccount(account);
+            db.addAccount(account);
             updateAccounts();
         });
     }
