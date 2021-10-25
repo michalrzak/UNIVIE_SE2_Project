@@ -13,9 +13,8 @@ import org.clemy.androidapps.expense.model.Account;
 import org.clemy.androidapps.expense.model.AccountList;
 import org.clemy.androidapps.expense.model.AccountType;
 import org.clemy.androidapps.expense.utils.ChangingData;
+import org.clemy.androidapps.expense.utils.ChangingDataWithLifecycle;
 
-import java.util.List;
-import java.util.Observer;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -33,23 +32,31 @@ public class AccountListActivity extends AppCompatActivity {
 
         Repository repository = new Repository();
 
-        repository.getAccounts().observe(new ChangingData.Observer<AccountList>() {
+        final ChangingDataWithLifecycle<AccountList> accountsData =
+                new ChangingDataWithLifecycle<>(repository.getAccounts(), getLifecycle());
+        accountsData.observe(new ChangingData.Observer<AccountList>() {
             @Override
             public void changed(AccountList data) {
                 Log.d(TAG, "changed " + data.getAccountList().size());
                 adapter.submitList(data.getAccountList());
             }
         });
-
+        final int[] i = {99};
         final Timer timer = new Timer(true);
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 Log.d(TAG, "Timer");
-                repository.addAccount(new Account(99, "newNew", AccountType.BANK));
-                timer.cancel();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        repository.addAccount(new Account(i[0], "newNew", AccountType.BANK));
+                        i[0] = i[0] + 1;
+                    }
+                });
+                //timer.cancel();
             }
-        }, 3000);
+        }, 3000, 3000);
 
         list.setAdapter(adapter);
     }
