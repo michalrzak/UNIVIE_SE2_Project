@@ -13,6 +13,7 @@ import org.clemy.androidapps.expense.utils.AppContextStore;
 import java.util.Collections;
 
 public class RoomDb implements Db {
+    // Facade Pattern: hide package ..expense.database.room
     private final RoomAccountDao accountDao;
 
     public RoomDb() {
