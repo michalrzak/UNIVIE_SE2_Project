@@ -31,6 +31,8 @@ public class Account {
         return type;
     }
 
+    // optimization: account ids will not be reused and accounts are immutable
+    // -> compare only id
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

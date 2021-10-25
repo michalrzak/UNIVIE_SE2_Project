@@ -8,7 +8,7 @@ public class RepositoryTest extends TestCase {
 
     public void testGetAccounts() {
         Repository repository = new Repository();
-        AccountList accounts = repository.getAccounts();
+        AccountList accounts = repository.getAccounts().getData();
         assertEquals(2, accounts.getAccountList().size());
     }
 }

@@ -10,12 +10,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SampleDao implements Dao {
+    private List<Account> accounts = new ArrayList<>();
+
+    public SampleDao() {
+        accounts.add(new Account(1, "bla", AccountType.BANK));
+        accounts.add(new Account(2, "blurb", AccountType.CASH));
+    }
+
     @NonNull
     @Override
     public AccountList getAccounts() {
-        List<Account> accounts = new ArrayList<>();
-        accounts.add(new Account(1, "bla", AccountType.BANK));
-        accounts.add(new Account(2, "blurb", AccountType.CASH));
-        return new AccountList(accounts);
+        return new AccountList(new ArrayList<>(accounts));
+    }
+
+    @Override
+    public void addAccount(@NonNull Account account) {
+        // TODO: check for synchronization
+        // do not change the old list!
+        accounts = new ArrayList<>(accounts);
+        accounts.add(account);
     }
 }
