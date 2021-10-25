@@ -8,11 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Repository {
+    private Dao dao = new SampleDao();
 
     public AccountList getAccounts() {
-        List<Account> accounts = new ArrayList<>();
-        accounts.add(new Account(1, "bla", AccountType.BANK));
-        accounts.add(new Account(2, "blurb", AccountType.CASH));
-        return new AccountList(accounts);
+        return dao.getAccounts();
     }
 }
