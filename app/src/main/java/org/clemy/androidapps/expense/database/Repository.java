@@ -15,7 +15,6 @@ public class Repository {
     private static final int NUMBER_OF_THREADS = 4;
     private static final Repository INSTANCE = new Repository();
 
-    // consider Strategy pattern for switching DB implementation
     private final ExecutorService executor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
     private Db db;

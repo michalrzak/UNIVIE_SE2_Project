@@ -2,7 +2,7 @@ package org.clemy.androidapps.expense.utils;
 
 import androidx.annotation.NonNull;
 
-// using a decorator pattern as it is possible that there are multiple
+// Decorator Pattern: it is possible that there are multiple
 // features which can be added to this class
 abstract class ChangingDataDecorator<T> implements ChangingData<T> {
     @NonNull

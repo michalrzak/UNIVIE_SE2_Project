@@ -2,4 +2,7 @@
     <string name="app_name">Expense</string>
     <string name="use_test_database">Use Test Database</string>
     <string name="use_saved_database">Use Saved Database</string>
+    <string name="account_name">Account Name..</string>
+    <string name="create">Create</string>
+    <string name="add_account">Add Account</string>
 </resources>

@@ -2,6 +2,7 @@ package org.clemy.androidapps.expense.utils;
 
 import androidx.annotation.NonNull;
 
+// Observer Pattern: notifies observer if data changes
 public interface ChangingData<T> {
     public interface Observer<TObserve> {
         public void changed(TObserve data);

@@ -18,7 +18,7 @@ public class RoomDb implements Db {
 
     public RoomDb() {
         ExpenseRoomDatabase db = Room.databaseBuilder(AppContextStore.getContext(),
-                ExpenseRoomDatabase.class, "expense-db-v002").build();
+                ExpenseRoomDatabase.class, "expense-db-v003").build();
         accountDao = db.accountDao();
     }
 

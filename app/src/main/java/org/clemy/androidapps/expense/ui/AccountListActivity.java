@@ -1,5 +1,6 @@
 package org.clemy.androidapps.expense.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -7,8 +8,11 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.clemy.androidapps.expense.R;
 import org.clemy.androidapps.expense.database.MemoryDb;
@@ -32,6 +36,8 @@ public class AccountListActivity extends AppCompatActivity {
 
         RecyclerView list = findViewById(R.id.account_list);
         list.setLayoutManager(new LinearLayoutManager(this));
+        list.addItemDecoration(new DividerItemDecoration(this,
+                DividerItemDecoration.VERTICAL));
         AccountListAdapter adapter = new AccountListAdapter();
 
         Repository repository = Repository.getInstance();
@@ -39,17 +45,12 @@ public class AccountListActivity extends AppCompatActivity {
         final ChangingDataWithLifecycle<AccountList> accountsData =
                 new ChangingDataWithLifecycle<>(repository.getAccounts(), getLifecycle());
         accountsData.observe(data -> adapter.submitList(data.getAccountList()));
-        final Timer timer = new Timer(true);
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                Log.d(TAG, "Timer");
-                repository.addAccount(new Account("newNew", AccountType.BANK));
-                //timer.cancel();
-            }
-        }, 3000, 3000);
+             list.setAdapter(adapter);
 
-        list.setAdapter(adapter);
+        findViewById(R.id.floating_button).setOnClickListener(view -> {
+            Intent intent = new Intent(AccountListActivity.this, NewAccountActivity.class);
+            startActivity(intent);
+        });
     }
 
     @Override
