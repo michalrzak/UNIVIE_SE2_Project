@@ -1,4 +1,4 @@
-package org.clemy.androidapps.expense.ui;
+package org.clemy.androidapps.expense.ui.accountlist;
 
 import android.view.LayoutInflater;
 import android.view.View;

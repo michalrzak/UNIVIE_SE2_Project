@@ -11,12 +11,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Expense">
         <activity
-            android:name=".ui.NewAccountActivity"
-            android:parentActivityName=".ui.AccountListActivity"
+            android:name=".ui.newaccount.NewAccountActivity"
+            android:parentActivityName=".ui.accountlist.AccountListActivity"
+            android:label="New Account"
             android:exported="true" />
         <activity
-            android:name=".ui.AccountListActivity"
-            android:exported="true">
+            android:name=".ui.accountlist.AccountListActivity"
+            android:exported="true"
+            android:label="Accounts">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

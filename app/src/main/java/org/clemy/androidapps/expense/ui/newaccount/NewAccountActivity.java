@@ -1,4 +1,4 @@
-package org.clemy.androidapps.expense.ui;
+package org.clemy.androidapps.expense.ui.newaccount;
 
 import android.os.Bundle;
 import android.text.TextUtils;
