@@ -8,10 +8,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.clemy.androidapps.expense.R;
 import org.clemy.androidapps.expense.database.Repository;
-import org.clemy.androidapps.expense.model.Account;
-import org.clemy.androidapps.expense.model.AccountType;
+import org.clemy.androidapps.expense.ui.LifecycleHandler;
 
-public class NewAccountActivity extends AppCompatActivity {
+public class NewAccountActivity extends AppCompatActivity implements NewAccountContract.View {
+    private final NewAccountContract.Presenter presenter = new NewAccountPresenter();
+    private final LifecycleHandler<NewAccountActivity> lifecycleHandler =
+            new LifecycleHandler<>(presenter, this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +24,7 @@ public class NewAccountActivity extends AppCompatActivity {
         findViewById(R.id.button_save).setOnClickListener(view -> {
             final EditText accountName = findViewById(R.id.account_name);
             if (!TextUtils.isEmpty(accountName.getText())) {
-                final Account newAccount =
-                        new Account(accountName.getText().toString(), AccountType.BANK);
-                repository.addAccount(newAccount);
+                presenter.createNewAccount(accountName.getText().toString());
             }
             finish();
         });
