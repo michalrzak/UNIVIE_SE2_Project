@@ -18,7 +18,7 @@ public class Repository {
     // consider Strategy pattern for switching DB implementation
     private final ExecutorService executor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
-    private final Db db = new RoomDb();
+    private Db db;
     private final ChangingData<AccountList> accountList = new ChangingDataBase<>(new AccountList(new ArrayList<>()));
 
     @NonNull
@@ -26,17 +26,18 @@ public class Repository {
         return INSTANCE;
     }
 
-    private Repository() {
+    private Repository() {}
+
+    // Strategy Pattern: select the DB access type
+    public void setDatabaseStrategy(@NonNull Db database) {
+        db = database;
         updateAccounts();
     }
-
     public ChangingData<AccountList> getAccounts() {
         return accountList;
     }
     private void updateAccounts() {
-        executor.execute(() -> {
-            accountList.setData(db.getAccounts());
-        });
+        executor.execute(() -> accountList.setData(db.getAccounts()));
     }
     public void addAccount(@NonNull final Account account) {
         executor.execute(() -> {
