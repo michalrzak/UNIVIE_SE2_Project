@@ -35,12 +35,12 @@ public class ChangingDataBase<T> implements ChangingData<T> {
     @Override
     public synchronized void observe(@NonNull Observer<T> observer) {
         final boolean result = observers.add(observer);
-        Log.d(TAG, "observe " + observer + " result: " + result);
+        //Log.d(TAG, "observe " + observer + " result: " + result);
         observer.changed(this.data);
     }
     @Override
     public synchronized void unobserve(@NonNull Observer<T> observer) {
         final boolean result = observers.remove(observer);
-        Log.d(TAG, "unobserve " + observer + " result: " + result);
+        //Log.d(TAG, "unobserve " + observer + " result: " + result);
     }
 }

@@ -18,15 +18,15 @@ public class ChangingDataWithViewState<T> extends ChangingDataDecorator<T> {
         viewState.observe(state -> {
             switch (state) {
                 case STARTED:
-                    Log.d(TAG, "Started");
+                    //Log.d(TAG, "Started");
                     observeAll();
                     break;
                 case STOPPED:
-                    Log.d(TAG, "Stopped");
+                    //Log.d(TAG, "Stopped");
                     unobserveAll();
                     break;
                 case DESTROYED:
-                    Log.d(TAG, "Destroyed");
+                    //Log.d(TAG, "Destroyed");
                     unobserveAllAndClear();
                     break;
             }
@@ -35,7 +35,7 @@ public class ChangingDataWithViewState<T> extends ChangingDataDecorator<T> {
 
     @Override
     public synchronized void observe(@NonNull Observer<T> observer) {
-        Log.d(TAG, "observe " + observer);
+        //Log.d(TAG, "observe " + observer);
         lifecycleObservers.add(observer);
         if (viewState.getData() == ViewState.State.STARTED) {
             super.observe(observer);

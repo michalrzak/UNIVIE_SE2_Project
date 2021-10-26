@@ -12,12 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.clemy.androidapps.expense.R;
+import org.clemy.androidapps.expense.database.Repository;
 import org.clemy.androidapps.expense.model.AccountList;
 import org.clemy.androidapps.expense.ui.LifecycleHandler;
 import org.clemy.androidapps.expense.ui.newaccount.NewAccountActivity;
 
 public class AccountListActivity extends AppCompatActivity implements AccountListContract.View {
-    private final AccountListContract.Presenter presenter = new AccountListPresenter();
+    private final AccountListContract.Presenter presenter =
+            new AccountListPresenter(Repository.getInstance());
     private final LifecycleHandler<AccountListActivity> lifecycleHandler =
             new LifecycleHandler<>(presenter, this);
     private AccountListAdapter accountListAdapter;
