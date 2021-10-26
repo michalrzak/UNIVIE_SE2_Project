@@ -7,16 +7,25 @@ import org.clemy.androidapps.expense.model.AccountList;
 import org.clemy.androidapps.expense.ui.BasePresenter;
 import org.clemy.androidapps.expense.utils.ChangingDataWithViewState;
 
+/**
+ * The Presenter for the AccountList activity.
+ */
 public class AccountListPresenter
         extends BasePresenter<AccountListContract.View>
         implements AccountListContract.Presenter {
 
-    private Repository repository;
+    private final Repository repository;
 
+    /**
+     * @param repository the data repository for reading and updating the data.
+     */
     public AccountListPresenter(Repository repository) {
         this.repository = repository;
     }
 
+    /**
+     * Setups the model -> view connection.
+     */
     @Override
     public void viewCreated() {
         final ChangingDataWithViewState<AccountList> accountsData =
@@ -24,16 +33,25 @@ public class AccountListPresenter
         accountsData.observe(data -> view.showAccountList(data));
     }
 
+    /**
+     * Handles the user wish to create a new account.
+     */
     @Override
     public void newAccount() {
         view.showNewAccount();
     }
 
+    /**
+     * Handles the user wish to switch to the test (memory) database.
+     */
     @Override
     public void switchToMemoryDb() {
         repository.setDatabaseStrategy(new MemoryDb());
     }
 
+    /**
+     * Handles the user wish to switch to the real persisted database.
+     */
     @Override
     public void switchToSavedDb() {
         repository.setDatabaseStrategy(new RoomDb());

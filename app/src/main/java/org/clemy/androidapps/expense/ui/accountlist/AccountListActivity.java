@@ -17,13 +17,26 @@ import org.clemy.androidapps.expense.model.AccountList;
 import org.clemy.androidapps.expense.ui.LifecycleHandler;
 import org.clemy.androidapps.expense.ui.newaccount.NewAccountActivity;
 
+/**
+ * The AccountList view based on Android Activity.
+ */
 public class AccountListActivity extends AppCompatActivity implements AccountListContract.View {
+    /**
+     * The presenter connected to this view.
+     */
     private final AccountListContract.Presenter presenter =
             new AccountListPresenter(Repository.getInstance());
+    /**
+     * Connects the view lifecycle to the presenter.
+     */
     private final LifecycleHandler<AccountListActivity> lifecycleHandler =
             new LifecycleHandler<>(presenter, this);
+
     private AccountListAdapter accountListAdapter;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,12 +52,18 @@ public class AccountListActivity extends AppCompatActivity implements AccountLis
         findViewById(R.id.floating_button).setOnClickListener(view -> presenter.newAccount());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_account_list, menu);
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_switch_to_mem_db) {
@@ -58,11 +77,19 @@ public class AccountListActivity extends AppCompatActivity implements AccountLis
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Used by the presenter to update the account list.
+     *
+     * @param accounts the new account list.
+     */
     @Override
     public void showAccountList(@NonNull AccountList accounts) {
         accountListAdapter.submitList(accounts.getAccountList());
     }
 
+    /**
+     * Used by the presenter to show the new account interface.
+     */
     @Override
     public void showNewAccount() {
         Intent intent = new Intent(AccountListActivity.this, NewAccountActivity.class);

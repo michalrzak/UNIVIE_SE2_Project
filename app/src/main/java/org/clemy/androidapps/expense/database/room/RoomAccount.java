@@ -8,6 +8,9 @@ import androidx.room.PrimaryKey;
 import org.clemy.androidapps.expense.model.Account;
 import org.clemy.androidapps.expense.model.AccountType;
 
+/**
+ * Extends the {@link Account} class with Room annotations
+ */
 @Entity(tableName = "accounts")
 public class RoomAccount extends Account {
     @NonNull

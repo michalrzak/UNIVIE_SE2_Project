@@ -8,9 +8,23 @@ import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.OnLifecycleEvent;
 
+/**
+ * Automates connecting a presenter to Android views and
+ * calling the {@link BaseContract.PresenterLifecycle} interface according
+ * the Android {@link Lifecycle}. This is normally instantiated by the view.
+ *
+ * @param <V> an Android with a {@link Lifecycle} and
+ *           implementing the {@link BaseContract.View} interface.
+ */
 public class LifecycleHandler<V extends LifecycleOwner & BaseContract.View> {
     private static final String TAG = "LifecycleHandler";
 
+    /**
+     * Connects a presenter with an Android view.
+     *
+     * @param presenter A presenter instance for the view.
+     * @param view An Android view with a {@link Lifecycle}.
+     */
     public LifecycleHandler(@NonNull BaseContract.Presenter presenter, @NonNull V view) {
         presenter.setView(view);
         view.getLifecycle().addObserver(new LifecycleObserver() {

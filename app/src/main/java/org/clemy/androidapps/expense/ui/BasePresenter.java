@@ -4,8 +4,27 @@ import androidx.annotation.NonNull;
 
 import org.clemy.androidapps.expense.utils.ViewState;
 
+/**
+ * An abstract implementation of the presenter base interface {@link BaseContract.Presenter} providing
+ * basic functionality to store the {@link #view} and clean up the reference on view destruction.
+ * <p>
+ * Further it stores the {@link #viewState} as an observable, which can be used with the
+ * {@link org.clemy.androidapps.expense.utils.ChangingDataWithViewState ChangingDataWithViewState}
+ * decorator for the {@link org.clemy.androidapps.expense.utils.ChangingData ChangingData} interface.
+ * This allows stopping notifying
+ * {@link org.clemy.androidapps.expense.utils.ChangingData.Observer ChangingData.Observer} if the view is not
+ * visible and also removes all observers if the view gets destroyed to prevent leaks.
+ *
+ * @param <V> the MVP {@link BaseContract.View} interface this presenter gets connected to.
+ */
 public abstract class BasePresenter<V extends BaseContract.View> implements BaseContract.Presenter<V> {
+    /**
+     * The state of the linked view available for subclasses. This is an observable.
+     */
     protected final ViewState viewState = new ViewState();
+    /**
+     * The linked view available for subclasses.
+     */
     protected V view;
 
     @Override

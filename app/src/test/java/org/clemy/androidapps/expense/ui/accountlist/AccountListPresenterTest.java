@@ -12,7 +12,7 @@ import org.clemy.androidapps.expense.database.MemoryDb;
 import org.clemy.androidapps.expense.database.Repository;
 import org.clemy.androidapps.expense.model.AccountList;
 import org.clemy.androidapps.expense.utils.ChangingData;
-import org.clemy.androidapps.expense.utils.ChangingDataBase;
+import org.clemy.androidapps.expense.utils.ChangingDataImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,7 +35,7 @@ public class AccountListPresenterTest {
 
     @Before
     public void setUp() {
-        ChangingData<AccountList> changingData = new ChangingDataBase<>(mockAccountList);
+        ChangingData<AccountList> changingData = new ChangingDataImpl<>(mockAccountList);
         when(mockRepository.getAccounts()).thenReturn(changingData);
 
         accountListPresenter = new AccountListPresenter(mockRepository);
