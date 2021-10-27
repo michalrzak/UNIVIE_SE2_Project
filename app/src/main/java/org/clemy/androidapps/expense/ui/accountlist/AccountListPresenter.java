@@ -1,8 +1,11 @@
 package org.clemy.androidapps.expense.ui.accountlist;
 
+import androidx.annotation.NonNull;
+
 import org.clemy.androidapps.expense.database.MemoryDb;
 import org.clemy.androidapps.expense.database.Repository;
 import org.clemy.androidapps.expense.database.RoomDb;
+import org.clemy.androidapps.expense.model.Account;
 import org.clemy.androidapps.expense.model.AccountList;
 import org.clemy.androidapps.expense.ui.BasePresenter;
 import org.clemy.androidapps.expense.utils.ChangingDataWithViewState;
@@ -39,6 +42,11 @@ public class AccountListPresenter
     @Override
     public void newAccount() {
         view.showNewAccount();
+    }
+
+    @Override
+    public void clickAccount(@NonNull Account account) {
+        view.showEditAccount(account);
     }
 
     /**

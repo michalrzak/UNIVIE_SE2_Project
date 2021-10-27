@@ -13,9 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.clemy.androidapps.expense.R;
 import org.clemy.androidapps.expense.database.Repository;
+import org.clemy.androidapps.expense.model.Account;
 import org.clemy.androidapps.expense.model.AccountList;
 import org.clemy.androidapps.expense.ui.LifecycleHandler;
 import org.clemy.androidapps.expense.ui.newaccount.NewAccountActivity;
+import org.clemy.androidapps.expense.ui.transactionlist.TransactionListActivity;
 
 /**
  * The AccountList view based on Android Activity.
@@ -46,7 +48,7 @@ public class AccountListActivity extends AppCompatActivity implements AccountLis
         list.setLayoutManager(new LinearLayoutManager(this));
         list.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL));
-        accountListAdapter = new AccountListAdapter();
+        accountListAdapter = new AccountListAdapter(presenter::clickAccount);
         list.setAdapter(accountListAdapter);
 
         findViewById(R.id.floating_button).setOnClickListener(view -> presenter.newAccount());
@@ -93,6 +95,13 @@ public class AccountListActivity extends AppCompatActivity implements AccountLis
     @Override
     public void showNewAccount() {
         Intent intent = new Intent(AccountListActivity.this, NewAccountActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void showEditAccount(@NonNull Account account) {
+        Intent intent = new Intent(AccountListActivity.this, TransactionListActivity.class);
+        intent.putExtra("AccountName", account.getName());
         startActivity(intent);
     }
 }

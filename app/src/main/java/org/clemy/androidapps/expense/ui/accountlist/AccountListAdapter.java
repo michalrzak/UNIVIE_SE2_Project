@@ -4,6 +4,7 @@ package org.clemy.androidapps.expense.ui.accountlist;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.util.Consumer;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
@@ -11,8 +12,11 @@ import org.clemy.androidapps.expense.model.Account;
 
 public class AccountListAdapter extends ListAdapter<Account, AccountListItemViewHolder> {
 
-    protected AccountListAdapter() {
+    private final Consumer<Account> onClick;
+
+    protected AccountListAdapter(Consumer<Account> onClick) {
         super(DIFF_CALLBACK);
+        this.onClick = onClick;
     }
 
     @NonNull
@@ -23,7 +27,7 @@ public class AccountListAdapter extends ListAdapter<Account, AccountListItemView
 
     @Override
     public void onBindViewHolder(AccountListItemViewHolder holder, int position) {
-        holder.bind(getItem(position));
+        holder.bind(getItem(position), onClick);
     }
 
     public static final DiffUtil.ItemCallback<Account> DIFF_CALLBACK = new DiffUtil.ItemCallback<Account>() {

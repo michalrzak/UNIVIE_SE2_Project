@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.util.Consumer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.clemy.androidapps.expense.R;
@@ -19,8 +20,9 @@ public class AccountListItemViewHolder extends RecyclerView.ViewHolder {
         descriptionView = itemView.findViewById(R.id.description);
     }
 
-    public void bind(Account account) {
+    public void bind(Account account, Consumer<Account> onClick) {
         descriptionView.setText(account.getName());
+        itemView.setOnClickListener(view -> onClick.accept(account));
     }
 
     static AccountListItemViewHolder create(ViewGroup parent) {

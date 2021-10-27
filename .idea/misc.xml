@@ -10,11 +10,12 @@
         <entry key="..\:/Users/clemy/AndroidStudioProjects/Expense/app/src/main/res/layout/listitem_account.xml" value="0.3307291666666667" />
         <entry key="..\:/Users/clemy/AndroidStudioProjects/Expense/app/src/main/res/menu/account_menu.xml" value="0.33177083333333335" />
         <entry key="..\:/isis/uprojs/se2/app/src/main/res/layout/activity_main.xml" value="0.24739583333333334" />
+        <entry key="..\:/isis/uprojs/se2/app/src/main/res/layout/activity_transaction_list.xml" value="0.1609375" />
         <entry key="..\:/isis/uprojs/se2/app/src/main/res/layout/listitem_account.xml" value="0.33" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_15_PREVIEW" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
