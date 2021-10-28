@@ -45,7 +45,7 @@ public class AccountListPresenterTest {
 
     @Test
     public void presenterCallsView_showAccountList_once() {
-        verify(mockView, never()).showAccountList(mockAccountList);
+        verify(mockView, never()).showAccountList(any());
         accountListPresenter.onStart();
         verify(mockView, times(1)).showAccountList(mockAccountList);
         verifyNoMoreInteractions(mockView);
