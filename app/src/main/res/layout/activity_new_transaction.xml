@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.newtransaction.NewTransactionActivity">
+
+    <EditText
+        android:id="@+id/transaction_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/big_padding"
+        android:hint="@string/transaction_name"
+        android:inputType="textAutoComplete"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/button_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/big_padding"
+        android:text="@string/create" />
+</LinearLayout>

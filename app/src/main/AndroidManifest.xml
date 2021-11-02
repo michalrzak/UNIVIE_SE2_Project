@@ -11,12 +11,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Expense">
         <activity
+            android:name=".ui.newtransaction.NewTransactionActivity"
+            android:exported="false"
+            android:label="New Transaction"
+            android:parentActivityName=".ui.transactionlist.TransactionListActivity" />
+        <activity
             android:name=".ui.transactionlist.TransactionListActivity"
             android:exported="false"
             android:parentActivityName=".ui.accountlist.AccountListActivity" />
         <activity
             android:name=".ui.newaccount.NewAccountActivity"
-            android:exported="true"
+            android:exported="false"
             android:label="New Account"
             android:parentActivityName=".ui.accountlist.AccountListActivity" />
         <activity

@@ -4,10 +4,14 @@ import androidx.annotation.NonNull;
 
 import org.clemy.androidapps.expense.model.Account;
 import org.clemy.androidapps.expense.model.AccountList;
+import org.clemy.androidapps.expense.model.Transaction;
+import org.clemy.androidapps.expense.model.TransactionList;
 import org.clemy.androidapps.expense.utils.ChangingData;
 import org.clemy.androidapps.expense.utils.ChangingDataImpl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -24,6 +28,7 @@ public class Repository {
     private final ExecutorService executor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
     private final ChangingData<AccountList> accountList = new ChangingDataImpl<>(new AccountList(new ArrayList<>()));
+    private final Map<Integer, ChangingData<TransactionList>> transactionLists = new HashMap<>();
     private Db db;
 
     /**
@@ -59,6 +64,30 @@ public class Repository {
         executor.execute(() -> {
             db.addAccount(account);
             updateAccounts();
+        });
+    }
+
+    public ChangingData<TransactionList> getTransactionsForAccount(@NonNull Integer accountId) {
+        ChangingData<TransactionList> list = transactionLists.get(accountId);
+        if (list == null) {
+            list = new ChangingDataImpl<>(new TransactionList(new ArrayList<>()));
+            transactionLists.put(accountId, list);
+            updateTransactions(accountId);
+        }
+        return list;
+    }
+
+    private void updateTransactions(@NonNull Integer accountId) {
+        ChangingData<TransactionList> list = transactionLists.get(accountId);
+        if (list != null) {
+            executor.execute(() -> list.setData(db.getTransactionsForAccount(accountId)));
+        }
+    }
+
+    public void addTransaction(@NonNull final Transaction transaction) {
+        executor.execute(() -> {
+            db.addTransaction(transaction);
+            updateTransactions(transaction.getAccountId());
         });
     }
 }

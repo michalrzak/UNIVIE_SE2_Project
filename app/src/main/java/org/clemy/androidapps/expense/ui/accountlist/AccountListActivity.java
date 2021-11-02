@@ -101,6 +101,7 @@ public class AccountListActivity extends AppCompatActivity implements AccountLis
     @Override
     public void showEditAccount(@NonNull Account account) {
         Intent intent = new Intent(AccountListActivity.this, TransactionListActivity.class);
+        intent.putExtra("AccountId", account.getId());
         intent.putExtra("AccountName", account.getName());
         startActivity(intent);
     }
