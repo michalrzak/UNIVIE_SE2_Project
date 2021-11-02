@@ -13,20 +13,24 @@
         <activity
             android:name=".ui.newtransaction.NewTransactionActivity"
             android:exported="false"
+            android:launchMode = "singleTop"
             android:label="New Transaction"
             android:parentActivityName=".ui.transactionlist.TransactionListActivity" />
         <activity
             android:name=".ui.transactionlist.TransactionListActivity"
             android:exported="false"
+            android:launchMode = "singleTop"
             android:parentActivityName=".ui.accountlist.AccountListActivity" />
         <activity
             android:name=".ui.newaccount.NewAccountActivity"
             android:exported="false"
             android:label="New Account"
+            android:launchMode = "singleTop"
             android:parentActivityName=".ui.accountlist.AccountListActivity" />
         <activity
             android:name=".ui.accountlist.AccountListActivity"
             android:exported="true"
+            android:launchMode = "singleTop"
             android:label="Accounts">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

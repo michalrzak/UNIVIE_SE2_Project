@@ -36,6 +36,7 @@ public class TransactionListActivity extends AppCompatActivity implements Transa
         String accountName = intent.getStringExtra("AccountName");
         setTitle(accountName);
 
+        //TODO: handle invalid account id
         Integer accountId = intent.getIntExtra("AccountId", 0);
         presenter = new TransactionListPresenter(Repository.getInstance(), accountId);
         lifecycleHandler = new LifecycleHandler<>(presenter, this);
