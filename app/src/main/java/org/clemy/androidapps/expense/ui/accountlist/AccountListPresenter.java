@@ -6,9 +6,10 @@ import org.clemy.androidapps.expense.database.MemoryDb;
 import org.clemy.androidapps.expense.database.Repository;
 import org.clemy.androidapps.expense.database.RoomDb;
 import org.clemy.androidapps.expense.model.Account;
-import org.clemy.androidapps.expense.model.AccountList;
 import org.clemy.androidapps.expense.ui.BasePresenter;
 import org.clemy.androidapps.expense.utils.ChangingDataWithViewState;
+
+import java.util.List;
 
 /**
  * The Presenter for the AccountList activity.
@@ -31,7 +32,7 @@ public class AccountListPresenter
      */
     @Override
     public void viewCreated() {
-        final ChangingDataWithViewState<AccountList> accountsData =
+        final ChangingDataWithViewState<List<Account>> accountsData =
                 new ChangingDataWithViewState<>(repository.getAccounts(), viewState);
         accountsData.observe(data -> view.showAccountList(data));
     }

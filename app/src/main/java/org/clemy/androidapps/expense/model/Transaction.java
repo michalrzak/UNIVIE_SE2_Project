@@ -2,6 +2,8 @@ package org.clemy.androidapps.expense.model;
 
 import androidx.annotation.NonNull;
 
+import java.util.Optional;
+
 public class Transaction {
     private final Integer id;
     @NonNull

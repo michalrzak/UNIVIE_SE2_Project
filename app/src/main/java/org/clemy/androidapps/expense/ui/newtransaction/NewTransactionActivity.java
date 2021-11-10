@@ -12,6 +12,8 @@ import org.clemy.androidapps.expense.database.Repository;
 import org.clemy.androidapps.expense.ui.LifecycleHandler;
 
 public class NewTransactionActivity extends AppCompatActivity implements NewTransactionContract.View {
+    public static final String INTENT_EXTRA_ACCOUNT_ID = "AccountId";
+
     private NewTransactionContract.Presenter presenter;
     private LifecycleHandler<NewTransactionActivity> lifecycleHandler;
 
@@ -21,7 +23,7 @@ public class NewTransactionActivity extends AppCompatActivity implements NewTran
         setContentView(R.layout.activity_new_transaction);
 
         Intent intent = getIntent();
-        Integer accountId = intent.getIntExtra("AccountId", 0);
+        Integer accountId = intent.getIntExtra(INTENT_EXTRA_ACCOUNT_ID, 0);
         presenter = new NewTransactionPresenter(Repository.getInstance(), accountId);
         lifecycleHandler = new LifecycleHandler<>(presenter, this);
 

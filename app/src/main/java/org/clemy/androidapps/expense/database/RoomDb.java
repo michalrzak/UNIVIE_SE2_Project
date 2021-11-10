@@ -9,12 +9,12 @@ import org.clemy.androidapps.expense.database.room.RoomAccountDao;
 import org.clemy.androidapps.expense.database.room.RoomTransaction;
 import org.clemy.androidapps.expense.database.room.RoomTransactionDao;
 import org.clemy.androidapps.expense.model.Account;
-import org.clemy.androidapps.expense.model.AccountList;
 import org.clemy.androidapps.expense.model.Transaction;
-import org.clemy.androidapps.expense.model.TransactionList;
 import org.clemy.androidapps.expense.utils.AppContextStore;
 
 import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 public class RoomDb implements Db {
     // Facade Pattern: hide package ..expense.database.room
@@ -30,8 +30,13 @@ public class RoomDb implements Db {
 
     @NonNull
     @Override
-    public AccountList getAccounts() {
-        return new AccountList(Collections.unmodifiableList(accountDao.getAccounts()));
+    public List<Account> getAccounts() {
+        return Collections.unmodifiableList(accountDao.getAccounts());
+    }
+
+    @Override
+    public Optional<Account> getAccount(@NonNull Integer accountId) {
+        return Optional.ofNullable(accountDao.getAccount(accountId));
     }
 
     @Override
@@ -40,8 +45,8 @@ public class RoomDb implements Db {
     }
 
     @Override
-    public TransactionList getTransactionsForAccount(Integer accountId) {
-        return new TransactionList(Collections.unmodifiableList(transactionsDao.getTransactionsForAccount(accountId)));
+    public List<Transaction> getTransactionsForAccount(@NonNull Integer accountId) {
+        return Collections.unmodifiableList(transactionsDao.getTransactionsForAccount(accountId));
     }
 
     @Override

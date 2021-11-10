@@ -3,43 +3,52 @@ package org.clemy.androidapps.expense.database;
 import androidx.annotation.NonNull;
 
 import org.clemy.androidapps.expense.model.Account;
-import org.clemy.androidapps.expense.model.AccountList;
 import org.clemy.androidapps.expense.model.Transaction;
-import org.clemy.androidapps.expense.model.TransactionList;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.TreeMap;
 
 public class MemoryDb implements Db {
+    private final Map<Integer, Account> accounts = new TreeMap<>();
+    private final Map<Integer, List<Transaction>> transactions = new HashMap<>();
     private Integer idGenerator = 1;
-    private List<Account> accounts = new ArrayList<>();
-    private Map<Integer, List<Transaction>> transactions = new HashMap<>();
 
     public MemoryDb() {
     }
 
     @NonNull
     @Override
-    public synchronized AccountList getAccounts() {
-        return new AccountList(accounts);
+    public synchronized List<Account> getAccounts() {
+        return new ArrayList<>(accounts.values());
+    }
+
+    @Override
+    public synchronized Optional<Account> getAccount(@NonNull Integer accountId) {
+        return Optional.ofNullable(accounts.get(accountId));
     }
 
     @Override
     public synchronized void addAccount(@NonNull Account account) {
-        // do not change the old list!
-        accounts = new ArrayList<>(accounts);
-        accounts.add(new Account(idGenerator++, account.getName(), account.getType(), account.getOverdueLimit()));
+        Integer accountId = idGenerator++;
+        accounts.put(accountId,
+                new Account(
+                        accountId,
+                        account.getName(),
+                        account.getType(),
+                        account.getOverdueLimitOptional().orElse(null)));
     }
 
     @Override
-    public synchronized TransactionList getTransactionsForAccount(Integer accountId) {
+    public synchronized List<Transaction> getTransactionsForAccount(@NonNull Integer accountId) {
         List<Transaction> list = transactions.get(accountId);
         if (list == null) {
-            return new TransactionList(new ArrayList<>());
+            return new ArrayList<>();
         }
-        return new TransactionList(list);
+        return list;
     }
 
     @Override
@@ -48,6 +57,7 @@ public class MemoryDb implements Db {
         if (list == null) {
             list = new ArrayList<>();
         } else {
+            // copy old list
             list = new ArrayList<>(list);
         }
         list.add(new Transaction(idGenerator++, transaction.getAccountId(), transaction.getName(), transaction.getAmount()));

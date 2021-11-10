@@ -10,7 +10,7 @@ import static org.mockito.Mockito.when;
 
 import org.clemy.androidapps.expense.database.MemoryDb;
 import org.clemy.androidapps.expense.database.Repository;
-import org.clemy.androidapps.expense.model.AccountList;
+import org.clemy.androidapps.expense.model.Account;
 import org.clemy.androidapps.expense.utils.ChangingData;
 import org.clemy.androidapps.expense.utils.ChangingDataImpl;
 import org.junit.Before;
@@ -18,6 +18,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import java.util.List;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AccountListPresenterTest {
@@ -29,13 +31,13 @@ public class AccountListPresenterTest {
     AccountListContract.View mockView;
 
     @Mock
-    AccountList mockAccountList;
+    List<Account> mockAccountList;
 
     private AccountListContract.Presenter accountListPresenter;
 
     @Before
     public void setUp() {
-        ChangingData<AccountList> changingData = new ChangingDataImpl<>(mockAccountList);
+        ChangingData<List<Account>> changingData = new ChangingDataImpl<>(mockAccountList);
         when(mockRepository.getAccounts()).thenReturn(changingData);
 
         accountListPresenter = new AccountListPresenter(mockRepository);

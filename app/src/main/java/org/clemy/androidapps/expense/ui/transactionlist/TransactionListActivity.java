@@ -11,11 +11,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.clemy.androidapps.expense.R;
 import org.clemy.androidapps.expense.database.Repository;
-import org.clemy.androidapps.expense.model.TransactionList;
+import org.clemy.androidapps.expense.model.Transaction;
 import org.clemy.androidapps.expense.ui.LifecycleHandler;
 import org.clemy.androidapps.expense.ui.newtransaction.NewTransactionActivity;
 
+import java.util.List;
+
 public class TransactionListActivity extends AppCompatActivity implements TransactionListContract.View {
+    public static final String INTENT_EXTRA_ACCOUNT_ID = "AccountId";
+
     /**
      * The presenter connected to this view.
      */
@@ -32,12 +36,9 @@ public class TransactionListActivity extends AppCompatActivity implements Transa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transaction_list);
 
-        Intent intent = getIntent();
-        String accountName = intent.getStringExtra("AccountName");
-        setTitle(accountName);
-
         //TODO: handle invalid account id
-        Integer accountId = intent.getIntExtra("AccountId", 0);
+        Intent intent = getIntent();
+        Integer accountId = intent.getIntExtra(INTENT_EXTRA_ACCOUNT_ID, 0);
         presenter = new TransactionListPresenter(Repository.getInstance(), accountId);
         lifecycleHandler = new LifecycleHandler<>(presenter, this);
 
@@ -53,14 +54,24 @@ public class TransactionListActivity extends AppCompatActivity implements Transa
     }
 
     @Override
-    public void showTransactionList(@NonNull TransactionList transactions) {
-        transactionListAdapter.submitList(transactions.getTransactionsList());
+    public void showAccountLoading() {
+        setTitle("Loading..");
+    }
+
+    @Override
+    public void showAccountInformation(@NonNull String accountName, boolean overdue) {
+        setTitle(accountName + (overdue ? " !Overdue!" : ""));
+    }
+
+    @Override
+    public void showTransactionList(@NonNull List<Transaction> transactions) {
+        transactionListAdapter.submitList(transactions);
     }
 
     @Override
     public void showNewTransaction(@NonNull Integer accountId) {
         Intent intent = new Intent(TransactionListActivity.this, NewTransactionActivity.class);
-        intent.putExtra("AccountId", accountId);
+        intent.putExtra(NewTransactionActivity.INTENT_EXTRA_ACCOUNT_ID, accountId);
         startActivity(intent);
     }
 }

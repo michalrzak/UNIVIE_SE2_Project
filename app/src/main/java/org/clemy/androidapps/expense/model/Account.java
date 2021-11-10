@@ -2,12 +2,15 @@ package org.clemy.androidapps.expense.model;
 
 import androidx.annotation.NonNull;
 
+import java.util.Optional;
+
 public class Account {
     private final Integer id;
     @NonNull
     private final String name;
     @NonNull
     private final AccountType type;
+    // Room does not support Optional, so internally this can be null
     private final Double overdueLimit;
 
     public Account(@NonNull String name, @NonNull AccountType type, Double overdueLimit) {
@@ -21,7 +24,7 @@ public class Account {
         this.overdueLimit = overdueLimit;
     }
 
-    public Account(Account account) {
+    public Account(@NonNull Account account) {
         this(account.id, account.name, account.type, account.overdueLimit);
     }
 
@@ -41,10 +44,15 @@ public class Account {
     }
 
     @NonNull
+    public Optional<Double> getOverdueLimitOptional() {
+        return Optional.ofNullable(overdueLimit);
+    }
+
+    // access function for Room DB
+    @NonNull
     public Double getOverdueLimit() {
         return overdueLimit;
     }
-
     // optimization: account ids will not be reused and accounts are immutable
     // -> compare only id
     @Override

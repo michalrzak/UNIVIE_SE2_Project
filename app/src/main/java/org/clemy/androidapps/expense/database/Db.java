@@ -3,15 +3,21 @@ package org.clemy.androidapps.expense.database;
 import androidx.annotation.NonNull;
 
 import org.clemy.androidapps.expense.model.Account;
-import org.clemy.androidapps.expense.model.AccountList;
 import org.clemy.androidapps.expense.model.Transaction;
-import org.clemy.androidapps.expense.model.TransactionList;
+
+import java.util.List;
+import java.util.Optional;
 
 public interface Db {
     @NonNull
-    AccountList getAccounts();
+    List<Account> getAccounts();
+
+    Optional<Account> getAccount(@NonNull Integer accountId);
+
     void addAccount(@NonNull final Account account);
 
-    TransactionList getTransactionsForAccount(Integer accountId);
+    List<Transaction> getTransactionsForAccount(@NonNull Integer accountId);
+
     void addTransaction(@NonNull final Transaction transaction);
+
 }
