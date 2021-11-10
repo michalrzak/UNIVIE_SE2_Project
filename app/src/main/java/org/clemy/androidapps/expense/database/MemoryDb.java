@@ -30,7 +30,7 @@ public class MemoryDb implements Db {
     public synchronized void addAccount(@NonNull Account account) {
         // do not change the old list!
         accounts = new ArrayList<>(accounts);
-        accounts.add(new Account(idGenerator++, account.getName(), account.getType()));
+        accounts.add(new Account(idGenerator++, account.getName(), account.getType(), account.getOverdueLimit()));
     }
 
     @Override

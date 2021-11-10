@@ -8,19 +8,21 @@ public class Account {
     private final String name;
     @NonNull
     private final AccountType type;
+    private final Double overdueLimit;
 
-    public Account(@NonNull String name, @NonNull AccountType type) {
-        this(null, name, type);
+    public Account(@NonNull String name, @NonNull AccountType type, Double overdueLimit) {
+        this(null, name, type, overdueLimit);
     }
 
-    public Account(Integer id, @NonNull String name, @NonNull AccountType type) {
+    public Account(Integer id, @NonNull String name, @NonNull AccountType type, Double overdueLimit) {
         this.id = id;
         this.name = name;
         this.type = type;
+        this.overdueLimit = overdueLimit;
     }
 
     public Account(Account account) {
-        this(account.id, account.name, account.type);
+        this(account.id, account.name, account.type, account.overdueLimit);
     }
 
     @NonNull
@@ -36,6 +38,11 @@ public class Account {
     @NonNull
     public AccountType getType() {
         return type;
+    }
+
+    @NonNull
+    public Double getOverdueLimit() {
+        return overdueLimit;
     }
 
     // optimization: account ids will not be reused and accounts are immutable

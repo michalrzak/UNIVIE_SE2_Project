@@ -6,4 +6,5 @@
     <string name="transaction_name">Transaction Name..</string>
     <string name="create">Create</string>
     <string name="add_account">Add Account</string>
+    <string name="overdue_limit">Overdue Limit</string>
 </resources>
