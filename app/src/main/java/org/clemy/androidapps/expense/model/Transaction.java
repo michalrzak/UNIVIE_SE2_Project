@@ -2,7 +2,7 @@ package org.clemy.androidapps.expense.model;
 
 import androidx.annotation.NonNull;
 
-import java.util.Optional;
+import java.util.Objects;
 
 public class Transaction {
     private final Integer id;
@@ -48,20 +48,16 @@ public class Transaction {
         return amount;
     }
 
-    // optimization: transaction ids will not be reused and transactions are immutable
-    // -> compare only id
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
-        Transaction transaction = (Transaction) o;
-
-        return id.equals(transaction.id);
+        Transaction that = (Transaction) o;
+        return Objects.equals(id, that.id) && accountId.equals(that.accountId) && name.equals(that.name) && amount.equals(that.amount);
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return Objects.hash(id, accountId, name, amount);
     }
 }

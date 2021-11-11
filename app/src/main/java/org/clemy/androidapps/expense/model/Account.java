@@ -2,6 +2,7 @@ package org.clemy.androidapps.expense.model;
 
 import androidx.annotation.NonNull;
 
+import java.util.Objects;
 import java.util.Optional;
 
 public class Account {
@@ -52,20 +53,17 @@ public class Account {
     public Double getOverdueLimit() {
         return overdueLimit;
     }
-    // optimization: account ids will not be reused and accounts are immutable
-    // -> compare only id
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Account account = (Account) o;
-
-        return id.equals(account.id);
+        return Objects.equals(id, account.id) && name.equals(account.name) && type == account.type && Objects.equals(overdueLimit, account.overdueLimit);
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return Objects.hash(id, name, type, overdueLimit);
     }
 }
