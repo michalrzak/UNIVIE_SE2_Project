@@ -50,21 +50,24 @@ public class Repository {
      */
     public void setDatabaseStrategy(@NonNull Db database) {
         db = database;
-        updateAccounts();
+        reloadAccounts();
     }
 
     public ChangingData<List<Account>> getAccounts() {
         return accountList;
     }
 
-    private void updateAccounts() {
+    private void reloadAccounts() {
         executor.execute(() -> accountList.setData(db.getAccounts()));
     }
 
-    public void addAccount(@NonNull final Account account) {
+    public void createOrUpdateAccount(@NonNull final Account account) {
         executor.execute(() -> {
-            db.addAccount(account);
-            updateAccounts();
+            db.createOrUpdateAccount(account);
+            reloadAccounts();
+            if (account.getId() != null) {
+                reloadAccountWithTransactions(account.getId());
+            }
         });
     }
 
@@ -73,12 +76,12 @@ public class Repository {
         if (data == null) {
             data = new ChangingDataImpl<>(new AccountWithTransactions());
             transactionLists.put(accountId, data);
-            updateTransactions(accountId);
+            reloadAccountWithTransactions(accountId);
         }
         return data;
     }
 
-    private void updateTransactions(@NonNull Integer accountId) {
+    private void reloadAccountWithTransactions(@NonNull Integer accountId) {
         ChangingData<AccountWithTransactions> data = transactionLists.get(accountId);
         if (data != null) {
             executor.execute(() -> {
@@ -90,10 +93,10 @@ public class Repository {
         }
     }
 
-    public void addTransaction(@NonNull final Transaction transaction) {
+    public void reloadTransaction(@NonNull final Transaction transaction) {
         executor.execute(() -> {
-            db.addTransaction(transaction);
-            updateTransactions(transaction.getAccountId());
+            db.createTransaction(transaction);
+            reloadAccountWithTransactions(transaction.getAccountId());
         });
     }
 }

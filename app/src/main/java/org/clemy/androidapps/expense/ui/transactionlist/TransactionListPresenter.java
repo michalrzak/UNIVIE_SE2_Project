@@ -1,10 +1,9 @@
 package org.clemy.androidapps.expense.ui.transactionlist;
 
-import androidx.annotation.NonNull;
-
 import org.clemy.androidapps.expense.database.Repository;
 import org.clemy.androidapps.expense.model.AccountWithTransactions;
 import org.clemy.androidapps.expense.ui.BasePresenter;
+import org.clemy.androidapps.expense.utils.ChangingDataOnMainThread;
 import org.clemy.androidapps.expense.utils.ChangingDataWithViewState;
 
 /**
@@ -31,7 +30,11 @@ public class TransactionListPresenter
     @Override
     public void viewCreated() {
         final ChangingDataWithViewState<AccountWithTransactions> transactionsData =
-                new ChangingDataWithViewState<>(repository.getAccountWithTransactions(accountId), viewState);
+                new ChangingDataWithViewState<>(
+                        new ChangingDataOnMainThread<>(
+                                repository.getAccountWithTransactions(accountId)
+                        ),
+                        viewState);
         transactionsData.observe(data -> {
             if (!data.getAccount().isPresent()) {
                 view.showAccountLoading();
@@ -42,11 +45,16 @@ public class TransactionListPresenter
         });
     }
 
+    @Override
+    public void clickedEditAccount() {
+        view.showEditAccount(accountId);
+    }
+
     /**
      * Handles the user wish to create a new account.
      */
     @Override
-    public void newTransaction() {
+    public void clickedNewTransaction() {
         view.showNewTransaction(accountId);
     }
 }

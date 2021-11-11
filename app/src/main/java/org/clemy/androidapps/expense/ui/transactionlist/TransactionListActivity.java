@@ -2,6 +2,8 @@ package org.clemy.androidapps.expense.ui.transactionlist;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +15,7 @@ import org.clemy.androidapps.expense.R;
 import org.clemy.androidapps.expense.database.Repository;
 import org.clemy.androidapps.expense.model.Transaction;
 import org.clemy.androidapps.expense.ui.LifecycleHandler;
+import org.clemy.androidapps.expense.ui.newaccount.NewAccountActivity;
 import org.clemy.androidapps.expense.ui.newtransaction.NewTransactionActivity;
 
 import java.util.List;
@@ -50,22 +53,53 @@ public class TransactionListActivity extends AppCompatActivity implements Transa
         });
         list.setAdapter(transactionListAdapter);
 
-        findViewById(R.id.floating_button).setOnClickListener(view -> presenter.newTransaction());
+        findViewById(R.id.floating_button).setOnClickListener(view -> presenter.clickedNewTransaction());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_transaction_list, menu);
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_edit_account) {
+            presenter.clickedEditAccount();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void showAccountLoading() {
-        setTitle("Loading..");
+        setTitle(R.string.account_loading);
     }
 
     @Override
     public void showAccountInformation(@NonNull String accountName, boolean overdue) {
-        setTitle(accountName + (overdue ? " !Overdue!" : ""));
+        setTitle(getResources().getString(R.string.account_title) +
+                " " +
+                accountName +
+                (overdue ? " " + getResources().getString(R.string.overdue_warning) : ""));
     }
 
     @Override
     public void showTransactionList(@NonNull List<Transaction> transactions) {
         transactionListAdapter.submitList(transactions);
+    }
+
+    @Override
+    public void showEditAccount(@NonNull Integer accountId) {
+        Intent intent = new Intent(TransactionListActivity.this, NewAccountActivity.class);
+        intent.putExtra(NewAccountActivity.INTENT_EXTRA_ACCOUNT_ID, accountId);
+        startActivity(intent);
     }
 
     @Override

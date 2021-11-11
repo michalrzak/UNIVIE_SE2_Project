@@ -3,8 +3,14 @@
     <string name="use_test_database">Use Test Database</string>
     <string name="use_saved_database">Use Saved Database</string>
     <string name="account_name">Account Name..</string>
+    <string name="account_title">Account:</string>
+    <string name="account_loading">Account: Loading..</string>
     <string name="transaction_name">Transaction Name..</string>
     <string name="create">Create</string>
+    <string name="save">Save</string>
     <string name="add_account">Add Account</string>
+    <string name="edit_account">Edit Account</string>
+    <string name="edit_account_title">Edit Account</string>
     <string name="overdue_limit">Overdue Limit</string>
+    <string name="overdue_warning">!Overdue!</string>
 </resources>

@@ -15,10 +15,14 @@ public interface TransactionListContract {
 
         void showTransactionList(@NonNull List<Transaction> transactions);
 
+        void showEditAccount(@NonNull Integer accountId);
+
         void showNewTransaction(@NonNull Integer accountId);
     }
 
     interface Presenter extends BaseContract.Presenter<View> {
-        void newTransaction();
+        void clickedEditAccount();
+
+        void clickedNewTransaction();
     }
 }

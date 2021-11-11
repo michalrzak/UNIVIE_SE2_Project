@@ -28,7 +28,6 @@ public class Account {
         this(account.id, account.name, account.type, account.overdueLimit);
     }
 
-    @NonNull
     public Integer getId() {
         return id;
     }

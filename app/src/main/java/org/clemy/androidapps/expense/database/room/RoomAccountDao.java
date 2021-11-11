@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -13,8 +14,11 @@ public interface RoomAccountDao {
     List<RoomAccount> getAccounts();
 
     @Query("SELECT * FROM accounts WHERE id == :accountId")
-    RoomAccount getAccount(@NonNull Integer accountId);
+    RoomAccount getAccount(Integer accountId);
 
     @Insert
     void addAccount(RoomAccount account);
+
+    @Update
+    void updateAccount(RoomAccount account);
 }

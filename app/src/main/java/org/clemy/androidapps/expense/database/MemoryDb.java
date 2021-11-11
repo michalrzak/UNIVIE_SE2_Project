@@ -32,8 +32,11 @@ public class MemoryDb implements Db {
     }
 
     @Override
-    public synchronized void addAccount(@NonNull Account account) {
-        Integer accountId = idGenerator++;
+    public synchronized void createOrUpdateAccount(@NonNull Account account) {
+        Integer accountId = account.getId();
+        if (accountId == null) {
+            accountId = idGenerator++;
+        }
         accounts.put(accountId,
                 new Account(
                         accountId,
@@ -52,7 +55,7 @@ public class MemoryDb implements Db {
     }
 
     @Override
-    public synchronized void addTransaction(@NonNull Transaction transaction) {
+    public synchronized void createTransaction(@NonNull Transaction transaction) {
         List<Transaction> list = transactions.get(transaction.getAccountId());
         if (list == null) {
             list = new ArrayList<>();

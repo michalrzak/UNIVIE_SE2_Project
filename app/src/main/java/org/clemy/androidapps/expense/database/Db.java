@@ -14,10 +14,10 @@ public interface Db {
 
     Optional<Account> getAccount(@NonNull Integer accountId);
 
-    void addAccount(@NonNull final Account account);
+    void createOrUpdateAccount(@NonNull final Account account);
 
     List<Transaction> getTransactionsForAccount(@NonNull Integer accountId);
 
-    void addTransaction(@NonNull final Transaction transaction);
+    void createTransaction(@NonNull final Transaction transaction);
 
 }

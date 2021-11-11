@@ -40,8 +40,12 @@ public class RoomDb implements Db {
     }
 
     @Override
-    public void addAccount(@NonNull Account account) {
-        accountDao.addAccount(new RoomAccount(account));
+    public void createOrUpdateAccount(@NonNull Account account) {
+        if (account.getId() == null) {
+            accountDao.addAccount(new RoomAccount(account));
+        } else {
+            accountDao.updateAccount(new RoomAccount(account));
+        }
     }
 
     @Override
@@ -50,7 +54,7 @@ public class RoomDb implements Db {
     }
 
     @Override
-    public void addTransaction(@NonNull Transaction transaction) {
+    public void createTransaction(@NonNull Transaction transaction) {
         transactionsDao.addTransaction(new RoomTransaction(transaction));
     }
 }
