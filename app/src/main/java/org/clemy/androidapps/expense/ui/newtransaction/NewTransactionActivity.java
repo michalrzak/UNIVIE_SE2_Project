@@ -30,7 +30,7 @@ public class NewTransactionActivity extends AppCompatActivity implements NewTran
         findViewById(R.id.button_save).setOnClickListener(view -> {
             final EditText transactionName = findViewById(R.id.transaction_name);
             if (!TextUtils.isEmpty(transactionName.getText())) {
-                presenter.createNewTransaction(transactionName.getText().toString());
+                presenter.clickedSave(transactionName.getText().toString());
             }
             finish();
         });

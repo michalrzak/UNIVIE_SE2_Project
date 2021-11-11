@@ -15,7 +15,7 @@ import org.clemy.androidapps.expense.R;
 import org.clemy.androidapps.expense.database.Repository;
 import org.clemy.androidapps.expense.model.Account;
 import org.clemy.androidapps.expense.ui.LifecycleHandler;
-import org.clemy.androidapps.expense.ui.newaccount.NewAccountActivity;
+import org.clemy.androidapps.expense.ui.neweditaccount.NewEditAccountActivity;
 import org.clemy.androidapps.expense.ui.transactionlist.TransactionListActivity;
 
 import java.util.List;
@@ -95,7 +95,7 @@ public class AccountListActivity extends AppCompatActivity implements AccountLis
      */
     @Override
     public void showNewAccount() {
-        Intent intent = new Intent(AccountListActivity.this, NewAccountActivity.class);
+        Intent intent = new Intent(AccountListActivity.this, NewEditAccountActivity.class);
         startActivity(intent);
     }
 

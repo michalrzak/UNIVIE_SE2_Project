@@ -1,10 +1,10 @@
-package org.clemy.androidapps.expense.ui.newaccount;
+package org.clemy.androidapps.expense.ui.neweditaccount;
 
 import org.clemy.androidapps.expense.model.Account;
 import org.clemy.androidapps.expense.model.AccountType;
 import org.clemy.androidapps.expense.ui.BaseContract;
 
-public interface NewAccountContract {
+public interface NewEditAccountContract {
     interface View extends BaseContract.View {
         void showAccountTypes(AccountType[] accountTypes);
         void setEditMode();

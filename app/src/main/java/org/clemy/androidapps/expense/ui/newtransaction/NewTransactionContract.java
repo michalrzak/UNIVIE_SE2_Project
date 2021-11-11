@@ -7,6 +7,6 @@ public interface NewTransactionContract {
     }
 
     interface Presenter extends BaseContract.Presenter<View> {
-        void createNewTransaction(String transactionName);
+        void clickedSave(String transactionName);
     }
 }

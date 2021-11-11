@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.newaccount.NewAccountActivity">
+    tools:context=".ui.neweditaccount.NewEditAccountActivity">
 
     <EditText
         android:id="@+id/account_name"

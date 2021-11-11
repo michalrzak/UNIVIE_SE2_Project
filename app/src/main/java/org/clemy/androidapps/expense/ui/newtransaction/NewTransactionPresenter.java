@@ -18,7 +18,7 @@ public class NewTransactionPresenter extends BasePresenter<NewTransactionContrac
     }
 
     @Override
-    public void createNewTransaction(String transactionName) {
+    public void clickedSave(String transactionName) {
         final Transaction newTransaction =
                 new Transaction(accountId, transactionName, 1.2);
         repository.reloadTransaction(newTransaction);

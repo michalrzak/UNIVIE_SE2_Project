@@ -1,4 +1,4 @@
-package org.clemy.androidapps.expense.ui.newaccount;
+package org.clemy.androidapps.expense.ui.neweditaccount;
 
 import androidx.annotation.NonNull;
 
@@ -12,13 +12,13 @@ import org.clemy.androidapps.expense.utils.ChangingDataWithViewState;
 
 import java.util.Optional;
 
-public class NewAccountPresenter extends BasePresenter<NewAccountContract.View> implements NewAccountContract.Presenter {
+public class NewEditAccountPresenter extends BasePresenter<NewEditAccountContract.View> implements NewEditAccountContract.Presenter {
     @NonNull
     private final Repository repository;
     @NonNull
     private final Optional<Integer> accountId;
 
-    public NewAccountPresenter(@NonNull Repository repository, Integer accountId) {
+    public NewEditAccountPresenter(@NonNull Repository repository, Integer accountId) {
         this.repository = repository;
         this.accountId = Optional.ofNullable(accountId);
     }

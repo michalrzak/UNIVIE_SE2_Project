@@ -12,7 +12,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.clemy.androidapps.expense.R;
-import org.clemy.androidapps.expense.ui.newaccount.NewAccountActivity;
+import org.clemy.androidapps.expense.ui.neweditaccount.NewEditAccountActivity;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -33,6 +33,6 @@ public class AccountListActivityTest {
         //TODO: mock presenter and split this test into 1 clicking the button and 1 checking the intent
         Intents.init();
         onView(withId(R.id.floating_button)).perform(click());
-        Intents.intended(hasComponent(NewAccountActivity.class.getName()));
+        Intents.intended(hasComponent(NewEditAccountActivity.class.getName()));
     }
 }

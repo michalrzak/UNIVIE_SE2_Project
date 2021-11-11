@@ -15,7 +15,7 @@ import org.clemy.androidapps.expense.R;
 import org.clemy.androidapps.expense.database.Repository;
 import org.clemy.androidapps.expense.model.Transaction;
 import org.clemy.androidapps.expense.ui.LifecycleHandler;
-import org.clemy.androidapps.expense.ui.newaccount.NewAccountActivity;
+import org.clemy.androidapps.expense.ui.neweditaccount.NewEditAccountActivity;
 import org.clemy.androidapps.expense.ui.newtransaction.NewTransactionActivity;
 
 import java.util.List;
@@ -97,8 +97,8 @@ public class TransactionListActivity extends AppCompatActivity implements Transa
 
     @Override
     public void showEditAccount(@NonNull Integer accountId) {
-        Intent intent = new Intent(TransactionListActivity.this, NewAccountActivity.class);
-        intent.putExtra(NewAccountActivity.INTENT_EXTRA_ACCOUNT_ID, accountId);
+        Intent intent = new Intent(TransactionListActivity.this, NewEditAccountActivity.class);
+        intent.putExtra(NewEditAccountActivity.INTENT_EXTRA_ACCOUNT_ID, accountId);
         startActivity(intent);
     }
 

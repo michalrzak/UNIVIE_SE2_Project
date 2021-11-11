@@ -1,4 +1,4 @@
-package org.clemy.androidapps.expense.ui.newaccount;
+package org.clemy.androidapps.expense.ui.neweditaccount;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,25 +16,25 @@ import org.clemy.androidapps.expense.model.Account;
 import org.clemy.androidapps.expense.model.AccountType;
 import org.clemy.androidapps.expense.ui.LifecycleHandler;
 
-public class NewAccountActivity extends AppCompatActivity implements NewAccountContract.View {
+public class NewEditAccountActivity extends AppCompatActivity implements NewEditAccountContract.View {
     public static final String INTENT_EXTRA_ACCOUNT_ID = "AccountId";
 
-    private NewAccountContract.Presenter presenter;
-    private LifecycleHandler<NewAccountActivity> lifecycleHandler;
+    private NewEditAccountContract.Presenter presenter;
+    private LifecycleHandler<NewEditAccountActivity> lifecycleHandler;
 
     private ArrayAdapter<AccountType> accountTypeAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_account);
+        setContentView(R.layout.activity_newedit_account);
 
         Intent intent = getIntent();
         Integer accountId = null;
         if (intent.hasExtra(INTENT_EXTRA_ACCOUNT_ID)) {
             accountId = intent.getIntExtra(INTENT_EXTRA_ACCOUNT_ID, 0);
         }
-        presenter = new NewAccountPresenter(Repository.getInstance(), accountId);
+        presenter = new NewEditAccountPresenter(Repository.getInstance(), accountId);
         lifecycleHandler = new LifecycleHandler<>(presenter, this);
 
         findViewById(R.id.button_save).setOnClickListener(view -> {
