@@ -6,6 +6,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -13,47 +14,52 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ChangingDataImplTest {
+    private static final Integer TEST_DATA = 4711;
+    private static final Integer OTHER_TEST_DATA = 815;
 
     @Mock
-    ChangingData.Observer<Integer> mockObserver;
+    private ChangingData.Observer<Integer> mockObserver;
+
+    private ChangingData<Integer> testInstance;
+
+    @Before
+    public void setUp() {
+        testInstance = new ChangingDataImpl<>(TEST_DATA);
+    }
 
     @Test
     public void createDefaultChangingData_getDataReturnsNull() {
-        ChangingData<Integer> uut = new ChangingDataImpl<>();
-        assertNull(uut.getData());
+        testInstance = new ChangingDataImpl<>();
+        assertNull(testInstance.getData());
     }
 
     @Test
     public void createChangingDataWithValue_getDataReturnsValue() {
-        ChangingData<Integer> uut = new ChangingDataImpl<>(4711);
-        assertEquals(new Integer(4711), uut.getData());
+        assertEquals(TEST_DATA, testInstance.getData());
     }
 
     @Test
     public void noObserver_installObserver_observerGetsCalledOnce() {
-        ChangingData<Integer> uut = new ChangingDataImpl<>(4711);
-        uut.observe(mockObserver);
-        verify(mockObserver, times(1)).changed(4711);
+        testInstance.observe(mockObserver);
+        verify(mockObserver, times(1)).changed(TEST_DATA);
         verifyNoMoreInteractions(mockObserver);
     }
 
     @Test
     public void installedObserver_setData_observerGetsCalledOnce() {
-        ChangingData<Integer> uut = new ChangingDataImpl<>(4711);
-        uut.observe(mockObserver);
-        verify(mockObserver, times(1)).changed(4711);
-        uut.setData(815);
-        verify(mockObserver, times(1)).changed(815);
+        testInstance.observe(mockObserver);
+        verify(mockObserver, times(1)).changed(TEST_DATA);
+        testInstance.setData(OTHER_TEST_DATA);
+        verify(mockObserver, times(1)).changed(OTHER_TEST_DATA);
         verifyNoMoreInteractions(mockObserver);
     }
 
     @Test
-    public void installedObserver_unobserve_setData_observerGetsNotCalled() {
-        ChangingData<Integer> uut = new ChangingDataImpl<>(4711);
-        uut.observe(mockObserver);
-        verify(mockObserver, times(1)).changed(4711);
-        uut.unobserve(mockObserver);
-        uut.setData(815);
+    public void installedObserver_unobserve_setData_observerDoesNotGetCalled() {
+        testInstance.observe(mockObserver);
+        verify(mockObserver, times(1)).changed(TEST_DATA);
+        testInstance.unobserve(mockObserver);
+        testInstance.setData(OTHER_TEST_DATA);
         verifyNoMoreInteractions(mockObserver);
     }
 }
