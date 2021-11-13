@@ -10,7 +10,7 @@ import org.clemy.androidapps.expense.database.room.RoomTransaction;
 import org.clemy.androidapps.expense.database.room.RoomTransactionDao;
 import org.clemy.androidapps.expense.model.Account;
 import org.clemy.androidapps.expense.model.Transaction;
-import org.clemy.androidapps.expense.utils.AppContextStore;
+import org.clemy.androidapps.expense.utils.android.AppContextStore;
 
 import java.util.Collections;
 import java.util.List;

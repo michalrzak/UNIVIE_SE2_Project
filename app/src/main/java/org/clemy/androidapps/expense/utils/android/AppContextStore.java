@@ -1,4 +1,4 @@
-package org.clemy.androidapps.expense.utils;
+package org.clemy.androidapps.expense.utils.android;
 
 import android.content.Context;
 
