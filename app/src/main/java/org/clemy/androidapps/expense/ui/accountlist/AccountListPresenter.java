@@ -7,7 +7,7 @@ import org.clemy.androidapps.expense.database.Repository;
 import org.clemy.androidapps.expense.database.RoomDb;
 import org.clemy.androidapps.expense.model.Account;
 import org.clemy.androidapps.expense.ui.BasePresenter;
-import org.clemy.androidapps.expense.utils.ChangingDataOnMainThread;
+import org.clemy.androidapps.expense.utils.ChangingData;
 import org.clemy.androidapps.expense.utils.ChangingDataWithViewState;
 
 import java.util.List;
@@ -33,10 +33,8 @@ public class AccountListPresenter
      */
     @Override
     public void viewCreated() {
-        final ChangingDataWithViewState<List<Account>> accountsData =
-                new ChangingDataWithViewState<>(
-                        new ChangingDataOnMainThread<>(repository.getAccounts()),
-                        viewState);
+        final ChangingData<List<Account>> accountsData =
+                new ChangingDataWithViewState<>(repository.getAccounts(), viewState);
         accountsData.observe(data -> view.showAccountList(data));
     }
 

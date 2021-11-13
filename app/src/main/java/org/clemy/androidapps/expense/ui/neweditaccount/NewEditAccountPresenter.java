@@ -7,7 +7,7 @@ import org.clemy.androidapps.expense.model.Account;
 import org.clemy.androidapps.expense.model.AccountType;
 import org.clemy.androidapps.expense.model.AccountWithTransactions;
 import org.clemy.androidapps.expense.ui.BasePresenter;
-import org.clemy.androidapps.expense.utils.ChangingDataOnMainThread;
+import org.clemy.androidapps.expense.utils.ChangingData;
 import org.clemy.androidapps.expense.utils.ChangingDataWithViewState;
 
 import java.util.Optional;
@@ -31,12 +31,9 @@ public class NewEditAccountPresenter extends BasePresenter<NewEditAccountContrac
 
     private void setupEditMode(Integer accountId) {
         view.setEditMode();
-        final ChangingDataWithViewState<AccountWithTransactions> accountData =
+        final ChangingData<AccountWithTransactions> accountData =
                 new ChangingDataWithViewState<>(
-                        new ChangingDataOnMainThread<>(
-                                repository.getAccountWithTransactions(accountId)
-                        ),
-                        viewState);
+                        repository.getAccountWithTransactions(accountId), viewState);
         accountData.observe(data -> data.getAccount().ifPresent(view::showAccountData));
     }
 

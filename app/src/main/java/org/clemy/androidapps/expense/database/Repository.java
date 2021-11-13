@@ -7,6 +7,7 @@ import org.clemy.androidapps.expense.model.AccountWithTransactions;
 import org.clemy.androidapps.expense.model.Transaction;
 import org.clemy.androidapps.expense.utils.ChangingData;
 import org.clemy.androidapps.expense.utils.ChangingDataImpl;
+import org.clemy.androidapps.expense.utils.ChangingDataOnMainThread;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,7 +29,8 @@ public class Repository {
 
     private final ExecutorService executor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
-    private final ChangingData<List<Account>> accountList = new ChangingDataImpl<>(new ArrayList<>());
+    private final ChangingData<List<Account>> accountList =
+        new ChangingDataOnMainThread<>(new ChangingDataImpl<>(new ArrayList<>()));
     private final Map<Integer, ChangingData<AccountWithTransactions>> transactionLists = new HashMap<>();
     private Db db;
 
@@ -74,7 +76,7 @@ public class Repository {
     public ChangingData<AccountWithTransactions> getAccountWithTransactions(@NonNull Integer accountId) {
         ChangingData<AccountWithTransactions> data = transactionLists.get(accountId);
         if (data == null) {
-            data = new ChangingDataImpl<>(new AccountWithTransactions());
+            data = new ChangingDataOnMainThread<>(new ChangingDataImpl<>(new AccountWithTransactions()));
             transactionLists.put(accountId, data);
             reloadAccountWithTransactions(accountId);
         }

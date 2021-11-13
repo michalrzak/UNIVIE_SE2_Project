@@ -3,7 +3,6 @@ package org.clemy.androidapps.expense.ui.transactionlist;
 import org.clemy.androidapps.expense.database.Repository;
 import org.clemy.androidapps.expense.model.AccountWithTransactions;
 import org.clemy.androidapps.expense.ui.BasePresenter;
-import org.clemy.androidapps.expense.utils.ChangingDataOnMainThread;
 import org.clemy.androidapps.expense.utils.ChangingDataWithViewState;
 
 /**
@@ -31,10 +30,7 @@ public class TransactionListPresenter
     public void viewCreated() {
         final ChangingDataWithViewState<AccountWithTransactions> transactionsData =
                 new ChangingDataWithViewState<>(
-                        new ChangingDataOnMainThread<>(
-                                repository.getAccountWithTransactions(accountId)
-                        ),
-                        viewState);
+                        repository.getAccountWithTransactions(accountId), viewState);
         transactionsData.observe(data -> {
             if (!data.getAccount().isPresent()) {
                 view.showAccountLoading();
