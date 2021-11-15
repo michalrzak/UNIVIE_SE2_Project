@@ -32,7 +32,7 @@ public class AccountList extends AppCompatActivity {
         // temporary for testing purposes
         ArrayList<AppAccount> list = new ArrayList<>();
         list.add(new AppAccount(EAccountType.BANK, "Investment"));
-        list.add(new AppAccount(EAccountType.Card, "Savings"));
+        list.add(new AppAccount(EAccountType.CARD, "Savings"));
         accountListAdapter.submitList(list);
 
     }
