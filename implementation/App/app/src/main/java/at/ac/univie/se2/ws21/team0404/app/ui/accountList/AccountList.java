@@ -10,6 +10,7 @@ import android.os.Bundle;
 import java.util.ArrayList;
 import at.ac.univie.se2.ws21.team0404.app.R;
 import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
+import at.ac.univie.se2.ws21.team0404.app.model.account.EAccountType;
 
 public class AccountList extends AppCompatActivity {
 
@@ -24,8 +25,15 @@ public class AccountList extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
-        accountListAdapter = new AccountListAdapter(new ArrayList<AppAccount>()); // temporary;
+        accountListAdapter = new AccountListAdapter(new AccountListAdapter.AppAccountDiff());
         // will use repository from the database in the future
         recyclerView.setAdapter(accountListAdapter);
+
+        // temporary for testing purposes
+        ArrayList<AppAccount> list = new ArrayList<>();
+        list.add(new AppAccount(EAccountType.BANK, "Investment"));
+        list.add(new AppAccount(EAccountType.Card, "Savings"));
+        accountListAdapter.submitList(list);
+
     }
 }
