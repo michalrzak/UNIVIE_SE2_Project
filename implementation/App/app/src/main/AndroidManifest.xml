@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App">
         <activity
+            android:name=".ui.accountList.AccountList"
+            android:exported="false" />
+        <activity
             android:name=".ui.mainactivity.MainActivity"
             android:exported="true">
             <intent-filter>
