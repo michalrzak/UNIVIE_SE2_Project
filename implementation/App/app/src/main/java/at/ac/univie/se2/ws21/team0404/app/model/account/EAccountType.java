@@ -7,5 +7,16 @@ package at.ac.univie.se2.ws21.team0404.app.model.account;
 
 
 public enum EAccountType {
-    CASH, BANK, Card, Stock
+    CASH("Cash"), BANK("Bank"), CARD("Card"), STOCK("Stock");
+
+    private final String type;
+
+    EAccountType(String type){
+        this.type = type;
+    }
+
+    @Override
+    public String toString(){
+        return type;
+    }
 }
