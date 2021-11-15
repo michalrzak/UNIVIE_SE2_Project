@@ -26,6 +26,14 @@ public class AppAccount {
         name = newName;
     }
 
+    public EAccountType getType() {
+        return type;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     @Override
     public int hashCode() {
         return name.hashCode();
