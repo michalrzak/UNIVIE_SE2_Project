@@ -10,8 +10,8 @@ import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 
 public class AccountListAdapter extends ListAdapter<AppAccount, AccountListViewHolder> {
 
-    public AccountListAdapter(@NonNull DiffUtil.ItemCallback<AppAccount> diffCallback) {
-        super(diffCallback);
+    public AccountListAdapter() {
+        super(AppAccountDiffUtil);
     }
 
     @NonNull
@@ -25,8 +25,7 @@ public class AccountListAdapter extends ListAdapter<AppAccount, AccountListViewH
         holder.bind(getItem(position));
     }
 
-    public static final class AppAccountDiff extends DiffUtil.ItemCallback<AppAccount> {
-
+    public static final DiffUtil.ItemCallback<AppAccount> AppAccountDiffUtil = new DiffUtil.ItemCallback<AppAccount>() {
         @Override
         public boolean areItemsTheSame(@NonNull AppAccount oldItem, @NonNull AppAccount newItem) {
             return oldItem == newItem;
@@ -36,7 +35,7 @@ public class AccountListAdapter extends ListAdapter<AppAccount, AccountListViewH
         public boolean areContentsTheSame(@NonNull AppAccount oldItem, @NonNull AppAccount newItem) {
             return oldItem.equals(newItem);
         }
-    }
+    };
 
 
 }

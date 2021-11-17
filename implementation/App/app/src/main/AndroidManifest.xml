@@ -13,12 +13,13 @@
         <activity
             android:name=".ui.accountList.AccountList"
             android:exported="false" />
+        <activity android:name=".ui.newOrAddAccount.NewOrAddAccountActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.mainactivity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
