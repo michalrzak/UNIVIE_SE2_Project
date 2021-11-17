@@ -1,4 +1,4 @@
-package org.clemy.androidapps.expense.ui;
+package org.clemy.androidapps.expense.utils.android;
 
 import android.util.Log;
 
@@ -7,6 +7,8 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.OnLifecycleEvent;
+
+import org.clemy.androidapps.expense.ui.BaseContract;
 
 /**
  * Automates connecting a presenter to Android views and

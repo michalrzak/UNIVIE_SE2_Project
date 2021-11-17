@@ -14,7 +14,7 @@ import org.clemy.androidapps.expense.R;
 import org.clemy.androidapps.expense.database.Repository;
 import org.clemy.androidapps.expense.model.Account;
 import org.clemy.androidapps.expense.model.AccountType;
-import org.clemy.androidapps.expense.ui.LifecycleHandler;
+import org.clemy.androidapps.expense.utils.android.LifecycleHandler;
 
 public class NewEditAccountActivity extends AppCompatActivity implements NewEditAccountContract.View {
     public static final String INTENT_EXTRA_ACCOUNT_ID = "AccountId";

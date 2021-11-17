@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.clemy.androidapps.expense.R;
 import org.clemy.androidapps.expense.database.Repository;
-import org.clemy.androidapps.expense.ui.LifecycleHandler;
+import org.clemy.androidapps.expense.utils.android.LifecycleHandler;
 
 public class NewTransactionActivity extends AppCompatActivity implements NewTransactionContract.View {
     public static final String INTENT_EXTRA_ACCOUNT_ID = "AccountId";

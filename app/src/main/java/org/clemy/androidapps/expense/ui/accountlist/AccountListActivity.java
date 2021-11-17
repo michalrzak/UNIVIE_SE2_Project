@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.clemy.androidapps.expense.R;
 import org.clemy.androidapps.expense.database.Repository;
 import org.clemy.androidapps.expense.model.Account;
-import org.clemy.androidapps.expense.ui.LifecycleHandler;
+import org.clemy.androidapps.expense.utils.android.LifecycleHandler;
 import org.clemy.androidapps.expense.ui.neweditaccount.NewEditAccountActivity;
 import org.clemy.androidapps.expense.ui.transactionlist.TransactionListActivity;
 
