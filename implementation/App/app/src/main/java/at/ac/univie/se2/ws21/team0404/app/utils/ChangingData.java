@@ -1,7 +1,5 @@
 package at.ac.univie.se2.ws21.team0404.app.utils;
 
-import androidx.annotation.NonNull;
-
 /**
  * Wraps data in an observable container. Observers implementing {@link Observer} will be notified
  * in case the data changes. Notifications will also be sent on initial registration of an observer.

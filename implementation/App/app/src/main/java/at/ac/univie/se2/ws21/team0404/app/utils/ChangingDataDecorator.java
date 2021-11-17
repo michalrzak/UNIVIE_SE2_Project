@@ -1,7 +1,5 @@
 package at.ac.univie.se2.ws21.team0404.app.utils;
 
-import androidx.annotation.NonNull;
-
 /**
  * Abstract decorator implementation for {@link ChangingData}. To be used to implement decorators for
  * implementations of the interface, mainly for {@link ChangingDataImpl}. This can be used to add
