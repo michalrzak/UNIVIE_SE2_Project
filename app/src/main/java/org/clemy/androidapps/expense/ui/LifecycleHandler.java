@@ -25,7 +25,7 @@ public class LifecycleHandler<V extends LifecycleOwner & BaseContract.View> {
      * @param presenter A presenter instance for the view.
      * @param view An Android view with a {@link Lifecycle}.
      */
-    public LifecycleHandler(@NonNull BaseContract.Presenter presenter, @NonNull V view) {
+    public LifecycleHandler(@NonNull BaseContract.Presenter<? super V> presenter, @NonNull V view) {
         presenter.setView(view);
         view.getLifecycle().addObserver(new LifecycleObserver() {
             @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
