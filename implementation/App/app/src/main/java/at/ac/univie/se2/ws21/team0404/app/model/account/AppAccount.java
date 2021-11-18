@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 /**
  * A class which holds information on one account.
- *
+ * <p>
  * This class is not simply called "Account" as there exists another class Account in the
  * android framework and I want to avoid having to deal with this.
  */

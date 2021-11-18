@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.util.Consumer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import at.ac.univie.se2.ws21.team0404.app.R;
@@ -19,11 +20,12 @@ public class AccountListViewHolder extends RecyclerView.ViewHolder {
         accountNameView = view.findViewById(R.id.account_name);
     }
 
-    public void bind(@NonNull AppAccount account) {
+    public void bind(@NonNull AppAccount account, Consumer<AppAccount> onClickListener) {
         accountNameView.setText(account.getName());
+        accountNameView.setOnClickListener(view -> onClickListener.accept(account));
     }
 
-    static AccountListViewHolder create(ViewGroup parent){
+    static AccountListViewHolder create(ViewGroup parent) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.listitem_account, parent, false);
         return new AccountListViewHolder(view);
     }

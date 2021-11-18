@@ -3,6 +3,7 @@ package at.ac.univie.se2.ws21.team0404.app.ui.accountList;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.util.Consumer;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
@@ -10,19 +11,22 @@ import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 
 public class AccountListAdapter extends ListAdapter<AppAccount, AccountListViewHolder> {
 
-    public AccountListAdapter() {
+    private Consumer<AppAccount> onClickListener;
+
+    public AccountListAdapter(Consumer<AppAccount> onClickListener) {
         super(AppAccountDiffUtil);
+        this.onClickListener = onClickListener;
     }
 
     @NonNull
     @Override
-    public AccountListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
+    public AccountListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return AccountListViewHolder.create(parent);
     }
 
     @Override
     public void onBindViewHolder(@NonNull AccountListViewHolder holder, int position) {
-        holder.bind(getItem(position));
+        holder.bind(getItem(position), onClickListener);
     }
 
     public static final DiffUtil.ItemCallback<AppAccount> AppAccountDiffUtil = new DiffUtil.ItemCallback<AppAccount>() {

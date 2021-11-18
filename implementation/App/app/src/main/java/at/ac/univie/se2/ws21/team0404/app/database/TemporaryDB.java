@@ -1,4 +1,4 @@
-package at.ac.univie.se2.ws21.team0404.app.ui.accountList;
+package at.ac.univie.se2.ws21.team0404.app.database;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,13 +16,24 @@ public class TemporaryDB {
         return list;
     }
 
-    public static void addAppAccount(AppAccount appAccount){
+    public static void addAppAccount(AppAccount appAccount) {
         if (list == null)
             createList();
         list.add(appAccount);
     }
 
-    private static void createList(){
+    public static AppAccount getAppAccount(String name) {
+        return list.stream()
+                .filter(eachAppAccount -> eachAppAccount.getName().equals(name))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public static void removeAppAccount(String name) {
+        list.removeIf(eachAppAccount -> eachAppAccount.getName().equals(name));
+    }
+
+    private static void createList() {
         list = new ArrayList<>();
         list.add(new AppAccount(EAccountType.BANK, "Investment"));
         list.add(new AppAccount(EAccountType.CARD, "Savings"));

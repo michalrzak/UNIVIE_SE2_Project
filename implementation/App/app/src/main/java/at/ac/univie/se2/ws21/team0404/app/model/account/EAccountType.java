@@ -13,13 +13,13 @@ public enum EAccountType {
 
     private final String type;
 
-    EAccountType(String type){
+    EAccountType(String type) {
         this.type = type;
     }
 
     @NonNull
     @Override
-    public String toString(){
+    public String toString() {
         return type;
     }
 }
