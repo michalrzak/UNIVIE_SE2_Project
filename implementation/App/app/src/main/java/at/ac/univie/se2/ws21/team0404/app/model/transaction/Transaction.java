@@ -30,6 +30,10 @@ public class Transaction {
         return type;
     }
 
+    public int getAmount() {
+        return amount;
+    }
+
     @Override
     public int hashCode() {
         return id; // as id should be unique, it can be used as a hash code
