@@ -31,8 +31,6 @@ public class NewOrAddAccountActivity extends AppCompatActivity {
     private String intentExtraAccountName;
     private EditText accountNameField;
 
-    private MenuItem deleteMenu;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,8 +103,8 @@ public class NewOrAddAccountActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.delete_menu_icon, menu);
-        deleteMenu = menu.findItem(R.id.delete_menu_icon);
+        if (intentExtraAccountName != null)
+            getMenuInflater().inflate(R.menu.delete_menu_icon, menu);
         return true;
     }
 }
