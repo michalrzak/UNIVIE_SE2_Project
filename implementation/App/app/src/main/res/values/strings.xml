@@ -3,4 +3,8 @@
     <string name="add_account">Add account</string>
     <string name="hint_account_name">Enter account name</string>
     <string name="hint_account_overdue_limit">Enter overdue limit</string>
+    <string name="amount">Amount</string>
+    <string name="button_save">Save</string>
+    <string name="transaction_type">Type</string>
+    <string name="transaction_category">Category</string>
 </resources>

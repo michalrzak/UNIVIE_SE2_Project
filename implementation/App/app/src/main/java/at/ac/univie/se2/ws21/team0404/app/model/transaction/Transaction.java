@@ -1,11 +1,15 @@
 package at.ac.univie.se2.ws21.team0404.app.model.transaction;
 
+import java.io.Serializable;
+
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
 
 /**
  * Class, used to save information about a transaction.
+ *
+ * Implements Serializable to be able to be passed through intent
  */
-public class Transaction {
+public class Transaction implements Serializable {
     private final int id;
     private final Category category;
     private final ETransactionType type;
