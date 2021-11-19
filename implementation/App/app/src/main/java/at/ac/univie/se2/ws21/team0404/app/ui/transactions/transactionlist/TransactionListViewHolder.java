@@ -1,4 +1,4 @@
-package at.ac.univie.se2.ws21.team0404.app.ui.transactions;
+package at.ac.univie.se2.ws21.team0404.app.ui.transactions.transactionlist;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import at.ac.univie.se2.ws21.team0404.app.R;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
-import at.ac.univie.se2.ws21.team0404.app.ui.accountList.AccountListViewHolder;
 
 public class TransactionListViewHolder extends RecyclerView.ViewHolder{
 

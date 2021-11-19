@@ -8,12 +8,7 @@ import android.os.Bundle;
 import at.ac.univie.se2.ws21.team0404.app.R;
 import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.account.EAccountType;
-import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
-import at.ac.univie.se2.ws21.team0404.app.model.transaction.ETransactionType;
-import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
-import at.ac.univie.se2.ws21.team0404.app.ui.accountList.AccountList;
-import at.ac.univie.se2.ws21.team0404.app.ui.transactions.TransactionDetails;
-import at.ac.univie.se2.ws21.team0404.app.ui.transactions.TransactionList;
+import at.ac.univie.se2.ws21.team0404.app.ui.transactions.transactionlist.TransactionList;
 
 public class MainActivity extends AppCompatActivity {
 

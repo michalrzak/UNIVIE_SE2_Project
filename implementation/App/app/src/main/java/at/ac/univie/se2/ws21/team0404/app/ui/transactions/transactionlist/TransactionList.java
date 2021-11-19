@@ -1,4 +1,4 @@
-package at.ac.univie.se2.ws21.team0404.app.ui.transactions;
+package at.ac.univie.se2.ws21.team0404.app.ui.transactions.transactionlist;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
