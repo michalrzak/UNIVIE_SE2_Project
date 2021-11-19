@@ -24,7 +24,7 @@ public class TemporaryIntermediaryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_intermediary);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        intentExtraAppAccount = (AppAccount) getIntent().getSerializableExtra(EIntentExtra.ACCOUNT_NAME.getValue());
+        intentExtraAppAccount = (AppAccount) getIntent().getSerializableExtra(EIntentExtra.ACCOUNT.getValue());
         setTitle(intentExtraAppAccount.getName());
     }
 
@@ -39,7 +39,7 @@ public class TemporaryIntermediaryActivity extends AppCompatActivity {
 
         if (item.getItemId() == R.id.edit_menu_icon) {
             Intent intent = new Intent(this, NewAddDeleteAccount.class);
-            intent.putExtra(EIntentExtra.ACCOUNT_NAME.getValue(), intentExtraAppAccount);
+            intent.putExtra(EIntentExtra.ACCOUNT.getValue(), intentExtraAppAccount);
             startActivity(intent);
         } else {
             Intent intent = new Intent(this, AccountList.class);

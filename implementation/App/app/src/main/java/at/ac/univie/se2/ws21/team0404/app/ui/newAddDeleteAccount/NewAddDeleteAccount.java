@@ -62,14 +62,14 @@ public class NewAddDeleteAccount extends AppCompatActivity {
                 // edit existing AppAccount
                 intentExtraAppAccount = TemporaryDB.changeData(intentExtraAppAccount, accountNameValue, accountType);
                 Intent intent = new Intent(this, TemporaryIntermediaryActivity.class);
-                intent.putExtra(EIntentExtra.ACCOUNT_NAME.getValue(), intentExtraAppAccount);
+                intent.putExtra(EIntentExtra.ACCOUNT.getValue(), intentExtraAppAccount);
                 startActivity(intent);
             }
         }
     }
 
     private void setInputFields() {
-        intentExtraAppAccount = (AppAccount) getIntent().getSerializableExtra(EIntentExtra.ACCOUNT_NAME.getValue());
+        intentExtraAppAccount = (AppAccount) getIntent().getSerializableExtra(EIntentExtra.ACCOUNT.getValue());
 
         Button button = findViewById(R.id.edit_or_add_account_button);
         button.setOnClickListener(view -> addOrEditAppAccount());
@@ -96,7 +96,7 @@ public class NewAddDeleteAccount extends AppCompatActivity {
                 startActivity(new Intent(this, AccountList.class));
             else {
                 Intent intent = new Intent(this, TemporaryIntermediaryActivity.class);
-                intent.putExtra(EIntentExtra.ACCOUNT_NAME.getValue(), intentExtraAppAccount);
+                intent.putExtra(EIntentExtra.ACCOUNT.getValue(), intentExtraAppAccount);
                 startActivity(intent);
             }
         }

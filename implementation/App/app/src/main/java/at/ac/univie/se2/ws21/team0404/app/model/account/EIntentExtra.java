@@ -7,7 +7,7 @@ package at.ac.univie.se2.ws21.team0404.app.model.account;
 
 // probably going to put it in another package. Also not sure if we should just use public static final variables instead of an enum
 public enum EIntentExtra {
-    ACCOUNT_NAME("AccountName"), TRANSACTION_NAME("TransactionName");
+    ACCOUNT("Account"), TRANSACTION("Transaction");
 
     private final String value;
 
