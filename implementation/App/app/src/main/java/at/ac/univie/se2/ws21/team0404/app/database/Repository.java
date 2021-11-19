@@ -29,7 +29,7 @@ public class Repository {
         this.databaseStrategy = databaseStrategy;
     }
 
-    public IDatabase getDb() {
+    public IDatabase getDatabase() {
         return this.databaseStrategy;
     }
 }
