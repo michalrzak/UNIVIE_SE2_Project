@@ -27,6 +27,9 @@ public class Transaction implements Serializable {
         this.amount = amount;
     }
 
+    public int getId() {
+        return id;
+    }
     public Category getCategory() {
         return category;
     }
