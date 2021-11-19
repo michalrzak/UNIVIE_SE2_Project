@@ -57,10 +57,8 @@ public abstract class AListActivity<ModelClass, ViewHolder extends RecyclerView.
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
         adapter = getAdapter();
-        // will use repository from the database in the future
         recyclerView.setAdapter(adapter);
 
-        // temporary DB for testing purposes
         adapter.submitList(getList());
 
         FloatingActionButton fab = findViewById(R.id.floating_button);
