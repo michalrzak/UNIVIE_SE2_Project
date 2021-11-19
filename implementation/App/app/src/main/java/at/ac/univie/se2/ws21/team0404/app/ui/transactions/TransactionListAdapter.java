@@ -11,21 +11,34 @@ import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
 import at.ac.univie.se2.ws21.team0404.app.ui.accountList.AccountListAdapter;
 import at.ac.univie.se2.ws21.team0404.app.ui.accountList.AccountListViewHolder;
 
-public class TransactionListAdapter extends ListAdapter<Transaction, AccountListViewHolder> {
+public class TransactionListAdapter extends ListAdapter<Transaction, TransactionListViewHolder> {
 
-    public AccountListAdapter {
+
+    public static final DiffUtil.ItemCallback<Transaction> appAccountDiffUtil = new DiffUtil.ItemCallback<Transaction>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull Transaction oldItem, @NonNull Transaction newItem) {
+            return oldItem == newItem;
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Transaction oldItem, @NonNull Transaction newItem) {
+            return oldItem.equals(newItem);
+        }
+    };
+
+    public TransactionListAdapter() {
         super(appAccountDiffUtil);
     }
 
 
     @NonNull
     @Override
-    public AccountListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+    public TransactionListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return TransactionListViewHolder.create(parent);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AccountListViewHolder holder, int position) {
-
+    public void onBindViewHolder(@NonNull TransactionListViewHolder holder, int position) {
+        holder.bind(getItem(position));
     }
 }

@@ -17,6 +17,7 @@ import at.ac.univie.se2.ws21.team0404.app.R;
 
 public abstract class AListActivity<ModelClass, ViewHolder extends RecyclerView.ViewHolder> extends AppCompatActivity {
 
+    protected Intent passedIntent;
 
     /**
      * When this will get implemented it will return the class of the Activity, which should be
@@ -48,6 +49,8 @@ public abstract class AListActivity<ModelClass, ViewHolder extends RecyclerView.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+
+        passedIntent = getIntent();
 
         RecyclerView recyclerView = findViewById(R.id.list_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

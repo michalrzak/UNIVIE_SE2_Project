@@ -17,6 +17,9 @@
             android:name=".ui.accountList.AccountList"
             android:exported="false" />
         <activity
+            android:name=".ui.transactions.TransactionList"
+            android:exported="false" />
+        <activity
             android:name=".ui.newOrAddAccount.NewOrAddAccountActivity"
             android:exported="false" />
         <activity
