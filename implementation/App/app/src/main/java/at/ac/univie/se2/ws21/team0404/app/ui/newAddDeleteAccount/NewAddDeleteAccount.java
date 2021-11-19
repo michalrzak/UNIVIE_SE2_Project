@@ -28,7 +28,7 @@ public class NewAddDeleteAccount extends AppCompatActivity {
     private Spinner accountTypeSpinner;
     private ArrayAdapter<EAccountType> accountTypeArrayAdapter;
 
-    private String intentExtraAccountName;
+    private AppAccount intentExtraAppAccount;
     private EditText accountNameField;
 
     @Override
@@ -55,31 +55,28 @@ public class NewAddDeleteAccount extends AppCompatActivity {
         } else {
             EAccountType accountType = EAccountType.valueOf(accountTypeSpinner.getSelectedItem().toString().toUpperCase());
             // create new AppAccount
-            if (intentExtraAccountName == null) {
+            if (intentExtraAppAccount == null) {
                 TemporaryDB.addAppAccount(new AppAccount(accountType, accountNameValue));
                 startActivity(new Intent(this, AccountList.class));
             } else {
                 // edit existing AppAccount
-                AppAccount appAccount = TemporaryDB.getAppAccount(intentExtraAccountName);
-                appAccount.setName(accountNameValue);
-                appAccount.setType(accountType);
+                intentExtraAppAccount = TemporaryDB.changeData(intentExtraAppAccount, accountNameValue, accountType);
                 Intent intent = new Intent(this, TemporaryIntermediaryActivity.class);
-                intent.putExtra(EIntentExtra.ACCOUNT_NAME.getValue(), accountNameValue);
+                intent.putExtra(EIntentExtra.ACCOUNT_NAME.getValue(), intentExtraAppAccount);
                 startActivity(intent);
             }
         }
     }
 
     private void setInputFields() {
-        intentExtraAccountName = getIntent().getStringExtra(EIntentExtra.ACCOUNT_NAME.getValue());
+        intentExtraAppAccount = (AppAccount) getIntent().getSerializableExtra(EIntentExtra.ACCOUNT_NAME.getValue());
 
         Button button = findViewById(R.id.edit_or_add_account_button);
         button.setOnClickListener(view -> addOrEditAppAccount());
 
-        if (intentExtraAccountName != null) {
-            accountNameField.setText(intentExtraAccountName);
-            AppAccount appAccount = TemporaryDB.getAppAccount(intentExtraAccountName);
-            accountTypeSpinner.setSelection(accountTypeArrayAdapter.getPosition(appAccount.getType()));
+        if (intentExtraAppAccount != null) {
+            accountNameField.setText(intentExtraAppAccount.getName());
+            accountTypeSpinner.setSelection(accountTypeArrayAdapter.getPosition(intentExtraAppAccount.getType()));
             button.setText(R.string.edit_button);
         }
         else{
@@ -90,16 +87,16 @@ public class NewAddDeleteAccount extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.delete_menu_icon) {
-            TemporaryDB.removeAppAccount(intentExtraAccountName);
+            TemporaryDB.removeAppAccount(intentExtraAppAccount);
             Intent intent = new Intent(this, AccountList.class);
             startActivity(intent);
         } else {
             // when pressing back arrow
-            if (intentExtraAccountName == null)
+            if (intentExtraAppAccount == null)
                 startActivity(new Intent(this, AccountList.class));
             else {
                 Intent intent = new Intent(this, TemporaryIntermediaryActivity.class);
-                intent.putExtra(EIntentExtra.ACCOUNT_NAME.getValue(), intentExtraAccountName);
+                intent.putExtra(EIntentExtra.ACCOUNT_NAME.getValue(), intentExtraAppAccount);
                 startActivity(intent);
             }
         }
@@ -108,7 +105,7 @@ public class NewAddDeleteAccount extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (intentExtraAccountName != null)
+        if (intentExtraAppAccount != null)
             getMenuInflater().inflate(R.menu.delete_menu_icon, menu);
         return true;
     }

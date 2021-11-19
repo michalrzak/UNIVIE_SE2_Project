@@ -32,7 +32,7 @@ public class AccountList extends AppCompatActivity {
 
         accountListAdapter = new AccountListAdapter(account -> {
             Intent intent = new Intent(this, TemporaryIntermediaryActivity.class);
-            intent.putExtra(EIntentExtra.ACCOUNT_NAME.getValue(), account.getName());
+            intent.putExtra(EIntentExtra.ACCOUNT_NAME.getValue(), account);
             startActivity(intent);
         });
         // will use repository from the database in the future

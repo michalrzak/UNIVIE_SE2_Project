@@ -2,13 +2,15 @@ package at.ac.univie.se2.ws21.team0404.app.model.account;
 
 import androidx.annotation.NonNull;
 
+import java.io.Serializable;
+
 /**
  * A class which holds information on one account.
  * <p>
  * This class is not simply called "Account" as there exists another class Account in the
  * android framework and I want to avoid having to deal with this.
  */
-public class AppAccount {
+public class AppAccount implements Serializable {
 
     private EAccountType type;
     private String name;

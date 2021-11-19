@@ -22,15 +22,17 @@ public class TemporaryDB {
         list.add(appAccount);
     }
 
-    public static AppAccount getAppAccount(String name) {
-        return list.stream()
-                .filter(eachAppAccount -> eachAppAccount.getName().equals(name))
-                .findFirst()
-                .orElse(null);
+    public static AppAccount changeData(AppAccount oldAccount, String name, EAccountType eAccountType){
+        AppAccount newAppAccount = list.stream()
+                                        .filter(appAccount -> appAccount.equals(oldAccount))
+                                        .findFirst().orElse(null);
+        newAppAccount.setName(name);
+        newAppAccount.setType(eAccountType);
+        return newAppAccount;
     }
 
-    public static void removeAppAccount(String name) {
-        list.removeIf(eachAppAccount -> eachAppAccount.getName().equals(name));
+    public static void removeAppAccount(AppAccount appAccount) {
+        list.remove(appAccount);
     }
 
     private static void createList() {
