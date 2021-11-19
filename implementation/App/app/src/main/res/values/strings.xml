@@ -5,4 +5,7 @@
     <string name="hint_account_overdue_limit">Enter overdue limit</string>
     <string name="edit_icon">Edit</string>
     <string name="back_icon">Go Back</string>
+    <string name="edit_add_button"> Add/Edit Button</string>
+    <string name="edit_button"> Edit </string>
+    <string name="add_button"> Add </string>
 </resources>

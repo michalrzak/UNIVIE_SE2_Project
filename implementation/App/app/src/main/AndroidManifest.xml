@@ -12,7 +12,7 @@
         <activity
             android:name=".ui.accountList.AccountList"
             android:exported="false" />
-        <activity android:name=".ui.newOrAddAccount.NewOrAddAccountActivity"
+        <activity android:name=".ui.newAddDeleteAccount.NewAddDeleteAccount"
             android:exported="false" />
         <activity android:name=".ui.accountList.TemporaryIntermediaryActivity"
             />

@@ -13,7 +13,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import at.ac.univie.se2.ws21.team0404.app.R;
 import at.ac.univie.se2.ws21.team0404.app.database.TemporaryDB;
 import at.ac.univie.se2.ws21.team0404.app.model.account.EIntentExtra;
-import at.ac.univie.se2.ws21.team0404.app.ui.newOrAddAccount.NewOrAddAccountActivity;
+import at.ac.univie.se2.ws21.team0404.app.ui.newAddDeleteAccount.NewAddDeleteAccount;
 
 // Part of the code here is temporary. It will be later moved into the Presenter Class
 
@@ -44,7 +44,7 @@ public class AccountList extends AppCompatActivity {
 
         FloatingActionButton fab = findViewById(R.id.floating_button);
         fab.setOnClickListener(view -> {
-            Intent intent = new Intent(this, NewOrAddAccountActivity.class);
+            Intent intent = new Intent(this, NewAddDeleteAccount.class);
             startActivity(intent);
         });
     }
