@@ -75,6 +75,7 @@ public class TransactionDetails extends AppCompatActivity {
         ArrayAdapter<ETransactionType> typeAdapter = new ArrayAdapter<ETransactionType>(this,
                 R.layout.support_simple_spinner_dropdown_item, ETransactionType.values());
         typeSpinner.setAdapter(typeAdapter);
+        typeSpinner.setSelection(typeAdapter.getPosition(displayedTransaction.getType()));
 
         categorySpinner = findViewById(R.id.transaction_category_spinner);
 
