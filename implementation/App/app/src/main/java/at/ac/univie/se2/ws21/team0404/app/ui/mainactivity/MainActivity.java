@@ -24,15 +24,16 @@ public class MainActivity extends AppCompatActivity {
         // temporary for testing
         // Intent intent = new Intent(this, AccountList.class);
 
+        /*
         Transaction transaction = new Transaction(0, new Category(), ETransactionType.INCOME, 100);
         Intent intent = new Intent(this, TransactionDetails.class);
         intent.putExtra(Transaction.class.getName(), transaction);
         startActivity(intent);
+         */
 
-        /*
         Intent intent = new Intent(this, TransactionList.class);
         intent.putExtra(AppAccount.class.getName(), new AppAccount(EAccountType.BANK, "amazing account"));
         startActivity(intent);
-         */
+
     }
 }

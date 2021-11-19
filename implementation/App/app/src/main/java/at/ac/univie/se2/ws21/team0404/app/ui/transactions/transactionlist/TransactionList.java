@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
 import at.ac.univie.se2.ws21.team0404.app.ui.accountList.TemporaryDB;
+import at.ac.univie.se2.ws21.team0404.app.ui.transactions.TransactionNew;
 import java.util.List;
 
 import at.ac.univie.se2.ws21.team0404.app.ui.AListActivity;
@@ -26,7 +27,7 @@ public class TransactionList extends AListActivity<Transaction, TransactionListV
 
     @Override
     protected Class getFabRedirect() {
-        return null;
+        return TransactionNew.class;
     }
 
     @Override
