@@ -16,7 +16,7 @@ public class AccountListViewHolder extends RecyclerView.ViewHolder {
 
     public AccountListViewHolder(@NonNull View view) {
         super(view);
-        accountNameView = view.findViewById(R.id.account_name);
+        accountNameView = view.findViewById(R.id.list_item_title);
     }
 
     public void bind(@NonNull AppAccount account) {
@@ -24,7 +24,7 @@ public class AccountListViewHolder extends RecyclerView.ViewHolder {
     }
 
     static AccountListViewHolder create(ViewGroup parent){
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.listitem_account, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.listitem, parent, false);
         return new AccountListViewHolder(view);
     }
 }
