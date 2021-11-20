@@ -27,8 +27,8 @@ public class MemoryDatabase implements IDatabase{
 
     @NonNull
     @Override
-    public Map<String, Category> getCategories() {
-        return categories;
+    public Collection<Category> getCategories() {
+        return categories.values();
     }
 
     public Collection<Transaction> getTransactions(@NonNull AppAccount account) throws DataDoesNotExistException {

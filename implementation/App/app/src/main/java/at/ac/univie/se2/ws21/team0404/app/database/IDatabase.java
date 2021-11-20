@@ -17,6 +17,7 @@ import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataExistsException;
 public interface IDatabase {
     @NonNull Collection<AppAccount> getAccounts();
     @NonNull Collection<Transaction> getTransactions(@NonNull AppAccount account) throws DataDoesNotExistException;
+    @NonNull Collection<Category> getCategories();
 
     void addAccount(@NonNull AppAccount newAccount) throws DataExistsException;
     void deleteAccount(AppAccount newAccount) throws DataDoesNotExistException;
@@ -28,7 +29,6 @@ public interface IDatabase {
 
     // should not be needed
     // public void updateAccount(AppAccount oldAccount, AppAccount newAccount) throws DataDoesNotExistException;
-    Map<String, Category> getCategories();
     void addCategory(Category newCategory) throws DataExistsException;
     void updateCategory(String categoryName, Category newCategory) throws DataDoesNotExistException;
 }
