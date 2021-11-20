@@ -22,26 +22,6 @@ import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
 public abstract class ATransactionActivity extends AppCompatActivity {
 
   /**
-   * Mock class, implementing some functionality of Category.
-   * 
-   * TODO: Remove once Category is implemented
-   */
-  private static class MockCategory extends Category {
-    private final String name;
-
-    public MockCategory(String name){
-      super(EIncomeOrExpense.EXPENSE, name); // Rumen: added this so it can compile
-      this.name = name;
-    }
-
-    @NonNull
-    @Override
-    public String toString() {
-      return name;
-    }
-  }
-
-  /**
    * Method, used to get a List of all available categories.
    * 
    * TODO: for now this method simply uses a static list. Needs to be change to be dynamically
@@ -53,11 +33,11 @@ public abstract class ATransactionActivity extends AppCompatActivity {
     List<Category> categories = new ArrayList<>();
 
     // for now this will be mocked, later pull from database and use the proper type
-    categories.add(new MockCategory("A"));
-    categories.add(new MockCategory("B"));
-    categories.add(new MockCategory("C"));
-    categories.add(new MockCategory("D"));
-    categories.add(new MockCategory("E"));
+    categories.add(new Category(EIncomeOrExpense.INCOME, "A"));
+    categories.add(new Category(EIncomeOrExpense.INCOME,"B"));
+    categories.add(new Category(EIncomeOrExpense.INCOME,"C"));
+    categories.add(new Category(EIncomeOrExpense.INCOME,"D"));
+    categories.add(new Category(EIncomeOrExpense.INCOME,"E"));
 
     return categories;
   }
@@ -106,8 +86,8 @@ public abstract class ATransactionActivity extends AppCompatActivity {
 
     categorySpinner = findViewById(R.id.transaction_category_spinner);
 
-    categoryAdapter = new ArrayAdapter<Category>(this,
-        R.layout.support_simple_spinner_dropdown_item, getAllCategories());
+    categoryAdapter = new ArrayAdapter<>(this,
+            R.layout.support_simple_spinner_dropdown_item, getAllCategories());
     categorySpinner.setAdapter(categoryAdapter);
 
     Button button = findViewById(R.id.transaction_save_button);

@@ -1,7 +1,8 @@
 package at.ac.univie.se2.ws21.team0404.app.model.categories;
 
-public class Category {
+import java.util.Objects;
 
+public class Category {
     private final EIncomeOrExpense type;
     private String name;
     private boolean disabled = false;
@@ -39,5 +40,23 @@ public class Category {
 
     public void disable() {
         this.disabled = true;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Category category = (Category) o;
+        return disabled == category.disabled && type == category.type && name.equals(category.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, name, disabled);
+    }
+
+    @Override
+    public String toString() {
+        return name + " (" + type + ")";
     }
 }

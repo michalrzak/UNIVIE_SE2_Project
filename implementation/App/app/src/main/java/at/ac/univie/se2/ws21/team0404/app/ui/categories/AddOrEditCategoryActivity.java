@@ -69,13 +69,16 @@ public class AddOrEditCategoryActivity extends AppCompatActivity {
                 break;
         }
 
-        radioGroup.setEnabled(false);
+        radioIncome.setEnabled(false);
+        radioExpense.setEnabled(false);
         categoryTypeHintText.setText(getResources().getString(R.string.category_type_cannot_be_changed));
     }
 
     private void saveCategoryToDb(boolean shouldDeleteCategory) {
         EIncomeOrExpense type = radioIncome.isChecked() ? EIncomeOrExpense.INCOME : EIncomeOrExpense.EXPENSE;
-        String name = editTextCategoryName.getText().toString();
+        String name = shouldDeleteCategory
+                ? passedCategory.getName()
+                : editTextCategoryName.getText().toString();
         Category newCategory = new Category(type, name);
         if (shouldDeleteCategory) newCategory.disable();
 
@@ -84,7 +87,7 @@ public class AddOrEditCategoryActivity extends AppCompatActivity {
             if (passedCategory == null) {
                 Repository.getInstance().getDatabase().addCategory(newCategory);
             } else {
-                Repository.getInstance().getDatabase().updateCategory(newCategory.getName(), newCategory);
+                Repository.getInstance().getDatabase().updateCategory(passedCategory.getName(), newCategory);
             }
 
             finish();
