@@ -18,6 +18,7 @@ import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.EIncomeOrExpense;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.ETransactionType;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
+import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 
 public abstract class ATransactionActivity extends AppCompatActivity {
 
@@ -74,7 +75,7 @@ public abstract class ATransactionActivity extends AppCompatActivity {
     setContentView(R.layout.activity_transaction_details);
 
     Intent intent = getIntent();
-    displayedTransaction = intent.getParcelableExtra(Transaction.class.getName());
+    displayedTransaction = intent.getParcelableExtra(EIntents.TRANSACTION.toString());
     assert (displayedTransaction != null);
 
     amountEditText = findViewById(R.id.transaction_amount_edittext);

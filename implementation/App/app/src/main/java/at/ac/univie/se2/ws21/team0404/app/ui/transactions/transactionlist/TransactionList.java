@@ -14,6 +14,7 @@ import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
 import at.ac.univie.se2.ws21.team0404.app.ui.AListActivity;
 import at.ac.univie.se2.ws21.team0404.app.ui.transactions.TransactionNew;
+import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistException;
 
 public class TransactionList extends AListActivity<Transaction, TransactionListViewHolder> {
@@ -24,7 +25,7 @@ public class TransactionList extends AListActivity<Transaction, TransactionListV
     private AppAccount getAccount() {
         // TODO: make this safe. What if no account was passed? probably throw onw exception
         if (account == null) {
-            account = (AppAccount) passedIntent.getSerializableExtra(AppAccount.class.getName());
+            account = (AppAccount) passedIntent.getSerializableExtra(EIntents.ACCOUNT.toString());
         }
         return account;
     }

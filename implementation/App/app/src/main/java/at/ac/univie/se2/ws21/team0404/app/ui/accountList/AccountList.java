@@ -15,10 +15,10 @@ import java.util.List;
 import at.ac.univie.se2.ws21.team0404.app.R;
 import at.ac.univie.se2.ws21.team0404.app.database.Repository;
 import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
-import at.ac.univie.se2.ws21.team0404.app.model.account.EIntentExtra;
 import at.ac.univie.se2.ws21.team0404.app.model.account.ParcelableAppAccount;
 import at.ac.univie.se2.ws21.team0404.app.ui.newOrAddAccount.NewOrAddAccountActivity;
 import at.ac.univie.se2.ws21.team0404.app.utils.ChangingData;
+import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 
 // Part of the code here is temporary. It will be later moved into the Presenter Class
 
@@ -37,7 +37,7 @@ public class AccountList extends AppCompatActivity {
 
         accountListAdapter = new AccountListAdapter(account -> {
             Intent intent = new Intent(this, TemporaryIntermediaryActivity.class);
-            intent.putExtra(EIntentExtra.ACCOUNT.toString(), new ParcelableAppAccount(account));
+            intent.putExtra(EIntents.ACCOUNT.toString(), new ParcelableAppAccount(account));
             startActivity(intent);
         });
         recyclerView.setAdapter(accountListAdapter);
