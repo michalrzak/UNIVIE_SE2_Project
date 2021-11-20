@@ -1,6 +1,6 @@
 package at.ac.univie.se2.ws21.team0404.app.model.account;
 
-import androidx.annotation.NonNull;
+import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 
 /**
  * An Enum specifying the different account types available to the user.
@@ -19,7 +19,7 @@ public enum EAccountType {
 
     @NonNull
     @Override
-    public String toString(){
+    public String toString() {
         return type;
     }
 }

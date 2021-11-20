@@ -4,19 +4,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.ListAdapter;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import at.ac.univie.se2.ws21.team0404.app.database.IDatabase;
 import at.ac.univie.se2.ws21.team0404.app.database.Repository;
 import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
-import at.ac.univie.se2.ws21.team0404.app.ui.accountList.TemporaryDB;
+import at.ac.univie.se2.ws21.team0404.app.ui.AListActivity;
 import at.ac.univie.se2.ws21.team0404.app.ui.transactions.TransactionNew;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistException;
-import java.util.ArrayList;
-import java.util.Collection;
-
-import at.ac.univie.se2.ws21.team0404.app.ui.AListActivity;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class TransactionList extends AListActivity<Transaction, TransactionListViewHolder> {
 

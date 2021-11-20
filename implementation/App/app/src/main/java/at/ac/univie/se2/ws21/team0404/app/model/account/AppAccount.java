@@ -1,22 +1,32 @@
 package at.ac.univie.se2.ws21.team0404.app.model.account;
 
-import androidx.annotation.NonNull;
-import java.io.Serializable;
+import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 
 /**
  * A class which holds information on one account.
- *
+ * <p>
  * This class is not simply called "Account" as there exists another class Account in the
  * android framework and I want to avoid having to deal with this.
  */
-public class AppAccount implements Serializable {
+public class AppAccount {
 
-    private EAccountType type;
     private String name;
+    private EAccountType type;
+    private final int id;
 
-    public AppAccount(@NonNull EAccountType type, @NonNull String name) {
-        this.type = type;
+    // should maybe use another solution to create unique ids (UUID?)
+    private static int idCounter = 0;
+
+    public AppAccount(@NonNull String name, @NonNull EAccountType type) {
         this.name = name;
+        this.type = type;
+        id = idCounter++;
+    }
+
+    public AppAccount(@NonNull String name, @NonNull EAccountType type, int id) {
+        this.name = name;
+        this.type = type;
+        this.id = id;
     }
 
     public void setType(@NonNull EAccountType newType) {
@@ -35,6 +45,10 @@ public class AppAccount implements Serializable {
         return name;
     }
 
+    public int getId(){
+        return id;
+    }
+
     @Override
     public int hashCode() {
         return name.hashCode();
@@ -43,8 +57,8 @@ public class AppAccount implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof AppAccount)) return false;
         AppAccount that = (AppAccount) o;
-        return type == that.type && name.equals(that.name);
+        return id == that.id && name.equals(that.name) && type == that.type;
     }
 }

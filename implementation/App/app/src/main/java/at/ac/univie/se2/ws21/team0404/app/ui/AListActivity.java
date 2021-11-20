@@ -9,13 +9,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.Collection;
+import java.util.List;
 
 import at.ac.univie.se2.ws21.team0404.app.R;
-import java.util.List;
 
 public abstract class AListActivity<ModelClass, ViewHolder extends RecyclerView.ViewHolder> extends AppCompatActivity {
 
