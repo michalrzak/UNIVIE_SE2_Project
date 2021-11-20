@@ -6,4 +6,12 @@
     <string name="category_type">Category Type</string>
     <string name="category_name">Category Name</string>
     <string name="category_type_cannot_be_changed">Category type can\'t be changed after a category is created</string>
+
+    <string name="add_account">Add account</string>
+    <string name="hint_account_name">Enter account name</string>
+    <string name="hint_account_overdue_limit">Enter overdue limit</string>
+    <string name="amount">Amount</string>
+    <string name="button_save">Save</string>
+    <string name="transaction_type">Type</string>
+    <string name="transaction_category">Category</string>
 </resources>
