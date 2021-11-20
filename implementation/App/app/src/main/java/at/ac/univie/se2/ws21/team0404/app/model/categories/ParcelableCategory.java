@@ -3,17 +3,19 @@ package at.ac.univie.se2.ws21.team0404.app.model.categories;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
+
 public class ParcelableCategory extends Category implements Parcelable {
 
-    public ParcelableCategory(EIncomeOrExpense type, String name) {
+    public ParcelableCategory(@NonNull EIncomeOrExpense type, @NonNull String name) {
         super(type, name);
     }
 
-    public ParcelableCategory(Category category) {
+    public ParcelableCategory(@NonNull Category category) {
         super(category.getType(), category.getName());
     }
 
-    public ParcelableCategory(Parcel in) {
+    public ParcelableCategory(@NonNull Parcel in) {
         super(EIncomeOrExpense.valueOf(in.readString()), in.readString());
     }
 

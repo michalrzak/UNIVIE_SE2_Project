@@ -9,10 +9,8 @@ import androidx.recyclerview.widget.ListAdapter;
 
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.ParcelableTransaction;
 import at.ac.univie.se2.ws21.team0404.app.ui.transactions.TransactionDetails;
-import java.util.ArrayList;
 import java.util.List;
 
-import at.ac.univie.se2.ws21.team0404.app.database.IDatabase;
 import at.ac.univie.se2.ws21.team0404.app.database.Repository;
 import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
@@ -24,7 +22,8 @@ import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistExcep
 
 public class TransactionList extends AListActivity<Transaction, TransactionListViewHolder> {
 
-    @Nullable private AppAccount account;
+    @Nullable
+    private AppAccount account;
 
     @NonNull
     private AppAccount getAccount() {

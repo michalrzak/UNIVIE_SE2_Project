@@ -11,7 +11,7 @@ import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 
 public class AccountListAdapter extends ListAdapter<AppAccount, AccountListViewHolder> {
 
-    private Consumer<AppAccount> onClickListener;
+    private final Consumer<AppAccount> onClickListener;
 
     public AccountListAdapter(Consumer<AppAccount> onClickListener) {
         super(AppAccountDiffUtil);

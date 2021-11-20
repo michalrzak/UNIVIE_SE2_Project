@@ -5,9 +5,7 @@ import android.content.Intent;
 import androidx.recyclerview.widget.ListAdapter;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-import at.ac.univie.se2.ws21.team0404.app.database.IDatabase;
 import at.ac.univie.se2.ws21.team0404.app.database.Repository;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.ParcelableCategory;

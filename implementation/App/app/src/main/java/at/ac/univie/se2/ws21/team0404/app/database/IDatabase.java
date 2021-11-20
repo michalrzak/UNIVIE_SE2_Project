@@ -2,7 +2,6 @@ package at.ac.univie.se2.ws21.team0404.app.database;
 
 import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 import java.util.Collection;
-import java.util.Map;
 
 import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;

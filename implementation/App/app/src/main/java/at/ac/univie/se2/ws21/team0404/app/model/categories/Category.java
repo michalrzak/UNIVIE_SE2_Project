@@ -2,17 +2,14 @@ package at.ac.univie.se2.ws21.team0404.app.model.categories;
 
 import java.util.Objects;
 
+import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
+
 public class Category {
     private final EIncomeOrExpense type;
     private String name;
     private boolean disabled = false;
 
-    public Category(EIncomeOrExpense type, String name) {
-        // TODO: These checks should be replaced in the future
-        if (type == null || name == null) {
-            throw new IllegalArgumentException("Null argument in Category constructor!");
-        }
-
+    public Category(@NonNull EIncomeOrExpense type, @NonNull String name) {
         this.name = name;
         this.type = type;
     }
@@ -25,12 +22,7 @@ public class Category {
         return name;
     }
 
-    public void setName(String name) {
-        // TODO: These checks should be replaced in the future
-        if (name == null) {
-            throw new IllegalArgumentException("Null argument in Category constructor!");
-        }
-
+    public void setName(@NonNull String name) {
         this.name = name;
     }
 

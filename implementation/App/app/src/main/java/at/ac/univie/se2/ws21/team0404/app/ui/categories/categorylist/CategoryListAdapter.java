@@ -15,12 +15,12 @@ public class CategoryListAdapter extends ListAdapter<Category, CategoryListViewH
 
     public static final DiffUtil.ItemCallback<Category> categoryDiffUtil = new DiffUtil.ItemCallback<Category>() {
         @Override
-        public boolean areItemsTheSame(@androidx.annotation.NonNull @NonNull Category oldItem, @androidx.annotation.NonNull @NonNull Category newItem) {
+        public boolean areItemsTheSame(@NonNull Category oldItem, @NonNull Category newItem) {
             return oldItem == newItem;
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull Category oldItem, @androidx.annotation.NonNull @NonNull Category newItem) {
+        public boolean areContentsTheSame(@NonNull Category oldItem, @NonNull Category newItem) {
             return oldItem.equals(newItem);
         }
     };
@@ -30,10 +30,9 @@ public class CategoryListAdapter extends ListAdapter<Category, CategoryListViewH
         this.onClickListener = onClickListener;
     }
 
-    @androidx.annotation.NonNull
     @NonNull
     @Override
-    public CategoryListViewHolder onCreateViewHolder(@androidx.annotation.NonNull @NonNull ViewGroup parent, int viewType) {
+    public CategoryListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return CategoryListViewHolder.create(parent);
     }
 

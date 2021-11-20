@@ -3,7 +3,6 @@ package at.ac.univie.se2.ws21.team0404.app.model.transaction;
 
 import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 import at.ac.univie.se2.ws21.team0404.app.utils.Nullable;
-import java.io.Serializable;
 
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
 
@@ -12,7 +11,6 @@ import java.util.Optional;
 /**
  * Class, used to save information about a transaction.
  *
- * Implements Serializable to be able to be passed through intent
  */
 public class Transaction {
     private final int id;
@@ -59,7 +57,7 @@ public class Transaction {
     }
 
     /**
-     * Not every transaction needs to hava a category assigned. (See FR3 for reference)
+     * Not every transaction needs to have a category assigned. (See FR3 for reference)
      *
      * @return Optional category
      */
