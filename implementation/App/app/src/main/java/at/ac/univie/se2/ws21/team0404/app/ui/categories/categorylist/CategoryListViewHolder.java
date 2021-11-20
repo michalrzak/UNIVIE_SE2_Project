@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.core.util.Consumer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import at.ac.univie.se2.ws21.team0404.app.R;
@@ -20,8 +21,9 @@ public class CategoryListViewHolder extends RecyclerView.ViewHolder {
         nameView = itemView.findViewById(R.id.list_item_title);
     }
 
-    public void bind(@NonNull Category category) {
+    public void bind(@NonNull Category category, Consumer<Category> onClickListener) {
         nameView.setText(category.toString());
+        nameView.setOnClickListener(view -> onClickListener.accept(category));
     }
 
     static protected CategoryListViewHolder create(ViewGroup parent) {
