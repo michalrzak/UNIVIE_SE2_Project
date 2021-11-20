@@ -17,6 +17,7 @@ import at.ac.univie.se2.ws21.team0404.app.database.Repository;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.EIncomeOrExpense;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.ParcelableCategory;
+import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistException;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataExistsException;
 
@@ -44,7 +45,7 @@ public class AddOrEditCategoryActivity extends AppCompatActivity {
         deleteButton = findViewById(R.id.deleteButton);
 
         Intent passedIntent = getIntent();
-        passedCategory = (ParcelableCategory) passedIntent.getParcelableExtra(ParcelableCategory.class.getName());
+        passedCategory = (ParcelableCategory) passedIntent.getParcelableExtra(EIntents.CATEGORY.toString());
 
         setup(passedCategory);
     }

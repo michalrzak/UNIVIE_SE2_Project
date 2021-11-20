@@ -16,10 +16,10 @@ import at.ac.univie.se2.ws21.team0404.app.R;
 import at.ac.univie.se2.ws21.team0404.app.database.Repository;
 import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.account.EAccountType;
-import at.ac.univie.se2.ws21.team0404.app.model.account.EIntentExtra;
 import at.ac.univie.se2.ws21.team0404.app.model.account.ParcelableAppAccount;
 import at.ac.univie.se2.ws21.team0404.app.ui.accountList.AccountList;
 import at.ac.univie.se2.ws21.team0404.app.ui.accountList.TemporaryIntermediaryActivity;
+import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistException;
 
@@ -70,7 +70,7 @@ public class NewOrAddAccountActivity extends AppCompatActivity {
                 repository.deleteAppAccount(intentExtraAppAccount);
                 repository.createAppAccount(newAppAccount);
                 Intent intent = new Intent(this, TemporaryIntermediaryActivity.class);
-                intent.putExtra(EIntentExtra.ACCOUNT.toString(), new ParcelableAppAccount(newAppAccount));
+                intent.putExtra(EIntents.ACCOUNT.toString(), new ParcelableAppAccount(newAppAccount));
                 startActivity(intent);
             }
         } catch (Exception e){
@@ -79,7 +79,7 @@ public class NewOrAddAccountActivity extends AppCompatActivity {
     }
 
     private void setInputFields() {
-        intentExtraAppAccount = getIntent().getParcelableExtra(EIntentExtra.ACCOUNT.toString());
+        intentExtraAppAccount = getIntent().getParcelableExtra(EIntents.ACCOUNT.toString());
 
         Button button = findViewById(R.id.edit_or_add_account_button);
         button.setOnClickListener(view -> addOrEditAppAccount());
