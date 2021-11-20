@@ -26,7 +26,7 @@ public class CategoryList extends AListActivity<Category, CategoryListViewHolder
     protected List<Category> getList() {
         IDatabase database = Repository.getInstance().getDatabase();
 
-        return database.getCategories().values().stream()
+        return database.getCategories().stream()
                 .filter(category -> !category.isDisabled())
                 .collect(Collectors.toList());
     }
