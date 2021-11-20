@@ -13,10 +13,7 @@
         <activity
             android:name=".ui.newOrAddAccount.NewOrAddAccountActivity"
             android:exported="false" />
-        <activity
-            android:name=".ui.accountList.TemporaryIntermediaryActivity"
-            android:exported="false"/>
-        <activity
+      <activity
             android:name=".ui.categories.AddOrEditCategoryActivity"
             android:exported="true" />
         <activity

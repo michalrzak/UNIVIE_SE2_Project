@@ -1,9 +1,14 @@
 package at.ac.univie.se2.ws21.team0404.app.ui.transactions.transactionlist;
 
+import android.content.Intent;
+import android.util.Log;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.ListAdapter;
 
+import at.ac.univie.se2.ws21.team0404.app.model.transaction.ParcelableTransaction;
+import at.ac.univie.se2.ws21.team0404.app.ui.transactions.TransactionDetails;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,8 +30,9 @@ public class TransactionList extends AListActivity<Transaction, TransactionListV
     private AppAccount getAccount() {
         // TODO: make this safe. What if no account was passed? probably throw onw exception
         if (account == null) {
-            account = (AppAccount) passedIntent.getSerializableExtra(EIntents.ACCOUNT.toString());
+            account = passedIntent.getParcelableExtra(EIntents.ACCOUNT.toString());
         }
+
         return account;
     }
 
@@ -37,7 +43,11 @@ public class TransactionList extends AListActivity<Transaction, TransactionListV
 
     @Override
     protected ListAdapter<Transaction, TransactionListViewHolder> getAdapter() {
-        return new TransactionListAdapter();
+        return new TransactionListAdapter(transaction -> {
+            Intent intent = new Intent(this, TransactionDetails.class);
+            intent.putExtra(EIntents.TRANSACTION.toString(), new ParcelableTransaction(transaction));
+            startActivity(intent);
+        });
     }
 
     @Override
@@ -46,16 +56,15 @@ public class TransactionList extends AListActivity<Transaction, TransactionListV
         IDatabase database = repository.getDatabase();
         
         try {
-            return database.getTransactions(getAccount()).stream().collect(Collectors.toList());
+            return new ArrayList<Transaction>(database.getTransactions(getAccount()));
         } catch (DataDoesNotExistException e) {
-            // TODO: redirect back to accounts screen
+            Log.e("TransactionList_getList", "Tried to query for transactions of an account from the database, but an error was returned. Message: " + e.getMessage());
+            Toast.makeText(this, "There seems to be a problem with the database. This account does not exist", Toast.LENGTH_LONG);
+            finish();
         }
         
-        // if an error occured return empty list
+        // if an error occurred return empty list
         // this should never cause problems, as the catch block should redirect in that case
-        // TODO: can an assert be used here?
-        // assert(false); 
-        
         return new ArrayList<>();
     }
 }
