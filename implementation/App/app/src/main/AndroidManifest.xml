@@ -29,6 +29,9 @@
             android:name=".ui.accountList.AccountList"
             android:exported="false" />
         <activity
+            android:name=".ui.categories.categorylist.CategoryList"
+            android:exported="false" />
+        <activity
             android:name=".ui.transactions.transactionlist.TransactionList"
             android:exported="false" />
         <activity
