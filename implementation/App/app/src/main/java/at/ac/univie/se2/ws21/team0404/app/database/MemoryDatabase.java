@@ -32,11 +32,17 @@ public class MemoryDatabase implements IDatabase{
     }
 
     public Collection<Transaction> getTransactions(@NonNull AppAccount account) throws DataDoesNotExistException {
-        if (transactions.containsKey(account)) {
-            return transactions.get(account);
+        if (!accounts.contains(account)) {
+            throw new DataDoesNotExistException("accounts");
         }
 
-        throw new DataDoesNotExistException("transactions");
+        if (!transactions.containsKey(account)) {
+            transactions.put(account, new HashSet<>());
+        }
+
+        Set<Transaction> ret = transactions.get(account);
+        assert (ret != null);
+        return ret;
     }
 
     @Override
@@ -64,9 +70,14 @@ public class MemoryDatabase implements IDatabase{
     // TODO: finnish this method
     public void addTransaction(@NonNull AppAccount owner, @NonNull Transaction newTransaction)
             throws DataExistsException, DataDoesNotExistException {
-        if (!transactions.containsKey(owner)) {
+        if (!accounts.contains(owner)) {
             throw new DataDoesNotExistException("accounts");
         }
+
+        if (!transactions.containsKey(owner)) {
+            transactions.put(owner, new HashSet<>());
+        }
+
         if (!transactions.get(owner).add(newTransaction)){
             throw new DataExistsException("transactions");
         }

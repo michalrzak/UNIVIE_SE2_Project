@@ -2,15 +2,21 @@ package at.ac.univie.se2.ws21.team0404.app.ui.transactions;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import at.ac.univie.se2.ws21.team0404.app.database.Repository;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import at.ac.univie.se2.ws21.team0404.app.R;
@@ -31,19 +37,8 @@ public abstract class ATransactionActivity extends AppCompatActivity {
    * @return List of available categories
    */
   private static List<Category> getAllCategories() {
-    List<Category> categories = new ArrayList<>();
-
-    // for now this will be mocked, later pull from database and use the proper type
-    categories.add(new Category(EIncomeOrExpense.INCOME, "A"));
-    categories.add(new Category(EIncomeOrExpense.INCOME,"B"));
-    categories.add(new Category(EIncomeOrExpense.INCOME,"C"));
-    categories.add(new Category(EIncomeOrExpense.INCOME,"D"));
-    categories.add(new Category(EIncomeOrExpense.INCOME,"E"));
-
-    return categories;
+    return new ArrayList<>(Repository.getInstance().getDatabase().getCategories());
   }
-
-  protected Transaction displayedTransaction;
 
   /**
    * Views, made available to the subclass
@@ -60,7 +55,7 @@ public abstract class ATransactionActivity extends AppCompatActivity {
 
   /**
    * This method gets called at the end of create. Use this to set values to the Views if needed
-   * and perform other setup tasks
+   *  and perform other setup tasks
    */
   abstract void setup();
 
@@ -74,10 +69,10 @@ public abstract class ATransactionActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_transaction_details);
 
-    Intent intent = getIntent();
-    displayedTransaction = intent.getParcelableExtra(EIntents.TRANSACTION.toString());
-    assert (displayedTransaction != null);
-
+    ActionBar actionBar = getSupportActionBar();
+    assert (actionBar != null);
+    actionBar.setDisplayHomeAsUpEnabled(true);
+    
     amountEditText = findViewById(R.id.transaction_amount_edittext);
 
     typeSpinner = findViewById(R.id.transaction_type_spinner);
@@ -95,5 +90,17 @@ public abstract class ATransactionActivity extends AppCompatActivity {
     button.setOnClickListener(view -> saveTransaction());
 
     setup();
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+    Log.d("OptionsItemSelected", String.format("Selected item with id %d", item.getItemId()));
+
+    switch (item.getItemId()) {
+      default:
+        finish();
+        return true;
+    }
   }
 }

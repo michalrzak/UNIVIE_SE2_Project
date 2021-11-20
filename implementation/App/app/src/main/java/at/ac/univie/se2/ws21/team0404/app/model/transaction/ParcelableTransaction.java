@@ -3,6 +3,7 @@ package at.ac.univie.se2.ws21.team0404.app.model.transaction;
 import android.os.Parcel;
 import android.os.Parcelable;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
+import at.ac.univie.se2.ws21.team0404.app.model.categories.ParcelableCategory;
 import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 import at.ac.univie.se2.ws21.team0404.app.utils.Nullable;
 
@@ -53,8 +54,12 @@ public class ParcelableTransaction extends Transaction implements Parcelable {
   @Override
   public void writeToParcel(@NonNull Parcel parcel, int i) {
     parcel.writeInt(getId());
-    // TODO: change this to parcelable. Problem: category can be null!!!
-    parcel.writeValue(getRawCategory());
+
+    // Categories can be null.
+    Category category = getRawCategory();
+    ParcelableCategory parcelableCategory = category != null ? new ParcelableCategory(category): null;
+    parcel.writeValue(parcelableCategory);
+
     // Unfortunately this looks like the best way to pass enums.
     parcel.writeInt(getType().ordinal());
     parcel.writeInt(getAmount());

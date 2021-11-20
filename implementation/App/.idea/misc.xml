@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/layout/listitem_account.xml" value="0.1415237134207871" />
+      </map>
+    </option>
+  </component>
   <component name="NullableNotNullManager">
     <option name="myDefaultNullable" value="at.ac.univie.se2.ws21.team0404.app.utils.Nullable" />
     <option name="myDefaultNotNull" value="at.ac.univie.se2.ws21.team0404.app.utils.NonNull" />

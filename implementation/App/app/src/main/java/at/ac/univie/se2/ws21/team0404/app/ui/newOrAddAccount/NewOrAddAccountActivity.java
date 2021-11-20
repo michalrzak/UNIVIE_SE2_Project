@@ -18,8 +18,10 @@ import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.account.EAccountType;
 import at.ac.univie.se2.ws21.team0404.app.model.account.ParcelableAppAccount;
 import at.ac.univie.se2.ws21.team0404.app.ui.accountList.AccountList;
-import at.ac.univie.se2.ws21.team0404.app.ui.accountList.TemporaryIntermediaryActivity;
+
 import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
+
+import at.ac.univie.se2.ws21.team0404.app.ui.transactions.transactionlist.TransactionList;
 import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistException;
 
@@ -69,8 +71,10 @@ public class NewOrAddAccountActivity extends AppCompatActivity {
                 AppAccount newAppAccount = new AppAccount(accountNameValue, accountType, intentExtraAppAccount.getId());
                 repository.deleteAppAccount(intentExtraAppAccount);
                 repository.createAppAccount(newAppAccount);
-                Intent intent = new Intent(this, TemporaryIntermediaryActivity.class);
+
+                Intent intent = new Intent(this, TransactionList.class);
                 intent.putExtra(EIntents.ACCOUNT.toString(), new ParcelableAppAccount(newAppAccount));
+
                 startActivity(intent);
             }
         } catch (Exception e){

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 
+import at.ac.univie.se2.ws21.team0404.app.ui.transactions.transactionlist.TransactionList;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -36,10 +37,12 @@ public class AccountList extends AppCompatActivity {
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
         accountListAdapter = new AccountListAdapter(account -> {
-            Intent intent = new Intent(this, TemporaryIntermediaryActivity.class);
+            Intent intent = new Intent(this, TransactionList.class);
             intent.putExtra(EIntents.ACCOUNT.toString(), new ParcelableAppAccount(account));
+
             startActivity(intent);
         });
+
         recyclerView.setAdapter(accountListAdapter);
 
         ChangingData<List<AppAccount>> accountListData = Repository.getInstance().getAccountList();
