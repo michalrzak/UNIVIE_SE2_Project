@@ -11,6 +11,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App">
         <activity
+            android:name=".ui.newOrAddAccount.NewOrAddAccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.accountList.TemporaryIntermediaryActivity"
+            android:exported="false"/>
+        <activity
             android:name=".ui.categories.AddOrEditCategoryActivity"
             android:exported="true" />
         <activity
@@ -26,14 +32,10 @@
             android:name=".ui.transactions.transactionlist.TransactionList"
             android:exported="false" />
         <activity
-            android:name=".ui.newOrAddAccount.NewOrAddAccountActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.mainactivity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -41,12 +41,19 @@ public class MemoryDatabase implements IDatabase{
 
     @Override
     public void addAccount(@NonNull AppAccount newAccount) throws DataExistsException {
+        if (newAccount.getName().isEmpty())
+            throw new IllegalArgumentException("Account has to have a name");
         if (!accounts.add(newAccount)) {
             throw new DataExistsException("accounts");
         }
     }
 
     @Override
+    public void deleteAccount(AppAccount newAccount) throws DataDoesNotExistException {
+        if(!accounts.remove(newAccount))
+            throw new DataDoesNotExistException("account");
+    }
+    
     public void addCategory(Category newCategory) throws DataExistsException {
         if(categories.containsKey(newCategory.getName())) {
             throw new DataExistsException("categories");

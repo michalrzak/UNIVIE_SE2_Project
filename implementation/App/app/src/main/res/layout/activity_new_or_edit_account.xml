@@ -9,7 +9,7 @@
         android:id="@+id/account_name_edit_add"
         android:layout_width="320dp"
         android:layout_height="54dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="@dimen/account_field_top_margin"
         android:ems="10"
         android:hint="@string/hint_account_name"
         android:inputType="textPersonName"
@@ -21,34 +21,24 @@
     <Spinner
         android:id="@+id/account_type_spinner"
         android:layout_width="320dp"
-        android:layout_height="42dp"
-        android:layout_marginTop="32dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="@dimen/account_spinner_top_margin"
         android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/account_name_edit_add" />
+        app:layout_constraintTop_toBottomOf="@+id/account_name_edit_add"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
         android:id="@+id/edit_or_add_account_button"
         android:layout_width="160dp"
         android:layout_height="70dp"
-        android:layout_marginTop="40dp"
-        android:text="Button"
+        android:layout_marginTop="68dp"
+        android:text="@string/edit_add_button"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/account_overdue_limit" />
-
-    <EditText
-        android:id="@+id/account_overdue_limit"
-        android:layout_width="320dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:ems="10"
-        android:hint="@string/hint_account_overdue_limit"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/account_type_spinner" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

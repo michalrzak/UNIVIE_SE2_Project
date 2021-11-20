@@ -2,19 +2,22 @@ package at.ac.univie.se2.ws21.team0404.app.ui.transactions;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import at.ac.univie.se2.ws21.team0404.app.R;
-import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
-import at.ac.univie.se2.ws21.team0404.app.model.transaction.ETransactionType;
-import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import at.ac.univie.se2.ws21.team0404.app.R;
+import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
+import at.ac.univie.se2.ws21.team0404.app.model.categories.EIncomeOrExpense;
+import at.ac.univie.se2.ws21.team0404.app.model.transaction.ETransactionType;
+import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
 
 public abstract class ATransactionActivity extends AppCompatActivity {
 
@@ -27,6 +30,7 @@ public abstract class ATransactionActivity extends AppCompatActivity {
     private final String name;
 
     public MockCategory(String name){
+      super(EIncomeOrExpense.EXPENSE, name); // Rumen: added this so it can compile
       this.name = name;
     }
 

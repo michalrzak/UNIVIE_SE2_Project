@@ -1,19 +1,15 @@
 package at.ac.univie.se2.ws21.team0404.app.ui.mainactivity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import at.ac.univie.se2.ws21.team0404.app.R;
+import at.ac.univie.se2.ws21.team0404.app.database.Repository;
 import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.account.EAccountType;
-import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
-import at.ac.univie.se2.ws21.team0404.app.model.transaction.ETransactionType;
-import at.ac.univie.se2.ws21.team0404.app.model.transaction.ParcelableTransaction;
-import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
-import at.ac.univie.se2.ws21.team0404.app.ui.transactions.TransactionDetails;
-import at.ac.univie.se2.ws21.team0404.app.ui.transactions.transactionlist.TransactionList;
+import at.ac.univie.se2.ws21.team0404.app.ui.accountList.AccountList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,15 +21,22 @@ public class MainActivity extends AppCompatActivity {
         // temporary for testing
         // Intent intent = new Intent(this, AccountList.class);
 
-        Transaction transaction = new Transaction(0, new Category(), ETransactionType.EXPENSE, 250);
+        /*Transaction transaction = new Transaction(0, new Category(), ETransactionType.EXPENSE, 250);
         Intent intent = new Intent(this, TransactionDetails.class);
         intent.putExtra(Transaction.class.getName(), new ParcelableTransaction(transaction));
-        startActivity(intent);
+        startActivity(intent);*/
 
         /*
         Intent intent = new Intent(this, TransactionList.class);
         intent.putExtra(AppAccount.class.getName(), new AppAccount(EAccountType.BANK, "amazing account"));
         startActivity(intent);
         */
+
+        try {
+            Repository.getInstance().getDatabase().addAccount(new AppAccount("Investment", EAccountType.STOCK));
+        } catch (Exception ignored) {}
+        Intent intent = new Intent(this, AccountList.class);
+        startActivity(intent);
+
     }
 }

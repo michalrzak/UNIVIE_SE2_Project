@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">App</string>
+    <string name="edit_icon">Edit</string>
+    <string name="back_icon">Go Back</string>
+    <string name="edit_add_button"> Add/Edit Button</string>
+    <string name="edit_button"> Edit </string>
+    <string name="add_button"> Add </string>
+    
     <string name="expense">Expense</string>
     <string name="income">Income</string>
     <string name="delete_this_category">Delete This Category</string>

@@ -19,6 +19,7 @@ public interface IDatabase {
     @NonNull Collection<Transaction> getTransactions(@NonNull AppAccount account) throws DataDoesNotExistException;
 
     void addAccount(@NonNull AppAccount newAccount) throws DataExistsException;
+    void deleteAccount(AppAccount newAccount) throws DataDoesNotExistException;
     void addTransaction(@NonNull AppAccount owner, @NonNull Transaction newTransaction)
             throws DataExistsException, DataDoesNotExistException;
     // the transaction with the given ID can already exist or the owner of the transaction may
