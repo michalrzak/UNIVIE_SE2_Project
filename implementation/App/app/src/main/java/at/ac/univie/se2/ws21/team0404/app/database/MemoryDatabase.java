@@ -1,12 +1,12 @@
 package at.ac.univie.se2.ws21.team0404.app.database;
 
-import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
@@ -31,6 +31,7 @@ public class MemoryDatabase implements IDatabase{
         return categories.values();
     }
 
+    @NonNull
     public Collection<Transaction> getTransactions(@NonNull AppAccount account) throws DataDoesNotExistException {
         if (!accounts.contains(account)) {
             throw new DataDoesNotExistException("accounts");
@@ -60,7 +61,7 @@ public class MemoryDatabase implements IDatabase{
             throw new DataDoesNotExistException("account");
     }
     
-    public void addCategory(Category newCategory) throws DataExistsException {
+    public void addCategory(@NonNull Category newCategory) throws DataExistsException {
         if(categories.containsKey(newCategory.getName())) {
             throw new DataExistsException("categories");
         }
@@ -85,7 +86,7 @@ public class MemoryDatabase implements IDatabase{
 
 
     @Override
-    public void updateCategory(String categoryName, Category newCategory) throws DataDoesNotExistException {
+    public void updateCategory(@NonNull String categoryName, @NonNull Category newCategory) throws DataDoesNotExistException {
         if (!categories.containsKey(categoryName)) {
             throw new DataDoesNotExistException("categories");
         }

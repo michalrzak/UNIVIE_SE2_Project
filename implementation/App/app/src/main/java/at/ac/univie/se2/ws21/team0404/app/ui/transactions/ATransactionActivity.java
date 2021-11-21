@@ -1,6 +1,5 @@
 package at.ac.univie.se2.ws21.team0404.app.ui.transactions;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -55,7 +54,6 @@ public abstract class ATransactionActivity extends AppCompatActivity {
 
   //TODO: implement this once the db stuff is ready
   private void saveTransaction() {
-    return;
   }
 
   @Override

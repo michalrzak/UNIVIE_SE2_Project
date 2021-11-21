@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +27,6 @@ public class AddOrEditCategoryActivity extends AppCompatActivity {
     private EditText editTextCategoryName;
     private RadioButton radioIncome;
     private RadioButton radioExpense;
-    private RadioGroup radioGroup;
     private TextView categoryTypeHintText;
     private Button deleteButton;
 
@@ -40,7 +38,6 @@ public class AddOrEditCategoryActivity extends AppCompatActivity {
         editTextCategoryName = findViewById(R.id.editTextCategoryName);
         radioIncome = findViewById(R.id.radioIncome);
         radioExpense = findViewById(R.id.radioExpense);
-        radioGroup = findViewById(R.id.radioGroup);
         categoryTypeHintText = findViewById(R.id.categoryTypeHintText);
         deleteButton = findViewById(R.id.deleteButton);
 
@@ -83,14 +80,12 @@ public class AddOrEditCategoryActivity extends AppCompatActivity {
         Category newCategory = new Category(type, name);
         if (shouldDeleteCategory) newCategory.disable();
 
-        // TODO: Handle more elegantly
         try {
             if (passedCategory == null) {
                 Repository.getInstance().createCategory(newCategory);
             } else {
                 Repository.getInstance().updateCategory(passedCategory.getName(), newCategory);
             }
-
             finish();
         } catch (DataExistsException e) {
             Toast.makeText(getApplicationContext(), "Attempted to add already existing category!", Toast.LENGTH_SHORT).show();
@@ -105,6 +100,5 @@ public class AddOrEditCategoryActivity extends AppCompatActivity {
 
     public void onDelete(View view) {
         saveCategoryToDb(true);
-        // TODO: navigate user out of this activity
     }
 }

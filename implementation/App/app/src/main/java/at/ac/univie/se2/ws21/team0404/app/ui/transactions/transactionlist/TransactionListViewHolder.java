@@ -10,7 +10,6 @@ import androidx.core.util.Consumer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import at.ac.univie.se2.ws21.team0404.app.R;
-import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
 
 public class TransactionListViewHolder extends RecyclerView.ViewHolder{

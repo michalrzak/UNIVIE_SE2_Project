@@ -1,7 +1,6 @@
 package at.ac.univie.se2.ws21.team0404.app.database;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
