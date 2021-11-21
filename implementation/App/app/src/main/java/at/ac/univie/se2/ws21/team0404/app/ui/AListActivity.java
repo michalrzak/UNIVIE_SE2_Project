@@ -18,6 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
 
 import at.ac.univie.se2.ws21.team0404.app.R;
+import at.ac.univie.se2.ws21.team0404.app.utils.ChangingData;
 
 public abstract class AListActivity<ModelClass, ViewHolder extends RecyclerView.ViewHolder> extends AppCompatActivity {
 
@@ -45,7 +46,7 @@ public abstract class AListActivity<ModelClass, ViewHolder extends RecyclerView.
      *
      * @return List\<ModelClass\> used by the recycler view
      */
-    protected abstract List<ModelClass> getList();
+    protected abstract ChangingData<List<ModelClass>> getList();
 
     private ListAdapter<ModelClass, ViewHolder> adapter;
 
@@ -68,7 +69,8 @@ public abstract class AListActivity<ModelClass, ViewHolder extends RecyclerView.
         adapter = getAdapter();
         recyclerView.setAdapter(adapter);
 
-        adapter.submitList(getList());
+        ChangingData<List<ModelClass>> listData = getList();
+        listData.observe(data -> adapter.submitList(data));
 
         FloatingActionButton fab = findViewById(R.id.floating_button);
         fab.setOnClickListener(view -> {

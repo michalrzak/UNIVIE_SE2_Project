@@ -11,7 +11,6 @@ import at.ac.univie.se2.ws21.team0404.app.model.transaction.ParcelableTransactio
 import at.ac.univie.se2.ws21.team0404.app.ui.transactions.TransactionDetails;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import at.ac.univie.se2.ws21.team0404.app.database.IDatabase;
 import at.ac.univie.se2.ws21.team0404.app.database.Repository;
@@ -19,6 +18,7 @@ import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
 import at.ac.univie.se2.ws21.team0404.app.ui.AListActivity;
 import at.ac.univie.se2.ws21.team0404.app.ui.transactions.TransactionNew;
+import at.ac.univie.se2.ws21.team0404.app.utils.ChangingData;
 import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistException;
 
@@ -51,20 +51,18 @@ public class TransactionList extends AListActivity<Transaction, TransactionListV
     }
 
     @Override
-    protected List<Transaction> getList() {
-        Repository repository = Repository.getInstance();
-        IDatabase database = repository.getDatabase();
-        
+    protected ChangingData<List<Transaction>> getList() {
         try {
-            return new ArrayList<Transaction>(database.getTransactions(getAccount()));
+            return Repository.getInstance().getTransactionList(getAccount());
         } catch (DataDoesNotExistException e) {
             Log.e("TransactionList_getList", "Tried to query for transactions of an account from the database, but an error was returned. Message: " + e.getMessage());
-            Toast.makeText(this, "There seems to be a problem with the database. This account does not exist", Toast.LENGTH_LONG);
+            Toast.makeText(this, "There seems to be a problem with the database. This account does not exist", Toast.LENGTH_LONG).show();
             finish();
         }
         
         // if an error occurred return empty list
         // this should never cause problems, as the catch block should redirect in that case
-        return new ArrayList<>();
+        // FIXME: take care of this branch!
+        return null;
     }
 }

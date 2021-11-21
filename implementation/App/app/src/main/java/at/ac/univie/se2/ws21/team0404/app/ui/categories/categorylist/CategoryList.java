@@ -13,6 +13,7 @@ import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.ParcelableCategory;
 import at.ac.univie.se2.ws21.team0404.app.ui.AListActivity;
 import at.ac.univie.se2.ws21.team0404.app.ui.categories.AddOrEditCategoryActivity;
+import at.ac.univie.se2.ws21.team0404.app.utils.ChangingData;
 import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 
 public class CategoryList extends AListActivity<Category, CategoryListViewHolder> {
@@ -31,11 +32,7 @@ public class CategoryList extends AListActivity<Category, CategoryListViewHolder
     }
 
     @Override
-    protected List<Category> getList() {
-        IDatabase database = Repository.getInstance().getDatabase();
-
-        return database.getCategories().stream()
-                .filter(category -> !category.isDisabled())
-                .collect(Collectors.toList());
+    protected ChangingData<List<Category>> getList() {
+        return Repository.getInstance().getCategoryList();
     }
 }

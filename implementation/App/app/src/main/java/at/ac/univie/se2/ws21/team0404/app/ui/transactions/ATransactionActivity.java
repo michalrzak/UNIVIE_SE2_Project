@@ -10,21 +10,15 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import at.ac.univie.se2.ws21.team0404.app.database.Repository;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import at.ac.univie.se2.ws21.team0404.app.R;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
-import at.ac.univie.se2.ws21.team0404.app.model.categories.EIncomeOrExpense;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.ETransactionType;
-import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
-import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 
 public abstract class ATransactionActivity extends AppCompatActivity {
 
@@ -37,7 +31,7 @@ public abstract class ATransactionActivity extends AppCompatActivity {
    * @return List of available categories
    */
   private static List<Category> getAllCategories() {
-    return new ArrayList<>(Repository.getInstance().getDatabase().getCategories());
+    return Repository.getInstance().getCategoryList().getData();
   }
 
   /**
