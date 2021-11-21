@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App">
         <activity
-            android:name=".ui.newOrAddAccount.NewOrAddAccountActivity"
+            android:name=".ui.account.newOrAddAccount.NewOrAddAccountActivity"
             android:exported="false" />
       <activity
             android:name=".ui.categories.AddOrEditCategoryActivity"
@@ -23,7 +23,7 @@
           android:name=".ui.transactions.TransactionNew"
           android:exported="false" />
         <activity
-            android:name=".ui.accountList.AccountList"
+            android:name=".ui.account.accountList.AccountList"
             android:exported="false" />
         <activity
             android:name=".ui.categories.categorylist.CategoryList"

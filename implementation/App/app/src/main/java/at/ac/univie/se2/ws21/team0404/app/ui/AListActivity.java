@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -71,12 +73,11 @@ public abstract class AListActivity<ModelClass, ViewHolder extends RecyclerView.
 
         ChangingData<List<ModelClass>> listData = getList();
         listData.observe(data -> adapter.submitList(data));
+    }
 
-        FloatingActionButton fab = findViewById(R.id.floating_button);
-        fab.setOnClickListener(view -> {
-            Intent intent = new Intent(this, getFabRedirect());
-            startActivity(intent);
-        });
+    public void onFabClick(View view){
+        Intent intent = new Intent(this, getFabRedirect());
+        startActivity(intent);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package at.ac.univie.se2.ws21.team0404.app.ui.newOrAddAccount;
+package at.ac.univie.se2.ws21.team0404.app.ui.account.newOrAddAccount;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,7 +17,7 @@ import at.ac.univie.se2.ws21.team0404.app.database.Repository;
 import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.account.EAccountType;
 import at.ac.univie.se2.ws21.team0404.app.model.account.ParcelableAppAccount;
-import at.ac.univie.se2.ws21.team0404.app.ui.accountList.AccountList;
+import at.ac.univie.se2.ws21.team0404.app.ui.account.accountList.AccountList;
 
 import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 

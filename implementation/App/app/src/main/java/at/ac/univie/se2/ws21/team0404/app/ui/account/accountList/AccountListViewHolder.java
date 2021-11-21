@@ -1,4 +1,4 @@
-package at.ac.univie.se2.ws21.team0404.app.ui.accountList;
+package at.ac.univie.se2.ws21.team0404.app.ui.account.accountList;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +17,7 @@ public class AccountListViewHolder extends RecyclerView.ViewHolder {
 
     public AccountListViewHolder(@NonNull View view) {
         super(view);
-        accountNameView = view.findViewById(R.id.account_name);
+        accountNameView = view.findViewById(R.id.list_item_title);
     }
 
     public void bind(@NonNull AppAccount account, Consumer<AppAccount> onClickListener) {
@@ -26,7 +26,7 @@ public class AccountListViewHolder extends RecyclerView.ViewHolder {
     }
 
     static AccountListViewHolder create(ViewGroup parent) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.listitem_account, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.listitem, parent, false);
         return new AccountListViewHolder(view);
     }
 }

@@ -59,6 +59,6 @@ public class AppAccount {
         if (this == o) return true;
         if (!(o instanceof AppAccount)) return false;
         AppAccount that = (AppAccount) o;
-        return id == that.id && name.equals(that.name) && type == that.type;
+        return name.equals(that.name) && type == that.type;
     }
 }
