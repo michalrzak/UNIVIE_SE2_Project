@@ -65,7 +65,9 @@ public abstract class AListActivity<ModelClass, ViewHolder extends RecyclerView.
     recyclerView.setAdapter(adapter);
 
     ChangingData<List<ModelClass>> listData = getList();
-    listData.observe(data -> adapter.submitList(data));
+    listData.observe(data ->  {
+      adapter.submitList(data);
+    });
   }
 
   public void onFabClick(View view) {

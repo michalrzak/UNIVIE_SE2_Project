@@ -47,7 +47,7 @@ public class Repository {
     this.databaseStrategy = databaseStrategy;
   }
 
-  public IDatabase getDatabase() {
+  private IDatabase getDatabase() {
     return this.databaseStrategy;
   }
 
@@ -88,9 +88,16 @@ public class Repository {
     reloadCategories();
   }
 
+  public void updateTransaction(AppAccount owner, int oldId,
+      Transaction updatedTransaction) throws DataDoesNotExistException {
+    databaseStrategy.updateTransaction(owner, oldId, updatedTransaction);
+    reloadTransactions(owner);
+  }
+
   public void createTransaction(@NonNull AppAccount owner, @NonNull Transaction transaction)
       throws DataExistsException, DataDoesNotExistException {
     getDatabase().addTransaction(owner, transaction);
+    reloadTransactions(owner);
   }
 
   private void reloadAccounts() {

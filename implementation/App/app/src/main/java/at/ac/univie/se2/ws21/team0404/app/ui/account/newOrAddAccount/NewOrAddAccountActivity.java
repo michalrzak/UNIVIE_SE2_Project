@@ -103,7 +103,7 @@ public class NewOrAddAccountActivity extends AppCompatActivity {
     if (item.getItemId() == R.id.delete_menu_icon) {
       // when pressing delete icon
       try {
-        repository.getDatabase().deleteAccount(intentExtraAppAccount);
+        repository.deleteAppAccount(intentExtraAppAccount);
       } catch (DataDoesNotExistException e) {
         Toast.makeText(getApplicationContext(), "This error shouldn't happen", Toast.LENGTH_SHORT)
             .show();

@@ -47,7 +47,7 @@ public class TransactionList extends AListActivity<Transaction, TransactionListV
           Transaction transaction = intentRes.getParcelableExtra(EIntents.TRANSACTION.toString());
 
           try {
-            Repository.getInstance().getDatabase().addTransaction(account, transaction);
+            Repository.getInstance().createTransaction(account, transaction);
             Log.d("TransactionList_result", "Successfully added transaction");
           } catch (DataDoesNotExistException e) {
             Log.e("TransactionList_result",
@@ -93,7 +93,7 @@ public class TransactionList extends AListActivity<Transaction, TransactionListV
           assert (oldId != -1);
 
           try {
-            Repository.getInstance().getDatabase().updateTransaction(account, oldId, transaction);
+            Repository.getInstance().updateTransaction(account, oldId, transaction);
             Log.d("TransactionList_result", "Successfully updated transaction");
           } catch (DataDoesNotExistException e) {
             Log.e("TransactionList_result",
