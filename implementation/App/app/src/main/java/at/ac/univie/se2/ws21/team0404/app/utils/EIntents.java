@@ -5,7 +5,7 @@ package at.ac.univie.se2.ws21.team0404.app.utils;
  * methods of Intent.
  */
 public enum EIntents {
-    CATEGORY("Category"), TRANSACTION("Transaction"), ACCOUNT("Account");
+    CATEGORY("Category"), TRANSACTION("Transaction"), ACCOUNT("Account"), TRANSACTION_ID("transaction_id");
 
     private final String name;
 

@@ -29,5 +29,8 @@ public interface IDatabase {
     // should not be needed
     // public void updateAccount(AppAccount oldAccount, AppAccount newAccount) throws DataDoesNotExistException;
     void addCategory(Category newCategory) throws DataExistsException;
+
     void updateCategory(String categoryName, Category newCategory) throws DataDoesNotExistException;
+    void updateTransaction(AppAccount owner, int oldId,
+        Transaction updatedTransaction) throws DataDoesNotExistException;
 }

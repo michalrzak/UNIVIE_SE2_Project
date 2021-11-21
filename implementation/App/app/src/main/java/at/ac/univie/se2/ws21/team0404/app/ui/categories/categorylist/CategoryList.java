@@ -4,6 +4,7 @@ import android.content.Intent;
 
 import androidx.recyclerview.widget.ListAdapter;
 
+import at.ac.univie.se2.ws21.team0404.app.ui.transactions.TransactionNew;
 import java.util.List;
 
 import at.ac.univie.se2.ws21.team0404.app.database.Repository;
@@ -16,8 +17,11 @@ import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 
 public class CategoryList extends AListActivity<Category, CategoryListViewHolder> {
     @Override
-    protected Class getFabRedirect() {
-        return AddOrEditCategoryActivity.class;
+    protected Runnable getFabRedirect() {
+        return () -> {
+            Intent intent = new Intent(this, AddOrEditCategoryActivity.class);
+            startActivity(intent);
+        };
     }
 
     @Override

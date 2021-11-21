@@ -13,6 +13,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import at.ac.univie.se2.ws21.team0404.app.database.Repository;
+import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
 import java.util.List;
 
 import at.ac.univie.se2.ws21.team0404.app.R;
@@ -52,8 +53,49 @@ public abstract class ATransactionActivity extends AppCompatActivity {
    */
   abstract void setup();
 
-  //TODO: implement this once the db stuff is ready
-  private void saveTransaction() {
+  /**
+   * This function gets called once the "save" button gets pressed.
+   * Provide implementations in the subclasses
+   */
+  abstract protected void saveButtonPressed();
+
+  /**
+   * Takes the values from the form and creates a new Transaction object from them.
+   *
+   * Careful! This object has a new unique ID.
+   *
+   * @return a new Transaction object based on the values provided in the form
+   */
+  @NonNull
+  protected Transaction getTransactionFromForm() {
+    Object category = categorySpinner.getSelectedItem();
+    Object type = typeSpinner.getSelectedItem();
+
+    assert (type != null);
+    assert (type instanceof ETransactionType);
+    // as category is optional it can be returned as null
+    // TODO: maybe change this away from null to some special enum value
+    assert (category == null || category instanceof Category);
+
+    int amount;
+    String amountText = amountEditText.getText().toString();
+    try {
+      amount = Integer.parseInt(amountText);
+    } catch (NumberFormatException e) {
+      if (amountText.length() == 0) {
+        // if amountText is empty, just assume a 0 as the amount
+        amount = 0;
+      }
+      else {
+        Log.e("TransactionAct_saveBtn",
+            "The parsed amount was not an Integer. This should not have been possible. Message:" + e
+                .getMessage());
+        finish();
+        throw new AssertionError();
+      }
+    }
+
+    return new Transaction((Category) category, (ETransactionType) type, amount);
   }
 
   @Override
@@ -78,8 +120,8 @@ public abstract class ATransactionActivity extends AppCompatActivity {
             R.layout.support_simple_spinner_dropdown_item, getAllCategories());
     categorySpinner.setAdapter(categoryAdapter);
 
-    Button button = findViewById(R.id.transaction_save_button);
-    button.setOnClickListener(view -> saveTransaction());
+    Button saveButton = findViewById(R.id.transaction_save_button);
+    saveButton.setOnClickListener(view -> saveButtonPressed());
 
     setup();
   }
