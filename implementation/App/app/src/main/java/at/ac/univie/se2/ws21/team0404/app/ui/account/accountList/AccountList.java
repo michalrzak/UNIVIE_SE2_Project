@@ -6,6 +6,7 @@ import android.view.MenuItem;
 
 import androidx.recyclerview.widget.ListAdapter;
 
+import at.ac.univie.se2.ws21.team0404.app.ui.transactions.TransactionNew;
 import java.util.List;
 
 import at.ac.univie.se2.ws21.team0404.app.R;
@@ -23,8 +24,11 @@ import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 public class AccountList extends AListActivity<AppAccount, AccountListViewHolder> {
 
     @Override
-    protected Class getFabRedirect() {
-        return NewOrAddAccountActivity.class;
+    protected Runnable getFabRedirect() {
+        return () -> {
+            Intent intent = new Intent(this, NewOrAddAccountActivity.class);
+            startActivity(intent);
+        };
     }
 
     @Override
