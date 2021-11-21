@@ -19,4 +19,5 @@ import java.lang.annotation.Target;
 @Retention(CLASS)
 @Target({FIELD, LOCAL_VARIABLE, METHOD, PARAMETER})
 public @interface Nullable {
+
 }

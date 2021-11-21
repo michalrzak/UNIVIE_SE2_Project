@@ -1,9 +1,5 @@
 package at.ac.univie.se2.ws21.team0404.app.database;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
@@ -14,96 +10,102 @@ import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistExcep
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataExistsException;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.SingletonAlreadyInstantiatedException;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.SingletonNotInstantiatedException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Repository {
-    private IDatabase databaseStrategy;
-    private static Repository instance;
 
-    private final ChangingData<List<AppAccount>> accountList =
-            new ChangingDataImpl<>(new ArrayList<>());
-    private final ChangingData<List<Transaction>> transactionList =
-            new ChangingDataImpl<>(new ArrayList<>());
-    private final ChangingData<List<Category>> categoryList =
-            new ChangingDataImpl<>(new ArrayList<>());
+  private static Repository instance;
+  private final ChangingData<List<AppAccount>> accountList =
+      new ChangingDataImpl<>(new ArrayList<>());
+  private final ChangingData<List<Transaction>> transactionList =
+      new ChangingDataImpl<>(new ArrayList<>());
+  private final ChangingData<List<Category>> categoryList =
+      new ChangingDataImpl<>(new ArrayList<>());
+  private IDatabase databaseStrategy;
 
-    private Repository(IDatabase databaseStrategy) {
-        this.databaseStrategy = databaseStrategy;
+  private Repository(IDatabase databaseStrategy) {
+    this.databaseStrategy = databaseStrategy;
+  }
+
+  public static void create(IDatabase databaseStrategy) {
+    if (instance != null) {
+      throw new SingletonAlreadyInstantiatedException("Repository");
     }
+    instance = new Repository(databaseStrategy);
+  }
 
-    public static void create(IDatabase databaseStrategy) {
-        if (instance != null) {
-            throw new SingletonAlreadyInstantiatedException("Repository");
-        }
-        instance = new Repository(databaseStrategy);
+  public static Repository getInstance() {
+    if (instance == null) {
+      throw new SingletonNotInstantiatedException("Repository");
     }
+    return instance;
+  }
 
-    public static Repository getInstance() {
-        if (instance == null) {
-            throw new SingletonNotInstantiatedException("Repository");
-        }
-        return instance;
-    }
+  public void setDatabaseStraregy(IDatabase databaseStrategy) {
+    this.databaseStrategy = databaseStrategy;
+  }
 
-    public void setDatabaseStraregy(IDatabase databaseStrategy) {
-        this.databaseStrategy = databaseStrategy;
-    }
+  public IDatabase getDatabase() {
+    return this.databaseStrategy;
+  }
 
-    public IDatabase getDatabase() {
-        return this.databaseStrategy;
-    }
+  public ChangingData<List<AppAccount>> getAccountList() {
+    reloadAccounts();
+    return accountList;
+  }
 
-    public ChangingData<List<AppAccount>> getAccountList() {
-        reloadAccounts();
-        return accountList;
-    }
+  public ChangingData<List<Category>> getCategoryList() {
+    reloadCategories();
+    return categoryList;
+  }
 
-    public ChangingData<List<Category>> getCategoryList() {
-        reloadCategories();
-        return categoryList;
-    }
+  public ChangingData<List<Transaction>> getTransactionList(@NonNull AppAccount account)
+      throws DataDoesNotExistException {
+    reloadTransactions(account);
+    return transactionList;
+  }
 
-    public ChangingData<List<Transaction>> getTransactionList(@NonNull AppAccount account) throws DataDoesNotExistException {
-        reloadTransactions(account);
-        return transactionList;
-    }
+  public void createAppAccount(@NonNull AppAccount appAccount) throws DataExistsException {
+    databaseStrategy.addAccount(appAccount);
+    reloadAccounts();
+  }
 
-    public void createAppAccount(@NonNull AppAccount appAccount) throws DataExistsException {
-        databaseStrategy.addAccount(appAccount);
-        reloadAccounts();
-    }
+  public void deleteAppAccount(@NonNull AppAccount appAccount) throws DataDoesNotExistException {
+    databaseStrategy.deleteAccount(appAccount);
+    reloadAccounts();
+  }
 
-    public void deleteAppAccount(@NonNull AppAccount appAccount) throws DataDoesNotExistException {
-        databaseStrategy.deleteAccount(appAccount);
-        reloadAccounts();
-    }
+  public void createCategory(@NonNull Category category) throws DataExistsException {
+    databaseStrategy.addCategory(category);
+    reloadCategories();
+  }
 
-    public void createCategory(@NonNull Category category) throws DataExistsException {
-        databaseStrategy.addCategory(category);
-        reloadCategories();
-    }
+  public void updateCategory(@NonNull String categoryName, @NonNull Category category)
+      throws DataDoesNotExistException {
+    databaseStrategy.updateCategory(categoryName, category);
+    reloadCategories();
+  }
 
-    public void updateCategory(@NonNull String categoryName, @NonNull Category category) throws DataDoesNotExistException {
-        databaseStrategy.updateCategory(categoryName, category);
-        reloadCategories();
-    }
+  public void createTransaction(@NonNull AppAccount owner, @NonNull Transaction transaction)
+      throws DataExistsException, DataDoesNotExistException {
+    getDatabase().addTransaction(owner, transaction);
+  }
 
-    public void createTransaction(@NonNull AppAccount owner, @NonNull Transaction transaction) throws DataExistsException, DataDoesNotExistException {
-        getDatabase().addTransaction(owner, transaction);
-    }
+  private void reloadAccounts() {
+    accountList.setData(new ArrayList<>(databaseStrategy.getAccounts()));
+  }
 
-    private void reloadAccounts() {
-        accountList.setData(new ArrayList<>(databaseStrategy.getAccounts()));
-    }
+  private void reloadCategories() {
+    categoryList.setData(new ArrayList<>(
+        databaseStrategy.getCategories().stream()
+            .filter(category -> !category.isDisabled())
+            .collect(Collectors.toList())
+    ));
+  }
 
-    private void reloadCategories() {
-        categoryList.setData(new ArrayList<>(
-                databaseStrategy.getCategories().stream()
-                    .filter(category -> !category.isDisabled())
-                    .collect(Collectors.toList())
-        ));
-    }
-
-    private void reloadTransactions(@NonNull AppAccount account) throws DataDoesNotExistException {
-        transactionList.setData(new ArrayList<>(getDatabase().getTransactions(account)));
-    }
+  private void reloadTransactions(@NonNull AppAccount account) throws DataDoesNotExistException {
+    transactionList.setData(new ArrayList<>(getDatabase().getTransactions(account)));
+  }
 }
