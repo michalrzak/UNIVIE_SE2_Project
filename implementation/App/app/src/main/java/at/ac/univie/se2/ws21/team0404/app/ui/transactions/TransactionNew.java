@@ -7,6 +7,7 @@ import at.ac.univie.se2.ws21.team0404.app.model.transaction.ParcelableTransactio
 import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 
 public class TransactionNew extends ATransactionActivity {
+
   @Override
   void setup() { // empty implementation as this activity does not need to set any values to the views
   }
@@ -14,7 +15,8 @@ public class TransactionNew extends ATransactionActivity {
   @Override
   protected void saveButtonPressed() {
     Intent intent = new Intent();
-    intent.putExtra(EIntents.TRANSACTION.toString(), new ParcelableTransaction(getTransactionFromForm()));
+    intent.putExtra(EIntents.TRANSACTION.toString(),
+        new ParcelableTransaction(getTransactionFromForm()));
     setResult(Activity.RESULT_OK, intent);
     finish();
   }

@@ -16,25 +16,6 @@ import at.ac.univie.se2.ws21.team0404.app.utils.Nullable;
  */
 public class ParcelableTransaction extends Transaction implements Parcelable {
 
-  public ParcelableTransaction(@Nullable Category category,
-      @NonNull ETransactionType type, int amount) {
-    super(category, type, amount);
-  }
-
-  public ParcelableTransaction(@NonNull Transaction transaction) {
-    super(transaction.getId(), transaction.getRawCategory(), transaction.getType(),
-        transaction.getAmount());
-  }
-
-  protected ParcelableTransaction(@NonNull Parcel in) {
-    super(in.readInt(),
-        (Category) in.readValue(Category.class.getClassLoader()),
-        // TODO: is this correct? I am unsure of the classloader
-        ETransactionType.values()[in.readInt()],
-        in.readInt());
-  }
-
-
   public static final Creator<ParcelableTransaction> CREATOR = new Creator<ParcelableTransaction>() {
     @Override
     public ParcelableTransaction createFromParcel(Parcel in) {
@@ -46,6 +27,25 @@ public class ParcelableTransaction extends Transaction implements Parcelable {
       return new ParcelableTransaction[size];
     }
   };
+
+  public ParcelableTransaction(@Nullable Category category,
+      @NonNull ETransactionType type, int amount) {
+    super(category, type, amount);
+  }
+
+  public ParcelableTransaction(@NonNull Transaction transaction) {
+    super(transaction.getId(), transaction.getRawCategory(), transaction.getType(),
+        transaction.getAmount());
+  }
+
+
+  protected ParcelableTransaction(@NonNull Parcel in) {
+    super(in.readInt(),
+        (Category) in.readValue(Category.class.getClassLoader()),
+        // TODO: is this correct? I am unsure of the classloader
+        ETransactionType.values()[in.readInt()],
+        in.readInt());
+  }
 
   @Override
   public int describeContents() {

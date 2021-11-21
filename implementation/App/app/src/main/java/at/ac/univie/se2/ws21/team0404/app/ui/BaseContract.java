@@ -6,41 +6,45 @@ import androidx.annotation.NonNull;
  * Contract interface for all MVP classes containing the base interfaces for views and presenter.
  */
 public interface BaseContract {
-    /**
-     * Contract interface for all MVP view classes.
-     */
-    interface View {
-    }
 
-    /**
-     * Interface to inform the presenter about the view lifecycle.
-     *
-     * @param <V> an MVP {@link View} interface.
-     */
-    interface PresenterLifecycle<V extends View> {
-        void setView(@NonNull V view);
+  /**
+   * Contract interface for all MVP view classes.
+   */
+  interface View {
 
-        void onCreate();
+  }
 
-        void onStart();
+  /**
+   * Interface to inform the presenter about the view lifecycle.
+   *
+   * @param <V> an MVP {@link View} interface.
+   */
+  interface PresenterLifecycle<V extends View> {
 
-        void onStop();
+    void setView(@NonNull V view);
 
-        void onDestroy();
-    }
+    void onCreate();
 
-    /**
-     * Interface for presenter implementations to get informed about lifecycle changes.
-     *
-     * @param <V> an MVP {@link View} interface.
-     */
-    interface Presenter<V extends View> extends PresenterLifecycle<V> {
-        void viewCreated();
+    void onStart();
 
-        void viewStarted();
+    void onStop();
 
-        void viewBeforeStop();
+    void onDestroy();
+  }
 
-        void viewBeforeDestroy();
-    }
+  /**
+   * Interface for presenter implementations to get informed about lifecycle changes.
+   *
+   * @param <V> an MVP {@link View} interface.
+   */
+  interface Presenter<V extends View> extends PresenterLifecycle<V> {
+
+    void viewCreated();
+
+    void viewStarted();
+
+    void viewBeforeStop();
+
+    void viewBeforeDestroy();
+  }
 }
