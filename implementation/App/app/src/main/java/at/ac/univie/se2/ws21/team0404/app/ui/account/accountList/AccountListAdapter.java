@@ -1,4 +1,4 @@
-package at.ac.univie.se2.ws21.team0404.app.ui.accountList;
+package at.ac.univie.se2.ws21.team0404.app.ui.account.accountList;
 
 import android.view.ViewGroup;
 
