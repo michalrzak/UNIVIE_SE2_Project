@@ -4,22 +4,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Decorator for {@link ChangingData} adding the functionality to call observers always on the main
+ * Decorator for {@link IChangingData} adding the functionality to call observers always on the main
  * thread.
  *
  * @param <T> type of data to be wrapped
  */
-public class ChangingDataOnMainThread<T> extends ChangingDataDecorator<T> {
+public class ChangingDataOnMainThread<T> extends AChangingDataDecorator<T> {
 
   private static MainThreadExecutor mainThreadExecutor = new MainThreadExecutor();
   private final Map<Observer<T>, Observer<T>> observerMap = new HashMap<>();
 
   /**
-   * Constructs a {@link ChangingDataOnMainThread} decorator for the provided {@link ChangingData}.
+   * Constructs a {@link ChangingDataOnMainThread} decorator for the provided {@link IChangingData}.
    *
-   * @param changingData the {@link ChangingData} interface to be decorated.
+   * @param changingData the {@link IChangingData} interface to be decorated.
    */
-  public ChangingDataOnMainThread(@NonNull ChangingData<T> changingData) {
+  public ChangingDataOnMainThread(@NonNull IChangingData<T> changingData) {
     super(changingData);
   }
 

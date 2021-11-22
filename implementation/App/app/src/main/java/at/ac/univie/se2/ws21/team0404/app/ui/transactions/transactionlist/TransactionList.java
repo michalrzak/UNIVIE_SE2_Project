@@ -21,7 +21,7 @@ import at.ac.univie.se2.ws21.team0404.app.ui.AListActivity;
 import at.ac.univie.se2.ws21.team0404.app.ui.account.newOrAddAccount.NewOrAddAccountActivity;
 import at.ac.univie.se2.ws21.team0404.app.ui.transactions.TransactionDetails;
 import at.ac.univie.se2.ws21.team0404.app.ui.transactions.TransactionNew;
-import at.ac.univie.se2.ws21.team0404.app.utils.ChangingData;
+import at.ac.univie.se2.ws21.team0404.app.utils.IChangingData;
 import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistException;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataExistsException;
@@ -172,7 +172,7 @@ public class TransactionList extends AListActivity<Transaction, TransactionListV
   }
 
   @Override
-  protected ChangingData<List<Transaction>> getList() {
+  protected IChangingData<List<Transaction>> getList() {
     try {
       return Repository.getInstance().getTransactionList(getAccount());
     } catch (DataDoesNotExistException e) {

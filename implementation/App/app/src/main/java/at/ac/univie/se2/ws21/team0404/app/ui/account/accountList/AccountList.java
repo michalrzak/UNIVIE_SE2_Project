@@ -14,7 +14,7 @@ import at.ac.univie.se2.ws21.team0404.app.ui.AListActivity;
 import at.ac.univie.se2.ws21.team0404.app.ui.account.newOrAddAccount.NewOrAddAccountActivity;
 import at.ac.univie.se2.ws21.team0404.app.ui.categories.categorylist.CategoryList;
 import at.ac.univie.se2.ws21.team0404.app.ui.transactions.transactionlist.TransactionList;
-import at.ac.univie.se2.ws21.team0404.app.utils.ChangingData;
+import at.ac.univie.se2.ws21.team0404.app.utils.IChangingData;
 import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 import java.util.List;
 
@@ -38,7 +38,7 @@ public class AccountList extends AListActivity<AppAccount, AccountListViewHolder
   }
 
   @Override
-  protected ChangingData<List<AppAccount>> getList() {
+  protected IChangingData<List<AppAccount>> getList() {
     return Repository.getInstance().getAccountList();
   }
 

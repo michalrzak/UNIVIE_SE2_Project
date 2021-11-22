@@ -3,16 +3,16 @@ package at.ac.univie.se2.ws21.team0404.app.utils;
 /**
  * Provides the state of a view as observable.
  */
-public class ViewState extends ChangingDataImpl<ViewState.State> {
+public class ViewState extends ChangingData<ViewState.EState> {
 
   public ViewState() {
-    super(State.STOPPED);
+    super(EState.STOPPED);
   }
 
   /**
    * The states of a view.
    */
-  public enum State {
+  public enum EState {
     /**
      * View is visible and should receive notifications.
      */

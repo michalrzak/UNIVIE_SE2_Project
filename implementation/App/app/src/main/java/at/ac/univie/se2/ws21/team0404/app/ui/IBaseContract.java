@@ -5,21 +5,21 @@ import androidx.annotation.NonNull;
 /**
  * Contract interface for all MVP classes containing the base interfaces for views and presenter.
  */
-public interface BaseContract {
+public interface IBaseContract {
 
   /**
    * Contract interface for all MVP view classes.
    */
-  interface View {
+  interface IView {
 
   }
 
   /**
    * Interface to inform the presenter about the view lifecycle.
    *
-   * @param <V> an MVP {@link View} interface.
+   * @param <V> an MVP {@link IView} interface.
    */
-  interface PresenterLifecycle<V extends View> {
+  interface IPresenterLifecycle<V extends IView> {
 
     void setView(@NonNull V view);
 
@@ -35,9 +35,9 @@ public interface BaseContract {
   /**
    * Interface for presenter implementations to get informed about lifecycle changes.
    *
-   * @param <V> an MVP {@link View} interface.
+   * @param <V> an MVP {@link IView} interface.
    */
-  interface Presenter<V extends View> extends PresenterLifecycle<V> {
+  interface IPresenter<V extends IView> extends IPresenterLifecycle<V> {
 
     void viewCreated();
 
