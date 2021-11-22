@@ -70,7 +70,7 @@ public class MemoryDatabase implements IDatabase {
     if (newAccount.getName().isEmpty()) {
       throw new IllegalArgumentException("Account has to have a name");
     }
-    if (accounts.containsValue(newAccount)){
+    if (accounts.containsValue(newAccount)) {
       throw new DataExistsException("accounts");
     }
     accounts.put(newAccount.getId(), newAccount);
@@ -78,14 +78,15 @@ public class MemoryDatabase implements IDatabase {
 
   @Override
   public void deleteAccount(AppAccount newAccount) throws DataDoesNotExistException {
-    if (!accounts.containsKey(newAccount.getId())){
+    if (!accounts.containsKey(newAccount.getId())) {
       throw new DataDoesNotExistException("account");
     }
     accounts.remove(newAccount.getId());
   }
 
   @Override
-  public void updateAccount(@NonNull AppAccount oldAccount, @NonNull AppAccount newAccount) throws DataDoesNotExistException {
+  public void updateAccount(@NonNull AppAccount oldAccount, @NonNull AppAccount newAccount)
+      throws DataDoesNotExistException {
     if (!accounts.containsValue(oldAccount)) {
       throw new DataDoesNotExistException("account");
     }
@@ -144,5 +145,23 @@ public class MemoryDatabase implements IDatabase {
     transactionList.add(updatedTransaction);
     Log.d("MemDB_updateTx", "successfully updated transaction in database");
 
+  }
+
+  @Override
+  public void deleteTransaction(@NonNull AppAccount owner, int idToBeDeleted)
+      throws DataDoesNotExistException {
+    validateAccount(owner);
+
+    Collection<Transaction> savedTransactions = transactions.get(owner.getId());
+    assert (savedTransactions != null);
+
+    Optional<Transaction> toBeDeleted = savedTransactions.stream()
+        .filter(transaction -> transaction.getId() == idToBeDeleted).findFirst();
+
+    if (!toBeDeleted.isPresent()) {
+      throw new DataDoesNotExistException("transaction");
+    }
+
+    savedTransactions.remove(toBeDeleted.get());
   }
 }
