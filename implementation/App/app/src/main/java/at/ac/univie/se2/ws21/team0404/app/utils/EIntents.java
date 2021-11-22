@@ -6,7 +6,7 @@ package at.ac.univie.se2.ws21.team0404.app.utils;
  */
 public enum EIntents {
   CATEGORY("Category"), TRANSACTION("Transaction"), ACCOUNT("Account"), TRANSACTION_ID(
-      "transaction_id");
+      "transaction_id") ,TRANSACTION_DELETED("transaction_deleted");
 
   private final String name;
 

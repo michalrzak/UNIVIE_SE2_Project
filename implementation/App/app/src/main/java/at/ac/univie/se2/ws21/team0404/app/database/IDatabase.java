@@ -44,4 +44,6 @@ public interface IDatabase {
 
   void updateTransaction(AppAccount owner, int oldId,
       Transaction updatedTransaction) throws DataDoesNotExistException;
+
+  void deleteTransaction(@NonNull AppAccount owner, int idToBeDeleted) throws DataDoesNotExistException;
 }

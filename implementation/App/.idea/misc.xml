@@ -3,9 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/layout/listitem_account.xml" value="0.1415237134207871" />
         <entry key="app/src/main/res/layout/activity_account_list.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/listitem_account.xml" value="0.1415237134207871" />
         <entry key="app/src/main/res/menu/category_menu_icon.xml" value="0.35625" />
+        <entry key="app/src/main/res/menu/delete_menu_icon.xml" value="0.2869791666666667" />
         <entry key="app/src/main/res/menu/edit_menu_icon.xml" value="0.35625" />
       </map>
     </option>

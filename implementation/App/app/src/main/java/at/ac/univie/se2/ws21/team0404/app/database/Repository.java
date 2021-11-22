@@ -82,6 +82,12 @@ public class Repository {
     reloadAccounts();
   }
 
+  public void deleteTransaction(@NonNull AppAccount owner, int idToBeDeleted)
+      throws DataDoesNotExistException {
+    databaseStrategy.deleteTransaction(owner, idToBeDeleted);
+    reloadTransactions(owner);
+  }
+
   public void createCategory(@NonNull Category category) throws DataExistsException {
     databaseStrategy.addCategory(category);
     reloadCategories();

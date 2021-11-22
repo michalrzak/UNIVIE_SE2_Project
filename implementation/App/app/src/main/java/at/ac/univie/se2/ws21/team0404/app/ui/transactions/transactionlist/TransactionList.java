@@ -11,7 +11,6 @@ import androidx.activity.result.contract.ActivityResultContracts.StartActivityFo
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.ListAdapter;
-
 import at.ac.univie.se2.ws21.team0404.app.R;
 import at.ac.univie.se2.ws21.team0404.app.database.Repository;
 import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
@@ -45,32 +44,36 @@ public class TransactionList extends AListActivity<Transaction, TransactionListV
       result -> {
         Log.d("TransactionList_result", "TransactionNew returned the result: " + result.toString());
 
-        if (result.getResultCode() == Activity.RESULT_OK) {
-          assert (account != null);
+        switch (result.getResultCode()) {
+          case Activity.RESULT_OK:
+            assert (account != null);
 
-          Intent intentRes = result.getData();
-          assert (intentRes != null);
-          Transaction transaction = intentRes.getParcelableExtra(EIntents.TRANSACTION.toString());
+            Intent intentRes = result.getData();
+            assert (intentRes != null);
+            Transaction transaction = intentRes.getParcelableExtra(EIntents.TRANSACTION.toString());
 
-          try {
-            Repository.getInstance().createTransaction(account, transaction);
-            Log.d("TransactionList_result", "Successfully added transaction");
-          } catch (DataDoesNotExistException e) {
-            Log.e("TransactionList_result",
-                "Tried to add transaction to an account which does not exist. Message: " + e
-                    .getMessage());
-            Toast.makeText(this, "Error on saving transaction try again please.", Toast.LENGTH_LONG)
-                .show();
-            finish();
-          } catch (DataExistsException e) {
-            Log.e("TransactionList_result",
-                "Tried to add transaction, but transaction with this ID already exists. This should not happen. Message"
-                    + e.getMessage());
-            Toast
-                .makeText(this, "Error on saving transaction, try again please.", Toast.LENGTH_LONG)
-                .show();
-            // this does not need to finnish as the account seems to be still valid
-          }
+            try {
+              Repository.getInstance().createTransaction(account, transaction);
+              Log.d("TransactionList_result", "Successfully added transaction");
+            } catch (DataDoesNotExistException e) {
+              Log.e("TransactionList_result",
+                  "Tried to add transaction to an account which does not exist. Message: " + e
+                      .getMessage());
+              Toast.makeText(this, "Error on saving transaction try again please.",
+                  Toast.LENGTH_LONG)
+                  .show();
+              finish();
+            } catch (DataExistsException e) {
+              Log.e("TransactionList_result",
+                  "Tried to add transaction, but transaction with this ID already exists. This should not happen. Message"
+                      + e.getMessage());
+              Toast
+                  .makeText(this, "Error on saving transaction, try again please.",
+                      Toast.LENGTH_LONG)
+                  .show();
+              // this does not need to finnish as the account seems to be still valid
+              break;
+            }
         }
       });
 
@@ -88,27 +91,55 @@ public class TransactionList extends AListActivity<Transaction, TransactionListV
         Log.d("TransactionList_result",
             "TransactionDetails returned the result: " + result.toString());
 
-        if (result.getResultCode() == Activity.RESULT_OK) {
-          assert (account != null);
+        assert (account != null);
 
-          Intent intentRes = result.getData();
-          assert (intentRes != null);
-          Transaction transaction = intentRes.getParcelableExtra(EIntents.TRANSACTION.toString());
+        Intent intentRes = result.getData();
 
-          int oldId = intentRes.getIntExtra(EIntents.TRANSACTION_ID.toString(), -1);
-          assert (oldId != -1);
+        switch (result.getResultCode()) {
+          case Activity.RESULT_OK:
 
-          try {
-            Repository.getInstance().updateTransaction(account, oldId, transaction);
-            Log.d("TransactionList_result", "Successfully updated transaction");
-          } catch (DataDoesNotExistException e) {
-            Log.e("TransactionList_result",
-                "Tried to update a transaction from an account which does not exist. Message: " + e
-                    .getMessage());
-            Toast.makeText(this, "Error on saving transaction try again please.", Toast.LENGTH_LONG)
-                .show();
-            finish();
-          }
+            assert (intentRes != null);
+            Transaction transaction = intentRes.getParcelableExtra(EIntents.TRANSACTION.toString());
+
+            int oldId = intentRes.getIntExtra(EIntents.TRANSACTION_ID.toString(), -1);
+            assert (oldId != -1);
+
+            try {
+              Repository.getInstance().updateTransaction(account, oldId, transaction);
+              Log.d("TransactionList_result", "Successfully updated transaction");
+            } catch (DataDoesNotExistException e) {
+              Log.e("TransactionList_result",
+                  "Tried to update a transaction from an account which does not exist. Message: "
+                      + e
+                      .getMessage());
+              Toast.makeText(this, "Error on saving transaction try again please.",
+                  Toast.LENGTH_LONG)
+                  .show();
+              finish();
+            }
+            break;
+
+          // Transaction was deleted
+          case Activity.RESULT_FIRST_USER:
+            assert (intentRes != null);
+            int toBeDeleted = intentRes.getIntExtra(EIntents.TRANSACTION_ID.toString(), -1);
+            assert (toBeDeleted != -1);
+
+            try {
+              Repository.getInstance().deleteTransaction(account, toBeDeleted);
+              Log.d("TransactionList_result", "Successfully deleted transaction");
+            } catch (DataDoesNotExistException e) {
+              Log.e("TransactionList_result",
+                  "Tried to delete a transaction from an account which does not exist or the"
+                      + "to be deleted transaction does not exists. Message: "
+                      + e
+                      .getMessage());
+              Toast.makeText(this, "Error on saving transaction try again please.",
+                  Toast.LENGTH_LONG)
+                  .show();
+              finish();
+              break;
+            }
         }
       });
 

@@ -39,9 +39,12 @@ public class Category {
     if (this == o) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    // use instanceof to allow comparison of superclasses, null is not instanceof Category
+    if (!(o instanceof Category)) {
       return false;
     }
+    assert (o != null);
+
     Category category = (Category) o;
     return disabled == category.disabled && type == category.type && name.equals(category.name);
   }
