@@ -7,11 +7,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import at.ac.univie.se2.ws21.team0404.app.R;
-import at.ac.univie.se2.ws21.team0404.app.model.account.ParcelableAppAccount;
-import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
-import at.ac.univie.se2.ws21.team0404.app.model.transaction.ParcelableTransaction;
+import at.ac.univie.se2.ws21.team0404.app.model.android.ParcelableTransaction;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
-import at.ac.univie.se2.ws21.team0404.app.ui.account.newOrAddAccount.NewOrAddAccountActivity;
 import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 
 public class TransactionDetails extends ATransactionActivity {

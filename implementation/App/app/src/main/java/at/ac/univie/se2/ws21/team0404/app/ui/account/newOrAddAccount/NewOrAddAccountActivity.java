@@ -15,7 +15,7 @@ import at.ac.univie.se2.ws21.team0404.app.R;
 import at.ac.univie.se2.ws21.team0404.app.database.Repository;
 import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.account.EAccountType;
-import at.ac.univie.se2.ws21.team0404.app.model.account.ParcelableAppAccount;
+import at.ac.univie.se2.ws21.team0404.app.model.android.ParcelableAppAccount;
 import at.ac.univie.se2.ws21.team0404.app.ui.account.accountList.AccountList;
 import at.ac.univie.se2.ws21.team0404.app.ui.transactions.transactionlist.TransactionList;
 import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;

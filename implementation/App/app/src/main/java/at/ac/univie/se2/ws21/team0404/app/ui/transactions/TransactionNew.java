@@ -3,7 +3,7 @@ package at.ac.univie.se2.ws21.team0404.app.ui.transactions;
 
 import android.app.Activity;
 import android.content.Intent;
-import at.ac.univie.se2.ws21.team0404.app.model.transaction.ParcelableTransaction;
+import at.ac.univie.se2.ws21.team0404.app.model.android.ParcelableTransaction;
 import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 
 public class TransactionNew extends ATransactionActivity {

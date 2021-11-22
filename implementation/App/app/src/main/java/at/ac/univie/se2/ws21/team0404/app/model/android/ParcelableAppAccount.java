@@ -1,7 +1,10 @@
-package at.ac.univie.se2.ws21.team0404.app.model.account;
+package at.ac.univie.se2.ws21.team0404.app.model.android;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
+import at.ac.univie.se2.ws21.team0404.app.model.account.EAccountType;
 import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 
 public class ParcelableAppAccount extends AppAccount implements Parcelable {
