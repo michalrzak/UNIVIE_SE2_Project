@@ -43,7 +43,7 @@ public class Repository {
     return instance;
   }
 
-  public void setDatabaseStraregy(IDatabase databaseStrategy) {
+  public void setDatabaseStrategy(IDatabase databaseStrategy) {
     this.databaseStrategy = databaseStrategy;
   }
 
