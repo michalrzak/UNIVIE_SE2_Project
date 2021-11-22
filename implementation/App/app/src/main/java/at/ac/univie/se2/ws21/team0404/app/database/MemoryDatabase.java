@@ -18,9 +18,9 @@ import java.util.Set;
 
 public class MemoryDatabase implements IDatabase {
 
-  private final Set<AppAccount> accounts = new HashSet<>();
+  private final Map<Integer, AppAccount> accounts = new HashMap<>();
   private final Map<String, Category> categories = new HashMap<>();
-  private final Map<AppAccount, Set<Transaction>> transactions = new HashMap<>();
+  private final Map<Integer, Set<Transaction>> transactions = new HashMap<>();
 
   /**
    * This function validates the account. It introduces a side affect as when an account is not yet
@@ -32,12 +32,12 @@ public class MemoryDatabase implements IDatabase {
    * @throws DataDoesNotExistException when account does not exist in database
    */
   private void validateAccount(AppAccount account) throws DataDoesNotExistException {
-    if (!accounts.contains(account)) {
+    if (!accounts.containsKey(account.getId())) {
       throw new DataDoesNotExistException("accounts");
     }
 
-    if (!transactions.containsKey(account)) {
-      transactions.put(account, new HashSet<>());
+    if (!transactions.containsKey(account.getId())) {
+      transactions.put(account.getId(), new HashSet<>());
     }
   }
 
@@ -45,7 +45,7 @@ public class MemoryDatabase implements IDatabase {
   @NonNull
   @Override
   public Collection<AppAccount> getAccounts() {
-    return accounts;
+    return accounts.values();
   }
 
   @NonNull
@@ -60,7 +60,7 @@ public class MemoryDatabase implements IDatabase {
       throws DataDoesNotExistException {
     validateAccount(account);
 
-    Set<Transaction> ret = transactions.get(account);
+    Set<Transaction> ret = transactions.get(account.getId());
     assert (ret != null);
     return ret;
   }
@@ -70,16 +70,26 @@ public class MemoryDatabase implements IDatabase {
     if (newAccount.getName().isEmpty()) {
       throw new IllegalArgumentException("Account has to have a name");
     }
-    if (!accounts.add(newAccount)) {
+    if (accounts.containsValue(newAccount)){
       throw new DataExistsException("accounts");
     }
+    accounts.put(newAccount.getId(), newAccount);
   }
 
   @Override
   public void deleteAccount(AppAccount newAccount) throws DataDoesNotExistException {
-    if (!accounts.remove(newAccount)) {
+    if (!accounts.containsKey(newAccount.getId())){
       throw new DataDoesNotExistException("account");
     }
+    accounts.remove(newAccount.getId());
+  }
+
+  @Override
+  public void updateAccount(@NonNull AppAccount oldAccount, @NonNull AppAccount newAccount) throws DataDoesNotExistException {
+    if (!accounts.containsValue(oldAccount)) {
+      throw new DataDoesNotExistException("account");
+    }
+    accounts.replace(newAccount.getId(), newAccount);
   }
 
   @Override
@@ -96,7 +106,7 @@ public class MemoryDatabase implements IDatabase {
 
     validateAccount(owner);
 
-    if (!transactions.get(owner).add(newTransaction)) {
+    if (!transactions.get(owner.getId()).add(newTransaction)) {
       throw new DataExistsException("transactions");
     }
   }
@@ -120,7 +130,7 @@ public class MemoryDatabase implements IDatabase {
     validateAccount(owner);
     Log.d("MemDB_updateTx", "account valid");
 
-    Set<Transaction> transactionList = transactions.get(owner);
+    Set<Transaction> transactionList = transactions.get(owner.getId());
     assert (transactionList != null);
 
     Optional<Transaction> oldTransaction = transactionList.stream()

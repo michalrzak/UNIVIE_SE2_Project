@@ -45,10 +45,19 @@ public abstract class AListActivity<ModelClass, ViewHolder extends RecyclerView.
    */
   protected abstract ChangingData<List<ModelClass>> getList();
 
+  /**
+   * When this will get implemented it will return the id of the target R.string resource
+   *
+   * @return int id of the R.string
+   */
+  protected abstract int getListTitle();
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_list);
+
+    setTitle(getListTitle());
 
     ActionBar actionBar = getSupportActionBar();
     assert (actionBar != null);
