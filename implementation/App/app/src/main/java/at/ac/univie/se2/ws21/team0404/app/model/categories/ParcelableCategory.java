@@ -2,6 +2,8 @@ package at.ac.univie.se2.ws21.team0404.app.model.categories;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType;
 import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 
 public class ParcelableCategory extends Category implements Parcelable {
@@ -18,7 +20,7 @@ public class ParcelableCategory extends Category implements Parcelable {
     }
   };
 
-  public ParcelableCategory(@NonNull EIncomeOrExpense type, @NonNull String name) {
+  public ParcelableCategory(@NonNull ETransactionType type, @NonNull String name) {
     super(type, name);
   }
 
@@ -27,7 +29,7 @@ public class ParcelableCategory extends Category implements Parcelable {
   }
 
   public ParcelableCategory(@NonNull Parcel in) {
-    super(EIncomeOrExpense.valueOf(in.readString()), in.readString());
+    super(ETransactionType.values()[in.readInt()], in.readString());
   }
 
   @Override
@@ -36,8 +38,8 @@ public class ParcelableCategory extends Category implements Parcelable {
   }
 
   @Override
-  public void writeToParcel(Parcel dest, int flags) {
-    dest.writeString(this.getType().name());
-    dest.writeString(this.getName());
+  public void writeToParcel(Parcel parcel, int flags) {
+    parcel.writeInt(getType().ordinal());
+    parcel.writeString(this.getName());
   }
 }
