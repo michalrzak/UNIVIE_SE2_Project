@@ -9,7 +9,7 @@ import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.ParcelableCategory;
 import at.ac.univie.se2.ws21.team0404.app.ui.AListActivity;
 import at.ac.univie.se2.ws21.team0404.app.ui.categories.AddOrEditCategoryActivity;
-import at.ac.univie.se2.ws21.team0404.app.utils.ChangingData;
+import at.ac.univie.se2.ws21.team0404.app.utils.IChangingData;
 import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 import java.util.List;
 
@@ -33,7 +33,7 @@ public class CategoryList extends AListActivity<Category, CategoryListViewHolder
   }
 
   @Override
-  protected ChangingData<List<Category>> getList() {
+  protected IChangingData<List<Category>> getList() {
     return Repository.getInstance().getCategoryList();
   }
 

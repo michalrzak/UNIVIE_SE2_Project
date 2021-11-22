@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import at.ac.univie.se2.ws21.team0404.app.R;
-import at.ac.univie.se2.ws21.team0404.app.utils.ChangingData;
+import at.ac.univie.se2.ws21.team0404.app.utils.IChangingData;
 import java.util.List;
 
 public abstract class AListActivity<ModelClass, ViewHolder extends RecyclerView.ViewHolder> extends
@@ -43,7 +43,7 @@ public abstract class AListActivity<ModelClass, ViewHolder extends RecyclerView.
    *
    * @return List\<ModelClass\> used by the recycler view
    */
-  protected abstract ChangingData<List<ModelClass>> getList();
+  protected abstract IChangingData<List<ModelClass>> getList();
 
   /**
    * When this will get implemented it will return the id of the target R.string resource
@@ -73,7 +73,7 @@ public abstract class AListActivity<ModelClass, ViewHolder extends RecyclerView.
     adapter = getAdapter();
     recyclerView.setAdapter(adapter);
 
-    ChangingData<List<ModelClass>> listData = getList();
+    IChangingData<List<ModelClass>> listData = getList();
     listData.observe(data ->  {
       adapter.submitList(data);
     });

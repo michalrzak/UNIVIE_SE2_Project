@@ -13,23 +13,23 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ChangingDataImplTest {
+public class ChangingDataTest {
     private static final Integer TEST_DATA = 4711;
     private static final Integer OTHER_TEST_DATA = 815;
 
     @Mock
-    private ChangingData.Observer<Integer> mockObserver;
+    private IChangingData.Observer<Integer> mockObserver;
 
-    private ChangingData<Integer> testInstance;
+    private IChangingData<Integer> testInstance;
 
     @Before
     public void setUp() {
-        testInstance = new ChangingDataImpl<>(TEST_DATA);
+        testInstance = new ChangingData<>(TEST_DATA);
     }
 
     @Test
     public void createDefaultChangingData_getDataReturnsNull() {
-        testInstance = new ChangingDataImpl<>();
+        testInstance = new ChangingData<>();
         assertNull(testInstance.getData());
     }
 

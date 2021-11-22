@@ -1,58 +1,67 @@
 package at.ac.univie.se2.ws21.team0404.app.utils;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
- * Wraps data in an observable container. Observers implementing {@link Observer} will be notified
- * in case the data changes. Notifications will also be sent on initial registration of an
- * observer.
- * <p>
- * Do not forget to {@link #unobserve(Observer)} to prevent memory leaks. Tip: For convenience the
- * {@link ChangingDataWithViewState} decorator can be used to automatically remove observers on view
- * destruction and also pause notifications for invisible views.
+ * Basic implementation of the {@link IChangingData} interface. Wraps data into an observable
+ * container. See {@link IChangingData} for a detailed description.
  *
  * @param <T> data type to be wrapped
  */
-// Observer Pattern: notifies observer if data changes
-public interface ChangingData<T> {
+public class ChangingData<T> implements IChangingData<T> {
+
+  private final Set<Observer<T>> observers = new HashSet<>();
+  private T data;
 
   /**
-   * @return the current data
+   * Constructs {@link ChangingData} with {@code null} data.
    */
-  T getData();
+  public ChangingData() {
+  }
 
   /**
-   * Changes the data and notifies all observers.
+   * Constructs {@link ChangingData} and sets initial data.
    *
-   * @param data the new data
+   * @param data initial data to set.
    */
-  void setData(T data);
+  public ChangingData(T data) {
+    this.data = data;
+  }
 
   /**
-   * Registers a new observer. The observer is called once initially with the current data.
-   *
-   * @param observer the observer to be registered. A lambda expression can be used.
+   * {@inheritDoc}
    */
-  void observe(@NonNull Observer<T> observer);
+  @Override
+  public synchronized T getData() {
+    return data;
+  }
 
   /**
-   * Unregisters an observer. This is necessary to prevent memory leaks. Consider using the {@link
-   * ChangingDataWithViewState} decorator.
-   *
-   * @param observer the observer to be unregistered.
+   * {@inheritDoc}
    */
-  void unobserve(@NonNull Observer<T> observer);
+  @Override
+  public synchronized void setData(T data) {
+    this.data = data;
+    for (Observer<T> observer : observers) {
+      observer.changed(this.data);
+    }
+  }
 
   /**
-   * Interface to be implemented by observers. You can use lambda expressions for easy use.
-   *
-   * @param <TObserve> data type to be wrapped
+   * {@inheritDoc}
    */
-  interface Observer<TObserve> {
+  @Override
+  public synchronized void observe(@NonNull Observer<T> observer) {
+    observers.add(observer);
+    observer.changed(this.data);
+  }
 
-    /**
-     * Called if data changes. also called during {@link #observe(Observer)}.
-     *
-     * @param data the new data
-     */
-    void changed(TObserve data);
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public synchronized void unobserve(@NonNull Observer<T> observer) {
+    observers.remove(observer);
   }
 }

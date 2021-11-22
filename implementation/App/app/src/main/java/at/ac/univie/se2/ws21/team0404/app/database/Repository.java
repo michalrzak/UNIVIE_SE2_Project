@@ -3,8 +3,8 @@ package at.ac.univie.se2.ws21.team0404.app.database;
 import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
+import at.ac.univie.se2.ws21.team0404.app.utils.IChangingData;
 import at.ac.univie.se2.ws21.team0404.app.utils.ChangingData;
-import at.ac.univie.se2.ws21.team0404.app.utils.ChangingDataImpl;
 import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistException;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataExistsException;
@@ -17,12 +17,12 @@ import java.util.stream.Collectors;
 public class Repository {
 
   private static Repository instance;
-  private final ChangingData<List<AppAccount>> accountList =
-      new ChangingDataImpl<>(new ArrayList<>());
-  private final ChangingData<List<Transaction>> transactionList =
-      new ChangingDataImpl<>(new ArrayList<>());
-  private final ChangingData<List<Category>> categoryList =
-      new ChangingDataImpl<>(new ArrayList<>());
+  private final IChangingData<List<AppAccount>> accountList =
+      new ChangingData<>(new ArrayList<>());
+  private final IChangingData<List<Transaction>> transactionList =
+      new ChangingData<>(new ArrayList<>());
+  private final IChangingData<List<Category>> categoryList =
+      new ChangingData<>(new ArrayList<>());
   private IDatabase databaseStrategy;
 
   private Repository(IDatabase databaseStrategy) {
@@ -51,17 +51,17 @@ public class Repository {
     return this.databaseStrategy;
   }
 
-  public ChangingData<List<AppAccount>> getAccountList() {
+  public IChangingData<List<AppAccount>> getAccountList() {
     reloadAccounts();
     return accountList;
   }
 
-  public ChangingData<List<Category>> getCategoryList() {
+  public IChangingData<List<Category>> getCategoryList() {
     reloadCategories();
     return categoryList;
   }
 
-  public ChangingData<List<Transaction>> getTransactionList(@NonNull AppAccount account)
+  public IChangingData<List<Transaction>> getTransactionList(@NonNull AppAccount account)
       throws DataDoesNotExistException {
     reloadTransactions(account);
     return transactionList;

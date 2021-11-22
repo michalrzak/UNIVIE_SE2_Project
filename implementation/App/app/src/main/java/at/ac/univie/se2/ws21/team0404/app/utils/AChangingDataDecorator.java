@@ -1,25 +1,25 @@
 package at.ac.univie.se2.ws21.team0404.app.utils;
 
 /**
- * Abstract decorator implementation for {@link ChangingData}. To be used to implement decorators
- * for implementations of the interface, mainly for {@link ChangingDataImpl}. This can be used to
+ * Abstract decorator implementation for {@link IChangingData}. To be used to implement decorators
+ * for implementations of the interface, mainly for {@link ChangingData}. This can be used to
  * add features to the basic implementation.
  * <p>
  * See {@link ChangingDataWithViewState} and {@link ChangingDataOnMainThread} for use cases.
  *
  * @param <T> data to be wrapped
  */
-abstract class ChangingDataDecorator<T> implements ChangingData<T> {
+abstract class AChangingDataDecorator<T> implements IChangingData<T> {
 
   @NonNull
-  protected final ChangingData<T> decoratedChangingData;
+  protected final IChangingData<T> decoratedChangingData;
 
   /**
-   * Constructs a decorator for {@link ChangingData}.
+   * Constructs a decorator for {@link IChangingData}.
    *
-   * @param changingData the {@link ChangingData} which should be decorated.
+   * @param changingData the {@link IChangingData} which should be decorated.
    */
-  protected ChangingDataDecorator(@NonNull ChangingData<T> changingData) {
+  protected AChangingDataDecorator(@NonNull IChangingData<T> changingData) {
     this.decoratedChangingData = changingData;
   }
 
