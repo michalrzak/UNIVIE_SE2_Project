@@ -23,7 +23,7 @@ public class ParcelableAppAccount extends AppAccount implements Parcelable {
   }
 
   public ParcelableAppAccount(@NonNull AppAccount appAccount) {
-    super(appAccount.getName(), appAccount.getType(), appAccount.getId());
+    super(appAccount.getName(), appAccount.getType(), appAccount);
   }
 
   @Override

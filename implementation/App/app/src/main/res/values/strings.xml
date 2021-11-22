@@ -21,4 +21,8 @@
     <string name="transaction_type">Type</string>
     <string name="transaction_category">Category</string>
     <string name="categories">Categories</string>
+
+    <string name="account_list">Account List</string>
+    <string name="transaction_list">Transaction List</string>
+    <string name="category_list">Category List</string>
 </resources>

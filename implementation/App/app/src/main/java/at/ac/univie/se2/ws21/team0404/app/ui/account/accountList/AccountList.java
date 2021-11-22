@@ -3,6 +3,8 @@ package at.ac.univie.se2.ws21.team0404.app.ui.account.accountList;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ListAdapter;
 import at.ac.univie.se2.ws21.team0404.app.R;
 import at.ac.univie.se2.ws21.team0404.app.database.Repository;
@@ -14,7 +16,6 @@ import at.ac.univie.se2.ws21.team0404.app.ui.categories.categorylist.CategoryLis
 import at.ac.univie.se2.ws21.team0404.app.ui.transactions.transactionlist.TransactionList;
 import at.ac.univie.se2.ws21.team0404.app.utils.ChangingData;
 import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
-import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 import java.util.List;
 
 public class AccountList extends AListActivity<AppAccount, AccountListViewHolder> {
@@ -39,6 +40,11 @@ public class AccountList extends AListActivity<AppAccount, AccountListViewHolder
   @Override
   protected ChangingData<List<AppAccount>> getList() {
     return Repository.getInstance().getAccountList();
+  }
+
+  @Override
+  protected int getListTitle() {
+    return R.string.account_list;
   }
 
   @Override

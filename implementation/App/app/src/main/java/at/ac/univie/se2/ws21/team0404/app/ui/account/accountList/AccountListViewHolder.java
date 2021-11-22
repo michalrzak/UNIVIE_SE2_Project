@@ -25,7 +25,8 @@ public class AccountListViewHolder extends RecyclerView.ViewHolder {
   }
 
   public void bind(@NonNull AppAccount account, Consumer<AppAccount> onClickListener) {
-    accountNameView.setText(account.getName());
+    String text = account.getName() + " (" + account.getType().toString() + ")";
+    accountNameView.setText(text);
     accountNameView.setOnClickListener(view -> onClickListener.accept(account));
   }
 }

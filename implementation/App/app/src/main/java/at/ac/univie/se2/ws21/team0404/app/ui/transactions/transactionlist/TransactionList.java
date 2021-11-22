@@ -3,17 +3,23 @@ package at.ac.univie.se2.ws21.team0404.app.ui.transactions.transactionlist;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.ListAdapter;
+
+import at.ac.univie.se2.ws21.team0404.app.R;
 import at.ac.univie.se2.ws21.team0404.app.database.Repository;
 import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
+import at.ac.univie.se2.ws21.team0404.app.model.account.ParcelableAppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.ParcelableTransaction;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
 import at.ac.univie.se2.ws21.team0404.app.ui.AListActivity;
+import at.ac.univie.se2.ws21.team0404.app.ui.account.newOrAddAccount.NewOrAddAccountActivity;
 import at.ac.univie.se2.ws21.team0404.app.ui.transactions.TransactionDetails;
 import at.ac.univie.se2.ws21.team0404.app.ui.transactions.TransactionNew;
 import at.ac.univie.se2.ws21.team0404.app.utils.ChangingData;
@@ -152,5 +158,27 @@ public class TransactionList extends AListActivity<Transaction, TransactionListV
     // this should never cause problems, as the catch block should redirect in that case
     // FIXME: take care of this branch!
     return null;
+  }
+
+  @Override
+  protected int getListTitle() {
+    return R.string.transaction_list;
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.edit_menu_icon, menu);
+    return super.onCreateOptionsMenu(menu);
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    if (item.getItemId() == R.id.category_menu_icon) {
+      Intent intent = new Intent(this, NewOrAddAccountActivity.class);
+      intent.putExtra(EIntents.ACCOUNT.toString(), new ParcelableAppAccount(account));
+      startActivity(intent);
+      return true;
+    }
+    return super.onOptionsItemSelected(item);
   }
 }

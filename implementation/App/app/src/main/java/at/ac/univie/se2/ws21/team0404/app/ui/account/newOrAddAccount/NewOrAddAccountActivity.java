@@ -1,5 +1,6 @@
 package at.ac.univie.se2.ws21.team0404.app.ui.account.newOrAddAccount;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -20,8 +21,6 @@ import at.ac.univie.se2.ws21.team0404.app.ui.transactions.transactionlist.Transa
 import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistException;
-
-// Part of the code here is temporary. It will be later moved into the Presenter Class
 
 public class NewOrAddAccountActivity extends AppCompatActivity {
 
@@ -61,21 +60,19 @@ public class NewOrAddAccountActivity extends AppCompatActivity {
       // create new AppAccount
       if (intentExtraAppAccount == null) {
         repository.createAppAccount(new AppAccount(accountNameValue, accountType));
-        finish();
       } else {
         // edit existing AppAccount
         // TODO use finish to go back to the previous activity
         //  (Problem: previous IntentExtra has been modified -> need to use observer in TransactionListActivity to change AppAccount name in the title
         AppAccount newAppAccount = new AppAccount(accountNameValue, accountType,
-            intentExtraAppAccount.getId());
-        repository.deleteAppAccount(intentExtraAppAccount);
-        repository.createAppAccount(newAppAccount);
+                intentExtraAppAccount);
+        repository.updateAppAccount(intentExtraAppAccount, newAppAccount);
 
         Intent intent = new Intent(this, TransactionList.class);
         intent.putExtra(EIntents.ACCOUNT.toString(), new ParcelableAppAccount(newAppAccount));
-
-        startActivity(intent);
+        setResult(Activity.RESULT_OK, intent);
       }
+      finish();
     } catch (Exception e) {
       Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT)
           .show();
@@ -108,8 +105,8 @@ public class NewOrAddAccountActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "This error shouldn't happen", Toast.LENGTH_SHORT)
             .show();
       }
-      // TODO: use finish() to go back 2 Activities: NewAddDeleteActivity(current one) -> TransactionListActivity(skip) -> AccountListActivity
       Intent intent = new Intent(this, AccountList.class);
+      intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
       startActivity(intent);
     } else {
       // when pressing back button

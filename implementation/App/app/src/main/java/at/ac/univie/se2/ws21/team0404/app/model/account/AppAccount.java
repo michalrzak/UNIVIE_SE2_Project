@@ -10,7 +10,6 @@ import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
  */
 public class AppAccount {
 
-  // should maybe use another solution to create unique ids (UUID?)
   private static int idCounter = 0;
   private final int id;
   private String name;
@@ -22,7 +21,13 @@ public class AppAccount {
     id = idCounter++;
   }
 
-  public AppAccount(@NonNull String name, @NonNull EAccountType type, int id) {
+  public AppAccount(@NonNull String name, @NonNull EAccountType type, @NonNull AppAccount oldAccount) {
+    this.name = name;
+    this.type = type;
+    this.id = oldAccount.getId();
+  }
+
+  protected AppAccount(@NonNull String name, @NonNull EAccountType type, int id) {
     this.name = name;
     this.type = type;
     this.id = id;
