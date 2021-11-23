@@ -18,7 +18,7 @@ import at.ac.univie.se2.ws21.team0404.app.model.android.ParcelableAppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.android.ParcelableTransaction;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
 import at.ac.univie.se2.ws21.team0404.app.ui.AListActivity;
-import at.ac.univie.se2.ws21.team0404.app.ui.account.newOrAddAccount.NewOrAddAccountActivity;
+import at.ac.univie.se2.ws21.team0404.app.ui.account.addOrEditAccount.AddOrEditAccountActivity;
 import at.ac.univie.se2.ws21.team0404.app.ui.transactions.TransactionDetails;
 import at.ac.univie.se2.ws21.team0404.app.ui.transactions.TransactionNew;
 import at.ac.univie.se2.ws21.team0404.app.utils.IChangingData;
@@ -205,7 +205,7 @@ public class TransactionList extends AListActivity<Transaction, TransactionListV
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     if (item.getItemId() == R.id.category_menu_icon) {
-      Intent intent = new Intent(this, NewOrAddAccountActivity.class);
+      Intent intent = new Intent(this, AddOrEditAccountActivity.class);
       intent.putExtra(EIntents.ACCOUNT.toString(), new ParcelableAppAccount(account));
       startActivity(intent);
       return true;

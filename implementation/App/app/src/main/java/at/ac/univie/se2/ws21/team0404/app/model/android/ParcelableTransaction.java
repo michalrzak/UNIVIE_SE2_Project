@@ -11,9 +11,6 @@ import at.ac.univie.se2.ws21.team0404.app.utils.Nullable;
 /**
  * A subclass of transaction, which implements the parcelable interface and allows to send these
  * objects through intents.
- * <p>
- * TODO: I would quite like for this entire package to be android-dependency free so we should find
- * a new home for this class
  */
 public class ParcelableTransaction extends Transaction implements Parcelable {
 
@@ -30,8 +27,8 @@ public class ParcelableTransaction extends Transaction implements Parcelable {
   };
 
   public ParcelableTransaction(@Nullable Category category,
-                               @NonNull ETransactionType type, int amount) {
-    super(category, type, amount);
+                               @NonNull ETransactionType type, int amount, String name) {
+    super(category, type, amount, name);
   }
 
   public ParcelableTransaction(@NonNull Transaction transaction) {
@@ -44,7 +41,8 @@ public class ParcelableTransaction extends Transaction implements Parcelable {
         (Category) in.readValue(Category.class.getClassLoader()),
         // TODO: is this correct? I am unsure of the classloader
         ETransactionType.values()[in.readInt()],
-        in.readInt());
+        in.readInt(),
+        in.readString());
   }
 
   @Override
@@ -65,5 +63,7 @@ public class ParcelableTransaction extends Transaction implements Parcelable {
     // Unfortunately this looks like the best way to pass enums.
     parcel.writeInt(getType().ordinal());
     parcel.writeInt(getAmount());
+
+    parcel.writeString(getName());
   }
 }

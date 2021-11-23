@@ -28,7 +28,7 @@ public class TransactionListViewHolder extends RecyclerView.ViewHolder {
 
   public void bind(@NonNull Transaction transaction,
       @NonNull Consumer<Transaction> onClickListener) {
-    nameView.setText(Integer.toString(transaction.getId()));
+    nameView.setText(transaction.getName());
     itemView.setOnClickListener(view -> onClickListener.accept(transaction));
 
   }

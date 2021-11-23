@@ -25,6 +25,7 @@ public class TransactionDetails extends ATransactionActivity {
     displayedTransaction = intent.getParcelableExtra(EIntents.TRANSACTION.toString());
     assert (displayedTransaction != null);
 
+    nameEditText.setText(displayedTransaction.getName());
     amountEditText.setText(Integer.toString(displayedTransaction.getAmount()));
     typeSpinner.setSelection(typeAdapter.getPosition(displayedTransaction.getType()));
     if (displayedTransaction.getCategory().isPresent()) {
