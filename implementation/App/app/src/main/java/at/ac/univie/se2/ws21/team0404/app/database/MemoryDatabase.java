@@ -1,8 +1,5 @@
 package at.ac.univie.se2.ws21.team0404.app.database;
 
-// TODO: do we even remove log from here
-
-import android.util.Log;
 import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
@@ -127,9 +124,7 @@ public class MemoryDatabase implements IDatabase {
   public void updateTransaction(AppAccount owner, int oldId, Transaction updatedTransaction)
       throws DataDoesNotExistException {
 
-    Log.d("MemDB_updateTx", "started update of transaction with id: " + oldId);
     validateAccount(owner);
-    Log.d("MemDB_updateTx", "account valid");
 
     Set<Transaction> transactionList = transactions.get(owner.getId());
     assert (transactionList != null);
@@ -143,7 +138,6 @@ public class MemoryDatabase implements IDatabase {
 
     transactionList.remove(oldTransaction.get());
     transactionList.add(updatedTransaction);
-    Log.d("MemDB_updateTx", "successfully updated transaction in database");
 
   }
 
