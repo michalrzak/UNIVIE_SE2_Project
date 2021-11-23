@@ -12,8 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import at.ac.univie.se2.ws21.team0404.app.R;
 import at.ac.univie.se2.ws21.team0404.app.database.Repository;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
-import at.ac.univie.se2.ws21.team0404.app.model.categories.EIncomeOrExpense;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.ParcelableCategory;
+import at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType;
 import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistException;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataExistsException;
@@ -73,8 +73,8 @@ public class AddOrEditCategoryActivity extends AppCompatActivity {
   }
 
   private void saveCategoryToDb(boolean shouldDeleteCategory) {
-    EIncomeOrExpense type =
-        radioIncome.isChecked() ? EIncomeOrExpense.INCOME : EIncomeOrExpense.EXPENSE;
+    ETransactionType type =
+        radioIncome.isChecked() ? ETransactionType.INCOME : ETransactionType.EXPENSE;
     String name = shouldDeleteCategory
         ? passedCategory.getName()
         : editTextCategoryName.getText().toString();

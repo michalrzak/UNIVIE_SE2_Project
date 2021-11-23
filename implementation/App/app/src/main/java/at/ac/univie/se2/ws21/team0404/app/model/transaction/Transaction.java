@@ -2,6 +2,7 @@ package at.ac.univie.se2.ws21.team0404.app.model.transaction;
 
 
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
+import at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType;
 import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 import at.ac.univie.se2.ws21.team0404.app.utils.Nullable;
 import java.util.Optional;

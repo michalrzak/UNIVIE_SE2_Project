@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.ParcelableCategory;
+import at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType;
 import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 import at.ac.univie.se2.ws21.team0404.app.utils.Nullable;
 
@@ -29,7 +30,7 @@ public class ParcelableTransaction extends Transaction implements Parcelable {
   };
 
   public ParcelableTransaction(@Nullable Category category,
-      @NonNull ETransactionType type, int amount) {
+                               @NonNull ETransactionType type, int amount) {
     super(category, type, amount);
   }
 

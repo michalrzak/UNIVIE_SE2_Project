@@ -1,20 +1,21 @@
 package at.ac.univie.se2.ws21.team0404.app.model.categories;
 
+import at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType;
 import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 import java.util.Objects;
 
 public class Category {
 
-  private final EIncomeOrExpense type;
+  private final ETransactionType type;
   private String name;
   private boolean disabled = false;
 
-  public Category(@NonNull EIncomeOrExpense type, @NonNull String name) {
+  public Category(@NonNull ETransactionType type, @NonNull String name) {
     this.name = name;
     this.type = type;
   }
 
-  public EIncomeOrExpense getType() {
+  public ETransactionType getType() {
     return type;
   }
 
