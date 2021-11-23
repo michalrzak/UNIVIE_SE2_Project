@@ -23,7 +23,7 @@
             android:ems="10"
             android:inputType="text"
             android:minHeight="?attr/minTouchTargetSize"
-            android:text="@string/category_name" />
+            android:hint="@string/category_name" />
 
         <TextView
             android:id="@+id/categoryType"
