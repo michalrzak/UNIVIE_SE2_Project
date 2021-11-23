@@ -8,6 +8,8 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import at.ac.univie.se2.ws21.team0404.app.R;
 import at.ac.univie.se2.ws21.team0404.app.database.Repository;
@@ -27,17 +29,23 @@ public class AddOrEditCategoryActivity extends AppCompatActivity {
   private RadioButton radioExpense;
   private TextView categoryTypeHintText;
   private Button deleteButton;
+  private Button submitButton;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_add_or_edit_category);
 
+    ActionBar actionBar = getSupportActionBar();
+    assert (actionBar != null);
+    actionBar.setDisplayHomeAsUpEnabled(true);
+
     editTextCategoryName = findViewById(R.id.editTextCategoryName);
     radioIncome = findViewById(R.id.radioIncome);
     radioExpense = findViewById(R.id.radioExpense);
     categoryTypeHintText = findViewById(R.id.categoryTypeHintText);
     deleteButton = findViewById(R.id.deleteButton);
+    submitButton = findViewById(R.id.submitButton);
 
     Intent passedIntent = getIntent();
     passedCategory = passedIntent
@@ -51,11 +59,13 @@ public class AddOrEditCategoryActivity extends AppCompatActivity {
     if (category == null) {
       radioIncome.toggle();
       deleteButton.setVisibility(View.GONE);
+      submitButton.setText(R.string.create_category);
       return;
     }
 
     editTextCategoryName.setText(category.getName());
     deleteButton.setVisibility(View.VISIBLE);
+    submitButton.setText(R.string.save_category);
 
     switch (category.getType()) {
       case INCOME:
@@ -87,7 +97,7 @@ public class AddOrEditCategoryActivity extends AppCompatActivity {
       if (passedCategory == null) {
         Repository.getInstance().createCategory(newCategory);
       } else {
-        Repository.getInstance().updateCategory(passedCategory.getName(), newCategory);
+        Repository.getInstance().updateCategory(name, newCategory);
       }
       finish();
     } catch (DataExistsException e) {

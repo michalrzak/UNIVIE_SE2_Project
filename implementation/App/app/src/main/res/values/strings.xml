@@ -26,4 +26,6 @@
     <string name="transaction_list">Transaction List</string>
     <string name="category_list">Category List</string>
     <string name="name">Name</string>
+    <string name="save_category">Save Category</string>
+    <string name="create_category">Create Category</string>
 </resources>
