@@ -1,6 +1,5 @@
 package at.ac.univie.se2.ws21.team0404.app.model.transaction;
 
-
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
 import at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType;
 import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
@@ -22,12 +21,14 @@ public class Transaction {
 
   private final int id;
 
+  private String name;
   @Nullable
   private Category category;
   private ETransactionType type;
   private int amount; // in euro cent; TODO: change this to a special money class?
 
-  public Transaction(@Nullable Category category, @NonNull ETransactionType type, int amount) {
+  public Transaction(@Nullable Category category, @NonNull ETransactionType type, int amount,
+                     String name) {
     if (!validateAmount(amount)) {
       throw new IllegalArgumentException(
           "amount is of an invalid value"); // TODO: make this own exception?
@@ -36,6 +37,7 @@ public class Transaction {
     this.id = counter++;
     this.category = category;
     this.type = type;
+    this.name = name;
 
     this.amount = amount;
   }
@@ -50,10 +52,11 @@ public class Transaction {
    * @param amount   amount of the transaction
    */
   protected Transaction(int id, @Nullable Category category, @NonNull ETransactionType type,
-      int amount) {
+      int amount, @NonNull String name) {
     this.id = id;
     this.category = category;
     this.type = type;
+    this.name = name;
 
     if (!validateAmount(amount)) {
       throw new IllegalArgumentException(
@@ -68,6 +71,7 @@ public class Transaction {
     this.id = transaction.getId();
     this.category = transaction.getRawCategory();
     this.type = transaction.getType();
+    this.name = transaction.getName();
   }
 
   /**
@@ -131,6 +135,14 @@ public class Transaction {
     }
 
     amount = newAmount;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(@NonNull String name) {
+    this.name = name;
   }
 
   /**

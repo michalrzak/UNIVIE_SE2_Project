@@ -23,6 +23,7 @@ public abstract class ATransactionActivity extends AppCompatActivity {
    * Views, made available to the subclass
    */
   protected EditText amountEditText;
+  protected EditText nameEditText;
   protected Spinner typeSpinner;
   protected Spinner categorySpinner;
   /**
@@ -90,7 +91,9 @@ public abstract class ATransactionActivity extends AppCompatActivity {
       }
     }
 
-    return new Transaction((Category) category, (ETransactionType) type, amount);
+    String name = nameEditText.getText().toString();
+
+    return new Transaction((Category) category, (ETransactionType) type, amount, name);
   }
 
   @Override
@@ -103,6 +106,7 @@ public abstract class ATransactionActivity extends AppCompatActivity {
     actionBar.setDisplayHomeAsUpEnabled(true);
 
     amountEditText = findViewById(R.id.transaction_amount_edittext);
+    nameEditText = findViewById(R.id.name_editText);
 
     typeSpinner = findViewById(R.id.transaction_type_spinner);
     typeAdapter = new ArrayAdapter<>(this,
