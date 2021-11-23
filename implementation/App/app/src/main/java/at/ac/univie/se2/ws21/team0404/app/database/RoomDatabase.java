@@ -36,13 +36,13 @@ public class RoomDatabase implements IDatabase {
     }
 
     @Override
-    public void deleteAccount(AppAccount newAccount) throws DataDoesNotExistException {
+    public void deleteAccount(AppAccount account) throws DataDoesNotExistException {
         throw new NotYetImplementedException("RoomDatabase::deleteAccount");
 
     }
 
     @Override
-    public void updateAccount(@NonNull AppAccount oldAccount, @NonNull AppAccount newAccount) throws DataDoesNotExistException {
+    public void updateAccount(@NonNull AppAccount newAccount) throws DataDoesNotExistException {
         throw new NotYetImplementedException("RoomDatabase::updateAccount");
 
     }

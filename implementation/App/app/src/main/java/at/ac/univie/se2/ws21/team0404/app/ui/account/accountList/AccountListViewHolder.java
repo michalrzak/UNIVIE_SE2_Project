@@ -13,9 +13,11 @@ import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 public class AccountListViewHolder extends RecyclerView.ViewHolder {
 
   private final TextView accountNameView;
+  private final View accountView;
 
   public AccountListViewHolder(@NonNull View view) {
     super(view);
+    accountView = view;
     accountNameView = view.findViewById(R.id.list_item_title);
   }
 
@@ -27,6 +29,6 @@ public class AccountListViewHolder extends RecyclerView.ViewHolder {
   public void bind(@NonNull AppAccount account, Consumer<AppAccount> onClickListener) {
     String text = account.getName() + " (" + account.getType().toString() + ")";
     accountNameView.setText(text);
-    accountNameView.setOnClickListener(view -> onClickListener.accept(account));
+    accountView.setOnClickListener(view -> onClickListener.accept(account));
   }
 }

@@ -72,8 +72,8 @@ public class Repository {
     reloadAccounts();
   }
 
-  public void updateAppAccount(@NonNull AppAccount oldAccount, @NonNull AppAccount newAccount) throws DataDoesNotExistException {
-    databaseStrategy.updateAccount(oldAccount, newAccount);
+  public void updateAppAccount(@NonNull AppAccount newAccount) throws DataDoesNotExistException {
+    databaseStrategy.updateAccount(newAccount);
     reloadAccounts();
   }
 
