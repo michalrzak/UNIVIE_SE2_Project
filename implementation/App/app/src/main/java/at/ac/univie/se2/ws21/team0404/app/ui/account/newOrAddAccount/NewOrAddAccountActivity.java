@@ -62,11 +62,9 @@ public class NewOrAddAccountActivity extends AppCompatActivity {
         repository.createAppAccount(new AppAccount(accountNameValue, accountType));
       } else {
         // edit existing AppAccount
-        // TODO use finish to go back to the previous activity
-        //  (Problem: previous IntentExtra has been modified -> need to use observer in TransactionListActivity to change AppAccount name in the title
         AppAccount newAppAccount = new AppAccount(accountNameValue, accountType,
                 intentExtraAppAccount);
-        repository.updateAppAccount(intentExtraAppAccount, newAppAccount);
+        repository.updateAppAccount(newAppAccount);
 
         Intent intent = new Intent(this, TransactionList.class);
         intent.putExtra(EIntents.ACCOUNT.toString(), new ParcelableAppAccount(newAppAccount));

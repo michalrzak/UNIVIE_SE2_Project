@@ -74,17 +74,17 @@ public class MemoryDatabase implements IDatabase {
   }
 
   @Override
-  public void deleteAccount(AppAccount newAccount) throws DataDoesNotExistException {
-    if (!accounts.containsKey(newAccount.getId())) {
+  public void deleteAccount(AppAccount account) throws DataDoesNotExistException {
+    if (!accounts.containsKey(account.getId())) {
       throw new DataDoesNotExistException("account");
     }
-    accounts.remove(newAccount.getId());
+    accounts.remove(account.getId());
   }
 
   @Override
-  public void updateAccount(@NonNull AppAccount oldAccount, @NonNull AppAccount newAccount)
+  public void updateAccount(@NonNull AppAccount newAccount)
       throws DataDoesNotExistException {
-    if (!accounts.containsValue(oldAccount)) {
+    if (!accounts.containsKey(newAccount.getId())) {
       throw new DataDoesNotExistException("account");
     }
     accounts.replace(newAccount.getId(), newAccount);

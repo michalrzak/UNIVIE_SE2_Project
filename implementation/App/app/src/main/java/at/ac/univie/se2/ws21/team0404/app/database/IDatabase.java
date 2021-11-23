@@ -26,9 +26,9 @@ public interface IDatabase {
 
   void addAccount(@NonNull AppAccount newAccount) throws DataExistsException;
 
-  void deleteAccount(AppAccount newAccount) throws DataDoesNotExistException;
+  void deleteAccount(AppAccount account) throws DataDoesNotExistException;
 
-  void updateAccount(@NonNull AppAccount oldAccount, @NonNull AppAccount newAccount) throws DataDoesNotExistException;
+  void updateAccount(@NonNull AppAccount newAccount) throws DataDoesNotExistException;
 
   void addTransaction(@NonNull AppAccount owner, @NonNull Transaction newTransaction)
       throws DataExistsException, DataDoesNotExistException;
