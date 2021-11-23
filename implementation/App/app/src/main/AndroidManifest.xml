@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App">
         <activity
-            android:name=".ui.account.newOrAddAccount.NewOrAddAccountActivity"
+            android:name=".ui.account.addOrEditAccount.AddOrEditAccountActivity"
             android:exported="false" />
       <activity
             android:name=".ui.categories.AddOrEditCategoryActivity"

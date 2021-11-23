@@ -1,4 +1,4 @@
-package at.ac.univie.se2.ws21.team0404.app.ui.account.newOrAddAccount;
+package at.ac.univie.se2.ws21.team0404.app.ui.account.addOrEditAccount;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -22,7 +22,7 @@ import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistException;
 
-public class NewOrAddAccountActivity extends AppCompatActivity {
+public class AddOrEditAccountActivity extends AppCompatActivity {
 
   private Spinner accountTypeSpinner;
   private ArrayAdapter<EAccountType> accountTypeArrayAdapter;

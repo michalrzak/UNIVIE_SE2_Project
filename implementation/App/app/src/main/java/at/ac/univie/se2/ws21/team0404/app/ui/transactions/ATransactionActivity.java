@@ -3,6 +3,8 @@ package at.ac.univie.se2.ws21.team0404.app.ui.transactions;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +18,7 @@ import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
 import at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class ATransactionActivity extends AppCompatActivity {
 
@@ -44,6 +47,12 @@ public abstract class ATransactionActivity extends AppCompatActivity {
     return Repository.getInstance().getCategoryList().getData();
   }
 
+  private List<Category> getMatchingCategories(ETransactionType type) {
+    return getAllCategories()
+            .stream().filter(category -> category.getType() == type)
+            .collect(Collectors.toList());
+  }
+
   /**
    * This method gets called at the end of create. Use this to set values to the Views if needed and
    * perform other setup tasks
@@ -55,6 +64,14 @@ public abstract class ATransactionActivity extends AppCompatActivity {
    * subclasses
    */
   abstract protected void saveButtonPressed();
+
+  private void updateCategoryAdapter(ETransactionType type) {
+    ArrayAdapter<Category> updatedAdapter = new ArrayAdapter<>(this,
+            R.layout.support_simple_spinner_dropdown_item,
+            getMatchingCategories((ETransactionType) typeSpinner.getSelectedItem())
+    );
+    categorySpinner.setAdapter(updatedAdapter);
+  }
 
   /**
    * Takes the values from the form and creates a new Transaction object from them.
@@ -116,11 +133,25 @@ public abstract class ATransactionActivity extends AppCompatActivity {
     categorySpinner = findViewById(R.id.transaction_category_spinner);
 
     categoryAdapter = new ArrayAdapter<>(this,
-        R.layout.support_simple_spinner_dropdown_item, getAllCategories());
+        R.layout.support_simple_spinner_dropdown_item,
+            getMatchingCategories((ETransactionType) typeSpinner.getSelectedItem())
+    );
     categorySpinner.setAdapter(categoryAdapter);
 
     Button saveButton = findViewById(R.id.transaction_save_button);
     saveButton.setOnClickListener(view -> saveButtonPressed());
+
+    typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+      @Override
+      public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        updateCategoryAdapter((ETransactionType) typeSpinner.getSelectedItem());
+      }
+
+      @Override
+      public void onNothingSelected(AdapterView<?> parent) {
+
+      }
+    });
 
     setup();
   }

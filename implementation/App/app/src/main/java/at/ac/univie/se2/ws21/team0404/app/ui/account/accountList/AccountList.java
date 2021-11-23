@@ -11,7 +11,7 @@ import at.ac.univie.se2.ws21.team0404.app.database.Repository;
 import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.android.ParcelableAppAccount;
 import at.ac.univie.se2.ws21.team0404.app.ui.AListActivity;
-import at.ac.univie.se2.ws21.team0404.app.ui.account.newOrAddAccount.NewOrAddAccountActivity;
+import at.ac.univie.se2.ws21.team0404.app.ui.account.addOrEditAccount.AddOrEditAccountActivity;
 import at.ac.univie.se2.ws21.team0404.app.ui.categories.categorylist.CategoryList;
 import at.ac.univie.se2.ws21.team0404.app.ui.transactions.transactionlist.TransactionList;
 import at.ac.univie.se2.ws21.team0404.app.utils.IChangingData;
@@ -23,7 +23,7 @@ public class AccountList extends AListActivity<AppAccount, AccountListViewHolder
   @Override
   protected Runnable getFabRedirect() {
     return () -> {
-      Intent intent = new Intent(this, NewOrAddAccountActivity.class);
+      Intent intent = new Intent(this, AddOrEditAccountActivity.class);
       startActivity(intent);
     };
   }
