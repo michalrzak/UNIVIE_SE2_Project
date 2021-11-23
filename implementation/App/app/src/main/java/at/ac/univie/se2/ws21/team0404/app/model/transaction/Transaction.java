@@ -63,6 +63,13 @@ public class Transaction {
     this.amount = amount;
   }
 
+  public Transaction(Transaction transaction) {
+    this.amount = transaction.getAmount();
+    this.id = transaction.getId();
+    this.category = transaction.getRawCategory();
+    this.type = transaction.getType();
+  }
+
   /**
    * Function, which validates the amount field. May be moved to special money class if it gets
    * implemented. For now, amount is allowed to be non-negative (so it can be zero). TODO: can
