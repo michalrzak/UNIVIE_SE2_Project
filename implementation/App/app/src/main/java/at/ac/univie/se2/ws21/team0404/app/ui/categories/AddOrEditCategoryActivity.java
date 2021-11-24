@@ -97,7 +97,7 @@ public class AddOrEditCategoryActivity extends AppCompatActivity {
       if (passedCategory == null) {
         Repository.getInstance().createCategory(newCategory);
       } else {
-        Repository.getInstance().updateCategory(name, newCategory);
+        Repository.getInstance().updateCategory(passedCategory.getName(), newCategory);
       }
       finish();
     } catch (DataExistsException e) {
