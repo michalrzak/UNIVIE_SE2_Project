@@ -2,6 +2,7 @@ package at.ac.univie.se2.ws21.team0404.app.ui.categories;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,6 +10,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import at.ac.univie.se2.ws21.team0404.app.R;
@@ -115,5 +117,14 @@ public class AddOrEditCategoryActivity extends AppCompatActivity {
 
   public void onDelete(View view) {
     saveCategoryToDb(true);
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    switch (item.getItemId()) {
+      default:
+        finish();
+        return true;
+    }
   }
 }

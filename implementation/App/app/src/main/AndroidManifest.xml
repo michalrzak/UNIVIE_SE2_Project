@@ -15,7 +15,7 @@
             android:exported="false" />
       <activity
             android:name=".ui.categories.AddOrEditCategoryActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".ui.transactions.TransactionDetails"
             android:exported="false" />
