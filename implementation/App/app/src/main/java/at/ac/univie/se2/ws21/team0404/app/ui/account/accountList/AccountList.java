@@ -49,7 +49,7 @@ public class AccountList extends AListActivity<AppAccount, AccountListViewHolder
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.edit_menu_icon, menu);
+    getMenuInflater().inflate(R.menu.category_menu_icon, menu);
     return super.onCreateOptionsMenu(menu);
   }
 
