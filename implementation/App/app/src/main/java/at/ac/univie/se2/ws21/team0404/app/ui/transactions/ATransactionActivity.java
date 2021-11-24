@@ -17,11 +17,24 @@ import at.ac.univie.se2.ws21.team0404.app.database.Repository;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
 import at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public abstract class ATransactionActivity extends AppCompatActivity {
 
+  /**
+   * A special UI category to represent the null category
+   */
+  private final static Category nullCategory = new Category(ETransactionType.INCOME, "<no category>") {
+
+    @NonNull
+    @Override
+    public String toString() {
+      return getName();
+    }
+  };
   /**
    * Views, made available to the subclass
    */
@@ -35,7 +48,7 @@ public abstract class ATransactionActivity extends AppCompatActivity {
   protected ArrayAdapter<ETransactionType> typeAdapter;
   protected ArrayAdapter<Category> categoryAdapter;
 
-  private Category selectedCategory;
+  private Category selectedCategory = nullCategory;
 
   /**
    * Method, used to get a List of all available categories.
@@ -52,7 +65,7 @@ public abstract class ATransactionActivity extends AppCompatActivity {
   private List<Category> getMatchingCategories(ETransactionType type) {
     return getAllCategories()
             .stream().filter(category -> category.getType() == type)
-            .collect(Collectors.toList());
+            .collect(Collectors.toCollection(ArrayList::new));
   }
 
   /**
@@ -69,13 +82,28 @@ public abstract class ATransactionActivity extends AppCompatActivity {
 
   protected void updateCategorySelection(Category category) {
     selectedCategory = category;
+    if (selectedCategory == null) {
+      selectedCategory = nullCategory;
+    }
     categorySpinner.setSelection(categoryAdapter.getPosition(selectedCategory));
   }
 
   private void updateCategoryAdapter(ETransactionType type) {
+    ETransactionType selectedTransactionType = (ETransactionType) typeSpinner.getSelectedItem();
+    List<Category> categories = getMatchingCategories(selectedTransactionType);
+
+    // add support to Spinner for "no category" selection
+    categories.add(0, nullCategory);
+    // add support to Spinner for deleted categories
+    if (!categories.contains(selectedCategory)) {
+      if (selectedCategory.getType() == selectedTransactionType) {
+        categories.add(selectedCategory);
+      }
+    }
+
     categoryAdapter = new ArrayAdapter<>(this,
             R.layout.support_simple_spinner_dropdown_item,
-            getMatchingCategories((ETransactionType) typeSpinner.getSelectedItem())
+            categories
     );
     categorySpinner.setAdapter(categoryAdapter);
     updateCategorySelection(selectedCategory);
@@ -95,9 +123,11 @@ public abstract class ATransactionActivity extends AppCompatActivity {
 
     assert (type != null);
     assert (type instanceof ETransactionType);
-    // as category is optional it can be returned as null
-    // TODO: maybe change this away from null to some special enum value
-    assert (category == null || category instanceof Category);
+    assert (category != null);
+    assert (category instanceof Category);
+    if (category == nullCategory) {
+      category = null;
+    }
 
     int amount;
     String amountText = amountEditText.getText().toString();
