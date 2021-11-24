@@ -143,6 +143,21 @@ public class TransactionList extends AListActivity<Transaction, TransactionListV
         }
       });
 
+  /**
+   * Object, used to get the result from AddOrEditAccountActivity. Updates the currently stored
+   * account to the new one.
+   */
+  private final ActivityResultLauncher<Intent> resultAccountEdit = registerForActivityResult(
+      new StartActivityForResult(),
+      result -> {
+        switch (result.getResultCode()) {
+          case Activity.RESULT_OK:
+            Intent intentRes = result.getData();
+            assert (intentRes != null);
+            account = intentRes.getParcelableExtra(EIntents.ACCOUNT.toString());
+        }
+      });
+
   @NonNull
   private AppAccount getAccount() {
     // TODO: make this safe. What if no account was passed? probably throw onw exception
@@ -204,10 +219,10 @@ public class TransactionList extends AListActivity<Transaction, TransactionListV
 
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-    if (item.getItemId() == R.id.category_menu_icon) {
+    if (item.getItemId() == R.id.edit_menu_icon) {
       Intent intent = new Intent(this, AddOrEditAccountActivity.class);
       intent.putExtra(EIntents.ACCOUNT.toString(), new ParcelableAppAccount(account));
-      startActivity(intent);
+      resultAccountEdit.launch(intent);
       return true;
     }
     return super.onOptionsItemSelected(item);
