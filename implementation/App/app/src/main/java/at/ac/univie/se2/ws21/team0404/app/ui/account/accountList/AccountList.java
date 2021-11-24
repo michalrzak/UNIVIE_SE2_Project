@@ -1,10 +1,12 @@
 package at.ac.univie.se2.ws21.team0404.app.ui.account.accountList;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.recyclerview.widget.ListAdapter;
 import at.ac.univie.se2.ws21.team0404.app.R;
 import at.ac.univie.se2.ws21.team0404.app.database.Repository;
@@ -45,6 +47,15 @@ public class AccountList extends AListActivity<AppAccount, AccountListViewHolder
   @Override
   protected int getListTitle() {
     return R.string.account_list;
+  }
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
+    ActionBar actionBar = getSupportActionBar();
+    assert (actionBar != null);
+    actionBar.setDisplayHomeAsUpEnabled(false);
   }
 
   @Override
