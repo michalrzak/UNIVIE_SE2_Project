@@ -30,8 +30,7 @@ public class TransactionDetails extends ATransactionActivity {
     typeSpinner.setSelection(typeAdapter.getPosition(displayedTransaction.getType()));
     if (displayedTransaction.getCategory().isPresent()) {
       Log.d("TX_details", "category was provided, name was: " + displayedTransaction.getCategory().get());
-      categorySpinner.setSelection(categoryAdapter.getPosition(displayedTransaction.getCategory()
-          .get()));
+      updateCategorySelection(displayedTransaction.getCategory().get());
     }
   }
 

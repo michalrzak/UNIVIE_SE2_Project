@@ -35,6 +35,8 @@ public abstract class ATransactionActivity extends AppCompatActivity {
   protected ArrayAdapter<ETransactionType> typeAdapter;
   protected ArrayAdapter<Category> categoryAdapter;
 
+  private Category selectedCategory;
+
   /**
    * Method, used to get a List of all available categories.
    * <p>
@@ -65,12 +67,18 @@ public abstract class ATransactionActivity extends AppCompatActivity {
    */
   abstract protected void saveButtonPressed();
 
+  protected void updateCategorySelection(Category category) {
+    selectedCategory = category;
+    categorySpinner.setSelection(categoryAdapter.getPosition(selectedCategory));
+  }
+
   private void updateCategoryAdapter(ETransactionType type) {
-    ArrayAdapter<Category> updatedAdapter = new ArrayAdapter<>(this,
+    categoryAdapter = new ArrayAdapter<>(this,
             R.layout.support_simple_spinner_dropdown_item,
             getMatchingCategories((ETransactionType) typeSpinner.getSelectedItem())
     );
-    categorySpinner.setAdapter(updatedAdapter);
+    categorySpinner.setAdapter(categoryAdapter);
+    updateCategorySelection(selectedCategory);
   }
 
   /**
