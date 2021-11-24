@@ -113,12 +113,16 @@ public class MemoryDatabase implements IDatabase {
 
   @Override
   public void updateCategory(@NonNull String categoryName, @NonNull Category newCategory)
-      throws DataDoesNotExistException {
+          throws DataDoesNotExistException, DataExistsException {
     if (!categories.containsKey(categoryName)) {
       throw new DataDoesNotExistException("categories");
     }
+    if (categories.containsKey(newCategory.getName())) {
+      throw new DataExistsException("categories");
+    }
 
-    categories.replace(categoryName, newCategory);
+    categories.remove(categoryName);
+    categories.put(newCategory.getName(), newCategory);
   }
 
   @Override

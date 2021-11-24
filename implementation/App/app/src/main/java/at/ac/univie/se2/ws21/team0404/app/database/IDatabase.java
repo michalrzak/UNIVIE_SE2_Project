@@ -40,7 +40,7 @@ public interface IDatabase {
   // public void updateAccount(AppAccount oldAccount, AppAccount newAccount) throws DataDoesNotExistException;
   void addCategory(Category newCategory) throws DataExistsException;
 
-  void updateCategory(String categoryName, Category newCategory) throws DataDoesNotExistException;
+  void updateCategory(String categoryName, Category newCategory) throws DataDoesNotExistException, DataExistsException;
 
   void updateTransaction(AppAccount owner, int oldId,
       Transaction updatedTransaction) throws DataDoesNotExistException;

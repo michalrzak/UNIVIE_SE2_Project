@@ -94,7 +94,7 @@ public class Repository {
   }
 
   public void updateCategory(@NonNull String categoryName, @NonNull Category category)
-      throws DataDoesNotExistException {
+          throws DataDoesNotExistException, DataExistsException {
     databaseStrategy.updateCategory(categoryName, category);
     reloadCategories();
   }
