@@ -117,7 +117,8 @@ public class MemoryDatabase implements IDatabase {
     if (!categories.containsKey(categoryName)) {
       throw new DataDoesNotExistException("categories");
     }
-    if (categories.containsKey(newCategory.getName())) {
+    // Check if renamed category already exists
+    if (!categoryName.equals(newCategory.getName()) && categories.containsKey(newCategory.getName())) {
       throw new DataExistsException("categories");
     }
 
