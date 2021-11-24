@@ -92,7 +92,8 @@ public class MemoryDatabase implements IDatabase {
 
   @Override
   public void addCategory(@NonNull Category newCategory) throws DataExistsException {
-    if (categories.containsKey(newCategory.getName())) {
+    Category existingCategory = categories.get(newCategory.getName());
+    if (existingCategory != null && !existingCategory.isDisabled()) {
       throw new DataExistsException("categories");
     }
     categories.put(newCategory.getName(), newCategory);
