@@ -24,124 +24,12 @@ import at.ac.univie.se2.ws21.team0404.app.ui.transactions.TransactionNew;
 import at.ac.univie.se2.ws21.team0404.app.utils.IChangingData;
 import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistException;
-import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataExistsException;
 import java.util.List;
 
 public class TransactionList extends AListActivity<Transaction, TransactionListViewHolder> {
 
   @Nullable
   private AppAccount account;
-
-  /**
-   * Object, used to get result from TransactionNew. This activity submits upon completion the
-   * transaction which was created in its form.
-   * <p>
-   * This object handles what should happen once the result is returned. Namely it validates some
-   * fields, and tries to save the new transaction to the DB
-   */
-  private final ActivityResultLauncher<Intent> resultTransactionNew = registerForActivityResult(
-      new StartActivityForResult(),
-      result -> {
-        Log.d("TransactionList_result", "TransactionNew returned the result: " + result.toString());
-
-        switch (result.getResultCode()) {
-          case Activity.RESULT_OK:
-            assert (account != null);
-
-            Intent intentRes = result.getData();
-            assert (intentRes != null);
-            Transaction transaction = intentRes.getParcelableExtra(EIntents.TRANSACTION.toString());
-
-            try {
-              Repository.getInstance().createTransaction(account, transaction);
-              Log.d("TransactionList_result", "Successfully added transaction");
-            } catch (DataDoesNotExistException e) {
-              Log.e("TransactionList_result",
-                  "Tried to add transaction to an account which does not exist. Message: " + e
-                      .getMessage());
-              Toast.makeText(this, "Error on saving transaction try again please.",
-                  Toast.LENGTH_LONG)
-                  .show();
-              finish();
-            } catch (DataExistsException e) {
-              Log.e("TransactionList_result",
-                  "Tried to add transaction, but transaction with this ID already exists. This should not happen. Message"
-                      + e.getMessage());
-              Toast
-                  .makeText(this, "Error on saving transaction, try again please.",
-                      Toast.LENGTH_LONG)
-                  .show();
-              // this does not need to finnish as the account seems to be still valid
-              break;
-            }
-        }
-      });
-
-  /**
-   * Object, used to get result from TransactionDetails. This activity submits upon completion the
-   * transaction which was created in its form and the id of the transaction on which the form was
-   * based on.
-   * <p>
-   * This object handles what should happen once the result is returned. Namely it validates some
-   * fields, and tries to update transaction in the DB
-   */
-  private final ActivityResultLauncher<Intent> resultTransactionDetails = registerForActivityResult(
-      new StartActivityForResult(),
-      result -> {
-        Log.d("TransactionList_result",
-            "TransactionDetails returned the result: " + result.toString());
-
-        assert (account != null);
-
-        Intent intentRes = result.getData();
-
-        switch (result.getResultCode()) {
-          case Activity.RESULT_OK:
-
-            assert (intentRes != null);
-            Transaction transaction = intentRes.getParcelableExtra(EIntents.TRANSACTION.toString());
-
-            int oldId = intentRes.getIntExtra(EIntents.TRANSACTION_ID.toString(), -1);
-            assert (oldId != -1);
-
-            try {
-              Repository.getInstance().updateTransaction(account, oldId, transaction);
-              Log.d("TransactionList_result", "Successfully updated transaction");
-            } catch (DataDoesNotExistException e) {
-              Log.e("TransactionList_result",
-                  "Tried to update a transaction from an account which does not exist. Message: "
-                      + e
-                      .getMessage());
-              Toast.makeText(this, "Error on saving transaction try again please.",
-                  Toast.LENGTH_LONG)
-                  .show();
-              finish();
-            }
-            break;
-
-          // Transaction was deleted
-          case Activity.RESULT_FIRST_USER:
-            assert (intentRes != null);
-            int toBeDeleted = intentRes.getIntExtra(EIntents.TRANSACTION_ID.toString(), -1);
-            assert (toBeDeleted != -1);
-
-            try {
-              Repository.getInstance().deleteTransaction(account, toBeDeleted);
-              Log.d("TransactionList_result", "Successfully deleted transaction");
-            } catch (DataDoesNotExistException e) {
-              Log.e("TransactionList_result",
-                  "Tried to delete a transaction from an account which does not exist or the"
-                      + "to be deleted transaction does not exists. Message: "
-                      + e
-                      .getMessage());
-              Toast.makeText(this, "Error on saving transaction try again please.",
-                  Toast.LENGTH_LONG)
-                  .show();
-              finish();
-              break;
-            }
-        }
-      });
 
   /**
    * Object, used to get the result from AddOrEditAccountActivity. Updates the currently stored
@@ -173,7 +61,9 @@ public class TransactionList extends AListActivity<Transaction, TransactionListV
   protected Runnable getFabRedirect() {
     return () -> {
       Intent intent = new Intent(this, TransactionNew.class);
-      resultTransactionNew.launch(intent);
+      assert (account != null);
+      intent.putExtra(EIntents.ACCOUNT.toString(), new ParcelableAppAccount(account));
+      startActivity(intent);
     };
   }
 
@@ -181,8 +71,10 @@ public class TransactionList extends AListActivity<Transaction, TransactionListV
   protected ListAdapter<Transaction, TransactionListViewHolder> getAdapter() {
     return new TransactionListAdapter(transaction -> {
       Intent intent = new Intent(this, TransactionDetails.class);
+      assert (account != null);
+      intent.putExtra(EIntents.ACCOUNT.toString(), new ParcelableAppAccount(account));
       intent.putExtra(EIntents.TRANSACTION.toString(), new ParcelableTransaction(transaction));
-      resultTransactionDetails.launch(intent);
+      startActivity(intent);
     });
   }
 
@@ -221,6 +113,7 @@ public class TransactionList extends AListActivity<Transaction, TransactionListV
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     if (item.getItemId() == R.id.edit_menu_icon) {
       Intent intent = new Intent(this, AddOrEditAccountActivity.class);
+      assert (account != null);
       intent.putExtra(EIntents.ACCOUNT.toString(), new ParcelableAppAccount(account));
       resultAccountEdit.launch(intent);
       return true;
