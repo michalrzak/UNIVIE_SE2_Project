@@ -1,5 +1,6 @@
 package at.ac.univie.se2.ws21.team0404.app.ui.transactions;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -14,10 +15,12 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import at.ac.univie.se2.ws21.team0404.app.R;
 import at.ac.univie.se2.ws21.team0404.app.database.Repository;
+import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
 import at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
 
+import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -47,14 +50,15 @@ public abstract class ATransactionActivity extends AppCompatActivity {
    */
   protected ArrayAdapter<ETransactionType> typeAdapter;
   protected ArrayAdapter<Category> categoryAdapter;
+  /**
+   * Fields, made available to the subclasses
+   */
+  protected AppAccount owner;
 
   private Category selectedCategory = nullCategory;
 
   /**
    * Method, used to get a List of all available categories.
-   * <p>
-   * TODO: for now this method simply uses a static list. Needs to be change to be dynamically
-   * pulled from the DB
    *
    * @return List of available categories
    */
@@ -190,6 +194,10 @@ public abstract class ATransactionActivity extends AppCompatActivity {
 
       }
     });
+
+    Intent intent = getIntent();
+    owner = intent.getParcelableExtra(EIntents.ACCOUNT.toString());
+    assert (owner != null);
 
     setup();
   }
