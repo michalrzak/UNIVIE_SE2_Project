@@ -13,8 +13,11 @@
         <activity
             android:name=".ui.account.addOrEditAccount.AddOrEditAccountActivity"
             android:exported="false" />
-      <activity
-            android:name=".ui.categories.AddOrEditCategoryActivity"
+        <activity
+            android:name=".ui.categories.AddCategoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.categories.EditCategoryActivity"
             android:exported="false" />
         <activity
             android:name=".ui.transactions.TransactionDetails"
