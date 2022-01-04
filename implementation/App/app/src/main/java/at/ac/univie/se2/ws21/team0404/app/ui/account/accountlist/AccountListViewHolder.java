@@ -1,4 +1,4 @@
-package at.ac.univie.se2.ws21.team0404.app.ui.account.accountList;
+package at.ac.univie.se2.ws21.team0404.app.ui.account.accountlist;
 
 import android.view.LayoutInflater;
 import android.view.View;

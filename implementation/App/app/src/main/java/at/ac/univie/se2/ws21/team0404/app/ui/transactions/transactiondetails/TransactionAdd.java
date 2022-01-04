@@ -1,4 +1,4 @@
-package at.ac.univie.se2.ws21.team0404.app.ui.transactions;
+package at.ac.univie.se2.ws21.team0404.app.ui.transactions.transactiondetails;
 
 
 import android.app.Activity;
@@ -12,10 +12,10 @@ import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistException;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataExistsException;
 
-public class TransactionNew extends ATransactionActivity {
+public class TransactionAdd extends ATransactionActivity {
 
   @Override
-  void setup() { // empty implementation as this activity does not need to set any values to the views
+  protected void setup() { // empty implementation as this activity does not need to set any values to the views
   }
 
   @Override

@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import at.ac.univie.se2.ws21.team0404.app.R;
-import at.ac.univie.se2.ws21.team0404.app.ui.account.accountList.AccountList;
+import at.ac.univie.se2.ws21.team0404.app.ui.account.accountlist.AccountList;
 
 public class MainActivity extends AppCompatActivity {
 

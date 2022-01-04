@@ -18,9 +18,9 @@ import at.ac.univie.se2.ws21.team0404.app.model.android.ParcelableAppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.android.ParcelableTransaction;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
 import at.ac.univie.se2.ws21.team0404.app.ui.AListActivity;
-import at.ac.univie.se2.ws21.team0404.app.ui.account.addOrEditAccount.AddOrEditAccountActivity;
-import at.ac.univie.se2.ws21.team0404.app.ui.transactions.TransactionDetails;
-import at.ac.univie.se2.ws21.team0404.app.ui.transactions.TransactionNew;
+import at.ac.univie.se2.ws21.team0404.app.ui.account.accountdetails.AccountEdit;
+import at.ac.univie.se2.ws21.team0404.app.ui.transactions.transactiondetails.TransactionAdd;
+import at.ac.univie.se2.ws21.team0404.app.ui.transactions.transactiondetails.TransactionEdit;
 import at.ac.univie.se2.ws21.team0404.app.utils.IChangingData;
 import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistException;
@@ -32,7 +32,7 @@ public class TransactionList extends AListActivity<Transaction, TransactionListV
   private AppAccount account;
 
   /**
-   * Object, used to get the result from AddOrEditAccountActivity. Updates the currently stored
+   * Object, used to get the result from AccountEdit. Updates the currently stored
    * account to the new one.
    */
   private final ActivityResultLauncher<Intent> resultAccountEdit = registerForActivityResult(
@@ -60,7 +60,7 @@ public class TransactionList extends AListActivity<Transaction, TransactionListV
   @Override
   protected Runnable getFabRedirect() {
     return () -> {
-      Intent intent = new Intent(this, TransactionNew.class);
+      Intent intent = new Intent(this, TransactionAdd.class);
       assert (account != null);
       intent.putExtra(EIntents.ACCOUNT.toString(), new ParcelableAppAccount(account));
       startActivity(intent);
@@ -70,7 +70,7 @@ public class TransactionList extends AListActivity<Transaction, TransactionListV
   @Override
   protected ListAdapter<Transaction, TransactionListViewHolder> getAdapter() {
     return new TransactionListAdapter(transaction -> {
-      Intent intent = new Intent(this, TransactionDetails.class);
+      Intent intent = new Intent(this, TransactionEdit.class);
       assert (account != null);
       intent.putExtra(EIntents.ACCOUNT.toString(), new ParcelableAppAccount(account));
       intent.putExtra(EIntents.TRANSACTION.toString(), new ParcelableTransaction(transaction));
@@ -112,8 +112,8 @@ public class TransactionList extends AListActivity<Transaction, TransactionListV
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     if (item.getItemId() == R.id.edit_menu_icon) {
-      Intent intent = new Intent(this, AddOrEditAccountActivity.class);
       assert (account != null);
+      Intent intent = new Intent(this, AccountEdit.class);
       intent.putExtra(EIntents.ACCOUNT.toString(), new ParcelableAppAccount(account));
       resultAccountEdit.launch(intent);
       return true;
