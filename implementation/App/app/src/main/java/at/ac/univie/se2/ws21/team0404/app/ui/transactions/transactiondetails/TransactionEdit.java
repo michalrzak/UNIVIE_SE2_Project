@@ -1,4 +1,4 @@
-package at.ac.univie.se2.ws21.team0404.app.ui.transactions;
+package at.ac.univie.se2.ws21.team0404.app.ui.transactions.transactiondetails;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,7 +14,7 @@ import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
 import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistException;
 
-public class TransactionDetails extends ATransactionActivity {
+public class TransactionEdit extends ATransactionActivity {
 
   /**
    * Holds the transaction displayed by this activity. Can be null, should no Transaction be sent
@@ -23,7 +23,7 @@ public class TransactionDetails extends ATransactionActivity {
   private Transaction displayedTransaction;
 
   @Override
-  void setup() {
+  protected void setup() {
     Intent intent = getIntent();
     displayedTransaction = intent.getParcelableExtra(EIntents.TRANSACTION.toString());
     assert (displayedTransaction != null);

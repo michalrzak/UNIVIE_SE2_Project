@@ -5,6 +5,7 @@
     <string name="edit_add_button"> Add/Edit Button</string>
     <string name="edit_button"> Edit </string>
     <string name="add_button"> Add </string>
+    <string name="save_button"> Save </string>
     
     <string name="expense">Expense</string>
     <string name="income">Income</string>

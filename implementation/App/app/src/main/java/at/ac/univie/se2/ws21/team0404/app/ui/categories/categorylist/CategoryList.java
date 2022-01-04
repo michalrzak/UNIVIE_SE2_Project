@@ -8,7 +8,8 @@ import at.ac.univie.se2.ws21.team0404.app.database.Repository;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
 import at.ac.univie.se2.ws21.team0404.app.model.android.ParcelableCategory;
 import at.ac.univie.se2.ws21.team0404.app.ui.AListActivity;
-import at.ac.univie.se2.ws21.team0404.app.ui.categories.AddOrEditCategoryActivity;
+import at.ac.univie.se2.ws21.team0404.app.ui.categories.categorydetails.CategoryAdd;
+import at.ac.univie.se2.ws21.team0404.app.ui.categories.categorydetails.CategoryEdit;
 import at.ac.univie.se2.ws21.team0404.app.utils.IChangingData;
 import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 import java.util.List;
@@ -18,7 +19,7 @@ public class CategoryList extends AListActivity<Category, CategoryListViewHolder
   @Override
   protected Runnable getFabRedirect() {
     return () -> {
-      Intent intent = new Intent(this, AddOrEditCategoryActivity.class);
+      Intent intent = new Intent(this, CategoryAdd.class);
       startActivity(intent);
     };
   }
@@ -26,7 +27,7 @@ public class CategoryList extends AListActivity<Category, CategoryListViewHolder
   @Override
   protected ListAdapter<Category, CategoryListViewHolder> getAdapter() {
     return new CategoryListAdapter(category -> {
-      Intent intent = new Intent(this, AddOrEditCategoryActivity.class);
+      Intent intent = new Intent(this, CategoryEdit.class);
       intent.putExtra(EIntents.CATEGORY.toString(), new ParcelableCategory(category));
       startActivity(intent);
     });

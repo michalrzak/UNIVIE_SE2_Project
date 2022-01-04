@@ -1,4 +1,4 @@
-package at.ac.univie.se2.ws21.team0404.app.ui.transactions;
+package at.ac.univie.se2.ws21.team0404.app.ui.transactions.transactiondetails;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -76,13 +76,13 @@ public abstract class ATransactionActivity extends AppCompatActivity {
    * This method gets called at the end of create. Use this to set values to the Views if needed and
    * perform other setup tasks
    */
-  abstract void setup();
+  protected abstract void setup();
 
   /**
    * This function gets called once the "save" button gets pressed. Provide implementations in the
    * subclasses
    */
-  abstract protected void saveButtonPressed();
+  protected abstract void saveButtonPressed();
 
   protected void updateCategorySelection(Category category) {
     selectedCategory = category;
@@ -204,13 +204,11 @@ public abstract class ATransactionActivity extends AppCompatActivity {
 
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
     Log.d("OptionsItemSelected", String.format("Selected item with id %d", item.getItemId()));
 
-    switch (item.getItemId()) {
-      default:
-        finish();
-        return true;
-    }
+    // back button pressed
+    // need to add switch case where this is the default value if more options are added
+    finish();
+    return true;
   }
 }

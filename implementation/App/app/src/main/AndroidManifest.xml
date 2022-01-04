@@ -11,20 +11,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App">
         <activity
-            android:name=".ui.account.addOrEditAccount.AddOrEditAccountActivity"
-            android:exported="false" />
-      <activity
-            android:name=".ui.categories.AddOrEditCategoryActivity"
+            android:name=".ui.categories.categorydetails.CategoryAdd"
             android:exported="false" />
         <activity
-            android:name=".ui.transactions.TransactionDetails"
+            android:name=".ui.categories.categorydetails.CategoryEdit"
             android:exported="false" />
         <activity
-          android:name=".ui.transactions.TransactionNew"
-          android:exported="false" />
-        <activity
-            android:name=".ui.account.accountList.AccountList"
+            android:name=".ui.transactions.transactiondetails.TransactionEdit"
             android:exported="false" />
+        <activity
+            android:name=".ui.transactions.transactiondetails.TransactionAdd"
+            android:exported="false" />
+        <activity
+            android:name=".ui.account.accountlist.AccountList"
+            android:exported="false" />
+        <activity
+            android:name=".ui.account.accountdetails.AccountAdd"
+            android:exported="false"/>
+        <activity
+            android:name=".ui.account.accountdetails.AccountEdit"
+            android:exported="false"/>
         <activity
             android:name=".ui.categories.categorylist.CategoryList"
             android:exported="false" />
