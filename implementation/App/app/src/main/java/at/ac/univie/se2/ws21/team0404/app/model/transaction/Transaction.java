@@ -51,7 +51,7 @@ public class Transaction {
    * @param type     type of the transaction.
    * @param amount   amount of the transaction
    */
-  protected Transaction(int id, @Nullable Category category, @NonNull ETransactionType type,
+  public Transaction(int id, @Nullable Category category, @NonNull ETransactionType type,
       int amount, @NonNull String name) {
     this.id = id;
     this.category = category;
