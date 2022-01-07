@@ -15,6 +15,18 @@ public class Category {
     this.type = type;
   }
 
+  public Category(@NonNull ETransactionType type, @NonNull String name, boolean disabled) {
+    this.name = name;
+    this.type = type;
+    this.disabled = disabled;
+  }
+
+  public Category(@NonNull Category category) {
+    this.name = category.name;
+    this.type = category.type;
+    this.disabled = category.disabled;
+  }
+
   public ETransactionType getType() {
     return type;
   }
