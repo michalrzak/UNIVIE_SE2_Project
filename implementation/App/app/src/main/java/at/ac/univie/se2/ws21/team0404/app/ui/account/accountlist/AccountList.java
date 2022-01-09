@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.recyclerview.widget.ListAdapter;
@@ -13,35 +12,27 @@ import at.ac.univie.se2.ws21.team0404.app.database.Repository;
 import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.android.ParcelableAppAccount;
 import at.ac.univie.se2.ws21.team0404.app.ui.AListActivity;
+import at.ac.univie.se2.ws21.team0404.app.ui.AListActivityPresenter;
 import at.ac.univie.se2.ws21.team0404.app.ui.account.accountdetails.AccountAdd;
 import at.ac.univie.se2.ws21.team0404.app.ui.categories.categorylist.CategoryList;
 import at.ac.univie.se2.ws21.team0404.app.ui.transactions.transactionlist.TransactionList;
-import at.ac.univie.se2.ws21.team0404.app.utils.IChangingData;
 import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
-import java.util.List;
 
-public class AccountList extends AListActivity<AppAccount, AccountListViewHolder> {
+// implements
+//    IAccountListContract.IView
+public class AccountList extends AListActivity<AppAccount, AccountListViewHolder, AccountListPresenter> implements
+    IAccountListContract.IView {
 
-  @Override
-  protected Runnable getFabRedirect() {
-    return () -> {
-      Intent intent = new Intent(this, AccountAdd.class);
-      startActivity(intent);
-    };
-  }
 
   @Override
   protected ListAdapter<AppAccount, AccountListViewHolder> getAdapter() {
-    return new AccountListAdapter(account -> {
-      Intent intent = new Intent(this, TransactionList.class);
-      intent.putExtra(EIntents.ACCOUNT.toString(), new ParcelableAppAccount(account));
-      startActivity(intent);
-    });
+    return new AccountListAdapter(account -> presenter.clickListItem(account));
   }
 
+
   @Override
-  protected IChangingData<List<AppAccount>> getList() {
-    return Repository.getInstance().getAccountList();
+  protected AccountListPresenter getPresenter() {
+    return new AccountListPresenter(Repository.getInstance());
   }
 
   @Override
@@ -67,10 +58,28 @@ public class AccountList extends AListActivity<AppAccount, AccountListViewHolder
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     if (item.getItemId() == R.id.category_menu_icon) {
-      Intent intent = new Intent(this, CategoryList.class);
-      startActivity(intent);
+      presenter.categories();
       return true;
     }
     return super.onOptionsItemSelected(item);
+  }
+
+  @Override
+  public void showListItemRedirect(@NonNull AppAccount item) {
+    Intent intent = new Intent(this, TransactionList.class);
+    intent.putExtra(EIntents.ACCOUNT.toString(), new ParcelableAppAccount(item));
+    startActivity(intent);
+  }
+
+  @Override
+  public void showFabRedirect() {
+    Intent intent = new Intent(this, AccountAdd.class);
+    startActivity(intent);
+  }
+
+  @Override
+  public void showCategoriesList() {
+    Intent intent = new Intent(this, CategoryList.class);
+    startActivity(intent);
   }
 }

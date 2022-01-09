@@ -6,13 +6,19 @@ import android.widget.Toast;
 import at.ac.univie.se2.ws21.team0404.app.R;
 import at.ac.univie.se2.ws21.team0404.app.database.Repository;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
+import at.ac.univie.se2.ws21.team0404.app.ui.account.accountdetails.AccountEdit;
+import at.ac.univie.se2.ws21.team0404.app.ui.account.accountdetails.AccountEditPresenter;
 import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
+import at.ac.univie.se2.ws21.team0404.app.utils.android.LifecycleHandler;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistException;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataExistsException;
 
-public class CategoryEdit extends ACategoryActivity {
+public class CategoryEdit extends ACategoryActivity implements ICategoryActivityContract.IView {
 
   private Category passedCategory;
+
+  private CategoryEditPresenter presenter;
+  private LifecycleHandler<CategoryEdit> lifecycleHandler;
 
   @Override
   protected void setup() {
@@ -20,6 +26,8 @@ public class CategoryEdit extends ACategoryActivity {
     passedCategory = passedIntent
         .getParcelableExtra(EIntents.CATEGORY.toString());
     assert (passedCategory != null);
+
+    presenter = new CategoryEditPresenter(passedCategory, Repository.getInstance());
 
     editTextCategoryName.setText(passedCategory.getName());
     deleteButton.setVisibility(View.VISIBLE);
@@ -38,34 +46,39 @@ public class CategoryEdit extends ACategoryActivity {
     radioExpense.setEnabled(false);
     categoryTypeHintText
         .setText(getResources().getString(R.string.category_type_cannot_be_changed));
-  }
 
-  private void saveCategory(Category category) {
-    assert (passedCategory != null);
-    try {
-      Repository.getInstance().updateCategory(passedCategory.getName(), category);
-      finish();
-    } catch (DataExistsException e) {
-      Toast.makeText(getApplicationContext(), "Attempted to add already existing category!",
-          Toast.LENGTH_SHORT).show();
-    } catch (DataDoesNotExistException e) {
-      Toast.makeText(getApplicationContext(), "Attempted to edit a nonexistent category!",
-          Toast.LENGTH_SHORT).show();
-    }
+    lifecycleHandler = new LifecycleHandler<>(presenter, this);
   }
 
   @Override
   public void onSubmit(View view) {
-    Category newCategory = getCategory();
-
-    saveCategory(newCategory);
+    presenter.clickedSave(getCategory());
   }
 
   @Override
   public void onDelete(View view) {
-    Category newCategory = getCategory();
-    newCategory.disable();
+    presenter.clickedDelete(getCategory());
+  }
 
-    saveCategory(newCategory);
+  @Override
+  public void showCategoryInsertionSuccessful() {
+    finish();
+  }
+
+  @Override
+  public void showCategoryInsertionFailed() {
+    Toast.makeText(getApplicationContext(), "Attempted to add already existing category!",
+        Toast.LENGTH_SHORT).show();
+  }
+
+  @Override
+  public void showCategoryDeletionSuccessful() {
+    finish();
+  }
+
+  @Override
+  public void showCategoryDeletionFailed() {
+    Toast.makeText(getApplicationContext(), "Attempted to add already existing category!",
+        Toast.LENGTH_SHORT).show();
   }
 }
