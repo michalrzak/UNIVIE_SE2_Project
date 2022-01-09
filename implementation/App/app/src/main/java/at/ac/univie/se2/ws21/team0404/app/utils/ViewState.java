@@ -14,15 +14,15 @@ public class ViewState extends ChangingData<ViewState.EState> {
    */
   public enum EState {
     /**
-     * View is visible and should receive notifications.
+     * IView is visible and should receive notifications.
      */
     STARTED,
     /**
-     * View is not visible. Notifications should be stopped.
+     * IView is not visible. Notifications should be stopped.
      */
     STOPPED,
     /**
-     * View got destroyed. Observers must be unregistered.
+     * IView got destroyed. Observers must be unregistered.
      */
     DESTROYED
   }

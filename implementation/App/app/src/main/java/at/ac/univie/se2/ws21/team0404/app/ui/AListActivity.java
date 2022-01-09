@@ -13,22 +13,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import at.ac.univie.se2.ws21.team0404.app.R;
-import at.ac.univie.se2.ws21.team0404.app.utils.IChangingData;
+import at.ac.univie.se2.ws21.team0404.app.ui.IListActivityContract.IView;
+import at.ac.univie.se2.ws21.team0404.app.utils.android.LifecycleHandler;
 import java.util.List;
 
-public abstract class AListActivity<ModelClass, ViewHolder extends RecyclerView.ViewHolder> extends
-    AppCompatActivity {
+public abstract class AListActivity<ModelClass, ViewHolder extends RecyclerView.ViewHolder, Presenter extends IListActivityContract.IPresenter<ModelClass>> extends
+    AppCompatActivity implements IView<ModelClass> {
 
   protected Intent passedIntent;
   private ListAdapter<ModelClass, ViewHolder> adapter;
 
-  /**
-   * When this will get implemented it will return the class of the Activity, which should be
-   * redirected to, after clicking on the floating action button.
-   *
-   * @return Class of the activity, which will be shown once clicked on the FAB
-   */
-  protected abstract Runnable getFabRedirect();
+  private LifecycleHandler<AListActivity<ModelClass, ViewHolder, Presenter>> lifecycleHandler;
+
+  protected Presenter presenter;
 
   /**
    * When this will get implemented it will return an instance of the adapter to be used with this
@@ -39,11 +36,11 @@ public abstract class AListActivity<ModelClass, ViewHolder extends RecyclerView.
   protected abstract ListAdapter<ModelClass, ViewHolder> getAdapter();
 
   /**
-   * When this will get implemented it will return the list which will get used by the recyclerview
+   * When this will get implemented it will return the presenter to be used by this class.
    *
-   * @return List\<ModelClass\> used by the recycler view
+   * @return presenter to be used
    */
-  protected abstract IChangingData<List<ModelClass>> getList();
+  protected abstract Presenter getPresenter();
 
   /**
    * When this will get implemented it will return the id of the target R.string resource
@@ -73,14 +70,26 @@ public abstract class AListActivity<ModelClass, ViewHolder extends RecyclerView.
     adapter = getAdapter();
     recyclerView.setAdapter(adapter);
 
+    presenter = getPresenter();
+    lifecycleHandler = new LifecycleHandler<>(presenter, this);
+
+    // removed as this should happen in other parts of the code? (=presenter)
+    /*
     IChangingData<List<ModelClass>> listData = getList();
-    listData.observe(data ->  {
+    listData.observe(data -> {
       adapter.submitList(data);
     });
+    */
+  }
+
+  // added this implementation which shows the provided list
+  @Override
+  public void showList(@NonNull List<ModelClass> list) {
+    adapter.submitList(list);
   }
 
   public void onFabClick(View view) {
-    getFabRedirect().run();
+    presenter.clickFab();
   }
 
   @Override
