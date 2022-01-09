@@ -32,7 +32,7 @@ public class AccountList extends AListActivity<AppAccount, AccountListViewHolder
 
   @Override
   protected AccountListPresenter getPresenter() {
-    return new AccountListPresenter(Repository.getInstance());
+    return AccountListPresenter.create(Repository.getInstance());
   }
 
   @Override

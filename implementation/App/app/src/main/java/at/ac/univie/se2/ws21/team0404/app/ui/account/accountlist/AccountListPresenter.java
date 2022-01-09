@@ -6,11 +6,26 @@ import at.ac.univie.se2.ws21.team0404.app.ui.AListActivityPresenter;
 import at.ac.univie.se2.ws21.team0404.app.utils.ChangingDataWithViewState;
 import at.ac.univie.se2.ws21.team0404.app.utils.IChangingData;
 import java.util.List;
+import java.util.function.Function;
 
 public class AccountListPresenter extends AListActivityPresenter<AppAccount> implements
     IAccountListContract.IPresenter {
 
-  public AccountListPresenter(Repository repository) {
+  private static Function<Repository, AccountListPresenter> factory = AccountListPresenter::new;
+  public static AccountListPresenter create(Repository repository) {
+    return factory.apply(repository);
+  }
+
+  /**
+   * Allows replacing the factory for dependency injection during unit tests
+   *
+   * @param factory mocked factory
+   */
+  public static void setFactory(Function<Repository, AccountListPresenter> factory) {
+    AccountListPresenter.factory = factory;
+  }
+
+  private AccountListPresenter(Repository repository) {
     super(repository);
   }
 
