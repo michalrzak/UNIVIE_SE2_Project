@@ -80,14 +80,14 @@ public class AccountListUnitTest {
     }
 
     @Test
-    public void activityStarted_fobClicked_presenterMethodCalled() {
+    public void activityStarted_fabClicked_presenterMethodCalled() {
         verify(mockPresenter, times(0)).clickFab();
         onView(withId(R.id.floating_button)).perform(click());
         verify(mockPresenter, times(1)).clickFab();
     }
 
     @Test
-    public void activityStarted_fobRedirectCalled_viewShowsAddActivity() {
+    public void activityStarted_fabRedirectCalled_viewShowsAddActivity() {
         view.showFabRedirect();
         Intents.intended(hasComponent(AccountAdd.class.getName()));
     }
