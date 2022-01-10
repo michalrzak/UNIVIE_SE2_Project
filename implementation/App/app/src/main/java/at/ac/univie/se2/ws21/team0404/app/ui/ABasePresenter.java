@@ -32,30 +32,30 @@ public abstract class ABasePresenter<V extends IBaseContract.IView> implements
   protected V view;
 
   @Override
-  public final void setView(@NonNull V view) {
+  public void setView(@NonNull V view) {
     this.view = view;
   }
 
   @Override
-  public final void onCreate() {
+  public void onCreate() {
     viewState.setData(ViewState.EState.STOPPED);
     viewCreated();
   }
 
   @Override
-  public final void onStart() {
+  public void onStart() {
     viewStarted();
     viewState.setData(ViewState.EState.STARTED);
   }
 
   @Override
-  public final void onStop() {
+  public void onStop() {
     viewState.setData(ViewState.EState.STOPPED);
     viewBeforeStop();
   }
 
   @Override
-  public final void onDestroy() {
+  public void onDestroy() {
     viewState.setData(ViewState.EState.DESTROYED);
     viewBeforeDestroy();
     this.view = null;
