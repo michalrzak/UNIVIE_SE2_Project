@@ -15,22 +15,33 @@ public class AppAccount {
   private String name;
   private EAccountType type;
 
-  public AppAccount(@NonNull String name, @NonNull EAccountType type) {
-    this.name = name;
-    this.type = type;
-    id = idCounter++;
-  }
-
-  public AppAccount(@NonNull String name, @NonNull EAccountType type, @NonNull AppAccount oldAccount) {
-    this.name = name;
-    this.type = type;
-    this.id = oldAccount.getId();
+  /**
+   * Checks whether the provided name is valid.
+   *
+   * @param name the name to be checked
+   * @throws IllegalArgumentException if the provided name was invalid
+   */
+  private static void validateName(String name) throws IllegalArgumentException {
+    if (name.length() <= 0) {
+      throw new IllegalArgumentException();
+    }
   }
 
   protected AppAccount(@NonNull String name, @NonNull EAccountType type, int id) {
+    validateName(name);
+
     this.name = name;
     this.type = type;
     this.id = id;
+  }
+
+  public AppAccount(@NonNull String name, @NonNull EAccountType type) {
+    this(name, type, idCounter++);
+  }
+
+  public AppAccount(@NonNull String name, @NonNull EAccountType type,
+      @NonNull AppAccount oldAccount) {
+    this(name, type, oldAccount.getId());
   }
 
   public EAccountType getType() {
@@ -46,6 +57,8 @@ public class AppAccount {
   }
 
   public void setName(@NonNull String newName) {
+    validateName(name);
+
     name = newName;
   }
 

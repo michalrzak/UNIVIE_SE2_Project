@@ -52,12 +52,12 @@ public class CategoryEdit extends ACategoryActivity implements ICategoryActivity
 
   @Override
   public void onSubmit(View view) {
-    presenter.clickedSave(getCategory());
+    presenter.clickedSave(getCategory().orElse(null));
   }
 
   @Override
   public void onDelete(View view) {
-    presenter.clickedDelete(getCategory());
+    presenter.clickedDelete(getCategory().orElse(null));
   }
 
   @Override

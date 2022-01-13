@@ -46,7 +46,7 @@ public class TransactionEdit extends ATransactionActivity implements
 
   @Override
   protected void saveButtonPressed() {
-    presenter.clickedSave(getTransactionFromForm());
+    presenter.clickedSave(getTransactionFromForm().orElse(null));
   }
 
   @Override
@@ -73,7 +73,6 @@ public class TransactionEdit extends ATransactionActivity implements
   public void showTransactionInsertionFailed() {
     Toast.makeText(this, "Error on saving transaction try again please.",
         Toast.LENGTH_LONG).show();
-    finish();
   }
 
   @Override

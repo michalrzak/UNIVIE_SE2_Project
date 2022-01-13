@@ -20,6 +20,9 @@ import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistException;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataExistsException;
 import java.util.Collection;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 
@@ -37,9 +40,18 @@ public class RoomDatabase implements IDatabase {
 
   public RoomDatabase(Context context) {
     roomDatabase = Room.databaseBuilder(context, AppRoomDatabase.class, "room-db").build();
+
     accountDao = roomDatabase.accountDao();
     categoryDao = roomDatabase.categoryDao();
     transactionDao = roomDatabase.transactionDao();
+  }
+
+  public RoomDatabase(Context context, boolean clearTables) {
+    this(context);
+    if (clearTables) {
+      ExecutorService exec = Executors.newFixedThreadPool(4);
+      exec.submit(roomDatabase::clearAllTables);
+    }
   }
 
   @NonNull

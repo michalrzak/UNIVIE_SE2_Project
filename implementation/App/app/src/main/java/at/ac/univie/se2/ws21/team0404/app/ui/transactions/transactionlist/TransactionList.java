@@ -1,8 +1,11 @@
 package at.ac.univie.se2.ws21.team0404.app.ui.transactions.transactionlist;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.ListAdapter;
@@ -86,10 +89,36 @@ public class TransactionList extends
     startActivity(intent);
   }
 
+  /**
+   * This is needed to handle the situation where the user edits an account and deletes it. After
+   * that the application needs to redirect out of this activity, as the account saved here is no
+   * longer valid.
+   *
+   * We launch {@link AccountEdit} with this and look if it returns a deleted boolean.
+   */
+  private final ActivityResultLauncher<Intent> accountDeleted = registerForActivityResult(
+      new StartActivityForResult(), result -> {
+        if (result.getResultCode() == Activity.RESULT_OK) {
+          Intent resultIntent = result.getData();
+
+          if (resultIntent != null) {
+            boolean deleted = resultIntent.getBooleanExtra("deleted", false);
+            if (deleted) {
+              presenter.accountDeleted();
+            }
+          }
+        }
+      });
+
   @Override
   public void showEditAccount() {
     Intent intent = new Intent(this, AccountEdit.class);
     intent.putExtra(EIntents.ACCOUNT.toString(), new ParcelableAppAccount(getAccount()));
-    startActivity(intent);
+    accountDeleted.launch(intent);
+  }
+
+  @Override
+  public void finishActivity() {
+    finish();
   }
 }

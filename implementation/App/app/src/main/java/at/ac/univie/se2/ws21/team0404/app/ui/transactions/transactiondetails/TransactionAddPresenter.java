@@ -9,6 +9,7 @@ import at.ac.univie.se2.ws21.team0404.app.ui.ABasePresenter;
 import at.ac.univie.se2.ws21.team0404.app.utils.IChangingData;
 import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 import java.util.function.BiFunction;
+import at.ac.univie.se2.ws21.team0404.app.utils.Nullable;
 
 public class TransactionAddPresenter extends
     ABasePresenter<ITransactionActivityContract.IView> implements
@@ -41,7 +42,12 @@ public class TransactionAddPresenter extends
   }
 
   @Override
-  public void clickedSave(Transaction transaction) {
+  public void clickedSave(@Nullable Transaction transaction) {
+    if (transaction == null) {
+      view.showTransactionInsertionFailed();
+      return;
+    }
+
     IChangingData<ERepositoryReturnStatus> result = repository.createTransaction(owner, transaction);
 
     result.observe((newStatus) -> {

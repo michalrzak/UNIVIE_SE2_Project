@@ -6,6 +6,7 @@ import at.ac.univie.se2.ws21.team0404.app.database.Repository;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
 import at.ac.univie.se2.ws21.team0404.app.ui.ABasePresenter;
 import at.ac.univie.se2.ws21.team0404.app.utils.IChangingData;
+import at.ac.univie.se2.ws21.team0404.app.utils.Nullable;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistException;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataExistsException;
 
@@ -23,7 +24,12 @@ public class CategoryEditPresenter extends
   }
 
   @Override
-  public void clickedSave(Category category) {
+  public void clickedSave(@Nullable Category category) {
+    if (category == null) {
+      view.showCategoryInsertionFailed();
+      return;
+    }
+
     IChangingData<ERepositoryReturnStatus> result = repository.updateCategory(editing.getName(), category);
 
     result.observe((newStatus) -> {
@@ -41,7 +47,12 @@ public class CategoryEditPresenter extends
   }
 
   @Override
-  public void clickedDelete(Category category) {
+  public void clickedDelete(@Nullable Category category) {
+    if (category == null) {
+      view.showCategoryDeletionFailed();
+      return;
+    }
+
     category.disable(); // TODO: this is a side effect. Maybe add copy-constructor to Category?
 
     IChangingData<ERepositoryReturnStatus> result = repository.updateCategory(editing.getName(), category);

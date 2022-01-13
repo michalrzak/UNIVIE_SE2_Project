@@ -6,10 +6,12 @@ import at.ac.univie.se2.ws21.team0404.app.ui.IListActivityContract;
 public interface ITransactionListContract {
   interface IView extends IListActivityContract.IView<Transaction> {
     void showEditAccount();
+    void finishActivity();
   }
 
   interface IPresenter extends IListActivityContract.IPresenter<Transaction> {
     void editAccount();
+    void accountDeleted();
   }
 
 }

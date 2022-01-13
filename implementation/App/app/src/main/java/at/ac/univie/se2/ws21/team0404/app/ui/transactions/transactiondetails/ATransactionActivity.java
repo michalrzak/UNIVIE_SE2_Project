@@ -19,10 +19,10 @@ import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
 import at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
-
 import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public abstract class ATransactionActivity extends AppCompatActivity {
@@ -30,7 +30,8 @@ public abstract class ATransactionActivity extends AppCompatActivity {
   /**
    * A special UI category to represent the null category
    */
-  private final static Category nullCategory = new Category(ETransactionType.INCOME, "<no category>") {
+  private final static Category nullCategory = new Category(ETransactionType.INCOME,
+      "<no category>") {
 
     @NonNull
     @Override
@@ -68,8 +69,8 @@ public abstract class ATransactionActivity extends AppCompatActivity {
 
   private List<Category> getMatchingCategories(ETransactionType type) {
     return getAllCategories()
-            .stream().filter(category -> category.getType() == type)
-            .collect(Collectors.toCollection(ArrayList::new));
+        .stream().filter(category -> category.getType() == type)
+        .collect(Collectors.toCollection(ArrayList::new));
   }
 
   /**
@@ -106,22 +107,21 @@ public abstract class ATransactionActivity extends AppCompatActivity {
     }
 
     categoryAdapter = new ArrayAdapter<>(this,
-            R.layout.support_simple_spinner_dropdown_item,
-            categories
+        R.layout.support_simple_spinner_dropdown_item,
+        categories
     );
     categorySpinner.setAdapter(categoryAdapter);
     updateCategorySelection(selectedCategory);
   }
 
   /**
-   * Takes the values from the form and creates a new Transaction object from them.
-   * <p>
-   * Careful! This object has a new unique ID.
+   * Takes the values from the form and creates a new Transaction object from them. If a Transaction
+   * object cannot be created returns an empty Optional. Careful! This object has a new unique ID.
    *
    * @return a new Transaction object based on the values provided in the form
    */
   @NonNull
-  protected Transaction getTransactionFromForm() {
+  protected Optional<Transaction> getTransactionFromForm() {
     Object category = categorySpinner.getSelectedItem();
     Object type = typeSpinner.getSelectedItem();
 
@@ -145,14 +145,19 @@ public abstract class ATransactionActivity extends AppCompatActivity {
         Log.e("TransactionAct_saveBtn",
             "The parsed amount was not an Integer. This should not have been possible. Message:" + e
                 .getMessage());
-        finish();
-        throw new AssertionError();
+        return Optional.empty();
       }
     }
 
     String name = nameEditText.getText().toString();
 
-    return new Transaction((Category) category, (ETransactionType) type, amount, name);
+    try {
+      return Optional.of(new Transaction((Category) category, (ETransactionType) type, amount, name));
+    } catch (IllegalArgumentException e) {
+      Log.w("TransactionActivity", "The transaction provided in the form was invalid!");
+    }
+
+    return Optional.empty();
   }
 
   @Override
@@ -176,7 +181,7 @@ public abstract class ATransactionActivity extends AppCompatActivity {
 
     categoryAdapter = new ArrayAdapter<>(this,
         R.layout.support_simple_spinner_dropdown_item,
-            getMatchingCategories((ETransactionType) typeSpinner.getSelectedItem())
+        getMatchingCategories((ETransactionType) typeSpinner.getSelectedItem())
     );
     categorySpinner.setAdapter(categoryAdapter);
 

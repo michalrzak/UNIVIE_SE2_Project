@@ -9,6 +9,7 @@ import at.ac.univie.se2.ws21.team0404.app.ui.ABasePresenter;
 import at.ac.univie.se2.ws21.team0404.app.utils.IChangingData;
 import at.ac.univie.se2.ws21.team0404.app.utils.ITriFunction;
 import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
+import at.ac.univie.se2.ws21.team0404.app.utils.Nullable;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistException;
 
 public class TransactionEditPresenter extends
@@ -48,7 +49,12 @@ public class TransactionEditPresenter extends
   }
 
   @Override
-  public void clickedSave(Transaction transaction) {
+  public void clickedSave(@Nullable Transaction transaction) {
+    if (transaction == null) {
+      view.showTransactionInsertionFailed();
+      return;
+    }
+
     IChangingData<ERepositoryReturnStatus> result = repository.updateTransaction(owner, editing.getId(), transaction);
 
     result.observe((newStatus) -> {
