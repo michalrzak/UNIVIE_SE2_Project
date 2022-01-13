@@ -27,12 +27,7 @@ public class TransactionListPresenter extends AListActivityPresenter<Transaction
   @Override
   public void viewCreated() {
     final IChangingData<List<Transaction>> transactionData;
-    try {
-      transactionData = new ChangingDataWithViewState<>(repository.getTransactionList(owner), viewState);
-    } catch (DataDoesNotExistException e) {
-      // cannot call finnish() from here :/. So for now just crash;
-      throw new RuntimeException("Goodbye. " + e.getMessage());
-    }
+    transactionData = new ChangingDataWithViewState<>(repository.getTransactionList(owner), viewState);
     transactionData.observe(data -> view.showList(data));
   }
 
