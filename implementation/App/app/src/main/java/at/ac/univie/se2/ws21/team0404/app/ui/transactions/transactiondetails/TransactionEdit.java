@@ -40,7 +40,7 @@ public class TransactionEdit extends ATransactionActivity implements
       updateCategorySelection(displayedTransaction.getCategory().get());
     }
 
-    presenter = new TransactionEditPresenter(owner, displayedTransaction, Repository.getInstance());
+    presenter = TransactionEditPresenter.create(owner, displayedTransaction, Repository.getInstance());
     lifecycleHandler = new LifecycleHandler<>(presenter, this);
   }
 

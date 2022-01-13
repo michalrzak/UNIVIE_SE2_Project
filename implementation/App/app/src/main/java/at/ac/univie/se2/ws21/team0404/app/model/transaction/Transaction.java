@@ -17,7 +17,7 @@ public class Transaction {
    * TODO: There is a better way for sure and I don't like that this is here. In the future in
    * roomDB we will be able to have an automatic key, however I am unsure how to solve this here
    */
-  private static int counter;
+  private static int counter = 0;
 
   private final int id;
 
@@ -28,7 +28,7 @@ public class Transaction {
   private int amount; // in euro cent; TODO: change this to a special money class?
 
   public Transaction(@Nullable Category category, @NonNull ETransactionType type, int amount,
-                     String name) {
+      String name) {
     if (!validateAmount(amount)) {
       throw new IllegalArgumentException(
           "amount is of an invalid value"); // TODO: make this own exception?
@@ -129,7 +129,7 @@ public class Transaction {
   }
 
   public void setAmount(int newAmount) {
-    if (!validateAmount(amount)) {
+    if (!validateAmount(newAmount)) {
       throw new IllegalArgumentException(
           "amount is of an invalid value"); // TODO: make this own exception?
     }
@@ -170,6 +170,18 @@ public class Transaction {
       return false;
     }
     Transaction that = (Transaction) o;
-    return id == that.id;
+
+    return id == that.getId() || name.equals(that.getName());
+  }
+
+  @Override
+  public String toString() {
+    return "Transaction{" +
+        "id=" + getId() +
+        ", name='" + getName() + '\'' +
+        ", category=" + getCategory() +
+        ", type=" + getType() +
+        ", amount=" + getAmount() +
+        '}';
   }
 }

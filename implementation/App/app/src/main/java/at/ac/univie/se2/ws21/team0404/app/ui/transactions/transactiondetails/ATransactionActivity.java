@@ -165,7 +165,7 @@ public abstract class ATransactionActivity extends AppCompatActivity {
     actionBar.setDisplayHomeAsUpEnabled(true);
 
     amountEditText = findViewById(R.id.transaction_amount_edittext);
-    nameEditText = findViewById(R.id.name_editText);
+    nameEditText = findViewById(R.id.transaction_name_editText);
 
     typeSpinner = findViewById(R.id.transaction_type_spinner);
     typeAdapter = new ArrayAdapter<>(this,

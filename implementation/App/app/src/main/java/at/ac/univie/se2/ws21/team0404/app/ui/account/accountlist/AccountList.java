@@ -23,7 +23,6 @@ import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 public class AccountList extends AListActivity<AppAccount, AccountListViewHolder, AccountListPresenter> implements
     IAccountListContract.IView {
 
-
   @Override
   protected ListAdapter<AppAccount, AccountListViewHolder> getAdapter() {
     return new AccountListAdapter(account -> presenter.clickListItem(account));
