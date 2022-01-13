@@ -1,5 +1,6 @@
 package at.ac.univie.se2.ws21.team0404.app.ui.account.accountdetails;
 
+import android.util.Log;
 import android.widget.Toast;
 import at.ac.univie.se2.ws21.team0404.app.database.Repository;
 import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
@@ -35,6 +36,7 @@ public class AccountAdd extends AAccountActivity implements IAccountActivityCont
 
   @Override
   public void showAccountInsertionFailed() {
+    Log.d("AccountList", "Account insertion failed. About to show toast.");
     Toast.makeText(getApplicationContext(), "This account already exists!", Toast.LENGTH_SHORT)
         .show();
   }

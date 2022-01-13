@@ -1,10 +1,12 @@
 package at.ac.univie.se2.ws21.team0404.app.ui.transactions.transactiondetails;
 
 import android.util.Log;
+import at.ac.univie.se2.ws21.team0404.app.database.ERepositoryReturnStatus;
 import at.ac.univie.se2.ws21.team0404.app.database.Repository;
 import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
 import at.ac.univie.se2.ws21.team0404.app.ui.ABasePresenter;
+import at.ac.univie.se2.ws21.team0404.app.utils.IChangingData;
 import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistException;
 
@@ -28,30 +30,41 @@ public class TransactionEditPresenter extends
 
   @Override
   public void clickedSave(Transaction transaction) {
-    try {
-      repository.updateTransaction(owner, editing.getId(), transaction);
-      Log.d("TransactionEdit", "Successfully updated transaction");
-      view.showTransactionInsertionSuccessful();
-    } catch (DataDoesNotExistException e) {
-      Log.e("TransactionEdit",
-          "Tried to update a transaction from an account which does not exist. Message: "
-              + e.getMessage());
-      view.showTransactionInsertionFailed();
-    }
+    IChangingData<ERepositoryReturnStatus> result = repository.updateTransaction(owner, editing.getId(), transaction);
+
+    result.observe((newStatus) -> {
+      switch (newStatus) {
+        case SUCCESS:
+          Log.d("TransactionEdit", "Successfully updated transaction");
+          view.showTransactionInsertionSuccessful();
+          break;
+        case ERROR:
+          view.showTransactionInsertionFailed();
+          Log.e("TransactionNew", "Tried to add transaction, but it failed.");
+          break;
+        case UPDATING:
+          // do nothing
+      }
+    });
   }
 
   @Override
   public void clickedDelete() {
-    try {
-      repository.deleteTransaction(owner, editing.getId());
-      Log.d("TransactionEdit", "Successfully deleted transaction");
-      view.showTransactionDeletionSuccessful();
-    } catch (DataDoesNotExistException e) {
-      Log.e("TransactionEdit",
-          "Tried to delete a transaction from an account which does not exist or the"
-              + "to be deleted transaction does not exists. Message: "
-              + e.getMessage());
-      view.showTransactionDeletionFailed();
-    }
+    IChangingData<ERepositoryReturnStatus> result = repository.deleteTransaction(owner, editing.getId());
+
+    result.observe((newStatus) -> {
+      switch (newStatus) {
+        case SUCCESS:
+          Log.d("TransactionEdit", "Successfully deleted transaction");
+          view.showTransactionDeletionSuccessful();
+          break;
+        case ERROR:
+          view.showTransactionDeletionFailed();
+          Log.e("TransactionEdit", "Tried to delete transaction, but it failed.");
+          break;
+        case UPDATING:
+          // do nothing
+      }
+    });
   }
 }
