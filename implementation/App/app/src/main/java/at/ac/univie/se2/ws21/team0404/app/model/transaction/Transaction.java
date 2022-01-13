@@ -27,24 +27,32 @@ public class Transaction {
   private ETransactionType type;
   private int amount; // in euro cent; TODO: change this to a special money class?
 
-  public Transaction(@Nullable Category category, @NonNull ETransactionType type, int amount,
-      String name) {
-    if (!validateAmount(amount)) {
-      throw new IllegalArgumentException(
-          "amount is of an invalid value"); // TODO: make this own exception?
+  /**
+   * Validates the provided name against business rules.
+   *
+   * @param name name to be validated
+   * @throws IllegalArgumentException thrown if name is invalid
+   */
+  private static void validateName(@NonNull String name) throws IllegalArgumentException {
+    if (name.length() <= 0) {
+      throw new IllegalArgumentException();
     }
-
-    this.id = counter++;
-    this.category = category;
-    this.type = type;
-    this.name = name;
-
-    this.amount = amount;
   }
 
+  /**
+   * Validates the provided amount against business rules.
+   *
+   * @param amount the amount to be validated
+   * @throws IllegalArgumentException thrown if the amount is invalid
+   */
+  private static void validateAmount(int amount) throws IllegalArgumentException {
+    if (amount < 0) {
+      throw new IllegalArgumentException();
+    }
+  }
 
   /**
-   * Allow subclasses to define constructors, which also set the ID
+   * Allow to define constructors, which also set the ID
    *
    * @param id       id of the transaction. Needs to be unique in the DB
    * @param category category of the transaction.
@@ -53,38 +61,26 @@ public class Transaction {
    */
   public Transaction(int id, @Nullable Category category, @NonNull ETransactionType type,
       int amount, @NonNull String name) {
+    validateAmount(amount);
+    validateName(name);
+
     this.id = id;
     this.category = category;
     this.type = type;
     this.name = name;
-
-    if (!validateAmount(amount)) {
-      throw new IllegalArgumentException(
-          "amount is of an invalid value"); // TODO: make this own exception?
-    }
-
     this.amount = amount;
   }
 
-  public Transaction(Transaction transaction) {
-    this.amount = transaction.getAmount();
-    this.id = transaction.getId();
-    this.category = transaction.getRawCategory();
-    this.type = transaction.getType();
-    this.name = transaction.getName();
+  public Transaction(@Nullable Category category, @NonNull ETransactionType type, int amount,
+      @NonNull String name) {
+    this(counter++, category, type, amount, name);
   }
 
-  /**
-   * Function, which validates the amount field. May be moved to special money class if it gets
-   * implemented. For now, amount is allowed to be non-negative (so it can be zero). TODO: can
-   * amount be zero?
-   *
-   * @param amount the variable to check
-   * @return true if amount is valid, false if amount is invalid
-   */
-  private static boolean validateAmount(int amount) {
-    return amount >= 0;
+  public Transaction(@NonNull Transaction transaction) {
+    this(transaction.getId(), transaction.getRawCategory(), transaction.getType(),
+        transaction.getAmount(), transaction.getName());
   }
+
 
   /*
    * Getters-section
@@ -95,7 +91,8 @@ public class Transaction {
   }
 
   /**
-   * Not every transaction needs to have a category assigned. (See FR3 for reference)
+   * Returns the category of the transaction. Not every transaction needs to have a category
+   * assigned. (See FR3 for reference)
    *
    * @return Optional category
    */
@@ -107,38 +104,35 @@ public class Transaction {
     return Optional.of(category);
   }
 
-  public void setCategory(@NonNull Category newCategory) {
-    category = newCategory;
-  }
-
   @NonNull
   public ETransactionType getType() {
     return type;
   }
 
-  public void setType(@NonNull ETransactionType newType) {
-    type = newType;
+  public int getAmount() {
+    return amount;
   }
+
+  public String getName() {
+    return name;
+  }
+
 
   /*
    * Setters section
    */
 
-  public int getAmount() {
-    return amount;
+  public void setType(@NonNull ETransactionType newType) {
+    type = newType;
+  }
+
+  public void setCategory(@NonNull Category newCategory) {
+    category = newCategory;
   }
 
   public void setAmount(int newAmount) {
-    if (!validateAmount(newAmount)) {
-      throw new IllegalArgumentException(
-          "amount is of an invalid value"); // TODO: make this own exception?
-    }
-
+    validateAmount(newAmount);
     amount = newAmount;
-  }
-
-  public String getName() {
-    return name;
   }
 
   public void setName(@NonNull String name) {

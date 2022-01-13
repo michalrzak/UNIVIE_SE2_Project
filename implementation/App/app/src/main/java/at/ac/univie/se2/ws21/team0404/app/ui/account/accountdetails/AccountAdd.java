@@ -25,8 +25,15 @@ public class AccountAdd extends AAccountActivity implements IAccountActivityCont
     EAccountType accountType = EAccountType
         .valueOf(accountTypeSpinner.getSelectedItem().toString().toUpperCase());
 
-    presenter.clickedSave(new AppAccount(accountNameValue, accountType));
+    AppAccount formAccount;
+    try {
+      formAccount = new AppAccount(accountNameValue, accountType);
+    } catch (IllegalArgumentException e) {
+      // if the account on the form is invalid, set formAccount to null
+      formAccount = null;
+    }
 
+    presenter.clickedSave(formAccount);
   }
 
   @Override

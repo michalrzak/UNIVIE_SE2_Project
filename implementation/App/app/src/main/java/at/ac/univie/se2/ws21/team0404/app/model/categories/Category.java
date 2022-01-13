@@ -10,21 +10,33 @@ public class Category {
   private String name;
   private boolean disabled = false;
 
+  /**
+   * Checks whether the provided name does not validate any of the business rules.
+   *
+   * @param name the name to be checked
+   * @throws IllegalArgumentException thrown if name is not valid
+   */
+  private static void validateName(@NonNull String name) throws IllegalArgumentException {
+    if (name.length() <= 0) {
+      throw new IllegalArgumentException();
+    }
+  }
+
   public Category(@NonNull ETransactionType type, @NonNull String name) {
+    validateName(name);
+
     this.name = name;
     this.type = type;
   }
 
   public Category(@NonNull ETransactionType type, @NonNull String name, boolean disabled) {
-    this.name = name;
-    this.type = type;
+    this(type, name);
+
     this.disabled = disabled;
   }
 
   public Category(@NonNull Category category) {
-    this.name = category.name;
-    this.type = category.type;
-    this.disabled = category.disabled;
+    this(category.getType(), category.getName(), category.isDisabled());
   }
 
   public ETransactionType getType() {
@@ -36,6 +48,8 @@ public class Category {
   }
 
   public void setName(@NonNull String name) {
+    validateName(name);
+
     this.name = name;
   }
 

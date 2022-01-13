@@ -6,6 +6,7 @@ import at.ac.univie.se2.ws21.team0404.app.database.Repository;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
 import at.ac.univie.se2.ws21.team0404.app.ui.ABasePresenter;
 import at.ac.univie.se2.ws21.team0404.app.utils.IChangingData;
+import at.ac.univie.se2.ws21.team0404.app.utils.Nullable;
 
 public class CategoryAddPresenter extends ABasePresenter<ICategoryActivityContract.IView> implements
     ICategoryActivityContract.IPresenter {
@@ -17,7 +18,12 @@ public class CategoryAddPresenter extends ABasePresenter<ICategoryActivityContra
   }
 
   @Override
-  public void clickedSave(Category category) {
+  public void clickedSave(@Nullable Category category) {
+    if (category == null) {
+      view.showCategoryInsertionFailed();
+      return;
+    }
+
     IChangingData<ERepositoryReturnStatus> result = repository.createCategory(category);
 
     result.observe((newStatus) -> {
@@ -42,6 +48,6 @@ public class CategoryAddPresenter extends ABasePresenter<ICategoryActivityContra
    * @param category category to be deleted
    */
   @Override
-  public void clickedDelete(Category category) {
+  public void clickedDelete(@Nullable Category category) {
   }
 }

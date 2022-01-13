@@ -6,6 +6,8 @@ import at.ac.univie.se2.ws21.team0404.app.database.Repository;
 import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.ui.ABasePresenter;
 import at.ac.univie.se2.ws21.team0404.app.utils.IChangingData;
+import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
+import at.ac.univie.se2.ws21.team0404.app.utils.Nullable;
 
 public class AccountAddPresenter extends ABasePresenter<IAccountActivityContract.IView> implements
     IAccountActivityContract.IPresenter {
@@ -17,7 +19,13 @@ public class AccountAddPresenter extends ABasePresenter<IAccountActivityContract
   }
 
   @Override
-  public void clickedSave(AppAccount account) {
+  public void clickedSave(@Nullable AppAccount account) {
+    if (account == null) {
+      Log.d("AccountAdd", "Tried to save with invalid account");
+      view.showAccountInsertionFailed();
+      return;
+    }
+
     IChangingData<ERepositoryReturnStatus> result = repository.createAppAccount(account);
 
     result.observe((newStatus) -> {
@@ -42,6 +50,6 @@ public class AccountAddPresenter extends ABasePresenter<IAccountActivityContract
    * @param account to be deleted;
    */
   @Override
-  public void clickedDelete(AppAccount account) {
+  public void clickedDelete(@NonNull AppAccount account) {
   }
 }

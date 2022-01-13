@@ -1,5 +1,6 @@
 package at.ac.univie.se2.ws21.team0404.app.ui.account.accountdetails;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -75,6 +76,9 @@ public class AccountEdit extends AAccountActivity implements IAccountActivityCon
 
   @Override
   public void showAccountDeletionSuccessful() {
+    Intent intent = new Intent();
+    intent.putExtra("deleted", true);
+    setResult(Activity.RESULT_OK, intent);
     finish();
   }
 

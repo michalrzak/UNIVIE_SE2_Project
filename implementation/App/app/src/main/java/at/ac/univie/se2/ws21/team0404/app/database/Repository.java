@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class Repository {
 
   /**
-   * Need to execute the database queries on a seperate thread
+   * Need to execute the database queries on a separate thread
    */
   private static final int NUMBER_OF_THREADS = 4;
   private final ExecutorService executor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);

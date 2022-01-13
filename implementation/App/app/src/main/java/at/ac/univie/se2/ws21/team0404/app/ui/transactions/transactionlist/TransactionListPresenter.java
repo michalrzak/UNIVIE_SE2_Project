@@ -52,4 +52,11 @@ public class TransactionListPresenter extends AListActivityPresenter<Transaction
     ITransactionListContract.IView myView = (ITransactionListContract.IView) view;
     myView.showEditAccount();
   }
+
+  @Override
+  public void accountDeleted() {
+    assert (view instanceof ITransactionListContract.IView);
+    ITransactionListContract.IView myView = (ITransactionListContract.IView) view;
+    myView.finishActivity();
+  }
 }

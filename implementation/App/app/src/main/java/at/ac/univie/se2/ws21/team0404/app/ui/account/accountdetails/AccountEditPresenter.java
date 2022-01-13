@@ -8,6 +8,8 @@ import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.ui.ABasePresenter;
 import at.ac.univie.se2.ws21.team0404.app.ui.account.accountdetails.IAccountActivityContract.IView;
 import at.ac.univie.se2.ws21.team0404.app.utils.IChangingData;
+import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
+import at.ac.univie.se2.ws21.team0404.app.utils.Nullable;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistException;
 
 public class AccountEditPresenter extends ABasePresenter<IView> implements
@@ -20,7 +22,7 @@ public class AccountEditPresenter extends ABasePresenter<IView> implements
   }
 
   @Override
-  public void clickedSave(AppAccount account) {
+  public void clickedSave(@Nullable AppAccount account) {
       IChangingData<ERepositoryReturnStatus> result = repository.updateAppAccount(account);
 
       result.observe((newStatus) -> {
@@ -40,7 +42,7 @@ public class AccountEditPresenter extends ABasePresenter<IView> implements
   }
 
   @Override
-  public void clickedDelete(AppAccount account) {
+  public void clickedDelete(@NonNull AppAccount account) {
     IChangingData<ERepositoryReturnStatus> result = repository.deleteAppAccount(account);
 
     result.observe((newStatus) -> {

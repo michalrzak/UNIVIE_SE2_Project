@@ -24,7 +24,7 @@ public class CategoryAdd extends ACategoryActivity implements ICategoryActivityC
 
   @Override
   public void onSubmit(View view) {
-    presenter.clickedSave(getCategory());
+    presenter.clickedSave(getCategory().orElse(null));
   }
 
   @Override
