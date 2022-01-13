@@ -1,6 +1,5 @@
 package at.ac.univie.se2.ws21.team0404.app.ui.transactions.transactiondetails;
 
-
 import android.widget.Toast;
 import at.ac.univie.se2.ws21.team0404.app.database.Repository;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
@@ -14,7 +13,7 @@ public class TransactionAdd extends ATransactionActivity implements
 
   @Override
   protected void setup() { // empty implementation as this activity does not need to set any values to the views
-    presenter = new TransactionAddPresenter(owner, Repository.getInstance());
+    presenter = TransactionAddPresenter.create(owner, Repository.getInstance());
     lifecycleHandler = new LifecycleHandler<>(presenter, this);
   }
 

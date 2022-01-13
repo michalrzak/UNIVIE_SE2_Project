@@ -7,6 +7,7 @@ import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
 import at.ac.univie.se2.ws21.team0404.app.ui.ABasePresenter;
 import at.ac.univie.se2.ws21.team0404.app.utils.IChangingData;
+import at.ac.univie.se2.ws21.team0404.app.utils.ITriFunction;
 import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistException;
 
@@ -16,13 +17,31 @@ public class TransactionEditPresenter extends
 
   private final Repository repository;
 
+  private static ITriFunction<AppAccount, Transaction, Repository, TransactionEditPresenter> factory = TransactionEditPresenter::new;
+
+  public static TransactionEditPresenter create(AppAccount owner, Transaction editing,
+      Repository repository) {
+    return factory.apply(owner, editing, repository);
+  }
+
+  /**
+   * Allows replacing the factory for dependency injection during unit tests
+   *
+   * @param factory mocked factory
+   */
+  public static void setFactory(
+      ITriFunction<AppAccount, Transaction, Repository, TransactionEditPresenter> factory) {
+    TransactionEditPresenter.factory = factory;
+  }
+
   @NonNull
   private final Transaction editing;
 
   @NonNull
   private final AppAccount owner;
 
-  public TransactionEditPresenter(@NonNull AppAccount owner, @NonNull Transaction editing, Repository repository) {
+  private TransactionEditPresenter(@NonNull AppAccount owner, @NonNull Transaction editing,
+      Repository repository) {
     this.editing = editing;
     this.owner = owner;
     this.repository = repository;

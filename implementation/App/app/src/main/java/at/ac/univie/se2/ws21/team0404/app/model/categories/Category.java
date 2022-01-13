@@ -59,7 +59,8 @@ public class Category {
     assert (o != null);
 
     Category category = (Category) o;
-    return disabled == category.disabled && type == category.type && name.equals(category.name);
+    return disabled == category.isDisabled() && type == category.getType() && name
+        .equals(category.getName());
   }
 
   @Override

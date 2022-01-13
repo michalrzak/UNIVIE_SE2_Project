@@ -4,19 +4,33 @@ import at.ac.univie.se2.ws21.team0404.app.database.Repository;
 import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
 import at.ac.univie.se2.ws21.team0404.app.ui.AListActivityPresenter;
-import at.ac.univie.se2.ws21.team0404.app.ui.IListActivityContract;
-import at.ac.univie.se2.ws21.team0404.app.ui.account.accountlist.IAccountListContract;
 import at.ac.univie.se2.ws21.team0404.app.utils.ChangingDataWithViewState;
 import at.ac.univie.se2.ws21.team0404.app.utils.IChangingData;
-import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistException;
 import java.util.List;
+import java.util.function.BiFunction;
 
 public class TransactionListPresenter extends AListActivityPresenter<Transaction> implements
     ITransactionListContract.IPresenter {
 
-  private AppAccount owner;
+  private final AppAccount owner;
 
-  public TransactionListPresenter(AppAccount owner, Repository repository) {
+  private static BiFunction<AppAccount, Repository, TransactionListPresenter> factory = TransactionListPresenter::new;
+
+  public static TransactionListPresenter create(AppAccount owner, Repository repository) {
+    return factory.apply(owner, repository);
+  }
+
+  /**
+   * Allows replacing the factory for dependency injection during unit tests
+   *
+   * @param factory mocked factory
+   */
+  public static void setFactory(
+      BiFunction<AppAccount, Repository, TransactionListPresenter> factory) {
+    TransactionListPresenter.factory = factory;
+  }
+
+  private TransactionListPresenter(AppAccount owner, Repository repository) {
     super(repository);
     this.owner = owner;
   }
@@ -26,8 +40,8 @@ public class TransactionListPresenter extends AListActivityPresenter<Transaction
    */
   @Override
   public void viewCreated() {
-    final IChangingData<List<Transaction>> transactionData;
-    transactionData = new ChangingDataWithViewState<>(repository.getTransactionList(owner), viewState);
+    final IChangingData<List<Transaction>> transactionData = new ChangingDataWithViewState<>(
+        repository.getTransactionList(owner), viewState);
     transactionData.observe(data -> view.showList(data));
   }
 

@@ -67,6 +67,6 @@ public class AppAccount {
       return false;
     }
     AppAccount that = (AppAccount) o;
-    return name.equals(that.name) && type == that.type;
+    return name.equals(that.getName()) && type == that.getType();
   }
 }
