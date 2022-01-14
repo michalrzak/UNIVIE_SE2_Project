@@ -20,9 +20,9 @@ import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistException;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataExistsException;
 import java.util.Collection;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 
@@ -38,16 +38,15 @@ public class RoomDatabase implements IDatabase {
   private final CategoryDao categoryDao;
   private final TransactionDao transactionDao;
 
-  public RoomDatabase(Context context) {
-    roomDatabase = Room.databaseBuilder(context, AppRoomDatabase.class, "room-db").build();
-
+  public RoomDatabase(Supplier<AppRoomDatabase> roomDatabaseSupplier) {
+    roomDatabase = roomDatabaseSupplier.get();
     accountDao = roomDatabase.accountDao();
     categoryDao = roomDatabase.categoryDao();
     transactionDao = roomDatabase.transactionDao();
   }
 
-  public RoomDatabase(Context context, boolean clearTables) {
-    this(context);
+  public RoomDatabase(Supplier<AppRoomDatabase> roomDatabaseSupplier, boolean clearTables) {
+    this(roomDatabaseSupplier);
     if (clearTables) {
       ExecutorService exec = Executors.newFixedThreadPool(4);
       exec.submit(roomDatabase::clearAllTables);
@@ -173,6 +172,7 @@ public class RoomDatabase implements IDatabase {
   public void deleteTransaction(@NonNull AppAccount owner, int idToBeDeleted)
       throws DataDoesNotExistException {
     try {
+      // this is a bit hacky
       transactionDao.deleteTransaction(
           new RoomTransaction(idToBeDeleted, "", ETransactionType.EXPENSE, 1, "", owner.getId()));
     } catch (SQLiteException e) {
