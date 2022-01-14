@@ -4,6 +4,7 @@ import androidx.room.Embedded;
 import androidx.room.Relation;
 
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
+import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 import at.ac.univie.se2.ws21.team0404.app.utils.Nullable;
 
 /**
@@ -25,6 +26,7 @@ public class RoomTransactionWithCategory {
         this.category = category;
     }
 
+    @NonNull
     public Transaction getTransaction() {
         return new Transaction(
                 transaction.getId(),
