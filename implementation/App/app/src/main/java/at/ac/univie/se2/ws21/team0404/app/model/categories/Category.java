@@ -22,6 +22,13 @@ public class Category {
     }
   }
 
+  /**
+   * Creates a new Category object given a name and type. Checks if the name is valid, which throws
+   * an `IllegalArgumentException` if not valid
+   * @param type `ETransactionType` of the category
+   * @param name the name of the category, must be of length > 0
+   * @throws IllegalArgumentException thrown if name is not valid
+   */
   public Category(@NonNull ETransactionType type, @NonNull String name) {
     validateName(name);
 
@@ -29,12 +36,27 @@ public class Category {
     this.type = type;
   }
 
+  /**
+   * Creates a new category and additionally allows for it to be disabled or enabled.
+   * Calls `this/2`, which performs validation on the name and throws an `IllegalArgumentException`
+   * if the name is not valid.
+   *
+   * @param type `ETransactionType` of the category
+   * @param name the name of the category, must be of length > 0
+   * @param disabled whether or not the category is disabled (deleted by the user)
+   * @throws IllegalArgumentException thrown if name is not valid
+   */
   public Category(@NonNull ETransactionType type, @NonNull String name, boolean disabled) {
     this(type, name);
 
     this.disabled = disabled;
   }
 
+  /**
+   * A simple copy constructor.
+   *
+   * @param category the category to copy.
+   */
   public Category(@NonNull Category category) {
     this(category.getType(), category.getName(), category.isDisabled());
   }

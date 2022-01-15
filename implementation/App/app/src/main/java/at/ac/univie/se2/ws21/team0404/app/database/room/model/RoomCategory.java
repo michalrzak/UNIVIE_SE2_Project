@@ -7,6 +7,9 @@ import androidx.room.PrimaryKey;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
 import at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType;
 
+/**
+ * Extends the {@link Category} class with Room annotations
+ */
 @Entity(tableName = "categories")
 public class RoomCategory extends Category {
     @NonNull

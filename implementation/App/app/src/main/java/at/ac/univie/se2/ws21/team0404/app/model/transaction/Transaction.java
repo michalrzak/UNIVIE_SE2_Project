@@ -74,11 +74,23 @@ public class Transaction {
     this.amount = amount;
   }
 
+  /**
+   * Constructs a Transaction and autogenerates an id.
+   *
+   * @param category category of the transaction.
+   * @param type     type of the transaction.
+   * @param amount   amount of the transaction
+   */
   public Transaction(@Nullable Category category, @NonNull ETransactionType type, int amount,
       @NonNull String name) {
     this(counter++, category, type, amount, name);
   }
 
+  /**
+   * Copy constructor that constructs a Transaction from another.
+   *
+   * @param transaction transaction to copy.
+   */
   public Transaction(@NonNull Transaction transaction) {
     this(transaction.getId(), transaction.getRawCategory(), transaction.getType(),
         transaction.getAmount(), transaction.getName());
