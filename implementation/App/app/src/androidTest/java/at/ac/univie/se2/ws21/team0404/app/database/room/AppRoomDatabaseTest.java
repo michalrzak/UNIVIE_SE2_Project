@@ -33,6 +33,14 @@ public class AppRoomDatabaseTest {
   private CategoryDao categoryDao;
   private TransactionDao transactionDao;
 
+  private static class Fixtures {
+    public static AppAccount testAccount1 = new AppAccount("test1", EAccountType.BANK, 10.0);
+    public static AppAccount testAccount2 = new AppAccount("test1", EAccountType.BANK, 10.0);
+
+    public static Category testCategory1 = new Category(ETransactionType.INCOME, "cat1");
+    public static Transaction testTransaction1 = new Transaction(testCategory1, ETransactionType.INCOME, 100, "tr1");
+  }
+
   @Before
   public void createDb() {
     Context context = ApplicationProvider.getApplicationContext();
@@ -49,7 +57,7 @@ public class AppRoomDatabaseTest {
 
   @Test
   public void emptyDb_addAccount_accountInList() {
-    AppAccount account = new AppAccount("test1", EAccountType.BANK);
+    AppAccount account = Fixtures.testAccount1;
     RoomAppAccount roomAccount = new RoomAppAccount(account);
     accountDao.addAccount(roomAccount);
 
@@ -60,7 +68,7 @@ public class AppRoomDatabaseTest {
 
   @Test
   public void oneAccountInDb_deleteAccount_accountListEmpty() {
-    AppAccount account = new AppAccount("test1", EAccountType.BANK);
+    AppAccount account = Fixtures.testAccount1;
     RoomAppAccount roomAccount = new RoomAppAccount(account);
     accountDao.addAccount(roomAccount);
 
@@ -72,11 +80,11 @@ public class AppRoomDatabaseTest {
 
   @Test
   public void oneAccountInDb_updateAccount_accountIsUpdated() {
-    AppAccount account = new AppAccount("test1", EAccountType.BANK);
+    AppAccount account = Fixtures.testAccount1;
     RoomAppAccount roomAccount = new RoomAppAccount(account);
     accountDao.addAccount(roomAccount);
 
-    AppAccount updatedAccount = new AppAccount("testChanged", EAccountType.CARD, account);
+    AppAccount updatedAccount = new AppAccount("testChanged", EAccountType.CARD, account, account.getSpendingLimit(), account.getBalance());
     accountDao.updateAccount(new RoomAppAccount(updatedAccount));
 
     List<RoomAppAccount> accountList = accountDao.getAccounts();
@@ -88,7 +96,7 @@ public class AppRoomDatabaseTest {
   @Test
   public void emptyDb_addTransaction_transactionInDb() {
     Transaction transaction = new Transaction(null, ETransactionType.INCOME, 100, "tr1");
-    AppAccount account = new AppAccount("test1", EAccountType.BANK);
+    AppAccount account = Fixtures.testAccount1;
     RoomTransaction roomTransaction = new RoomTransaction(transaction, account);
     transactionDao.addTransaction(roomTransaction);
 
@@ -102,9 +110,8 @@ public class AppRoomDatabaseTest {
 
   @Test
   public void emptyDb_addTransaction_transactionInDbCategoryMissing() {
-    Category category = new Category(ETransactionType.INCOME, "cat1");
-    Transaction transaction = new Transaction(category, ETransactionType.INCOME, 100, "tr1");
-    AppAccount account = new AppAccount("test1", EAccountType.BANK);
+    Transaction transaction = Fixtures.testTransaction1;
+    AppAccount account = Fixtures.testAccount1;
     RoomTransaction roomTransaction = new RoomTransaction(transaction, account);
     transactionDao.addTransaction(roomTransaction);
 
@@ -119,11 +126,11 @@ public class AppRoomDatabaseTest {
 
   @Test
   public void categoryInDb_addTransaction_transactionInDbCategoryMissing() {
-    Category category = new Category(ETransactionType.INCOME, "cat1");
+    Category category = Fixtures.testCategory1;
     categoryDao.addCategory(new RoomCategory(category));
 
-    Transaction transaction = new Transaction(category, ETransactionType.INCOME, 100, "tr1");
-    AppAccount account = new AppAccount("test1", EAccountType.BANK);
+    Transaction transaction = Fixtures.testTransaction1;
+    AppAccount account = Fixtures.testAccount1;
     RoomTransaction roomTransaction = new RoomTransaction(transaction, account);
     transactionDao.addTransaction(roomTransaction);
 
@@ -141,11 +148,11 @@ public class AppRoomDatabaseTest {
   @Test
   public void transactionInDb_getOtherAccountTransactions_transactionListEmpty() {
     Transaction transaction = new Transaction(null, ETransactionType.INCOME, 100, "tr1");
-    AppAccount account = new AppAccount("test1", EAccountType.BANK);
+    AppAccount account = Fixtures.testAccount1;
     RoomTransaction roomTransaction = new RoomTransaction(transaction, account);
     transactionDao.addTransaction(roomTransaction);
 
-    AppAccount otherAccount = new AppAccount("test2", EAccountType.BANK);
+    AppAccount otherAccount = Fixtures.testAccount2;
     List<RoomTransactionWithCategory> transactionList = transactionDao
         .getTransactions(otherAccount.getId());
     assertThat(transactionList, empty());
@@ -153,10 +160,10 @@ public class AppRoomDatabaseTest {
 
   @Test
   public void categoryAndTransactionInDb_updateCategoryType_transactionCategoryUpdated() {
-    Category category = new Category(ETransactionType.INCOME, "cat1");
+    Category category = Fixtures.testCategory1;
     categoryDao.addCategory(new RoomCategory(category));
-    Transaction transaction = new Transaction(category, ETransactionType.INCOME, 100, "tr1");
-    AppAccount account = new AppAccount("test1", EAccountType.BANK);
+    Transaction transaction = Fixtures.testTransaction1;
+    AppAccount account = Fixtures.testAccount1;
     RoomTransaction roomTransaction = new RoomTransaction(transaction, account);
     transactionDao.addTransaction(roomTransaction);
 
@@ -180,10 +187,10 @@ public class AppRoomDatabaseTest {
   @Ignore("This test fails as long as Category uses name as key, needs a dedicated id as primary key")
   @Test
   public void categoryAndTransactionInDb_updateCategoryName_transactionCategoryUpdated() {
-    Category category = new Category(ETransactionType.INCOME, "cat1");
+    Category category = Fixtures.testCategory1;
     categoryDao.addCategory(new RoomCategory(category));
-    Transaction transaction = new Transaction(category, ETransactionType.INCOME, 100, "tr1");
-    AppAccount account = new AppAccount("test1", EAccountType.BANK);
+    Transaction transaction = Fixtures.testTransaction1;
+    AppAccount account = Fixtures.testAccount1;
     RoomTransaction roomTransaction = new RoomTransaction(transaction, account);
     transactionDao.addTransaction(roomTransaction);
 

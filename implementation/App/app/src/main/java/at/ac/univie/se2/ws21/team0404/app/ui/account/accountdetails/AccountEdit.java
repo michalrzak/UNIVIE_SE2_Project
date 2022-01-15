@@ -10,10 +10,8 @@ import at.ac.univie.se2.ws21.team0404.app.R;
 import at.ac.univie.se2.ws21.team0404.app.database.Repository;
 import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.account.EAccountType;
-import at.ac.univie.se2.ws21.team0404.app.ui.account.accountlist.AccountList;
 import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 import at.ac.univie.se2.ws21.team0404.app.utils.android.LifecycleHandler;
-import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistException;
 
 public class AccountEdit extends AAccountActivity implements IAccountActivityContract.IView {
 
@@ -27,6 +25,7 @@ public class AccountEdit extends AAccountActivity implements IAccountActivityCon
     intentExtraAppAccount = getIntent().getParcelableExtra(EIntents.ACCOUNT.toString());
     assert (intentExtraAppAccount != null);
     accountNameField.setText(intentExtraAppAccount.getName());
+    accountLimitField.setText(String.valueOf(intentExtraAppAccount.getSpendingLimit()));
     accountTypeSpinner
         .setSelection(accountTypeArrayAdapter.getPosition(intentExtraAppAccount.getType()));
 
@@ -53,11 +52,13 @@ public class AccountEdit extends AAccountActivity implements IAccountActivityCon
   @Override
   protected void saveButtonPressed() {
     String accountNameValue = accountNameField.getText().toString();
+    String spendingLimitText = accountLimitField.getText().toString();
+    double spendingLimit = Double.parseDouble(spendingLimitText.length() > 0 ? spendingLimitText : "0.0");
     EAccountType accountType = EAccountType
         .valueOf(accountTypeSpinner.getSelectedItem().toString().toUpperCase());
 
     AppAccount newAppAccount = new AppAccount(accountNameValue, accountType,
-        intentExtraAppAccount);
+        intentExtraAppAccount, spendingLimit, intentExtraAppAccount.getBalance());
     presenter.clickedSave(newAppAccount);
   }
 

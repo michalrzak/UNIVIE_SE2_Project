@@ -9,7 +9,7 @@ import at.ac.univie.se2.ws21.team0404.app.database.room.model.RoomTransaction;
 
 @Database(
         entities = {RoomAppAccount.class, RoomTransaction.class, RoomCategory.class},
-        version = 3,
+        version = 4,
         exportSchema = false)
 public abstract class AppRoomDatabase extends RoomDatabase {
     public abstract AccountDao accountDao();
