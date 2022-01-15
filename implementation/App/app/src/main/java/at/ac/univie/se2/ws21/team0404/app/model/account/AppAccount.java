@@ -33,6 +33,16 @@ public class AppAccount {
     }
   }
 
+  /**
+   * Constructs a new AppAccount given all parameters. Validates the name and throws an `IllegalArgumentException`
+   * if the name is invalid
+   *
+   * @param name name of the AppAccount. Must be longer than 0
+   * @param type EAccountType of the account.
+   * @param id an id to be given to the account
+   * @param spendingLimit the spending limit of the account
+   * @param balance the balance of the account.
+   */
   protected AppAccount(@NonNull String name, @NonNull EAccountType type, int id, double spendingLimit, double balance) {
     validateName(name);
     this.name = name;
@@ -42,10 +52,25 @@ public class AppAccount {
     this.balance = balance;
   }
 
+  /**
+   * Constructs a new AppAccount, autogenerating an ID and using a default balance.
+   *
+   * @param name name of the AppAccount. Must be longer than 0
+   * @param type EAccountType of the account.
+   * @param spendingLimit the spending limit of the account
+   */
   public AppAccount(@NonNull String name, @NonNull EAccountType type, double spendingLimit) {
     this(name, type, idCounter++, spendingLimit, BALANCE_DEFAULT);
   }
 
+  /**
+   * Constructs a new AppAccount, autogenerating an ID.
+   *
+   * @param name name of the AppAccount. Must be longer than 0
+   * @param type EAccountType of the account.
+   * @param spendingLimit the spending limit of the account
+   * @param balance the balance of the account
+   */
   public AppAccount(@NonNull String name, @NonNull EAccountType type,
       @NonNull AppAccount oldAccount, double spendingLimit, double balance) {
     this(name, type, oldAccount.getId(), spendingLimit, balance);

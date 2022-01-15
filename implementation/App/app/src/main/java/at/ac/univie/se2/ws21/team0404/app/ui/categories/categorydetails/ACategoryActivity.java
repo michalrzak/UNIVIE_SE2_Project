@@ -1,6 +1,5 @@
 package at.ac.univie.se2.ws21.team0404.app.ui.categories.categorydetails;
 
-import android.graphics.Path.Op;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
