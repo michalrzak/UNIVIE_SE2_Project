@@ -1,13 +1,17 @@
 package at.ac.univie.se2.ws21.team0404.app.database;
 
+import android.util.Log;
+
 import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
+import at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
 import at.ac.univie.se2.ws21.team0404.app.utils.ChangingData;
 import at.ac.univie.se2.ws21.team0404.app.utils.IChangingData;
 import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.SingletonAlreadyInstantiatedException;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.SingletonNotInstantiatedException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -171,6 +175,13 @@ public class Repository {
     });
   }
 
+  private void calcAccountBalance(AppAccount owner) {
+    long amount = transactionList.getData().stream().mapToLong(
+        transaction -> (long) transaction.getAmount() * (transaction.getType().getSign())).sum();
+    owner.setBalance(amount);
+    updateAppAccount(owner);
+  }
+
   private void reloadAccounts() {
     executor.execute(() -> accountList.setData(new ArrayList<>(databaseStrategy.getAccounts())));
   }
@@ -185,6 +196,7 @@ public class Repository {
     // right now this does not indicate that the reload can fail due to the account not being in the DB
     Callable<Void> task = () -> {
       transactionList.setData(new ArrayList<>(getDatabase().getTransactions(account)));
+      transactionList.observe(data -> calcAccountBalance(account));
       return null;
     };
 

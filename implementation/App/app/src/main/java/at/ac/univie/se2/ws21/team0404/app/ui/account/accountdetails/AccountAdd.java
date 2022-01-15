@@ -24,10 +24,12 @@ public class AccountAdd extends AAccountActivity implements IAccountActivityCont
     String accountNameValue = accountNameField.getText().toString();
     EAccountType accountType = EAccountType
         .valueOf(accountTypeSpinner.getSelectedItem().toString().toUpperCase());
+    String spendingLimitText = accountLimitField.getText().toString();
+    double spendingLimit = Double.parseDouble(spendingLimitText.length() > 0 ? spendingLimitText : "0.0");
 
     AppAccount formAccount;
     try {
-      formAccount = new AppAccount(accountNameValue, accountType);
+      formAccount = new AppAccount(accountNameValue, accountType, spendingLimit);
     } catch (IllegalArgumentException e) {
       // if the account on the form is invalid, set formAccount to null
       formAccount = null;

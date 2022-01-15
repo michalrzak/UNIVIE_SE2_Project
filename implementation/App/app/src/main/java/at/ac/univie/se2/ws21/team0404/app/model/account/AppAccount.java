@@ -10,10 +10,16 @@ import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
  */
 public class AppAccount {
 
+  private static double spendingLimitWarningThreshold = 1.2; // Balance < 120% spending limit triggers a warning
   private static int idCounter = 0;
+  private static final double BALANCE_DEFAULT = 0.0;
+  private static final double SPENDINGLIMIT_DEFAULT = 0.0;
+
   private final int id;
   private String name;
   private EAccountType type;
+  private double spendingLimit;
+  private double balance;
 
   /**
    * Checks whether the provided name is valid.
@@ -27,22 +33,24 @@ public class AppAccount {
     }
   }
 
-  protected AppAccount(@NonNull String name, @NonNull EAccountType type, int id) {
+  protected AppAccount(@NonNull String name, @NonNull EAccountType type, int id, double spendingLimit, double balance) {
     validateName(name);
-
     this.name = name;
     this.type = type;
     this.id = id;
+    this.spendingLimit = spendingLimit;
+    this.balance = balance;
   }
 
-  public AppAccount(@NonNull String name, @NonNull EAccountType type) {
-    this(name, type, idCounter++);
+  public AppAccount(@NonNull String name, @NonNull EAccountType type, double spendingLimit) {
+    this(name, type, idCounter++, spendingLimit, BALANCE_DEFAULT);
   }
 
   public AppAccount(@NonNull String name, @NonNull EAccountType type,
-      @NonNull AppAccount oldAccount) {
-    this(name, type, oldAccount.getId());
+      @NonNull AppAccount oldAccount, double spendingLimit, double balance) {
+    this(name, type, oldAccount.getId(), spendingLimit, balance);
   }
+
 
   public EAccountType getType() {
     return type;
@@ -66,6 +74,34 @@ public class AppAccount {
     return id;
   }
 
+  public double getSpendingLimit() {
+    return spendingLimit;
+  }
+
+  public void setSpendingLimit(double spendingLimit) {
+    this.spendingLimit = spendingLimit;
+  }
+
+  public double getBalance() {
+    return balance;
+  }
+
+  public void setBalance(double balance) {
+    this.balance = balance;
+  }
+
+  public ESpendingLevel getSpendingLimitStatus() {
+    if (spendingLimit == 0.0) {
+      return ESpendingLevel.NONE;
+    } else if (balance < spendingLimit) {
+      return ESpendingLevel.OVER;
+    } else if (balance <= spendingLimit * spendingLimitWarningThreshold) {
+      return ESpendingLevel.WARNING;
+    } else {
+      return ESpendingLevel.NONE;
+    }
+  }
+
   @Override
   public int hashCode() {
     return name.hashCode();
@@ -82,4 +118,5 @@ public class AppAccount {
     AppAccount that = (AppAccount) o;
     return name.equals(that.getName()) && type == that.getType();
   }
+
 }

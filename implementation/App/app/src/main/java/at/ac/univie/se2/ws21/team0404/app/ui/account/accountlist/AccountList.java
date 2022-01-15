@@ -18,8 +18,6 @@ import at.ac.univie.se2.ws21.team0404.app.ui.categories.categorylist.CategoryLis
 import at.ac.univie.se2.ws21.team0404.app.ui.transactions.transactionlist.TransactionList;
 import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 
-// implements
-//    IAccountListContract.IView
 public class AccountList extends AListActivity<AppAccount, AccountListViewHolder, AccountListPresenter> implements
     IAccountListContract.IView {
 

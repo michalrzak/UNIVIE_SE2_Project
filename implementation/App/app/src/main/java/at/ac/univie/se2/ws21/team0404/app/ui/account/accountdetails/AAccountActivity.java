@@ -26,6 +26,7 @@ public abstract class AAccountActivity extends AppCompatActivity {
   protected Spinner accountTypeSpinner;
   protected ArrayAdapter<EAccountType> accountTypeArrayAdapter;
   protected EditText accountNameField;
+  protected EditText accountLimitField;
 
   protected Repository repository;
 
@@ -59,6 +60,7 @@ public abstract class AAccountActivity extends AppCompatActivity {
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     accountNameField = findViewById(R.id.account_name_edit_add);
+    accountLimitField = findViewById(R.id.account_limit_edit_add);
 
     repository = Repository.getInstance();
 

@@ -22,11 +22,11 @@ public class ParcelableAppAccount extends AppAccount implements Parcelable {
   };
 
   public ParcelableAppAccount(@NonNull Parcel in) {
-    super(in.readString(), EAccountType.valueOf(in.readString().toUpperCase()), in.readInt());
+    super(in.readString(), EAccountType.valueOf(in.readString().toUpperCase()), in.readInt(), in.readDouble(), in.readDouble());
   }
 
   public ParcelableAppAccount(@NonNull AppAccount appAccount) {
-    super(appAccount.getName(), appAccount.getType(), appAccount);
+    super(appAccount.getName(), appAccount.getType(), appAccount, appAccount.getSpendingLimit(), appAccount.getBalance());
   }
 
   @Override
@@ -39,5 +39,7 @@ public class ParcelableAppAccount extends AppAccount implements Parcelable {
     parcel.writeString(this.getName());
     parcel.writeString(this.getType().toString());
     parcel.writeInt(this.getId());
+    parcel.writeDouble(this.getSpendingLimit());
+    parcel.writeDouble(this.getBalance());
   }
 }

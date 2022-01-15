@@ -18,6 +18,7 @@ import at.ac.univie.se2.ws21.team0404.app.R;
 import at.ac.univie.se2.ws21.team0404.app.database.Repository;
 import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.account.EAccountType;
+import at.ac.univie.se2.ws21.team0404.app.model.account.ESpendingLevel;
 import at.ac.univie.se2.ws21.team0404.app.ui.account.accountdetails.AccountAdd;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +59,7 @@ public class AccountListUnitTest {
     when(mockTestAccount.getId()).thenReturn(testAccountId);
     when(mockTestAccount.getName()).thenReturn(testAccountName);
     when(mockTestAccount.getType()).thenReturn(EAccountType.BANK);
+    when(mockTestAccount.getSpendingLimitStatus()).thenReturn(ESpendingLevel.NONE);
     accountList.add(mockTestAccount);
   }
 

@@ -29,6 +29,7 @@ public class AccountListViewHolder extends RecyclerView.ViewHolder {
   public void bind(@NonNull AppAccount account, Consumer<AppAccount> onClickListener) {
     String text = account.getName() + " (" + account.getType().toString() + ")";
     accountNameView.setText(text);
+    accountView.setBackgroundColor(account.getSpendingLimitStatus().getColour());
     accountView.setOnClickListener(view -> onClickListener.accept(account));
   }
 }
