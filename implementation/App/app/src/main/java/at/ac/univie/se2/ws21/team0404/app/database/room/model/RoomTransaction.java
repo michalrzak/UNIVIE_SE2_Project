@@ -3,6 +3,10 @@ package at.ac.univie.se2.ws21.team0404.app.database.room.model;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.Relation;
+
+import java.util.Date;
+
 import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
 import at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType;
@@ -15,7 +19,6 @@ import java.util.UUID;
  */
 @Entity(tableName = "transactions")
 public class RoomTransaction {
-
   @PrimaryKey
   @NonNull
   private final UUID id;
@@ -28,12 +31,13 @@ public class RoomTransaction {
   private final int amount; // in euro cent
 
   public RoomTransaction(@NonNull UUID id, @Nullable UUID categoryId, @NonNull ETransactionType type,
-      int amount, @NonNull String name, UUID accountId) {
+      int amount, @NonNull String name, UUID accountId, @NonNull Date date) {
     this.id = id;
     this.categoryId = categoryId;
     this.type = type;
     this.amount = amount;
     this.name = name;
+    this.date = date;
     this.accountId = accountId;
   }
 
@@ -43,6 +47,7 @@ public class RoomTransaction {
     this.type = transaction.getType();
     this.amount = transaction.getAmount();
     this.name = transaction.getName();
+    this.date = transaction.getDate();
     this.accountId = appAccount.getId();
   }
 
@@ -69,6 +74,10 @@ public class RoomTransaction {
 
   public int getAmount() {
     return amount;
+  }
+
+  public Date getDate() {
+    return date;
   }
 
   @Override

@@ -15,6 +15,7 @@ import at.ac.univie.se2.ws21.team0404.app.ui.AListActivity;
 import at.ac.univie.se2.ws21.team0404.app.ui.AListActivityPresenter;
 import at.ac.univie.se2.ws21.team0404.app.ui.account.accountdetails.AccountAdd;
 import at.ac.univie.se2.ws21.team0404.app.ui.categories.categorylist.CategoryList;
+import at.ac.univie.se2.ws21.team0404.app.ui.report.ReportFormActivity;
 import at.ac.univie.se2.ws21.team0404.app.ui.transactions.transactionlist.TransactionList;
 import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 
@@ -49,6 +50,7 @@ public class AccountList extends AListActivity<AppAccount, AccountListViewHolder
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.category_menu_icon, menu);
+    getMenuInflater().inflate(R.menu.report_menu_icon, menu);
     return super.onCreateOptionsMenu(menu);
   }
 
@@ -56,6 +58,10 @@ public class AccountList extends AListActivity<AppAccount, AccountListViewHolder
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     if (item.getItemId() == R.id.category_menu_icon) {
       presenter.categories();
+      return true;
+    }
+    if (item.getItemId() == R.id.report_menu_icon) {
+      presenter.report();
       return true;
     }
     return super.onOptionsItemSelected(item);
@@ -77,6 +83,12 @@ public class AccountList extends AListActivity<AppAccount, AccountListViewHolder
   @Override
   public void showCategoriesList() {
     Intent intent = new Intent(this, CategoryList.class);
+    startActivity(intent);
+  }
+
+  @Override
+  public void showReportForm() {
+    Intent intent = new Intent(this, ReportFormActivity.class);
     startActivity(intent);
   }
 }

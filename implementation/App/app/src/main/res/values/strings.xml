@@ -30,4 +30,6 @@
     <string name="save_category">Save Category</string>
     <string name="create_category">Create Category</string>
     <string name="enter_spending_limit">Enter spending limit</string>
+    <string name="report">Report</string>
+    <string name="date">Date</string>
 </resources>

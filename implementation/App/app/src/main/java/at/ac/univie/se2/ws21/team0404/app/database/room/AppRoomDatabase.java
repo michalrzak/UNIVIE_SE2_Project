@@ -2,6 +2,7 @@ package at.ac.univie.se2.ws21.team0404.app.database.room;
 
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
 import androidx.room.TypeConverters;
 import at.ac.univie.se2.ws21.team0404.app.database.room.model.RoomAppAccount;

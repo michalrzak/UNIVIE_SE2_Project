@@ -20,6 +20,7 @@ import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistExcep
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataExistsException;
 import java.util.Collection;
 import java.util.UUID;
+import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Supplier;
@@ -161,7 +162,7 @@ public class RoomDatabase implements IDatabase {
       RoomTransaction roomTransaction = new RoomTransaction(oldId,
           updatedTransaction.getCategory().map(Category::getId).orElse(null),
           updatedTransaction.getType(), updatedTransaction.getAmount(),
-          updatedTransaction.getName(), owner.getId());
+          updatedTransaction.getName(), owner.getId(), new Date());
       transactionDao.updateTransaction(roomTransaction);
     } catch (SQLiteException e) {
       Log.w(LOG_TAG,
@@ -177,8 +178,12 @@ public class RoomDatabase implements IDatabase {
     try {
       // this is a bit hacky
       transactionDao.deleteTransaction(
+<<<<<<< HEAD
           new RoomTransaction(idToBeDeleted, null, ETransactionType.EXPENSE, 1, "",
               owner.getId()));
+=======
+          new RoomTransaction(idToBeDeleted, "", ETransactionType.EXPENSE, 1, "", owner.getId(), new Date()));
+>>>>>>> Fix tests
     } catch (SQLiteException e) {
       Log.w(LOG_TAG, "Delete transaction threw an SQL exception; Tried to delete " + idToBeDeleted
           + ". With owner " + owner.toString());

@@ -11,6 +11,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App">
         <activity
+            android:name=".ui.report.ReportFormActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.report.ChartActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.categories.categorydetails.CategoryAdd"
             android:exported="false" />
         <activity
