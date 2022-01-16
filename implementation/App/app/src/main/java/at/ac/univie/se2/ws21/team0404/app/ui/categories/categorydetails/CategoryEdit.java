@@ -6,12 +6,9 @@ import android.widget.Toast;
 import at.ac.univie.se2.ws21.team0404.app.R;
 import at.ac.univie.se2.ws21.team0404.app.database.Repository;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
-import at.ac.univie.se2.ws21.team0404.app.ui.account.accountdetails.AccountEdit;
-import at.ac.univie.se2.ws21.team0404.app.ui.account.accountdetails.AccountEditPresenter;
 import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 import at.ac.univie.se2.ws21.team0404.app.utils.android.LifecycleHandler;
-import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistException;
-import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataExistsException;
+import java.util.Optional;
 
 public class CategoryEdit extends ACategoryActivity implements ICategoryActivityContract.IView {
 
@@ -19,6 +16,17 @@ public class CategoryEdit extends ACategoryActivity implements ICategoryActivity
 
   private CategoryEditPresenter presenter;
   private LifecycleHandler<CategoryEdit> lifecycleHandler;
+
+  @Override
+  protected Optional<Category> getCategory() {
+    Category category = super.getCategory().orElse(null);
+    if (category == null) {
+      return Optional.empty();
+    }
+
+    return Optional
+        .of(new Category(passedCategory.getId(), category.getType(), category.getName()));
+  }
 
   @Override
   protected void setup() {
@@ -57,7 +65,7 @@ public class CategoryEdit extends ACategoryActivity implements ICategoryActivity
 
   @Override
   public void onDelete(View view) {
-    presenter.clickedDelete(getCategory().orElse(null));
+    presenter.clickedDelete(passedCategory);
   }
 
   @Override

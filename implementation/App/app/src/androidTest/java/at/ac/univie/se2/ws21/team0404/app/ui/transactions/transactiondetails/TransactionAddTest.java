@@ -26,6 +26,7 @@ import at.ac.univie.se2.ws21.team0404.app.model.android.ParcelableAppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
 import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
+import java.util.UUID;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,7 +38,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class TransactionAddTest {
 
-  private final static int insertedAccountId = 99;
+  private final static UUID insertedAccountId = UUID.randomUUID();
   private final static String insertedAccountName = "insertedAccount";
   @Mock
   private AppAccount insertedAccount;
@@ -96,7 +97,7 @@ public class TransactionAddTest {
     final ETransactionType type = ETransactionType.INCOME;
 
     // This unfortunately has to be the real and not a mocked type, as I need to compare it
-    Transaction real = new Transaction(0, null, type, Integer.parseInt(amount), name);
+    Transaction real = new Transaction(UUID.randomUUID(), null, type, Integer.parseInt(amount), name);
 
     insertFieldsToView(name, amount, type);
 
@@ -151,7 +152,7 @@ public class TransactionAddTest {
     final ETransactionType type = ETransactionType.INCOME;
 
     // This unfortunately has to be the real and not a mocked type, as I need to compare it
-    Transaction real = new Transaction(0, null, type, Integer.parseInt(amount), name);
+    Transaction real = new Transaction(UUID.randomUUID(), null, type, Integer.parseInt(amount), name);
 
     insertFieldsToView(name, amount, type);
 
@@ -179,7 +180,7 @@ public class TransactionAddTest {
     final String amount = "";
     final ETransactionType type = ETransactionType.EXPENSE;
 
-    Transaction real = new Transaction(0, null, type, 0, name);
+    Transaction real = new Transaction(UUID.randomUUID(), null, type, 0, name);
 
     insertFieldsToView(name, amount, type);
 

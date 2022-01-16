@@ -11,12 +11,13 @@ import java.util.List;
 
 import at.ac.univie.se2.ws21.team0404.app.database.room.model.RoomTransaction;
 import at.ac.univie.se2.ws21.team0404.app.database.room.model.RoomTransactionWithCategory;
+import java.util.UUID;
 
 @Dao
 public interface TransactionDao {
     @Transaction
     @Query("SELECT * FROM transactions WHERE accountId == :accountId ORDER BY id ASC")
-    List<RoomTransactionWithCategory> getTransactions(int accountId);
+    List<RoomTransactionWithCategory> getTransactions(UUID accountId);
 
     @Insert
     void addTransaction(RoomTransaction transaction);

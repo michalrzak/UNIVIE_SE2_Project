@@ -22,6 +22,7 @@ import at.ac.univie.se2.ws21.team0404.app.model.account.ESpendingLevel;
 import at.ac.univie.se2.ws21.team0404.app.ui.account.accountdetails.AccountAdd;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,7 +34,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class AccountListUnitTest {
 
-  final static int testAccountId = 99;
+  final static UUID testAccountId = UUID.randomUUID();
   final static String testAccountName = "testAccount";
   @Mock
   AppAccount mockTestAccount;

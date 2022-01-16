@@ -1,11 +1,12 @@
 package at.ac.univie.se2.ws21.team0404.app.model.android;
 
 import android.os.Parcel;
+import android.os.ParcelUuid;
 import android.os.Parcelable;
-
-import at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
+import at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType;
 import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
+import java.util.UUID;
 
 public class ParcelableCategory extends Category implements Parcelable {
 
@@ -21,16 +22,18 @@ public class ParcelableCategory extends Category implements Parcelable {
     }
   };
 
-  public ParcelableCategory(@NonNull ETransactionType type, @NonNull String name) {
-    super(type, name);
+  public ParcelableCategory(@NonNull UUID id, @NonNull ETransactionType type,
+      @NonNull String name) {
+    super(id, type, name);
   }
 
   public ParcelableCategory(@NonNull Category category) {
-    super(category.getType(), category.getName());
+    super(category);
   }
 
   public ParcelableCategory(@NonNull Parcel in) {
-    super(ETransactionType.values()[in.readInt()], in.readString());
+    super(((ParcelUuid) in.readParcelable(Parcelable.class.getClassLoader())).getUuid(),
+        ETransactionType.values()[in.readInt()], in.readString());
   }
 
   @Override
@@ -40,6 +43,7 @@ public class ParcelableCategory extends Category implements Parcelable {
 
   @Override
   public void writeToParcel(Parcel parcel, int flags) {
+    parcel.writeParcelable(new ParcelUuid(this.getId()), 1);
     parcel.writeInt(getType().ordinal());
     parcel.writeString(this.getName());
   }

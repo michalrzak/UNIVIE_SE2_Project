@@ -1,6 +1,7 @@
 package at.ac.univie.se2.ws21.team0404.app.model.account;
 
 import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
+import java.util.UUID;
 
 /**
  * A class which holds information on one account.
@@ -10,12 +11,12 @@ import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
  */
 public class AppAccount {
 
-  private static double spendingLimitWarningThreshold = 1.2; // Balance < 120% spending limit triggers a warning
-  private static int idCounter = 0;
+  private static final double SPENDING_LIMIT_WARNING_THRESHOLD = 1.2; // Balance < 120% spending limit triggers a warning
   private static final double BALANCE_DEFAULT = 0.0;
   private static final double SPENDINGLIMIT_DEFAULT = 0.0;
 
-  private final int id;
+  @NonNull
+  private final UUID id;
   private String name;
   private EAccountType type;
   private double spendingLimit;
@@ -34,16 +35,17 @@ public class AppAccount {
   }
 
   /**
-   * Constructs a new AppAccount given all parameters. Validates the name and throws an `IllegalArgumentException`
-   * if the name is invalid
+   * Constructs a new AppAccount given all parameters. Validates the name and throws an
+   * `IllegalArgumentException` if the name is invalid
    *
-   * @param name name of the AppAccount. Must be longer than 0
-   * @param type EAccountType of the account.
-   * @param id an id to be given to the account
+   * @param name          name of the AppAccount. Must be longer than 0
+   * @param type          EAccountType of the account.
+   * @param id            an id to be given to the account
    * @param spendingLimit the spending limit of the account
-   * @param balance the balance of the account.
+   * @param balance       the balance of the account.
    */
-  protected AppAccount(@NonNull String name, @NonNull EAccountType type, int id, double spendingLimit, double balance) {
+  public AppAccount(@NonNull String name, @NonNull EAccountType type, @NonNull UUID id,
+      double spendingLimit, double balance) {
     validateName(name);
     this.name = name;
     this.type = type;
@@ -55,25 +57,22 @@ public class AppAccount {
   /**
    * Constructs a new AppAccount, autogenerating an ID and using a default balance.
    *
-   * @param name name of the AppAccount. Must be longer than 0
-   * @param type EAccountType of the account.
+   * @param name          name of the AppAccount. Must be longer than 0
+   * @param type          EAccountType of the account.
    * @param spendingLimit the spending limit of the account
    */
   public AppAccount(@NonNull String name, @NonNull EAccountType type, double spendingLimit) {
-    this(name, type, idCounter++, spendingLimit, BALANCE_DEFAULT);
+    this(name, type, UUID.randomUUID(), spendingLimit, BALANCE_DEFAULT);
   }
 
   /**
-   * Constructs a new AppAccount, autogenerating an ID.
+   * Copy constructor.
    *
-   * @param name name of the AppAccount. Must be longer than 0
-   * @param type EAccountType of the account.
-   * @param spendingLimit the spending limit of the account
-   * @param balance the balance of the account
+   * @param oldAccount the account to be copied
    */
-  public AppAccount(@NonNull String name, @NonNull EAccountType type,
-      @NonNull AppAccount oldAccount, double spendingLimit, double balance) {
-    this(name, type, oldAccount.getId(), spendingLimit, balance);
+  public AppAccount(@NonNull AppAccount oldAccount) {
+    this(oldAccount.getName(), oldAccount.getType(), oldAccount.getId(),
+        oldAccount.getSpendingLimit(), oldAccount.getBalance());
   }
 
 
@@ -95,7 +94,8 @@ public class AppAccount {
     name = newName;
   }
 
-  public int getId() {
+  @NonNull
+  public UUID getId() {
     return id;
   }
 
@@ -120,7 +120,7 @@ public class AppAccount {
       return ESpendingLevel.NONE;
     } else if (balance < spendingLimit) {
       return ESpendingLevel.OVER;
-    } else if (balance <= spendingLimit * spendingLimitWarningThreshold) {
+    } else if (balance <= spendingLimit * SPENDING_LIMIT_WARNING_THRESHOLD) {
       return ESpendingLevel.WARNING;
     } else {
       return ESpendingLevel.NONE;
