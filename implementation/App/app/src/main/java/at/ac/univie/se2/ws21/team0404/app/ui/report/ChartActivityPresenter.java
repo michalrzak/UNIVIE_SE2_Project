@@ -50,48 +50,14 @@ public class ChartActivityPresenter
             transactions.addAll(repository.getTransactionList(account).getData());
         }
 
-        // there is definitely a better way to solve this (java streams, etc.)
-        // will also probably move some parts into the factory
-
-        String nameless = "No Category";
-
-        Calendar targetCalender = Calendar.getInstance();
-        targetCalender.setTime(new Date());
-        targetCalender.add(Calendar.DAY_OF_MONTH, -timeSpan.getValue());
-
-        Map<String, Integer> filteredResult = new HashMap<>();
-        Calendar transactionCalender = Calendar.getInstance();
-        for (Transaction transaction : transactions){
-            Optional<Category> optionalCategory = transaction.getCategory();
-            int amount = transaction.getAmount();
-
-            transactionCalender.setTime(transaction.getDate());
-            if (!transactionCalender.after(targetCalender))
-                continue;
-
-            if (optionalCategory.isPresent()){
-                Category category = optionalCategory.get();
-                String categoryName = category.getName();
-                if (filteredResult.containsKey(categoryName)){
-                    int value = filteredResult.get(categoryName);
-                    filteredResult.put(categoryName, value + amount);
-                } else {
-                    filteredResult.put(categoryName, amount);
-                }
-            } else {
-                if (filteredResult.containsKey(nameless)){
-                    int value = filteredResult.get(nameless);
-                    filteredResult.put(nameless, value + amount);
-                } else {
-                    filteredResult.put(nameless, amount);
-                }
-            }
-        }
-
-        if (filteredResult.isEmpty())
+        Chart chart;
+        try{
+            chart = chartFactory.create(transactions, timeSpan);
+        } catch (RuntimeException e) {
             view.closeActivity();
-
-        Chart chart = chartFactory.create(filteredResult);
+            return;
+        }
+        assert (chart != null);
 
         view.setChart(chart);
     }
