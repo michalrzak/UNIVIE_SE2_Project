@@ -29,6 +29,7 @@ public class RoomTransaction {
 
   private final ETransactionType type;
   private final int amount; // in euro cent
+  private final Date date;
 
   public RoomTransaction(@NonNull UUID id, @Nullable UUID categoryId, @NonNull ETransactionType type,
       int amount, @NonNull String name, UUID accountId, @NonNull Date date) {

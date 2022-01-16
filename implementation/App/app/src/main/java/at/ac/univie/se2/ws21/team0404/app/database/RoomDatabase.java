@@ -178,12 +178,7 @@ public class RoomDatabase implements IDatabase {
     try {
       // this is a bit hacky
       transactionDao.deleteTransaction(
-<<<<<<< HEAD
-          new RoomTransaction(idToBeDeleted, null, ETransactionType.EXPENSE, 1, "",
-              owner.getId()));
-=======
-          new RoomTransaction(idToBeDeleted, "", ETransactionType.EXPENSE, 1, "", owner.getId(), new Date()));
->>>>>>> Fix tests
+          new RoomTransaction(idToBeDeleted, null, ETransactionType.EXPENSE, 1, "", owner.getId(), new Date()));
     } catch (SQLiteException e) {
       Log.w(LOG_TAG, "Delete transaction threw an SQL exception; Tried to delete " + idToBeDeleted
           + ". With owner " + owner.toString());

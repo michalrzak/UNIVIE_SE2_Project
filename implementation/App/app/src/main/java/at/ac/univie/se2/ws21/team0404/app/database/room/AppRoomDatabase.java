@@ -14,7 +14,7 @@ import at.ac.univie.se2.ws21.team0404.app.database.room.model.UUIDConverter;
         entities = {RoomAppAccount.class, RoomTransaction.class, RoomCategory.class},
         version = 12,
         exportSchema = false)
-@TypeConverters(UUIDConverter.class)
+@TypeConverters({UUIDConverter.class, Converters.class})
 public abstract class AppRoomDatabase extends RoomDatabase {
     public abstract AccountDao accountDao();
 
