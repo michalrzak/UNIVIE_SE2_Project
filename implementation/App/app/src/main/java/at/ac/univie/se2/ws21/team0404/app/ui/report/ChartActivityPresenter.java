@@ -2,34 +2,85 @@ package at.ac.univie.se2.ws21.team0404.app.ui.report;
 
 import com.anychart.core.Chart;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import at.ac.univie.se2.ws21.team0404.app.database.Repository;
+import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
+import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
+import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
 import at.ac.univie.se2.ws21.team0404.app.ui.ABasePresenter;
+import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistException;
 import at.ac.univie.se2.ws21.team0404.app.utils.factory.BarChartFactory;
 import at.ac.univie.se2.ws21.team0404.app.utils.factory.ChartFactory;
 import at.ac.univie.se2.ws21.team0404.app.utils.factory.EChartType;
 import at.ac.univie.se2.ws21.team0404.app.utils.factory.PieChartFactory;
+import at.ac.univie.se2.ws21.team0404.app.utils.iterator.AccountCollection;
+import at.ac.univie.se2.ws21.team0404.app.utils.iterator.IIterator;
 
 public class ChartActivityPresenter
         extends ABasePresenter<IChartActivityContract.IView>
         implements IChartActivityContract.IPresenter {
 
     private ChartFactory chartFactory;
-    private Repository repository;
+    private final Repository repository;
+
+
+    public ChartActivityPresenter(Repository repository){
+        this.repository = repository;
+    }
 
     @Override
-    public Chart getChart() {
-        // this data is here for testing purposes
-        // will later be changed so we use the repository to fetch it
-        Map<String, Integer> map = new HashMap<>();
-        map.put("House", 6000);
-        map.put("Sports", 2000);
-        map.put("Job", 10000);
-        map.put("Gaming", 1000);
+    public void generateChart() {
+        List<AppAccount> accounts = repository.getAccountList().getData();
+        AccountCollection collection = new AccountCollection(accounts);
+        IIterator<AppAccount> iterator = collection.createIterator();
+        List<Transaction> transactions = new ArrayList<>();
 
-        return chartFactory.create(map);
+        while (iterator.hasNext()){
+            AppAccount account = iterator.next();
+            transactions.addAll(repository.getTransactionList(account).getData());
+        }
+
+        // there is definitely a better way to solve this (java streams, etc.)
+        // will also probably move some parts into the factory
+
+        String nameless = "Nameless";
+        Map<String, Integer> filteredResult = new HashMap<>();
+
+        for (Transaction transaction : transactions){
+            Optional<Category> optionalCategory = transaction.getCategory();
+            int amount = transaction.getAmount();
+            // TODO: check date
+
+            if (optionalCategory.isPresent()){
+                Category category = optionalCategory.get();
+                String categoryName = category.getName();
+                if (filteredResult.containsKey(categoryName)){
+                    int value = filteredResult.get(categoryName);
+                    filteredResult.put(categoryName, value + amount);
+                } else {
+                    filteredResult.put(categoryName, amount);
+                }
+            } else {
+                if (filteredResult.containsKey(nameless)){
+                    int value = filteredResult.get(nameless);
+                    filteredResult.put(nameless, value + amount);
+                } else {
+                    filteredResult.put(nameless, amount);
+                }
+            }
+        }
+
+        if (filteredResult.isEmpty())
+            view.closeActivity();
+
+        Chart chart = chartFactory.create(filteredResult);
+
+        view.setChart(chart);
     }
 
     @Override
