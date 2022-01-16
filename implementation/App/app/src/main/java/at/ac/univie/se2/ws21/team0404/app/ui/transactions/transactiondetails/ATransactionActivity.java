@@ -1,5 +1,6 @@
 package at.ac.univie.se2.ws21.team0404.app.ui.transactions.transactiondetails;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import androidx.annotation.NonNull;
@@ -19,8 +21,15 @@ import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
 import at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
+
+import at.ac.univie.se2.ws21.team0404.app.ui.mainactivity.MainActivity;
 import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -44,6 +53,7 @@ public abstract class ATransactionActivity extends AppCompatActivity {
    */
   protected EditText amountEditText;
   protected EditText nameEditText;
+  protected EditText datePickerEditText;
   protected Spinner typeSpinner;
   protected Spinner categorySpinner;
   /**
@@ -57,6 +67,7 @@ public abstract class ATransactionActivity extends AppCompatActivity {
   protected AppAccount owner;
 
   private Category selectedCategory = nullCategory;
+  protected static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
   /**
    * Method, used to get a List of all available categories.
@@ -124,6 +135,7 @@ public abstract class ATransactionActivity extends AppCompatActivity {
   protected Optional<Transaction> getTransactionFromForm() {
     Object category = categorySpinner.getSelectedItem();
     Object type = typeSpinner.getSelectedItem();
+    Date date = getDateFromDatePicker();
 
     assert (type != null);
     assert (type instanceof ETransactionType);
@@ -152,12 +164,23 @@ public abstract class ATransactionActivity extends AppCompatActivity {
     String name = nameEditText.getText().toString();
 
     try {
-      return Optional.of(new Transaction((Category) category, (ETransactionType) type, amount, name));
+      return Optional.of(new Transaction((Category) category, (ETransactionType) type, amount, name, date));
     } catch (IllegalArgumentException e) {
       Log.w("TransactionActivity", "The transaction provided in the form was invalid!");
     }
 
     return Optional.empty();
+  }
+
+  private Date getDateFromDatePicker() {
+    Date date;
+    try {
+      date = dateFormat.parse(datePickerEditText.getText().toString());
+    } catch (ParseException e) {
+      date = new Date();
+    }
+
+    return date;
   }
 
   @Override
@@ -171,6 +194,7 @@ public abstract class ATransactionActivity extends AppCompatActivity {
 
     amountEditText = findViewById(R.id.transaction_amount_edittext);
     nameEditText = findViewById(R.id.transaction_name_editText);
+    datePickerEditText = findViewById(R.id.transaction_date_picker);
 
     typeSpinner = findViewById(R.id.transaction_type_spinner);
     typeAdapter = new ArrayAdapter<>(this,
@@ -215,5 +239,20 @@ public abstract class ATransactionActivity extends AppCompatActivity {
     // need to add switch case where this is the default value if more options are added
     finish();
     return true;
+  }
+
+  public void datePickerEditTextOnClick(View v) {
+    Calendar calendar = Calendar.getInstance();
+
+    DatePickerDialog datePicker = new DatePickerDialog(this,
+            (view, year, month, day) ->
+                    datePickerEditText.setText(String.format("%d/%d/%d", day, month + 1, year)
+            ),
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+    );
+
+    datePicker.show();
   }
 }

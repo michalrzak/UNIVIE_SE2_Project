@@ -8,10 +8,12 @@ import at.ac.univie.se2.ws21.team0404.app.ui.IListActivityContract;
 public interface IAccountListContract {
   interface IView extends IListActivityContract.IView<AppAccount> {
     void showCategoriesList();
+    void showReportForm();
   }
 
   interface IPresenter extends IListActivityContract.IPresenter<AppAccount> {
     void categories();
+    void report();
   }
 
 }

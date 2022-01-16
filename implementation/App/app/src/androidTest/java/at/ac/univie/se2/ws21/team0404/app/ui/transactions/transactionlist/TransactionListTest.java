@@ -27,6 +27,7 @@ import at.ac.univie.se2.ws21.team0404.app.ui.transactions.transactiondetails.Tra
 import at.ac.univie.se2.ws21.team0404.app.ui.transactions.transactiondetails.TransactionEdit;
 import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -46,6 +47,7 @@ public class TransactionListTest {
   private final static UUID insertedTransactionId = UUID.randomUUID();
   private final static int insertedTransactionAmount = 100;
   private final static String insertedTransactionName = "insertedTransaction";
+  private final static Date insertedTransactionDate = new Date(1508388214);
   @Mock
   private AppAccount insertedAccount;
   @Mock
@@ -70,6 +72,7 @@ public class TransactionListTest {
     when(insertedTransaction.getType()).thenReturn(ETransactionType.INCOME);
     when(insertedTransaction.getAmount()).thenReturn(insertedTransactionAmount);
     when(insertedTransaction.getCategory()).thenReturn(Optional.empty());
+    when(insertedTransaction.getDate()).thenReturn(insertedTransactionDate);
     transactionList.add(insertedTransaction);
 
     Intent intent = new Intent(ApplicationProvider.getApplicationContext(), TransactionList.class)

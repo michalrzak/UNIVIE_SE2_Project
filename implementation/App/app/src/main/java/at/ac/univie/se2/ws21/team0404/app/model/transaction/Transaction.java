@@ -6,6 +6,7 @@ import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 import at.ac.univie.se2.ws21.team0404.app.utils.Nullable;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Stream;
@@ -22,6 +23,8 @@ public class Transaction {
   private Category category;
   private ETransactionType type;
   private int amount; // in euro cent; TODO: change this to a special money class?
+  @NonNull
+  private Date date;
 
   /**
    * Validates the provided name against business rules.
@@ -34,6 +37,7 @@ public class Transaction {
       throw new IllegalArgumentException();
     }
   }
+
 
   /**
    * Validates the provided amount against business rules.
@@ -54,9 +58,11 @@ public class Transaction {
    * @param category category of the transaction.
    * @param type     type of the transaction.
    * @param amount   amount of the transaction
+   * @param name     name of the transaction
+   * @param date     date of transaction
    */
   public Transaction(UUID id, @Nullable Category category, @NonNull ETransactionType type,
-      int amount, @NonNull String name) {
+      int amount, @NonNull String name, @NonNull Date date) {
     validateAmount(amount);
     validateName(name);
 
@@ -65,6 +71,7 @@ public class Transaction {
     this.type = type;
     this.name = name;
     this.amount = amount;
+    this.date = date;
   }
 
   /**
@@ -73,10 +80,11 @@ public class Transaction {
    * @param category category of the transaction.
    * @param type     type of the transaction.
    * @param amount   amount of the transaction
+   * @param date the date of the transaction
    */
   public Transaction(@Nullable Category category, @NonNull ETransactionType type, int amount,
-      @NonNull String name) {
-    this(UUID.randomUUID(), category, type, amount, name);
+      @NonNull String name, @NonNull Date date) {
+    this(UUID.randomUUID(), category, type, amount, name, date);
   }
 
   /**
@@ -86,7 +94,7 @@ public class Transaction {
    */
   public Transaction(@NonNull Transaction transaction) {
     this(transaction.getId(), transaction.getRawCategory(), transaction.getType(),
-        transaction.getAmount(), transaction.getName());
+        transaction.getAmount(), transaction.getName(), transaction.getDate());
   }
 
 
@@ -147,6 +155,14 @@ public class Transaction {
     this.name = name;
   }
 
+  public Date getDate() {
+    return date;
+  }
+
+  public void setDate(Date date) {
+    this.date = date;
+  }
+
   /**
    * Allow subclasses to access the Category object without the Optional. Makes handling a bit
    * easier
@@ -185,6 +201,7 @@ public class Transaction {
         ", category=" + getCategory() +
         ", type=" + getType() +
         ", amount=" + getAmount() +
+        ", date=" + getDate() +
         '}';
   }
 }

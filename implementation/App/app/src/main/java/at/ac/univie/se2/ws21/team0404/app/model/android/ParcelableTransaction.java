@@ -3,6 +3,9 @@ package at.ac.univie.se2.ws21.team0404.app.model.android;
 import android.os.Parcel;
 import android.os.ParcelUuid;
 import android.os.Parcelable;
+
+import java.util.Date;
+
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
 import at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
@@ -28,8 +31,8 @@ public class ParcelableTransaction extends Transaction implements Parcelable {
   };
 
   public ParcelableTransaction(@Nullable Category category,
-      @NonNull ETransactionType type, int amount, String name) {
-    super(category, type, amount, name);
+                               @NonNull ETransactionType type, int amount, String name, Date date) {
+    super(category, type, amount, name, date);
   }
 
   public ParcelableTransaction(@NonNull Transaction transaction) {
@@ -42,7 +45,9 @@ public class ParcelableTransaction extends Transaction implements Parcelable {
         (Category) in.readValue(Category.class.getClassLoader()),
         ETransactionType.values()[in.readInt()],
         in.readInt(),
-        in.readString());
+        in.readString(),
+        new Date(in.readLong())
+    );
   }
 
   @Override
@@ -65,5 +70,6 @@ public class ParcelableTransaction extends Transaction implements Parcelable {
     parcel.writeInt(getAmount());
 
     parcel.writeString(getName());
+    parcel.writeLong(getDate().getTime());
   }
 }

@@ -7,6 +7,7 @@ import static androidx.test.espresso.action.ViewActions.clearText;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
@@ -19,8 +20,11 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import android.content.Intent;
+import android.widget.DatePicker;
+
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.core.app.ApplicationProvider;
+import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.espresso.intent.Intents;
 import at.ac.univie.se2.ws21.team0404.app.R;
 import at.ac.univie.se2.ws21.team0404.app.database.Repository;
@@ -32,8 +36,13 @@ import at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
 import at.ac.univie.se2.ws21.team0404.app.ui.transactions.transactiondetails.ITransactionActivityContract.IView;
 import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
+
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
+
+import org.hamcrest.Matchers;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -51,6 +60,7 @@ public class TransactionEditTest {
   private final static String insertedTransactionName = "insertedTransaction";
   private final static ETransactionType insertedTransactionType = ETransactionType.INCOME;
   private final static int insertedTransactionAmount = 100;
+  private final static Date insertedTransactionDate = new Date(1508388214);
   @Mock
   private AppAccount insertedAccount;
   @Mock
@@ -72,6 +82,8 @@ public class TransactionEditTest {
     when(insertedTransaction.getName()).thenReturn(insertedTransactionName);
     when(insertedTransaction.getType()).thenReturn(insertedTransactionType);
     when(insertedTransaction.getAmount()).thenReturn(insertedTransactionAmount);
+    when(insertedTransaction.getDate()).thenReturn(insertedTransactionDate);
+    //when(insertedTransaction.getDate().getTime()).thenReturn(insertedTransactionDate.getTime());
     when(insertedTransaction.getCategory()).thenReturn(Optional.empty());
 
     Intent intent = new Intent(ApplicationProvider.getApplicationContext(), TransactionEdit.class)
@@ -95,22 +107,31 @@ public class TransactionEditTest {
     Intents.release();
   }
 
-  private void insertFieldsToView(String name, String amount, ETransactionType type) {
+  private void insertFieldsToView(String name, String amount, ETransactionType type, Date date) {
+    Calendar calendar = Calendar.getInstance();
+    calendar.setTime(date);
+
     onView(withId(R.id.transaction_name_editText)).perform(clearText());
     onView(withId(R.id.transaction_name_editText)).perform(typeText(name));
     onView(withId(R.id.transaction_amount_edittext)).perform(clearText());
     onView(withId(R.id.transaction_amount_edittext))
         .perform(typeText(amount));
+    closeSoftKeyboard();
+    onView(withId(R.id.transaction_date_picker)).perform(click());
+    onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(
+            PickerActions.setDate(
+                    calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)
+            ));
+    onView(withId(android.R.id.button1)).perform(click());
     onView(withId(R.id.transaction_type_spinner)).perform(click());
     onData(allOf(is(instanceOf(ETransactionType.class)), is(type)))
         .perform(click());
 
-    closeSoftKeyboard();
   }
 
   private void insertTransactionToView(Transaction transaction) {
     insertFieldsToView(transaction.getName(), Integer.toString(transaction.getAmount()),
-        transaction.getType());
+        transaction.getType(), transaction.getDate());
   }
 
   @Test
@@ -135,7 +156,7 @@ public class TransactionEditTest {
 
     // This unfortunately has to be the real and not a mocked type, as I need to compare it
     Transaction real = new Transaction(insertedTransaction.getId(), null, ETransactionType.INCOME,
-        100, "Test name");
+        100, "Test name", new Date(1508388214));
     insertTransactionToView(real);
 
     verify(mockPresenter, times(0)).clickedSave(any());
@@ -155,35 +176,40 @@ public class TransactionEditTest {
   public void TransactionEdit_submitTooLargeAmount_clickSaveCalled() {
     final String name = "Test name";
     final String amount = "100000000000000000";
+    final Date testDate = new Date(1508388214);
     final ETransactionType type = ETransactionType.INCOME;
 
-    insertFieldsToView(name, amount, type);
+    insertFieldsToView(name, amount, type, testDate);
 
     verify(mockPresenter, times(0)).clickedSave(any());
     onView(withId(R.id.transaction_save_button)).perform(click());
     verify(mockPresenter, times(1)).clickedSave(null);
   }
 
+  // This test fails at the moment
   @Test
   public void TransactionEdit_submitNegativeAmount_clickSaveCalled() {
     final String name = "Test name";
     final String amount = "-100";
+    final Date testDate = new Date(1508388214);
     final ETransactionType type = ETransactionType.INCOME;
 
-    insertFieldsToView(name, amount, type);
+    insertFieldsToView(name, amount, type, testDate);
 
     verify(mockPresenter, times(0)).clickedSave(any());
     onView(withId(R.id.transaction_save_button)).perform(click());
     verify(mockPresenter, times(1)).clickedSave(null);
   }
 
+  // This test fails at the moment
   @Test
   public void TransactionAEdit_submitTextAmount_clickSaveCalled() {
     final String name = "Test name";
     final String amount = "abd";
+    final Date testDate = new Date(1508388214);
     final ETransactionType type = ETransactionType.INCOME;
 
-    insertFieldsToView(name, amount, type);
+    insertFieldsToView(name, amount, type, testDate);
 
     verify(mockPresenter, times(0)).clickedSave(any());
     onView(withId(R.id.transaction_save_button)).perform(click());
@@ -194,13 +220,14 @@ public class TransactionEditTest {
   public void TransactionEdit_submitZeroAmount_clickSaveCalled() {
     final String name = "Test name";
     final String amount = "0";
+    final Date testDate = new Date(1508388214);
     final ETransactionType type = ETransactionType.INCOME;
 
     // This unfortunately has to be the real and not a mocked type, as I need to compare it
     Transaction real = new Transaction(UUID.randomUUID(), null, ETransactionType.INCOME, Integer.parseInt(amount),
-        name);
+        name, testDate);
 
-    insertFieldsToView(name, amount, type);
+    insertFieldsToView(name, amount, type, testDate);
 
     verify(mockPresenter, times(0)).clickedSave(any());
     onView(withId(R.id.transaction_save_button)).perform(click());
@@ -211,9 +238,10 @@ public class TransactionEditTest {
   public void TransactionEdit_submitEmptyName_clickSaveCalled() {
     final String name = "";
     final String amount = "100";
+    final Date testDate = new Date(1508388214);
     final ETransactionType type = ETransactionType.INCOME;
 
-    insertFieldsToView(name, amount, type);
+    insertFieldsToView(name, amount, type, testDate);
 
     verify(mockPresenter, times(0)).clickedSave(any());
     onView(withId(R.id.transaction_save_button)).perform(click());
@@ -224,11 +252,12 @@ public class TransactionEditTest {
   public void TransactionAdd_submitEmptyAmount_clickSaveCalled() {
     final String name = "Test name";
     final String amount = "";
+    final Date testDate = new Date(1508388214);
     final ETransactionType type = ETransactionType.EXPENSE;
 
-    Transaction real = new Transaction(UUID.randomUUID(), null, type, 0, name);
+    Transaction real = new Transaction(UUID.randomUUID(), null, type, 0, name, testDate);
 
-    insertFieldsToView(name, amount, type);
+    insertFieldsToView(name, amount, type, testDate);
 
     verify(mockPresenter, times(0)).clickedSave(any());
     onView(withId(R.id.transaction_save_button)).perform(click());

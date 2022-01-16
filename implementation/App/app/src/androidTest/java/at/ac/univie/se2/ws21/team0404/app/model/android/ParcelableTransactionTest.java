@@ -9,6 +9,8 @@ import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Date;
+
 public class ParcelableTransactionTest {
 
   private Transaction testTransaction;
@@ -17,8 +19,9 @@ public class ParcelableTransactionTest {
     Category mockCategory = new Category(ETransactionType.EXPENSE, "test name");
     int testAmount = 10;
     String testName = "test";
+    Date testDate = new Date(1508388214);
     ETransactionType transactionType = ETransactionType.EXPENSE;
-    return new Transaction(mockCategory, transactionType, testAmount, testName);
+    return new Transaction(mockCategory, transactionType, testAmount, testName, testDate);
   }
 
   @Before

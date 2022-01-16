@@ -20,6 +20,8 @@ import at.ac.univie.se2.ws21.team0404.app.model.account.EAccountType;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
 import at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
+
+import java.util.Date;
 import java.util.List;
 import org.junit.After;
 import org.junit.Before;
@@ -34,13 +36,12 @@ public class AppRoomDatabaseTest {
   private TransactionDao transactionDao;
 
   private static class Fixtures {
-
+    public static Date testDate = new Date(1508388214);
     public static AppAccount testAccount1 = new AppAccount("test1", EAccountType.BANK, 10.0);
     public static AppAccount testAccount2 = new AppAccount("test1", EAccountType.BANK, 10.0);
 
     public static Category testCategory1 = new Category(ETransactionType.INCOME, "cat1");
-    public static Transaction testTransaction1 = new Transaction(testCategory1,
-        ETransactionType.INCOME, 100, "tr1");
+    public static Transaction testTransaction1 = new Transaction(testCategory1, ETransactionType.INCOME, 100, "tr1", testDate);
   }
 
   @Before
@@ -98,7 +99,7 @@ public class AppRoomDatabaseTest {
 
   @Test
   public void emptyDb_addTransaction_transactionInDb() {
-    Transaction transaction = new Transaction(null, ETransactionType.INCOME, 100, "tr1");
+    Transaction transaction = new Transaction(null, ETransactionType.INCOME, 100, "tr1", Fixtures.testDate);
     AppAccount account = Fixtures.testAccount1;
     RoomTransaction roomTransaction = new RoomTransaction(transaction, account);
     transactionDao.addTransaction(roomTransaction);
@@ -150,7 +151,7 @@ public class AppRoomDatabaseTest {
 
   @Test
   public void transactionInDb_getOtherAccountTransactions_transactionListEmpty() {
-    Transaction transaction = new Transaction(null, ETransactionType.INCOME, 100, "tr1");
+    Transaction transaction = new Transaction(null, ETransactionType.INCOME, 100, "tr1", Fixtures.testDate);
     AppAccount account = Fixtures.testAccount1;
     RoomTransaction roomTransaction = new RoomTransaction(transaction, account);
     transactionDao.addTransaction(roomTransaction);

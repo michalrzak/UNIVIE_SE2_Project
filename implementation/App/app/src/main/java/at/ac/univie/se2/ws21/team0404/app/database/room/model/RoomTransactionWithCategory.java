@@ -34,6 +34,8 @@ public class RoomTransactionWithCategory {
                 category,
                 transaction.getType(),
                 transaction.getAmount(),
-                transaction.getName());
+                transaction.getName(),
+                transaction.getDate()
+        );
     }
 }

@@ -33,6 +33,7 @@ public class TransactionEdit extends ATransactionActivity implements
 
     nameEditText.setText(displayedTransaction.getName());
     amountEditText.setText(Integer.toString(displayedTransaction.getAmount()));
+    datePickerEditText.setText(dateFormat.format(displayedTransaction.getDate()));
     typeSpinner.setSelection(typeAdapter.getPosition(displayedTransaction.getType()));
     if (displayedTransaction.getCategory().isPresent()) {
       Log.d("TX_details",

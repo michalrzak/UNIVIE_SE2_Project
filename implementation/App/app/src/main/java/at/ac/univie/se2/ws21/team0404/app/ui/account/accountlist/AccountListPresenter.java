@@ -46,4 +46,11 @@ public class AccountListPresenter extends AListActivityPresenter<AppAccount> imp
     IAccountListContract.IView myView = (IAccountListContract.IView) view;
     myView.showCategoriesList();
   }
+
+  @Override
+  public void report() {
+    assert (view instanceof IAccountListContract.IView);
+    IAccountListContract.IView myView = (IAccountListContract.IView) view;
+    myView.showReportForm();
+  }
 }
