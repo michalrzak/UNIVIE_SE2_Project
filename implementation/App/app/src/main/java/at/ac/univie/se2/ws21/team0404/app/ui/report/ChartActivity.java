@@ -42,7 +42,7 @@ public class ChartActivity extends AppCompatActivity implements IChartActivityCo
         // temporary to see that stuff are working
         setTitle(chartType + " Chart, " + timeSpan + ", " + timeSpan.getValue());
 
-        presenter.generateChart();
+        presenter.generateChart(timeSpan);
     }
 
     @Override

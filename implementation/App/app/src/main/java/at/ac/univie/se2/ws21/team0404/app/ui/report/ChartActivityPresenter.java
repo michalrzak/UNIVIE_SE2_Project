@@ -1,8 +1,12 @@
 package at.ac.univie.se2.ws21.team0404.app.ui.report;
 
+import android.util.Log;
+
 import com.anychart.core.Chart;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +21,7 @@ import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistExcep
 import at.ac.univie.se2.ws21.team0404.app.utils.factory.BarChartFactory;
 import at.ac.univie.se2.ws21.team0404.app.utils.factory.ChartFactory;
 import at.ac.univie.se2.ws21.team0404.app.utils.factory.EChartType;
+import at.ac.univie.se2.ws21.team0404.app.utils.factory.ETimeSpan;
 import at.ac.univie.se2.ws21.team0404.app.utils.factory.PieChartFactory;
 import at.ac.univie.se2.ws21.team0404.app.utils.iterator.AccountCollection;
 import at.ac.univie.se2.ws21.team0404.app.utils.iterator.IIterator;
@@ -34,7 +39,7 @@ public class ChartActivityPresenter
     }
 
     @Override
-    public void generateChart() {
+    public void generateChart(ETimeSpan timeSpan) {
         List<AppAccount> accounts = repository.getAccountList().getData();
         AccountCollection collection = new AccountCollection(accounts);
         IIterator<AppAccount> iterator = collection.createIterator();
@@ -48,13 +53,21 @@ public class ChartActivityPresenter
         // there is definitely a better way to solve this (java streams, etc.)
         // will also probably move some parts into the factory
 
-        String nameless = "Nameless";
-        Map<String, Integer> filteredResult = new HashMap<>();
+        String nameless = "No Category";
 
+        Calendar targetCalender = Calendar.getInstance();
+        targetCalender.setTime(new Date());
+        targetCalender.add(Calendar.DAY_OF_MONTH, -timeSpan.getValue());
+
+        Map<String, Integer> filteredResult = new HashMap<>();
+        Calendar transactionCalender = Calendar.getInstance();
         for (Transaction transaction : transactions){
             Optional<Category> optionalCategory = transaction.getCategory();
             int amount = transaction.getAmount();
-            // TODO: check date
+
+            transactionCalender.setTime(transaction.getDate());
+            if (!transactionCalender.after(targetCalender))
+                continue;
 
             if (optionalCategory.isPresent()){
                 Category category = optionalCategory.get();
