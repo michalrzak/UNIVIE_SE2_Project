@@ -30,7 +30,7 @@ public class CategoryEditPresenter extends
       return;
     }
 
-    IChangingData<ERepositoryReturnStatus> result = repository.updateCategory(editing.getName(), category);
+    IChangingData<ERepositoryReturnStatus> result = repository.updateCategory(category);
 
     result.observe((newStatus) -> {
       switch (newStatus) {
@@ -55,16 +55,16 @@ public class CategoryEditPresenter extends
 
     category.disable(); // TODO: this is a side effect. Maybe add copy-constructor to Category?
 
-    IChangingData<ERepositoryReturnStatus> result = repository.updateCategory(editing.getName(), category);
+    IChangingData<ERepositoryReturnStatus> result = repository.updateCategory(category);
 
     result.observe((newStatus) -> {
       switch (newStatus) {
         case SUCCESS:
-          Log.d("CategoryEdit", "Inserting new category successful");
+          Log.d("CategoryEdit", "Deleting category successful");
           view.showCategoryDeletionSuccessful();
           break;
         case ERROR:
-          Log.d("CategoryEdit", "Inserting new category failed");
+          Log.d("CategoryEdit", "Deleting category failed");
           view.showCategoryDeletionFailed();
           break;
         case UPDATING:

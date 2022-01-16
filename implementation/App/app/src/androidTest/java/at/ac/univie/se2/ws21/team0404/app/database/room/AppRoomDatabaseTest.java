@@ -34,11 +34,13 @@ public class AppRoomDatabaseTest {
   private TransactionDao transactionDao;
 
   private static class Fixtures {
+
     public static AppAccount testAccount1 = new AppAccount("test1", EAccountType.BANK, 10.0);
     public static AppAccount testAccount2 = new AppAccount("test1", EAccountType.BANK, 10.0);
 
     public static Category testCategory1 = new Category(ETransactionType.INCOME, "cat1");
-    public static Transaction testTransaction1 = new Transaction(testCategory1, ETransactionType.INCOME, 100, "tr1");
+    public static Transaction testTransaction1 = new Transaction(testCategory1,
+        ETransactionType.INCOME, 100, "tr1");
   }
 
   @Before
@@ -84,7 +86,8 @@ public class AppRoomDatabaseTest {
     RoomAppAccount roomAccount = new RoomAppAccount(account);
     accountDao.addAccount(roomAccount);
 
-    AppAccount updatedAccount = new AppAccount("testChanged", EAccountType.CARD, account, account.getSpendingLimit(), account.getBalance());
+    AppAccount updatedAccount = new AppAccount("testChanged", EAccountType.CARD, account.getId(),
+        account.getSpendingLimit(), account.getBalance());
     accountDao.updateAccount(new RoomAppAccount(updatedAccount));
 
     List<RoomAppAccount> accountList = accountDao.getAccounts();
@@ -167,7 +170,7 @@ public class AppRoomDatabaseTest {
     RoomTransaction roomTransaction = new RoomTransaction(transaction, account);
     transactionDao.addTransaction(roomTransaction);
 
-    Category updatedCategory = new Category(ETransactionType.EXPENSE, "cat1");
+    Category updatedCategory = new Category(category.getId(), ETransactionType.EXPENSE, "cat1");
     categoryDao.updateCategory(new RoomCategory(updatedCategory));
 
     List<RoomTransactionWithCategory> transactionList = transactionDao
@@ -183,8 +186,6 @@ public class AppRoomDatabaseTest {
         resultTransaction.getCategory().map(Category::getType).orElse(null));
   }
 
-  //
-  @Ignore("This test fails as long as Category uses name as key, needs a dedicated id as primary key")
   @Test
   public void categoryAndTransactionInDb_updateCategoryName_transactionCategoryUpdated() {
     Category category = Fixtures.testCategory1;
@@ -194,7 +195,7 @@ public class AppRoomDatabaseTest {
     RoomTransaction roomTransaction = new RoomTransaction(transaction, account);
     transactionDao.addTransaction(roomTransaction);
 
-    Category updatedCategory = new Category(ETransactionType.INCOME, "catUpdated");
+    Category updatedCategory = new Category(category.getId(), ETransactionType.INCOME, "catUpdated");
     categoryDao.updateCategory(new RoomCategory(updatedCategory));
 
     List<RoomTransactionWithCategory> transactionList = transactionDao

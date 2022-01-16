@@ -7,6 +7,7 @@ import at.ac.univie.se2.ws21.team0404.app.utils.Nullable;
 
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 /**
@@ -14,15 +15,7 @@ import java.util.stream.Stream;
  */
 public class Transaction {
 
-  /**
-   * Used to assign id's to transactions.
-   * <p>
-   * TODO: There is a better way for sure and I don't like that this is here. In the future in
-   * roomDB we will be able to have an automatic key, however I am unsure how to solve this here
-   */
-  private static int counter = 0;
-
-  private final int id;
+  private final UUID id;
 
   private String name;
   @Nullable
@@ -62,7 +55,7 @@ public class Transaction {
    * @param type     type of the transaction.
    * @param amount   amount of the transaction
    */
-  public Transaction(int id, @Nullable Category category, @NonNull ETransactionType type,
+  public Transaction(UUID id, @Nullable Category category, @NonNull ETransactionType type,
       int amount, @NonNull String name) {
     validateAmount(amount);
     validateName(name);
@@ -83,7 +76,7 @@ public class Transaction {
    */
   public Transaction(@Nullable Category category, @NonNull ETransactionType type, int amount,
       @NonNull String name) {
-    this(counter++, category, type, amount, name);
+    this(UUID.randomUUID(), category, type, amount, name);
   }
 
   /**
@@ -101,7 +94,7 @@ public class Transaction {
    * Getters-section
    */
 
-  public int getId() {
+  public UUID getId() {
     return id;
   }
 
@@ -167,7 +160,7 @@ public class Transaction {
 
   @Override
   public int hashCode() {
-    return id; // as id should be unique, it can be used as a hash code
+    return getId().hashCode(); // as id should be unique, it can be used as a hash code
   }
 
   @Override
@@ -183,6 +176,7 @@ public class Transaction {
     return id == that.getId() || name.equals(that.getName());
   }
 
+  @NonNull
   @Override
   public String toString() {
     return "Transaction{" +

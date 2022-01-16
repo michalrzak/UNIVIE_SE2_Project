@@ -1,6 +1,5 @@
 package at.ac.univie.se2.ws21.team0404.app.database;
 
-import android.content.Context;
 import android.database.sqlite.SQLiteException;
 import android.util.Log;
 import androidx.room.Room;
@@ -20,6 +19,7 @@ import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistException;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataExistsException;
 import java.util.Collection;
+import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Supplier;
@@ -130,7 +130,7 @@ public class RoomDatabase implements IDatabase {
   @Override
   public void addCategory(Category newCategory) throws DataExistsException {
     try {
-      categoryDao.addCategory(new RoomCategory(newCategory));
+      categoryDao.addCategoryIfNotExist(new RoomCategory(newCategory));
     } catch (SQLiteException e) {
       Log.w(LOG_TAG,
           "Add category threw an SQL exception; Tried to add " + newCategory.toString());
@@ -139,11 +139,14 @@ public class RoomDatabase implements IDatabase {
   }
 
   @Override
-  public void updateCategory(String categoryName, Category newCategory)
+  public void updateCategory(Category newCategory)
       throws DataDoesNotExistException {
     try {
-      // TODO: This is most likely wrong
-      categoryDao.updateCategory(new RoomCategory(newCategory));
+      Log.d(LOG_TAG, "Trying to update a category. Category disabled: " + newCategory.isDisabled());
+      RoomCategory cat = new RoomCategory(newCategory);
+      Log.d(LOG_TAG, "Created room category, where disabled: " + cat.isDisabled());
+      Log.d(LOG_TAG, "Created room category, where id: " + cat.getId());
+      categoryDao.updateCategory(cat);
     } catch (SQLiteException e) {
       Log.w(LOG_TAG,
           "Update category threw an SQL exception; Tried to update " + newCategory.toString());
@@ -152,11 +155,11 @@ public class RoomDatabase implements IDatabase {
   }
 
   @Override
-  public void updateTransaction(AppAccount owner, int oldId, Transaction updatedTransaction)
+  public void updateTransaction(AppAccount owner, UUID oldId, Transaction updatedTransaction)
       throws DataDoesNotExistException {
     try {
       RoomTransaction roomTransaction = new RoomTransaction(oldId,
-          updatedTransaction.getCategory().map(Category::getName).orElse(null),
+          updatedTransaction.getCategory().map(Category::getId).orElse(null),
           updatedTransaction.getType(), updatedTransaction.getAmount(),
           updatedTransaction.getName(), owner.getId());
       transactionDao.updateTransaction(roomTransaction);
@@ -169,12 +172,13 @@ public class RoomDatabase implements IDatabase {
   }
 
   @Override
-  public void deleteTransaction(@NonNull AppAccount owner, int idToBeDeleted)
+  public void deleteTransaction(@NonNull AppAccount owner, UUID idToBeDeleted)
       throws DataDoesNotExistException {
     try {
       // this is a bit hacky
       transactionDao.deleteTransaction(
-          new RoomTransaction(idToBeDeleted, "", ETransactionType.EXPENSE, 1, "", owner.getId()));
+          new RoomTransaction(idToBeDeleted, null, ETransactionType.EXPENSE, 1, "",
+              owner.getId()));
     } catch (SQLiteException e) {
       Log.w(LOG_TAG, "Delete transaction threw an SQL exception; Tried to delete " + idToBeDeleted
           + ". With owner " + owner.toString());

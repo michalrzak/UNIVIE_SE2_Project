@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -110,7 +111,7 @@ public class RoomDatabaseTest {
     }
 
     AppAccount mockAccount = Mockito.mock(AppAccount.class);
-    int mockId = 1000;
+    UUID mockId = UUID.randomUUID();
     when(mockAccount.getId()).thenReturn(mockId);
 
     when(mockTransactionDao.getTransactions(mockId)).thenReturn(myTransactionList);
@@ -131,7 +132,7 @@ public class RoomDatabaseTest {
   @Test
   public void RoomDatabase_addAccount_accountDaoReceivesValidAccount() {
     AppAccount mockAccount = Mockito.mock(AppAccount.class);
-    when(mockAccount.getId()).thenReturn(1);
+    when(mockAccount.getId()).thenReturn(UUID.randomUUID());
     when(mockAccount.getName()).thenReturn("mock name");
     when(mockAccount.getType()).thenReturn(EAccountType.BANK);
 
@@ -151,7 +152,7 @@ public class RoomDatabaseTest {
   @Test
   public void RoomDatabase_deleteAccount_accountDaoReceivesCorrectAccount() {
     AppAccount mockAccount = Mockito.mock(AppAccount.class);
-    when(mockAccount.getId()).thenReturn(1);
+    when(mockAccount.getId()).thenReturn(UUID.randomUUID());
     when(mockAccount.getName()).thenReturn("mock name");
     when(mockAccount.getType()).thenReturn(EAccountType.BANK);
 
@@ -169,7 +170,7 @@ public class RoomDatabaseTest {
    * Tests the method {@link RoomDatabase#addCategory(Category)}
    */
   @Test
-  public void RoomDatabase_addCategory_categoryDaoReceivesValidCategory() {
+  public void RoomDatabase_addCategory_categoryDaoReceivesValidCategory() throws DataExistsException {
     Category mockCategory = Mockito.mock(Category.class);
     when(mockCategory.getName()).thenReturn("mock name");
     when(mockCategory.getType()).thenReturn(ETransactionType.INCOME);
@@ -182,15 +183,12 @@ public class RoomDatabaseTest {
       return;
     }
 
-    verify(mockCategoryDao, times(1)).addCategory(new RoomCategory(mockCategory));
+    verify(mockCategoryDao, times(1)).addCategoryIfNotExist(new RoomCategory(mockCategory));
   }
 
   /**
-   * Tests the method {@link RoomDatabase#updateCategory(String, Category)}}
-   * <p>
-   * Ignore as long as ID rework is not finished
+   * Tests the method {@link RoomDatabase#updateCategory(Category)}}
    */
-  @Ignore
   @Test
   public void RoomDatabase_updateCategory_categoryDaoReceivesValidCategory() {
     Category mockCategory = Mockito.mock(Category.class);
@@ -199,7 +197,7 @@ public class RoomDatabaseTest {
     when(mockCategory.isDisabled()).thenReturn(false);
 
     try {
-      roomDatabase.updateCategory("mock name", mockCategory);
+      roomDatabase.updateCategory(mockCategory);
     } catch (DataDoesNotExistException e) {
       fail();
       return;
@@ -214,10 +212,10 @@ public class RoomDatabaseTest {
   @Test
   public void RoomDatabase_addTransaction_transactionDaoReceivesValidTransaction() {
     AppAccount mockAccount = Mockito.mock(AppAccount.class);
-    when(mockAccount.getId()).thenReturn(1);
+    when(mockAccount.getId()).thenReturn(UUID.randomUUID());
 
     Transaction mockTransaction = Mockito.mock(Transaction.class);
-    int mockId = 2;
+    UUID mockId = UUID.randomUUID();
     when(mockTransaction.getId()).thenReturn(mockId);
     when(mockTransaction.getCategory()).thenReturn(Optional.empty());
     when(mockTransaction.getType()).thenReturn(ETransactionType.INCOME);
@@ -236,15 +234,15 @@ public class RoomDatabaseTest {
   }
 
   /**
-   * Tests the method {@link RoomDatabase#updateTransaction(AppAccount, int, Transaction)}
+   * Tests the method {@link RoomDatabase#updateTransaction(AppAccount, UUID, Transaction)}
    */
   @Test
   public void RoomDatabase_updateTransaction_transactionDaoReceivesValidTransaction() {
     AppAccount mockAccount = Mockito.mock(AppAccount.class);
-    when(mockAccount.getId()).thenReturn(1);
+    when(mockAccount.getId()).thenReturn(UUID.randomUUID());
 
     Transaction mockTransaction = Mockito.mock(Transaction.class);
-    int mockId = 2;
+    UUID mockId = UUID.randomUUID();
     when(mockTransaction.getId()).thenReturn(mockId);
     when(mockTransaction.getCategory()).thenReturn(Optional.empty());
     when(mockTransaction.getType()).thenReturn(ETransactionType.INCOME);
@@ -266,11 +264,11 @@ public class RoomDatabaseTest {
   @Test
   public void RoomDatabase_deleteTransaction_transactionDaoReceivesValidTransaction() {
     AppAccount mockAccount = Mockito.mock(AppAccount.class);
-    when(mockAccount.getId()).thenReturn(1);
+    when(mockAccount.getId()).thenReturn(UUID.randomUUID());
 
     try {
       // if oldID = id of transaction we can just compare against the transaction itself
-      roomDatabase.deleteTransaction(mockAccount, 2);
+      roomDatabase.deleteTransaction(mockAccount, UUID.randomUUID());
     } catch (DataDoesNotExistException e) {
       fail();
       return;

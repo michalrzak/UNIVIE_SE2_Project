@@ -1,19 +1,16 @@
 package at.ac.univie.se2.ws21.team0404.app.database;
 
-import android.util.Log;
-
 import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
-import at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
 import at.ac.univie.se2.ws21.team0404.app.utils.ChangingData;
 import at.ac.univie.se2.ws21.team0404.app.utils.IChangingData;
 import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.SingletonAlreadyInstantiatedException;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.SingletonNotInstantiatedException;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -126,7 +123,7 @@ public class Repository {
   }
 
   public IChangingData<ERepositoryReturnStatus> deleteTransaction(@NonNull AppAccount owner,
-      int idToBeDeleted) {
+      UUID idToBeDeleted) {
 
     return databaseAccessor(() -> {
       databaseStrategy.deleteTransaction(owner, idToBeDeleted);
@@ -144,18 +141,17 @@ public class Repository {
     });
   }
 
-  public IChangingData<ERepositoryReturnStatus> updateCategory(@NonNull String categoryName,
-      @NonNull Category category) {
+  public IChangingData<ERepositoryReturnStatus> updateCategory(@NonNull Category category) {
 
     return databaseAccessor(() -> {
-      databaseStrategy.updateCategory(categoryName, category);
+      databaseStrategy.updateCategory(category);
       reloadCategories();
       return null;
     });
   }
 
 
-  public IChangingData<ERepositoryReturnStatus> updateTransaction(AppAccount owner, int oldId,
+  public IChangingData<ERepositoryReturnStatus> updateTransaction(AppAccount owner, UUID oldId,
       Transaction updatedTransaction) {
 
     return databaseAccessor(() -> {
@@ -187,9 +183,9 @@ public class Repository {
   }
 
   private void reloadCategories() {
-    executor.execute(() -> categoryList.setData(new ArrayList<>(
+    executor.execute(() -> categoryList.setData(
         databaseStrategy.getCategories().stream().filter(category -> !category.isDisabled())
-            .collect(Collectors.toList()))));
+            .collect(Collectors.toList())));
   }
 
   private void reloadTransactions(@NonNull AppAccount account) {

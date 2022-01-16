@@ -1,6 +1,7 @@
 package at.ac.univie.se2.ws21.team0404.app.model.android;
 
 import android.os.Parcel;
+import android.os.ParcelUuid;
 import android.os.Parcelable;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
 import at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType;
@@ -27,7 +28,7 @@ public class ParcelableTransaction extends Transaction implements Parcelable {
   };
 
   public ParcelableTransaction(@Nullable Category category,
-                               @NonNull ETransactionType type, int amount, String name) {
+      @NonNull ETransactionType type, int amount, String name) {
     super(category, type, amount, name);
   }
 
@@ -37,9 +38,8 @@ public class ParcelableTransaction extends Transaction implements Parcelable {
 
 
   protected ParcelableTransaction(@NonNull Parcel in) {
-    super(in.readInt(),
+    super(((ParcelUuid) in.readParcelable(Parcelable.class.getClassLoader())).getUuid(),
         (Category) in.readValue(Category.class.getClassLoader()),
-        // TODO: is this correct? I am unsure of the classloader
         ETransactionType.values()[in.readInt()],
         in.readInt(),
         in.readString());
@@ -52,7 +52,7 @@ public class ParcelableTransaction extends Transaction implements Parcelable {
 
   @Override
   public void writeToParcel(@NonNull Parcel parcel, int i) {
-    parcel.writeInt(getId());
+    parcel.writeParcelable(new ParcelUuid(getId()), 1);
 
     // Categories can be null.
     Category category = getRawCategory();

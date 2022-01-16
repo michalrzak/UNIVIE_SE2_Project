@@ -3,9 +3,12 @@ package at.ac.univie.se2.ws21.team0404.app.model.categories;
 import at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType;
 import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 import java.util.Objects;
+import java.util.UUID;
 
 public class Category {
 
+  @NonNull
+  private final UUID id;
   private final ETransactionType type;
   private String name;
   private boolean disabled = false;
@@ -23,31 +26,44 @@ public class Category {
   }
 
   /**
-   * Creates a new Category object given a name and type. Checks if the name is valid, which throws
-   * an `IllegalArgumentException` if not valid
+   * Constructor used for constructor chaining. Sets all required fields.
+   *
+   * @param id   the id of the category
    * @param type `ETransactionType` of the category
    * @param name the name of the category, must be of length > 0
-   * @throws IllegalArgumentException thrown if name is not valid
    */
-  public Category(@NonNull ETransactionType type, @NonNull String name) {
+  public Category(@NonNull UUID id, @NonNull ETransactionType type, @NonNull String name) {
     validateName(name);
 
+    this.id = id;
     this.name = name;
     this.type = type;
   }
 
   /**
-   * Creates a new category and additionally allows for it to be disabled or enabled.
-   * Calls `this/2`, which performs validation on the name and throws an `IllegalArgumentException`
-   * if the name is not valid.
+   * Creates a new Category object given a name and type. Checks if the name is valid, which throws
+   * an `IllegalArgumentException` if not valid. Autogenerates an ID for this object.
    *
    * @param type `ETransactionType` of the category
    * @param name the name of the category, must be of length > 0
+   * @throws IllegalArgumentException thrown if name is not valid
+   */
+  public Category(@NonNull ETransactionType type, @NonNull String name) {
+    this(UUID.randomUUID(), type, name);
+  }
+
+  /**
+   * Creates a new category and additionally allows for it to be disabled or enabled. Calls
+   * `this/2`, which performs validation on the name and throws an `IllegalArgumentException` if the
+   * name is not valid.
+   *
+   * @param type     `ETransactionType` of the category
+   * @param name     the name of the category, must be of length > 0
    * @param disabled whether or not the category is disabled (deleted by the user)
    * @throws IllegalArgumentException thrown if name is not valid
    */
-  public Category(@NonNull ETransactionType type, @NonNull String name, boolean disabled) {
-    this(type, name);
+  public Category(@NonNull UUID id, @NonNull ETransactionType type, @NonNull String name, boolean disabled) {
+    this(id, type, name);
 
     this.disabled = disabled;
   }
@@ -58,7 +74,12 @@ public class Category {
    * @param category the category to copy.
    */
   public Category(@NonNull Category category) {
-    this(category.getType(), category.getName(), category.isDisabled());
+    this(category.getId(), category.getType(), category.getName(), category.isDisabled());
+  }
+
+  @NonNull
+  public UUID getId() {
+    return id;
   }
 
   public ETransactionType getType() {

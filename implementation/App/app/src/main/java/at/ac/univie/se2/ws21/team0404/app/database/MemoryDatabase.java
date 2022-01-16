@@ -12,12 +12,13 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 public class MemoryDatabase implements IDatabase {
 
-  private final Map<Integer, AppAccount> accounts = new HashMap<>();
-  private final Map<String, Category> categories = new HashMap<>();
-  private final Map<Integer, Set<Transaction>> transactions = new HashMap<>();
+  private final Map<UUID, AppAccount> accounts = new HashMap<>();
+  private final Map<UUID, Category> categories = new HashMap<>();
+  private final Map<UUID, Set<Transaction>> transactions = new HashMap<>();
 
   /**
    * This function validates the account. It introduces a side affect as when an account is not yet
@@ -92,11 +93,11 @@ public class MemoryDatabase implements IDatabase {
 
   @Override
   public void addCategory(@NonNull Category newCategory) throws DataExistsException {
-    Category existingCategory = categories.get(newCategory.getName());
+    Category existingCategory = categories.get(newCategory.getId());
     if (existingCategory != null && !existingCategory.isDisabled()) {
       throw new DataExistsException("categories");
     }
-    categories.put(newCategory.getName(), newCategory);
+    categories.put(newCategory.getId(), newCategory);
   }
 
   @Override
@@ -112,22 +113,18 @@ public class MemoryDatabase implements IDatabase {
 
 
   @Override
-  public void updateCategory(@NonNull String categoryName, @NonNull Category newCategory)
+  public void updateCategory(@NonNull Category newCategory)
           throws DataDoesNotExistException, DataExistsException {
-    if (!categories.containsKey(categoryName)) {
+    if (!categories.containsKey(newCategory.getId())) {
       throw new DataDoesNotExistException("categories");
     }
-    // Check if renamed category already exists
-    if (!categoryName.equals(newCategory.getName()) && categories.containsKey(newCategory.getName())) {
-      throw new DataExistsException("categories");
-    }
 
-    categories.remove(categoryName);
-    categories.put(newCategory.getName(), newCategory);
+    categories.remove(newCategory.getId());
+    categories.put(newCategory.getId(), newCategory);
   }
 
   @Override
-  public void updateTransaction(AppAccount owner, int oldId, Transaction updatedTransaction)
+  public void updateTransaction(AppAccount owner, UUID oldId, Transaction updatedTransaction)
       throws DataDoesNotExistException {
 
     validateAccount(owner);
@@ -136,7 +133,7 @@ public class MemoryDatabase implements IDatabase {
     assert (transactionList != null);
 
     Optional<Transaction> oldTransaction = transactionList.stream()
-        .filter(transactionItem -> transactionItem.getId() == oldId).findFirst();
+        .filter(transactionItem -> transactionItem.getId().equals(oldId)).findFirst();
 
     if (!oldTransaction.isPresent()) {
       throw new DataDoesNotExistException("transaction");
@@ -148,7 +145,7 @@ public class MemoryDatabase implements IDatabase {
   }
 
   @Override
-  public void deleteTransaction(@NonNull AppAccount owner, int idToBeDeleted)
+  public void deleteTransaction(@NonNull AppAccount owner, UUID idToBeDeleted)
       throws DataDoesNotExistException {
     validateAccount(owner);
 
@@ -156,7 +153,7 @@ public class MemoryDatabase implements IDatabase {
     assert (savedTransactions != null);
 
     Optional<Transaction> toBeDeleted = savedTransactions.stream()
-        .filter(transaction -> transaction.getId() == idToBeDeleted).findFirst();
+        .filter(transaction -> transaction.getId().equals(idToBeDeleted)).findFirst();
 
     if (!toBeDeleted.isPresent()) {
       throw new DataDoesNotExistException("transaction");

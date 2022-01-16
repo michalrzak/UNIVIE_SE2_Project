@@ -1,8 +1,8 @@
 package at.ac.univie.se2.ws21.team0404.app.model.android;
 
 import android.os.Parcel;
+import android.os.ParcelUuid;
 import android.os.Parcelable;
-
 import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.account.EAccountType;
 import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
@@ -22,11 +22,13 @@ public class ParcelableAppAccount extends AppAccount implements Parcelable {
   };
 
   public ParcelableAppAccount(@NonNull Parcel in) {
-    super(in.readString(), EAccountType.valueOf(in.readString().toUpperCase()), in.readInt(), in.readDouble(), in.readDouble());
+    super(in.readString(), EAccountType.valueOf(in.readString().toUpperCase()),
+        ((ParcelUuid) in.readParcelable(Parcelable.class.getClassLoader())).getUuid(),
+        in.readDouble(), in.readDouble());
   }
 
   public ParcelableAppAccount(@NonNull AppAccount appAccount) {
-    super(appAccount.getName(), appAccount.getType(), appAccount, appAccount.getSpendingLimit(), appAccount.getBalance());
+    super(appAccount);
   }
 
   @Override
@@ -38,7 +40,7 @@ public class ParcelableAppAccount extends AppAccount implements Parcelable {
   public void writeToParcel(Parcel parcel, int i) {
     parcel.writeString(this.getName());
     parcel.writeString(this.getType().toString());
-    parcel.writeInt(this.getId());
+    parcel.writeParcelable(new ParcelUuid(this.getId()), 1);
     parcel.writeDouble(this.getSpendingLimit());
     parcel.writeDouble(this.getBalance());
   }

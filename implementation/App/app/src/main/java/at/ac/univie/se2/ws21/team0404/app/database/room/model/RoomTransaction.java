@@ -1,13 +1,14 @@
 package at.ac.univie.se2.ws21.team0404.app.database.room.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
 import at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
-import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 import at.ac.univie.se2.ws21.team0404.app.utils.Nullable;
+import java.util.UUID;
 
 /**
  * Holds the data of {@link Transaction} with Room annotations
@@ -16,19 +17,20 @@ import at.ac.univie.se2.ws21.team0404.app.utils.Nullable;
 public class RoomTransaction {
 
   @PrimaryKey
-  private final int id;
+  @NonNull
+  private final UUID id;
   @Nullable
-  private final String categoryName;
-  private final int accountId;
+  private final UUID categoryId;
+  private final UUID accountId;
   private final String name;
 
   private final ETransactionType type;
   private final int amount; // in euro cent
 
-  public RoomTransaction(int id, @Nullable String categoryName, @NonNull ETransactionType type,
-      int amount, @NonNull String name, int accountId) {
+  public RoomTransaction(@NonNull UUID id, @Nullable UUID categoryId, @NonNull ETransactionType type,
+      int amount, @NonNull String name, UUID accountId) {
     this.id = id;
-    this.categoryName = categoryName;
+    this.categoryId = categoryId;
     this.type = type;
     this.amount = amount;
     this.name = name;
@@ -37,7 +39,7 @@ public class RoomTransaction {
 
   public RoomTransaction(@NonNull Transaction transaction, @NonNull AppAccount appAccount) {
     this.id = transaction.getId();
-    this.categoryName = transaction.getCategory().map(Category::getName).orElse(null);
+    this.categoryId = transaction.getCategory().map(Category::getId).orElse(null);
     this.type = transaction.getType();
     this.amount = transaction.getAmount();
     this.name = transaction.getName();
@@ -45,15 +47,15 @@ public class RoomTransaction {
   }
 
   @Nullable
-  public String getCategoryName() {
-    return categoryName;
+  public UUID getCategoryId() {
+    return categoryId;
   }
 
-  public int getAccountId() {
+  public UUID getAccountId() {
     return accountId;
   }
 
-  public int getId() {
+  public UUID getId() {
     return id;
   }
 
@@ -79,8 +81,8 @@ public class RoomTransaction {
     }
     RoomTransaction that = (RoomTransaction) o;
 
-    boolean categoriesEqual = getCategoryName() == null ? that.getCategoryName() == null
-        : getCategoryName().equals(that.getCategoryName());
+    boolean categoriesEqual = getCategoryId() == null ? that.getCategoryId() == null
+        : getCategoryId().equals(that.getCategoryId());
 
     return getId() == that.getId()
         && getAccountId() == that.getAccountId()

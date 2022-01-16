@@ -3,21 +3,33 @@ package at.ac.univie.se2.ws21.team0404.app.database.room;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.Update;
 
 import java.util.List;
 
 import at.ac.univie.se2.ws21.team0404.app.database.room.model.RoomCategory;
-import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
+import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataExistsException;
 
 @Dao
-public interface CategoryDao {
+public abstract class CategoryDao {
     @Query("SELECT * FROM categories ORDER BY name ASC")
-    List<RoomCategory> getCategories();
+    public abstract List<RoomCategory> getCategories();
 
     @Insert
-    void addCategory(RoomCategory category);
+    protected abstract void addCategory(RoomCategory category);
 
     @Update
-    void updateCategory(RoomCategory category);
+    public abstract void updateCategory(RoomCategory category);
+
+    @Query("SELECT COUNT(id) FROM categories WHERE name == :name AND disabled == 0")
+    protected abstract long getEnabledCategory(String name);
+
+    @Transaction
+    public void addCategoryIfNotExist(RoomCategory category) throws DataExistsException {
+        if (getEnabledCategory(category.getName()) > 0) {
+            throw new DataExistsException("categories");
+        }
+        addCategory(category);
+    }
 }

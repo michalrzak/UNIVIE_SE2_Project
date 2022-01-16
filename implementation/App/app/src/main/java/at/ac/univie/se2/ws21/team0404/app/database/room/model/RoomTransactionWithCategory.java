@@ -16,8 +16,8 @@ public class RoomTransactionWithCategory {
     @Embedded
     RoomTransaction transaction;
     @Relation(
-            parentColumn = "categoryName",
-            entityColumn = "name"
+            parentColumn = "categoryId",
+            entityColumn = "id"
     )
     @Nullable
     private RoomCategory category;

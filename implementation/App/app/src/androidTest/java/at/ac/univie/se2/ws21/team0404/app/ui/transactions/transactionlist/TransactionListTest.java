@@ -29,6 +29,7 @@ import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,9 +41,9 @@ import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class TransactionListTest {
 
-  private final static int insertedAccountId = 99;
+  private final static UUID insertedAccountId = UUID.randomUUID();
   private final static String insertedAccountName = "insertedAccount";
-  private final static int insertedTransactionId = 10;
+  private final static UUID insertedTransactionId = UUID.randomUUID();
   private final static int insertedTransactionAmount = 100;
   private final static String insertedTransactionName = "insertedTransaction";
   @Mock

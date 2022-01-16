@@ -58,7 +58,7 @@ public class AccountEdit extends AAccountActivity implements IAccountActivityCon
         .valueOf(accountTypeSpinner.getSelectedItem().toString().toUpperCase());
 
     AppAccount newAppAccount = new AppAccount(accountNameValue, accountType,
-        intentExtraAppAccount, spendingLimit, intentExtraAppAccount.getBalance());
+        intentExtraAppAccount.getId(), spendingLimit, intentExtraAppAccount.getBalance());
     presenter.clickedSave(newAppAccount);
   }
 

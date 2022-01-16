@@ -7,6 +7,7 @@ import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistException;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataExistsException;
 import java.util.Collection;
+import java.util.UUID;
 
 /**
  * Interface, used for our database implementation. Allows us to have a test database that does not
@@ -40,10 +41,10 @@ public interface IDatabase {
   // public void updateAccount(AppAccount oldAccount, AppAccount newAccount) throws DataDoesNotExistException;
   void addCategory(Category newCategory) throws DataExistsException;
 
-  void updateCategory(String categoryName, Category newCategory) throws DataDoesNotExistException, DataExistsException;
+  void updateCategory(Category newCategory) throws DataDoesNotExistException, DataExistsException;
 
-  void updateTransaction(AppAccount owner, int oldId,
+  void updateTransaction(AppAccount owner, UUID oldId,
       Transaction updatedTransaction) throws DataDoesNotExistException;
 
-  void deleteTransaction(@NonNull AppAccount owner, int idToBeDeleted) throws DataDoesNotExistException;
+  void deleteTransaction(@NonNull AppAccount owner, UUID idToBeDeleted) throws DataDoesNotExistException;
 }

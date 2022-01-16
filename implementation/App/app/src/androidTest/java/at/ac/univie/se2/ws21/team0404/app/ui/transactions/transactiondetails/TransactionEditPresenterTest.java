@@ -11,6 +11,7 @@ import at.ac.univie.se2.ws21.team0404.app.database.Repository;
 import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
 import at.ac.univie.se2.ws21.team0404.app.utils.ChangingData;
+import java.util.UUID;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +22,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class TransactionEditPresenterTest {
 
-  private final static int insertedTransactionId = 0;
+  private final static UUID insertedTransactionId = UUID.randomUUID();
   @Mock
   private AppAccount insertedAccount;
   @Mock
@@ -45,7 +46,7 @@ public class TransactionEditPresenterTest {
 
   @Test
   public void TransactionEditPresenter_clickedSave_passedValidTransaction_checkViewCall() {
-    when(mockedRepository.updateTransaction(any(), anyInt(), any())).thenReturn(new ChangingData<>(
+    when(mockedRepository.updateTransaction(any(), any(), any())).thenReturn(new ChangingData<>(
         ERepositoryReturnStatus.SUCCESS));
 
     Transaction mockTransaction = Mockito.mock(Transaction.class);
@@ -57,7 +58,7 @@ public class TransactionEditPresenterTest {
 
   @Test
   public void TransactionEditPresenter_clickedSave_returnsError_checkViewCall() {
-    when(mockedRepository.updateTransaction(any(), anyInt(), any())).thenReturn(new ChangingData<>(
+    when(mockedRepository.updateTransaction(any(), any(), any())).thenReturn(new ChangingData<>(
         ERepositoryReturnStatus.ERROR));
 
     Transaction mockTransaction = Mockito.mock(Transaction.class);
@@ -67,7 +68,7 @@ public class TransactionEditPresenterTest {
 
   @Test
   public void TransactionEditPresenter_clickedDelete_returnSuccess_checkViewCall() {
-    when(mockedRepository.deleteTransaction(any(), anyInt())).thenReturn(new ChangingData<>(
+    when(mockedRepository.deleteTransaction(any(), any())).thenReturn(new ChangingData<>(
         ERepositoryReturnStatus.SUCCESS));
 
     presenter.clickedDelete();
@@ -77,7 +78,7 @@ public class TransactionEditPresenterTest {
 
   @Test
   public void TransactionEditPresenter_clickedDelete_returnsError_checkViewCall() {
-    when(mockedRepository.deleteTransaction(any(), anyInt())).thenReturn(new ChangingData<>(
+    when(mockedRepository.deleteTransaction(any(), any())).thenReturn(new ChangingData<>(
         ERepositoryReturnStatus.ERROR));
 
     presenter.clickedDelete();
