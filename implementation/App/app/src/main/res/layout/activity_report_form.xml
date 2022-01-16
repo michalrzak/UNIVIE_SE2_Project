@@ -15,7 +15,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/time_period_spinner"
+        app:layout_constraintTop_toBottomOf="@+id/time_span_spinner"
         app:layout_constraintVertical_bias="0.053" />
 
     <Spinner
@@ -29,7 +29,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/time_period_spinner"
+        android:id="@+id/time_span_spinner"
         android:layout_width="310dp"
         android:layout_height="55dp"
         android:layout_marginTop="56dp"

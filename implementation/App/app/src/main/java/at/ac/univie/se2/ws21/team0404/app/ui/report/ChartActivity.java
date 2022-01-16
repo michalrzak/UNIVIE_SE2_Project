@@ -11,6 +11,7 @@ import com.anychart.core.Chart;
 import at.ac.univie.se2.ws21.team0404.app.R;
 import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 import at.ac.univie.se2.ws21.team0404.app.utils.factory.EChartType;
+import at.ac.univie.se2.ws21.team0404.app.utils.factory.ETimeSpan;
 
 public class ChartActivity extends AppCompatActivity implements IChartActivityContract.IView{
 
@@ -23,9 +24,15 @@ public class ChartActivity extends AppCompatActivity implements IChartActivityCo
 
         Intent intent = getIntent();
         EChartType chartType = (EChartType) intent.getSerializableExtra(EIntents.CHART_TYPE.toString());
+        assert(chartType != null);
+
+        ETimeSpan timeSpan = (ETimeSpan) intent.getSerializableExtra(EIntents.TIME_SPAN.toString());
+        assert(timeSpan != null);
+
         presenter.setFactory(chartType);
 
-        setTitle(chartType + " Chart");
+        // temporary to see that stuff are working
+        setTitle(chartType + " Chart, " + timeSpan + ", " + timeSpan.getValue());
 
         Chart chart = presenter.getChart();
         AnyChartView anyChartView = (AnyChartView) findViewById(R.id.chart);
