@@ -4,18 +4,20 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import at.ac.univie.se2.ws21.team0404.app.database.Repository;
-import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
-import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
-import at.ac.univie.se2.ws21.team0404.app.utils.ChangingData;
-import java.util.ArrayList;
-import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import at.ac.univie.se2.ws21.team0404.app.database.Repository;
+import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
+import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
+import at.ac.univie.se2.ws21.team0404.app.utils.ChangingData;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TransactionListPresenterTest {

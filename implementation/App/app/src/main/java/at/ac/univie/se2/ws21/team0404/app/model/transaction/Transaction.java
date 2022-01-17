@@ -5,11 +5,9 @@ import at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType;
 import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 import at.ac.univie.se2.ws21.team0404.app.utils.Nullable;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Stream;
 
 /**
  * Class, used to save information about a transaction.
