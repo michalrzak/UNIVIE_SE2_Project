@@ -1,10 +1,14 @@
 package at.ac.univie.se2.ws21.team0404.app.ui.categories.categorydetails;
 
 import android.util.Log;
+
+import java.util.function.Function;
+
 import at.ac.univie.se2.ws21.team0404.app.database.ERepositoryReturnStatus;
 import at.ac.univie.se2.ws21.team0404.app.database.Repository;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
 import at.ac.univie.se2.ws21.team0404.app.ui.ABasePresenter;
+import at.ac.univie.se2.ws21.team0404.app.ui.categories.categorylist.CategoryListPresenter;
 import at.ac.univie.se2.ws21.team0404.app.utils.IChangingData;
 import at.ac.univie.se2.ws21.team0404.app.utils.Nullable;
 
@@ -15,6 +19,22 @@ public class CategoryAddPresenter extends ABasePresenter<ICategoryActivityContra
 
   public CategoryAddPresenter(Repository repository) {
     this.repository = repository;
+  }
+
+  private static Function<Repository, CategoryAddPresenter> factory = CategoryAddPresenter::new;
+
+  public static CategoryAddPresenter create(Repository repository) {
+    return factory.apply(repository);
+  }
+
+  /**
+   * Allows replacing the factory for dependency injection during unit tests
+   *
+   * @param factory mocked factory
+   */
+  public static void setFactory(
+          Function<Repository, CategoryAddPresenter> factory) {
+    CategoryAddPresenter.factory = factory;
   }
 
   @Override
