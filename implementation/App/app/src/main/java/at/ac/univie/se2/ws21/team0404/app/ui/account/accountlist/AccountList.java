@@ -12,14 +12,14 @@ import at.ac.univie.se2.ws21.team0404.app.database.Repository;
 import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.android.ParcelableAppAccount;
 import at.ac.univie.se2.ws21.team0404.app.ui.AListActivity;
-import at.ac.univie.se2.ws21.team0404.app.ui.AListActivityPresenter;
 import at.ac.univie.se2.ws21.team0404.app.ui.account.accountdetails.AccountAdd;
 import at.ac.univie.se2.ws21.team0404.app.ui.categories.categorylist.CategoryList;
 import at.ac.univie.se2.ws21.team0404.app.ui.report.ReportFormActivity;
 import at.ac.univie.se2.ws21.team0404.app.ui.transactions.transactionlist.TransactionList;
 import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 
-public class AccountList extends AListActivity<AppAccount, AccountListViewHolder, AccountListPresenter> implements
+public class AccountList extends
+    AListActivity<AppAccount, AccountListViewHolder, AccountListPresenter> implements
     IAccountListContract.IView {
 
   @Override

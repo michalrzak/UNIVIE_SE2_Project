@@ -9,7 +9,9 @@ import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.SingletonAlreadyInstantiatedException;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.SingletonNotInstantiatedException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
@@ -34,8 +36,7 @@ public class Repository {
   private static Repository instance;
   private final IChangingData<List<AppAccount>> accountList =
       new ChangingData<>(new ArrayList<>());
-  private final IChangingData<List<Transaction>> transactionList =
-      new ChangingData<>(new ArrayList<>());
+  private final Map<UUID, IChangingData<List<Transaction>>> transactionList = new HashMap<>();
   private final IChangingData<List<Category>> categoryList =
       new ChangingData<>(new ArrayList<>());
   private IDatabase databaseStrategy;
@@ -122,9 +123,11 @@ public class Repository {
    * @param account the account whose transactions should be retrieved
    * @return the list of transactions saved in the database wrapped in {@link IChangingData}
    */
+  @NonNull
   public IChangingData<List<Transaction>> getTransactionList(@NonNull AppAccount account) {
     reloadTransactions(account);
-    return transactionList;
+    assert (transactionList.get(account.getId()) != null);
+    return transactionList.get(account.getId());
   }
 
   /**
@@ -277,7 +280,7 @@ public class Repository {
   /**
    * Tries to create a transaction on the database.
    *
-   * @param owner the owner of the to be newly created transaction
+   * @param owner       the owner of the to be newly created transaction
    * @param transaction the transaction to be inserted to the database
    * @return a in {@link IChangingData} wrapped {@link ERepositoryReturnStatus}. May be observed to
    * handle the execution status of the query.
@@ -292,8 +295,8 @@ public class Repository {
     });
   }
 
-  private void calcAccountBalance(AppAccount owner) {
-    long amount = transactionList.getData().stream().mapToLong(
+  private void calcAccountBalance(@NonNull AppAccount owner) {
+    long amount = transactionList.get(owner.getId()).getData().stream().mapToLong(
         transaction -> (long) transaction.getAmount() * (transaction.getType().getSign())).sum();
     owner.setBalance(amount);
     updateAppAccount(owner);
@@ -310,10 +313,26 @@ public class Repository {
   }
 
   private void reloadTransactions(@NonNull AppAccount account) {
+    if (!transactionList.containsKey(account.getId())) {
+      transactionList.put(account.getId(), new ChangingData<>(new ArrayList<>()));
+      transactionList.get(account.getId()).observe(data -> {
+        /* This is a hacky approach to fix an issue. The account, from which the balance is calculated
+         * is only set into the observer when the Transaction list gets created, this means that the
+         * account contains the information which was contained when it was first assigned here.
+         * Thus if calculateBalance is called, we need it would overwrite the changes to the account
+         * (e.g. the name change) with the old changes, saved in this lambda.
+         *
+         * To fix this the account is fetched from the accountList again.
+         */
+        AppAccount acc = accountList.getData().stream()
+            .filter(account1 -> account1.getId().equals(account.getId())).findFirst().get();
+        calcAccountBalance(acc);
+      });
+    }
     // right now this does not indicate that the reload can fail due to the account not being in the DB
     Callable<Void> task = () -> {
-      transactionList.setData(new ArrayList<>(getDatabase().getTransactions(account)));
-      transactionList.observe(data -> calcAccountBalance(account));
+      transactionList.get(account.getId())
+          .setData(new ArrayList<>(getDatabase().getTransactions(account)));
       return null;
     };
 
