@@ -9,13 +9,16 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
-import at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import java.util.Date;
+
+import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
+import at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TransactionTest {
@@ -23,13 +26,14 @@ public class TransactionTest {
   private final int testAmount = 10;
   private final ETransactionType transactionType = ETransactionType.EXPENSE;
   private final String testName = "test";
+  private final Date testDate = new Date(1508388214);
   // define some fields which will be tested
   @Mock
   private Category mockCategory;
   private Transaction testTransaction;
 
   private Transaction getTransaction() {
-    return new Transaction(mockCategory, transactionType, testAmount, testName);
+    return new Transaction(mockCategory, transactionType, testAmount, testName, testDate);
   }
 
   @Before
@@ -64,12 +68,12 @@ public class TransactionTest {
   public void createTransaction_negativeAmount_throwsException() {
     assertThrows(IllegalArgumentException.class,
         () -> new Transaction(mockCategory, transactionType, -100,
-            testName));
+            testName, testDate));
   }
 
   @Test
   public void createTransaction_zeroAmount_noException() {
-    Transaction zeroTransaction = new Transaction(mockCategory, transactionType, 0, testName);
+    Transaction zeroTransaction = new Transaction(mockCategory, transactionType, 0, testName, testDate);
     assertNotNull(zeroTransaction);
   }
 
@@ -87,7 +91,7 @@ public class TransactionTest {
 
   @Test
   public void createTransaction_NullCategory_returnsEmptyOptional() {
-    Transaction nullCategory = new Transaction(null, transactionType, testAmount, testName);
+    Transaction nullCategory = new Transaction(null, transactionType, testAmount, testName, testDate);
 
     assertNotNull(nullCategory);
     assertFalse(nullCategory.getCategory().isPresent());
