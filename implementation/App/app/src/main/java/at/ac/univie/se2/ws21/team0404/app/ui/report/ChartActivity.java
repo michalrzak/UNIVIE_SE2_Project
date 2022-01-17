@@ -2,8 +2,11 @@ package at.ac.univie.se2.ws21.team0404.app.ui.report;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.anychart.AnyChartView;
@@ -11,6 +14,7 @@ import com.anychart.core.Chart;
 
 import at.ac.univie.se2.ws21.team0404.app.R;
 import at.ac.univie.se2.ws21.team0404.app.database.Repository;
+import at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType;
 import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 import at.ac.univie.se2.ws21.team0404.app.utils.android.LifecycleHandler;
 import at.ac.univie.se2.ws21.team0404.app.utils.factory.EChartType;
@@ -29,6 +33,10 @@ public class ChartActivity extends AppCompatActivity implements IChartActivityCo
 
         lifecycleHandler = new LifecycleHandler<>(presenter, this);
 
+        ActionBar actionBar = getSupportActionBar();
+        assert (actionBar != null);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         Intent intent = getIntent();
         
         EChartType chartType = (EChartType) intent.getSerializableExtra(EIntents.CHART_TYPE.toString());
@@ -37,12 +45,15 @@ public class ChartActivity extends AppCompatActivity implements IChartActivityCo
         ETimeSpan timeSpan = (ETimeSpan) intent.getSerializableExtra(EIntents.TIME_SPAN.toString());
         assert(timeSpan != null);
 
+        ETransactionType transactionType = (ETransactionType) intent.getSerializableExtra(EIntents.TRANSACTION_TYPE.toString());
+        assert(transactionType != null);
+
         presenter.setFactory(chartType);
 
         // temporary to see that stuff are working
-        setTitle(chartType + " Chart, " + timeSpan + ", " + timeSpan.getValue());
+        setTitle(chartType + " Chart, " + timeSpan + ", " + timeSpan.getValue() +  ", " + transactionType.toString());
 
-        presenter.generateChart(timeSpan);
+        presenter.generateChart(timeSpan, transactionType);
     }
 
     @Override
@@ -55,7 +66,17 @@ public class ChartActivity extends AppCompatActivity implements IChartActivityCo
 
     @Override
     public void setChart(Chart chart) {
-        AnyChartView anyChartView = (AnyChartView) findViewById(R.id.chart);
+        AnyChartView anyChartView = findViewById(R.id.chart);
         anyChartView.setChart(chart);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            default:
+                finish();
+                return true;
+        }
     }
 }
