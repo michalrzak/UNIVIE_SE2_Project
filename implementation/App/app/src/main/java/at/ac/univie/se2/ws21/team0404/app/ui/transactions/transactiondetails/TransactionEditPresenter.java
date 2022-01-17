@@ -12,6 +12,9 @@ import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 import at.ac.univie.se2.ws21.team0404.app.utils.Nullable;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistException;
 
+/**
+ * The presenter to be used with the {@link TransactionEdit} Activity
+ */
 public class TransactionEditPresenter extends
     ABasePresenter<ITransactionActivityContract.IView> implements
     ITransactionActivityContract.IPresenter {

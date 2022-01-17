@@ -2,7 +2,6 @@ package at.ac.univie.se2.ws21.team0404.app.database;
 
 import android.database.sqlite.SQLiteException;
 import android.util.Log;
-import androidx.room.Room;
 import at.ac.univie.se2.ws21.team0404.app.database.room.AccountDao;
 import at.ac.univie.se2.ws21.team0404.app.database.room.AppRoomDatabase;
 import at.ac.univie.se2.ws21.team0404.app.database.room.CategoryDao;
@@ -28,7 +27,8 @@ import java.util.stream.Collectors;
 
 
 /**
- * This class uses the adapter pattern to adapt the DAO objects to the IDatabase format
+ * A Strategy of {@link IDatabase}. This class uses the adapter pattern to adapt the DAO objects to
+ * the IDatabase format. Saves the data to an internal Android Room database
  */
 public class RoomDatabase implements IDatabase {
 
@@ -39,6 +39,12 @@ public class RoomDatabase implements IDatabase {
   private final CategoryDao categoryDao;
   private final TransactionDao transactionDao;
 
+  /**
+   * Constructs the room database object.
+   *
+   * @param roomDatabaseSupplier needs to return the {@link androidx.room.RoomDatabase} instance.
+   *                             Can be used to mock room functionality.
+   */
   public RoomDatabase(Supplier<AppRoomDatabase> roomDatabaseSupplier) {
     roomDatabase = roomDatabaseSupplier.get();
     accountDao = roomDatabase.accountDao();
@@ -46,6 +52,14 @@ public class RoomDatabase implements IDatabase {
     transactionDao = roomDatabase.transactionDao();
   }
 
+  /**
+   * See {@link RoomDatabase#RoomDatabase(Supplier)}.
+   *
+   * @param roomDatabaseSupplier needs to return the {@link androidx.room.RoomDatabase} instance.
+   *                             Can be used to mock room functionality.
+   * @param clearTables          if this is set to true, the room database will have all its data
+   *                             cleared after it is instantiated.
+   */
   public RoomDatabase(Supplier<AppRoomDatabase> roomDatabaseSupplier, boolean clearTables) {
     this(roomDatabaseSupplier);
     if (clearTables) {
@@ -54,6 +68,9 @@ public class RoomDatabase implements IDatabase {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @Override
   public Collection<AppAccount> getAccounts() {
@@ -61,6 +78,9 @@ public class RoomDatabase implements IDatabase {
         Collectors.toList());
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @Override
   public Collection<Transaction> getTransactions(@NonNull AppAccount account)
@@ -74,6 +94,9 @@ public class RoomDatabase implements IDatabase {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @Override
   public Collection<Category> getCategories() {
@@ -81,6 +104,9 @@ public class RoomDatabase implements IDatabase {
         .collect(Collectors.toList());
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void addAccount(@NonNull AppAccount newAccount) throws DataExistsException {
     try {
@@ -91,6 +117,9 @@ public class RoomDatabase implements IDatabase {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void deleteAccount(AppAccount account) throws DataDoesNotExistException {
     try {
@@ -102,6 +131,9 @@ public class RoomDatabase implements IDatabase {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void updateAccount(@NonNull AppAccount newAccount) throws DataDoesNotExistException {
     try {
@@ -113,6 +145,9 @@ public class RoomDatabase implements IDatabase {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void addTransaction(@NonNull AppAccount owner, @NonNull Transaction newTransaction)
       throws DataExistsException, DataDoesNotExistException {
@@ -128,6 +163,9 @@ public class RoomDatabase implements IDatabase {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void addCategory(Category newCategory) throws DataExistsException {
     try {
@@ -139,6 +177,9 @@ public class RoomDatabase implements IDatabase {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void updateCategory(Category newCategory)
       throws DataDoesNotExistException {
@@ -155,6 +196,9 @@ public class RoomDatabase implements IDatabase {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void updateTransaction(AppAccount owner, UUID oldId, Transaction updatedTransaction)
       throws DataDoesNotExistException {
@@ -172,6 +216,9 @@ public class RoomDatabase implements IDatabase {
     }
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void deleteTransaction(@NonNull AppAccount owner, UUID idToBeDeleted)
       throws DataDoesNotExistException {

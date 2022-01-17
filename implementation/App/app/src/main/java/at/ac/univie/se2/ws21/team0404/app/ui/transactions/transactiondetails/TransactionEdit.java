@@ -13,6 +13,9 @@ import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 import at.ac.univie.se2.ws21.team0404.app.utils.android.LifecycleHandler;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistException;
 
+/**
+ * An Activity to that allows to fill out fields needed to edit a Transaction
+ */
 public class TransactionEdit extends ATransactionActivity implements
     ITransactionActivityContract.IView {
 
@@ -45,6 +48,9 @@ public class TransactionEdit extends ATransactionActivity implements
     lifecycleHandler = new LifecycleHandler<>(presenter, this);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   protected void saveButtonPressed() {
     presenter.clickedSave(getTransactionFromForm().orElse(null));
@@ -65,22 +71,34 @@ public class TransactionEdit extends ATransactionActivity implements
     return super.onOptionsItemSelected(item);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void showTransactionInsertionSuccessful() {
     finish();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void showTransactionInsertionFailed() {
     Toast.makeText(this, "Error on saving transaction try again please.",
         Toast.LENGTH_LONG).show();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void showTransactionDeletionSuccessful() {
     finish();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void showTransactionDeletionFailed() {
     Toast.makeText(this, "Error on saving transaction try again please.",

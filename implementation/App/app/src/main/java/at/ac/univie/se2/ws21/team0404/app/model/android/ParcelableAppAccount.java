@@ -7,6 +7,9 @@ import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.account.EAccountType;
 import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 
+/**
+ * Used to be able to send the {@link AppAccount} objects in intents as Parcels.
+ */
 public class ParcelableAppAccount extends AppAccount implements Parcelable {
 
   public static final Creator<AppAccount> CREATOR = new Creator<AppAccount>() {

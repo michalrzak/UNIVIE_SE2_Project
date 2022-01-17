@@ -7,6 +7,9 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
 
+/**
+ * The Adapter class to be used for {@link TransactionList}
+ */
 public class TransactionListAdapter extends ListAdapter<Transaction, TransactionListViewHolder> {
 
   public static final DiffUtil.ItemCallback<Transaction> appAccountDiffUtil = new DiffUtil.ItemCallback<Transaction>() {

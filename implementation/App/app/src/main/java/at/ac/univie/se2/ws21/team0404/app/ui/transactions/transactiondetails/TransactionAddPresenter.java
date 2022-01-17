@@ -11,6 +11,9 @@ import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 import java.util.function.BiFunction;
 import at.ac.univie.se2.ws21.team0404.app.utils.Nullable;
 
+/**
+ * The presenter to be used with the {@link TransactionAdd} activity
+ */
 public class TransactionAddPresenter extends
     ABasePresenter<ITransactionActivityContract.IView> implements
     ITransactionActivityContract.IPresenter {
@@ -41,6 +44,10 @@ public class TransactionAddPresenter extends
     this.repository = repository;
   }
 
+  /**
+   * {@inheritDoc}
+   * @param transaction the transaction which was displayed on the activity
+   */
   @Override
   public void clickedSave(@Nullable Transaction transaction) {
     if (transaction == null) {

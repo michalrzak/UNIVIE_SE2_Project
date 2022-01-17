@@ -17,6 +17,16 @@ import at.ac.univie.se2.ws21.team0404.app.ui.IListActivityContract.IView;
 import at.ac.univie.se2.ws21.team0404.app.utils.android.LifecycleHandler;
 import java.util.List;
 
+/**
+ * An Abstract Class used to be able to more easily create Activities, which display lists. To
+ * correctly use this class subclass it and implement all needed methods
+ *
+ * @param <ModelClass> The class of the items that will be displayed
+ * @param <ViewHolder> The ViewHolder class used by this Activity, needs to be created individually
+ *                     for each class subclassing this
+ * @param <Presenter>  The presenter implementing {@link IListActivityContract.IPresenter<ModelClass>>}
+ *                     interface
+ */
 public abstract class AListActivity<ModelClass, ViewHolder extends RecyclerView.ViewHolder, Presenter extends IListActivityContract.IPresenter<ModelClass>> extends
     AppCompatActivity implements IView<ModelClass> {
 
@@ -72,22 +82,21 @@ public abstract class AListActivity<ModelClass, ViewHolder extends RecyclerView.
 
     presenter = getPresenter();
     lifecycleHandler = new LifecycleHandler<>(presenter, this);
-
-    // removed as this should happen in other parts of the code? (=presenter)
-    /*
-    IChangingData<List<ModelClass>> listData = getList();
-    listData.observe(data -> {
-      adapter.submitList(data);
-    });
-    */
   }
 
-  // added this implementation which shows the provided list
+  /**
+   * {@inheritDoc}
+   * @param list the list to be displayed, cannot be null
+   */
   @Override
   public void showList(@NonNull List<ModelClass> list) {
     adapter.submitList(list);
   }
 
+  /**
+   * {@inheritDoc}
+   * @param view
+   */
   public void onFabClick(View view) {
     presenter.clickFab();
   }

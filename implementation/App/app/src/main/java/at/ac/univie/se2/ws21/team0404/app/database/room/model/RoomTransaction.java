@@ -16,6 +16,9 @@ import java.util.UUID;
 
 /**
  * Holds the data of {@link Transaction} with Room annotations
+ * <p>
+ * Defines the way {@link Transaction} is saved in the SQL database. I uses the {@link
+ * Transaction#getId()} field as the primary key.
  */
 @Entity(tableName = "transactions")
 public class RoomTransaction {
@@ -31,8 +34,21 @@ public class RoomTransaction {
   private final int amount; // in euro cent
   private final Date date;
 
-  public RoomTransaction(@NonNull UUID id, @Nullable UUID categoryId, @NonNull ETransactionType type,
-      int amount, @NonNull String name, UUID accountId, @NonNull Date date) {
+  /**
+   * Constructs the {@link RoomTransaction} with the given parameters
+   *
+   * @param id         the id of the transaction, cannot be null, will be used as a primary key
+   * @param categoryId the id of the category to be assigned to the transaction, can be null if no
+   *                   category is assigned
+   * @param type       the type of the transaction, cannot be null
+   * @param amount     the amount of the transaction, has to be greater or equal to zero.
+   * @param name       the name given to the transaction, cannot be null
+   * @param accountId  the id of the owner of this transaction, cannot be null
+   * @param date       the date when the transaction was conducted
+   */
+  public RoomTransaction(@NonNull UUID id, @Nullable UUID categoryId,
+      @NonNull ETransactionType type,
+      int amount, @NonNull String name, @NonNull UUID accountId, @NonNull Date date) {
     this.id = id;
     this.categoryId = categoryId;
     this.type = type;
@@ -42,6 +58,12 @@ public class RoomTransaction {
     this.accountId = accountId;
   }
 
+  /**
+   * Constructs the {@link RoomTransaction} using the passed objects
+   *
+   * @param transaction the transaction, which parameters will be extracted
+   * @param appAccount  the owner of the transaction
+   */
   public RoomTransaction(@NonNull Transaction transaction, @NonNull AppAccount appAccount) {
     this.id = transaction.getId();
     this.categoryId = transaction.getCategory().map(Category::getId).orElse(null);
@@ -81,6 +103,13 @@ public class RoomTransaction {
     return date;
   }
 
+  /**
+   * Defines an object is equal to this. Objects are equal if {@param o} is an instanceof {@link
+   * RoomTransaction} and all fields accessible by getters are equal
+   *
+   * @param o the object to be compared against
+   * @return true if objects are evaluated as equal, else false
+   */
   @Override
   public boolean equals(Object o) {
     if (this == o) {

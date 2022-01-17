@@ -34,6 +34,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * An abstract class that is used to more easily create Activities showing {@link Transaction}
+ */
 public abstract class ATransactionActivity extends AppCompatActivity {
 
   /**
@@ -164,7 +167,8 @@ public abstract class ATransactionActivity extends AppCompatActivity {
     String name = nameEditText.getText().toString();
 
     try {
-      return Optional.of(new Transaction((Category) category, (ETransactionType) type, amount, name, date));
+      return Optional
+          .of(new Transaction((Category) category, (ETransactionType) type, amount, name, date));
     } catch (IllegalArgumentException e) {
       Log.w("TransactionActivity", "The transaction provided in the form was invalid!");
     }

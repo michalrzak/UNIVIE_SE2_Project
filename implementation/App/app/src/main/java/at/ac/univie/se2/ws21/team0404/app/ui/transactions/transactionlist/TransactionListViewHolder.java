@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import at.ac.univie.se2.ws21.team0404.app.R;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
 
+/**
+ * The view holder to be used with {@link TransactionList}
+ */
 public class TransactionListViewHolder extends RecyclerView.ViewHolder {
 
   private final TextView nameView;

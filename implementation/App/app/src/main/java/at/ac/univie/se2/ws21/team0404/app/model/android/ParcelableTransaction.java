@@ -13,8 +13,7 @@ import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 import at.ac.univie.se2.ws21.team0404.app.utils.Nullable;
 
 /**
- * A subclass of transaction, which implements the parcelable interface and allows to send these
- * objects through intents.
+ * Used to be able to send {@link Transaction} through Intents as Parcels.
  */
 public class ParcelableTransaction extends Transaction implements Parcelable {
 
