@@ -13,20 +13,21 @@ import java.util.Map;
 import java.util.Optional;
 
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
+import at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
 
 public abstract class ChartFactory {
 
     private final static String noCategory = "No Category";
 
-    public Chart create(List<Transaction> transactions, ETimeSpan timeSpan){
+    public Chart create(List<Transaction> transactions, ETimeSpan timeSpan, ETransactionType transactionType){
 
-        List<DataEntry> data = processData(transactions, timeSpan);
+        List<DataEntry> data = processData(transactions, timeSpan, transactionType);
 
         return instantiateChart(data);
     }
 
-    private List<DataEntry> processData(List<Transaction> transactions, ETimeSpan timeSpan){
+    private List<DataEntry> processData(List<Transaction> transactions, ETimeSpan timeSpan, ETransactionType transactionType){
         Calendar targetCalender = Calendar.getInstance();
         targetCalender.setTime(new Date());
         targetCalender.add(Calendar.DAY_OF_MONTH, -timeSpan.getValue());
@@ -36,6 +37,9 @@ public abstract class ChartFactory {
         for (Transaction transaction : transactions){
             Optional<Category> optionalCategory = transaction.getCategory();
             int amount = transaction.getAmount();
+
+            if (transaction.getType() != transactionType)
+                continue;
 
             transactionCalender.setTime(transaction.getDate());
             if (!transactionCalender.after(targetCalender))

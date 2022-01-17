@@ -1,23 +1,15 @@
 package at.ac.univie.se2.ws21.team0404.app.ui.report;
 
-import android.util.Log;
-
 import com.anychart.core.Chart;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 import at.ac.univie.se2.ws21.team0404.app.database.Repository;
 import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
-import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
+import at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
 import at.ac.univie.se2.ws21.team0404.app.ui.ABasePresenter;
-import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistException;
 import at.ac.univie.se2.ws21.team0404.app.utils.factory.BarChartFactory;
 import at.ac.univie.se2.ws21.team0404.app.utils.factory.ChartFactory;
 import at.ac.univie.se2.ws21.team0404.app.utils.factory.EChartType;
@@ -39,7 +31,7 @@ public class ChartActivityPresenter
     }
 
     @Override
-    public void generateChart(ETimeSpan timeSpan) {
+    public void generateChart(ETimeSpan timeSpan, ETransactionType transactionType) {
         List<AppAccount> accounts = repository.getAccountList().getData();
         AccountCollection collection = new AccountCollection(accounts);
         IIterator<AppAccount> iterator = collection.createIterator();
@@ -52,7 +44,7 @@ public class ChartActivityPresenter
 
         Chart chart;
         try{
-            chart = chartFactory.create(transactions, timeSpan);
+            chart = chartFactory.create(transactions, timeSpan, transactionType);
         } catch (RuntimeException e) {
             view.closeActivity();
             return;
