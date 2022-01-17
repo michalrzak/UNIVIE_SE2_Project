@@ -22,6 +22,9 @@ import at.ac.univie.se2.ws21.team0404.app.ui.transactions.transactiondetails.Tra
 import at.ac.univie.se2.ws21.team0404.app.utils.ChangingData;
 import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 
+/**
+ * An Activity displaying a list of transactions. Extends {@link AListActivity}.
+ */
 public class TransactionList extends
     AListActivity<Transaction, TransactionListViewHolder, TransactionListPresenter> implements
     ITransactionListContract.IView {
@@ -29,9 +32,13 @@ public class TransactionList extends
   @Nullable
   private ChangingData<AppAccount> account;
 
+  /**
+   * Get the owner of the transactions from the passed intent
+   *
+   * @return the owner of the transactions
+   */
   @NonNull
   private AppAccount getAccount() {
-    // TODO: make this safe. What if no account was passed? probably throw onw exception
     if (account == null || account.getData() == null) {
       account = new ChangingData<>(passedIntent.getParcelableExtra(EIntents.ACCOUNT.toString()));
     }
@@ -73,7 +80,10 @@ public class TransactionList extends
     return super.onOptionsItemSelected(item);
   }
 
-
+  /**
+   * {@inheritDoc}
+   * @param item the item from witch the redirect should be figured out, cannot be null
+   */
   @Override
   public void showListItemRedirect(@NonNull Transaction item) {
     Intent intent = new Intent(this, TransactionEdit.class);
@@ -82,6 +92,9 @@ public class TransactionList extends
     startActivity(intent);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void showFabRedirect() {
     Intent intent = new Intent(this, TransactionAdd.class);
@@ -93,7 +106,7 @@ public class TransactionList extends
    * This is needed to handle the situation where the user edits an account and deletes it. After
    * that the application needs to redirect out of this activity, as the account saved here is no
    * longer valid.
-   *
+   * <p>
    * We launch {@link AccountEdit} with this and look if it returns a deleted boolean.
    */
   private final ActivityResultLauncher<Intent> accountDeleted = registerForActivityResult(
@@ -110,6 +123,9 @@ public class TransactionList extends
         }
       });
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void showEditAccount() {
     Intent intent = new Intent(this, AccountEdit.class);
@@ -117,6 +133,9 @@ public class TransactionList extends
     accountDeleted.launch(intent);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void finishActivity() {
     finish();

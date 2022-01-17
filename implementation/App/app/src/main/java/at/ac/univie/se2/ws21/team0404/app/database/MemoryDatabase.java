@@ -14,6 +14,11 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
+/**
+ * Implements the {@link IDatabase} interface and provides functionality to save data into java
+ * collections. This class is mostly used for testing as all data gets removed out of it once the
+ * app gets closed.
+ */
 public class MemoryDatabase implements IDatabase {
 
   private final Map<UUID, AppAccount> accounts = new HashMap<>();
@@ -23,8 +28,6 @@ public class MemoryDatabase implements IDatabase {
   /**
    * This function validates the account. It introduces a side affect as when an account is not yet
    * added in the transactions hash map it will add it.
-   * <p>
-   * TODO: Rework this. The entire account add/delete concept of the db should be rethought
    *
    * @param account AppAccount which is getting validated
    * @throws DataDoesNotExistException when account does not exist in database
@@ -39,19 +42,27 @@ public class MemoryDatabase implements IDatabase {
     }
   }
 
-
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @Override
   public Collection<AppAccount> getAccounts() {
     return accounts.values();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @Override
   public Collection<Category> getCategories() {
     return categories.values();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @Override
   public Collection<Transaction> getTransactions(@NonNull AppAccount account)
@@ -63,6 +74,9 @@ public class MemoryDatabase implements IDatabase {
     return ret;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void addAccount(@NonNull AppAccount newAccount) throws DataExistsException {
     if (newAccount.getName().isEmpty()) {
@@ -74,6 +88,9 @@ public class MemoryDatabase implements IDatabase {
     accounts.put(newAccount.getId(), newAccount);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void deleteAccount(AppAccount account) throws DataDoesNotExistException {
     if (!accounts.containsKey(account.getId())) {
@@ -82,6 +99,9 @@ public class MemoryDatabase implements IDatabase {
     accounts.remove(account.getId());
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void updateAccount(@NonNull AppAccount newAccount)
       throws DataDoesNotExistException {
@@ -91,6 +111,9 @@ public class MemoryDatabase implements IDatabase {
     accounts.replace(newAccount.getId(), newAccount);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void addCategory(@NonNull Category newCategory) throws DataExistsException {
     Category existingCategory = categories.get(newCategory.getId());
@@ -100,6 +123,9 @@ public class MemoryDatabase implements IDatabase {
     categories.put(newCategory.getId(), newCategory);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void addTransaction(@NonNull AppAccount owner, @NonNull Transaction newTransaction)
       throws DataExistsException, DataDoesNotExistException {
@@ -111,10 +137,12 @@ public class MemoryDatabase implements IDatabase {
     }
   }
 
-
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void updateCategory(@NonNull Category newCategory)
-          throws DataDoesNotExistException, DataExistsException {
+      throws DataDoesNotExistException, DataExistsException {
     if (!categories.containsKey(newCategory.getId())) {
       throw new DataDoesNotExistException("categories");
     }
@@ -123,6 +151,9 @@ public class MemoryDatabase implements IDatabase {
     categories.put(newCategory.getId(), newCategory);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void updateTransaction(AppAccount owner, UUID oldId, Transaction updatedTransaction)
       throws DataDoesNotExistException {
@@ -144,6 +175,9 @@ public class MemoryDatabase implements IDatabase {
 
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void deleteTransaction(@NonNull AppAccount owner, UUID idToBeDeleted)
       throws DataDoesNotExistException {

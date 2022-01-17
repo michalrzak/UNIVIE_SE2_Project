@@ -12,7 +12,7 @@ import at.ac.univie.se2.ws21.team0404.app.database.room.model.UUIDConverter;
 
 @Database(
         entities = {RoomAppAccount.class, RoomTransaction.class, RoomCategory.class},
-        version = 12,
+        version = 13,
         exportSchema = false)
 @TypeConverters({UUIDConverter.class, Converters.class})
 public abstract class AppRoomDatabase extends RoomDatabase {

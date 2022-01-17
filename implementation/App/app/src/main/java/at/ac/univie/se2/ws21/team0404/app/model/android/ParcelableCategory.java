@@ -8,6 +8,9 @@ import at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType;
 import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 import java.util.UUID;
 
+/**
+ * Used to be able to send {@link Category} in Intents as Parcels.
+ */
 public class ParcelableCategory extends Category implements Parcelable {
 
   public static final Creator<ParcelableCategory> CREATOR = new Creator<ParcelableCategory>() {

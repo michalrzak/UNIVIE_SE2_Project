@@ -9,6 +9,9 @@ import at.ac.univie.se2.ws21.team0404.app.utils.IChangingData;
 import java.util.List;
 import java.util.function.BiFunction;
 
+/**
+ * The Presenter to be used with {@link TransactionList}.
+ */
 public class TransactionListPresenter extends AListActivityPresenter<Transaction> implements
     ITransactionListContract.IPresenter {
 
@@ -45,6 +48,9 @@ public class TransactionListPresenter extends AListActivityPresenter<Transaction
     transactionData.observe(data -> view.showList(data));
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void editAccount() {
     //TODO: Surely this can be done better
@@ -53,6 +59,9 @@ public class TransactionListPresenter extends AListActivityPresenter<Transaction
     myView.showEditAccount();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void accountDeleted() {
     assert (view instanceof ITransactionListContract.IView);
