@@ -1,6 +1,9 @@
 package at.ac.univie.se2.ws21.team0404.app.ui.account.accountdetails;
 
 import android.util.Log;
+
+import java.util.function.Function;
+
 import at.ac.univie.se2.ws21.team0404.app.database.ERepositoryReturnStatus;
 import at.ac.univie.se2.ws21.team0404.app.database.Repository;
 import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
@@ -13,6 +16,22 @@ public class AccountAddPresenter extends ABasePresenter<IAccountActivityContract
     IAccountActivityContract.IPresenter {
 
   private final Repository repository;
+
+  private static Function<Repository, AccountAddPresenter> factory = AccountAddPresenter::new;
+
+  public static AccountAddPresenter create(Repository repository){
+    return factory.apply(repository);
+  }
+
+  /**
+   * Allows replacing the factory for dependency injection during unit tests
+   *
+   * @param factory mocked factory
+   */
+  public static void setFactory(
+          Function<Repository, AccountAddPresenter> factory) {
+    AccountAddPresenter.factory = factory;
+  }
 
   public AccountAddPresenter(Repository repository) {
     this.repository = repository;
