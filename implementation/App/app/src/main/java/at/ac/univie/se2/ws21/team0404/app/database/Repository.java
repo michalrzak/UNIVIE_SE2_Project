@@ -4,6 +4,7 @@ import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
 import at.ac.univie.se2.ws21.team0404.app.utils.ChangingData;
+import at.ac.univie.se2.ws21.team0404.app.utils.ChangingDataOnMainThread;
 import at.ac.univie.se2.ws21.team0404.app.utils.IChangingData;
 import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.SingletonAlreadyInstantiatedException;
@@ -35,10 +36,10 @@ public class Repository {
 
   private static Repository instance;
   private final IChangingData<List<AppAccount>> accountList =
-      new ChangingData<>(new ArrayList<>());
+      new ChangingDataOnMainThread<>(new ChangingData<>(new ArrayList<>()));
   private final Map<UUID, IChangingData<List<Transaction>>> transactionList = new HashMap<>();
   private final IChangingData<List<Category>> categoryList =
-      new ChangingData<>(new ArrayList<>());
+      new ChangingDataOnMainThread<>(new ChangingData<>(new ArrayList<>()));
   private IDatabase databaseStrategy;
 
   /**
@@ -141,8 +142,8 @@ public class Repository {
    */
   private IChangingData<ERepositoryReturnStatus> databaseAccessor(Callable<Void> tryStatements) {
 
-    IChangingData<ERepositoryReturnStatus> output = new ChangingData<>(
-        ERepositoryReturnStatus.UPDATING);
+    IChangingData<ERepositoryReturnStatus> output =
+        new ChangingDataOnMainThread<>(new ChangingData<>(ERepositoryReturnStatus.UPDATING));
 
     Callable<Void> task = () -> {
       try {
@@ -314,7 +315,7 @@ public class Repository {
 
   private void reloadTransactions(@NonNull AppAccount account) {
     if (!transactionList.containsKey(account.getId())) {
-      transactionList.put(account.getId(), new ChangingData<>(new ArrayList<>()));
+      transactionList.put(account.getId(), new ChangingDataOnMainThread<>(new ChangingData<>(new ArrayList<>())));
       transactionList.get(account.getId()).observe(data -> {
         /* This is a hacky approach to fix an issue. The account, from which the balance is calculated
          * is only set into the observer when the Transaction list gets created, this means that the
