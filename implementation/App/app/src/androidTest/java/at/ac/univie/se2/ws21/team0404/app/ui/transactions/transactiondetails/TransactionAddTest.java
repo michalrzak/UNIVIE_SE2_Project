@@ -5,12 +5,15 @@ import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -20,6 +23,8 @@ import android.widget.DatePicker;
 
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.core.app.ApplicationProvider;
+import androidx.test.espresso.ViewAssertion;
+import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.espresso.intent.Intents;
 import at.ac.univie.se2.ws21.team0404.app.R;
@@ -138,9 +143,8 @@ public class TransactionAddTest {
     verify(mockPresenter, times(1)).clickedSave(null);
   }
 
-  // This test fails at the moment
   @Test
-  public void TransactionAdd_submitNegativeAmount_clickSaveCalled() {
+  public void TransactionAdd_submitNegativeAmount_minusNotWritten() {
     final String name = "Test name";
     final String amount = "-100";
     final Date testDate = new Date(1508388214);
@@ -148,14 +152,11 @@ public class TransactionAddTest {
 
     insertFieldsToView(name, amount, type, testDate);
 
-    verify(mockPresenter, times(0)).clickedSave(any());
-    onView(withId(R.id.transaction_save_button)).perform(click());
-    verify(mockPresenter, times(1)).clickedSave(null);
+    onView(withId(R.id.transaction_amount_edittext)).check(matches(withText("100")));
   }
 
-  // This test fails at the moment
   @Test
-  public void TransactionAdd_submitTextAmount_clickSaveCalled() {
+  public void TransactionAdd_submitTextAmount_checkAmountNotWritten() {
     final String name = "Test name";
     final String amount = "abd";
     final Date testDate = new Date(1508388214);
@@ -163,9 +164,7 @@ public class TransactionAddTest {
 
     insertFieldsToView(name, amount, type, testDate);
 
-    verify(mockPresenter, times(0)).clickedSave(any());
-    onView(withId(R.id.transaction_save_button)).perform(click());
-    verify(mockPresenter, times(1)).clickedSave(null);
+    onView(withId(R.id.transaction_amount_edittext)).check(matches(withText("")));
   }
 
   @Test

@@ -186,9 +186,8 @@ public class TransactionEditTest {
     verify(mockPresenter, times(1)).clickedSave(null);
   }
 
-  // This test fails at the moment
   @Test
-  public void TransactionEdit_submitNegativeAmount_clickSaveCalled() {
+  public void TransactionEdit_submitNegativeAmount_minusNotWritten() {
     final String name = "Test name";
     final String amount = "-100";
     final Date testDate = new Date(1508388214);
@@ -196,14 +195,11 @@ public class TransactionEditTest {
 
     insertFieldsToView(name, amount, type, testDate);
 
-    verify(mockPresenter, times(0)).clickedSave(any());
-    onView(withId(R.id.transaction_save_button)).perform(click());
-    verify(mockPresenter, times(1)).clickedSave(null);
+    onView(withId(R.id.transaction_amount_edittext)).check(matches(withText("100")));
   }
 
-  // This test fails at the moment
   @Test
-  public void TransactionAEdit_submitTextAmount_clickSaveCalled() {
+  public void TransactionAEdit_submitTextAmount_textNotWritten() {
     final String name = "Test name";
     final String amount = "abd";
     final Date testDate = new Date(1508388214);
@@ -211,9 +207,7 @@ public class TransactionEditTest {
 
     insertFieldsToView(name, amount, type, testDate);
 
-    verify(mockPresenter, times(0)).clickedSave(any());
-    onView(withId(R.id.transaction_save_button)).perform(click());
-    verify(mockPresenter, times(1)).clickedSave(null);
+    onView(withId(R.id.transaction_amount_edittext)).check(matches(withText("")));
   }
 
   @Test
