@@ -6,44 +6,64 @@
     android:layout_height="match_parent"
     tools:context=".ui.report.ReportFormActivity">
 
+    <EditText
+        android:id="@+id/report_date_picker"
+        android:layout_width="310dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="48dp"
+        android:clickable="false"
+        android:ems="10"
+        android:focusable="false"
+        android:inputType="date"
+        android:longClickable="false"
+        android:onClick="datePickerEditTextOnClick"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/report_transaction_type_spinner" />
+
     <Button
         android:id="@+id/submit_report_button"
         android:layout_width="180dp"
         android:layout_height="70dp"
+        android:layout_marginTop="56dp"
         android:text="@string/generate_chart"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/report_transaction_type_spinner"
-        app:layout_constraintVertical_bias="0.23" />
+        app:layout_constraintTop_toBottomOf="@+id/report_days_field" />
 
     <Spinner
         android:id="@+id/chart_type_spinner"
         android:layout_width="310dp"
         android:layout_height="55dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/time_span_spinner"
-        android:layout_width="310dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="56dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chart_type_spinner" />
-
-    <Spinner
         android:id="@+id/report_transaction_type_spinner"
         android:layout_width="310dp"
         android:layout_height="55dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="48dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/time_span_spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/chart_type_spinner" />
+
+    <EditText
+        android:id="@+id/report_days_field"
+        android:layout_width="310dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="48dp"
+        android:ems="10"
+        android:hint="@string/hint_report"
+        android:inputType="number"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/report_date_picker" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

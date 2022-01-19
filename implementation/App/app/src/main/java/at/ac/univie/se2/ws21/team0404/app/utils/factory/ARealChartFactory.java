@@ -1,5 +1,7 @@
 package at.ac.univie.se2.ws21.team0404.app.utils.factory;
 
+import android.util.Log;
+
 import com.anychart.chart.common.dataentry.DataEntry;
 import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.anychart.core.Chart;
@@ -22,19 +24,39 @@ import at.ac.univie.se2.ws21.team0404.app.utils.IChangingData;
 import at.ac.univie.se2.ws21.team0404.app.utils.iterator.AccountCollection;
 import at.ac.univie.se2.ws21.team0404.app.utils.iterator.IIterator;
 
+/**
+ * An Abstract class to be used to make initialization of {@link Chart} objects easier.
+ * To add a new chart type, subclass it and implement all the needed methods
+ */
 public abstract class ARealChartFactory extends AChartFactory {
-    public Chart create(List<Transaction> transactions, ETimeSpan timeSpan, ETransactionType transactionType){
 
-        List<DataEntry> data = processData(transactions, timeSpan, transactionType);
+    private final static String noCategory = "No Category";
+
+    /**
+     * This is the method that outside classes can call to receive the {@link Chart} object
+     *
+     * @param transactions a list of {@link Transaction} that are going to be included in the chart
+     * @param start beginning of the desired time frame
+     * @param end end of the the desired time frame
+     * @param transactionType type of transactions to be filtered out
+     */
+    public Chart create(List<Transaction> transactions, Calendar start, Calendar end, ETransactionType transactionType){
+
+        List<DataEntry> data = processData(transactions, start, end, transactionType);
 
         return instantiateChart(data);
     }
 
-    private List<DataEntry> processData(List<Transaction> transactions, ETimeSpan timeSpan, ETransactionType transactionType){
-        Calendar targetCalender = Calendar.getInstance();
-        targetCalender.setTime(new Date());
-        targetCalender.add(Calendar.DAY_OF_MONTH, -timeSpan.getValue());
-
+    /**
+     * Can be overridden in the subclasses if the target chart type requires differently processed data
+     *
+     * @param transactions Transactions that are going to be included in the chart
+     * @param start beginning of the desired time frame
+     * @param end end of the the desired time frame
+     * @param transactionType type of transactions to be filtered out
+     * @return data that is processed and can be used in {@link #instantiateChart(List)}
+     */
+    protected List<DataEntry> processData(List<Transaction> transactions, Calendar start, Calendar end, ETransactionType transactionType){
         Map<String, Integer> filteredResult = new HashMap<>();
         Calendar transactionCalender = Calendar.getInstance();
         for (Transaction transaction : transactions){
@@ -45,7 +67,9 @@ public abstract class ARealChartFactory extends AChartFactory {
                 continue;
 
             transactionCalender.setTime(transaction.getDate());
-            if (!transactionCalender.after(targetCalender))
+            Log.d("report", transactionCalender.getTime().toString());
+
+            if (!(transactionCalender.after(start) && transactionCalender.before(end)))
                 continue;
 
             if (optionalCategory.isPresent()){
@@ -68,7 +92,7 @@ public abstract class ARealChartFactory extends AChartFactory {
         }
 
         if (filteredResult.isEmpty())
-            throw new RuntimeException("No Matching Data");
+            throw new RuntimeException("ChartFactory: No Matching Data");
 
         List<DataEntry> formattedData = new ArrayList<>();
         for (Map.Entry<String, Integer> entry : filteredResult.entrySet()) {
@@ -78,10 +102,15 @@ public abstract class ARealChartFactory extends AChartFactory {
         return formattedData;
     }
 
+    /**
+     * When this is implemented it will return the specific {@link Chart} object of the subclass
+     * @param data prepared data that can be used directly with the {@link Chart} object
+     * @return specific implementation of {@link Chart}
+     */
     public abstract Chart instantiateChart(List<DataEntry> data);
 
     @Override
-    public IChangingData<Chart> generateChart(Repository repository, ETimeSpan timeSpan, ETransactionType transactionType) {
+    public IChangingData<Chart> generateChart(Repository repository, Calendar start, Calendar end, ETransactionType transactionType) {
         List<AppAccount> accounts = repository.getAccountList().getData();
         AccountCollection collection = new AccountCollection(accounts);
         IIterator<AppAccount> iterator = collection.createIterator();
@@ -92,6 +121,6 @@ public abstract class ARealChartFactory extends AChartFactory {
             transactions.addAll(repository.getTransactionList(account).getData());
         }
 
-        return new ChangingData<>(create(transactions, timeSpan, transactionType));
+        return new ChangingData<>(create(transactions, start, end, transactionType));
     }
 }

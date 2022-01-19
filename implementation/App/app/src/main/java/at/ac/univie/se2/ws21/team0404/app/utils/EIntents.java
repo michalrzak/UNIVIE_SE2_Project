@@ -7,7 +7,7 @@ package at.ac.univie.se2.ws21.team0404.app.utils;
 public enum EIntents {
   CATEGORY("Category"), TRANSACTION("Transaction"), ACCOUNT("Account"), TRANSACTION_ID(
       "transaction_id") ,TRANSACTION_DELETED("transaction_deleted"), CHART_TYPE("chart_type"),
-  TIME_SPAN("time_span"), TRANSACTION_TYPE("transaction_type");
+   TRANSACTION_TYPE("transaction_type"), START_DATE("start_date"), END_DATE("end_date");
 
   private final String name;
 

@@ -7,6 +7,7 @@ import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.anychart.core.Chart;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import at.ac.univie.se2.ws21.team0404.app.database.ERepositoryReturnStatus;
@@ -17,7 +18,6 @@ import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
 import at.ac.univie.se2.ws21.team0404.app.utils.ChangingData;
 import at.ac.univie.se2.ws21.team0404.app.utils.IChangingData;
 import at.ac.univie.se2.ws21.team0404.app.utils.factory.AChartFactory;
-import at.ac.univie.se2.ws21.team0404.app.utils.factory.ETimeSpan;
 import at.ac.univie.se2.ws21.team0404.app.utils.factory.ARealChartFactory;
 import at.ac.univie.se2.ws21.team0404.app.utils.iterator.AccountCollection;
 import at.ac.univie.se2.ws21.team0404.app.utils.iterator.IIterator;
@@ -55,7 +55,7 @@ public class ProxyChartFactory extends AChartFactory {
      * @param transactionType type of transactions to consider
      * @param repository the repository to fetch from
      */
-    private void getData(IChangingData<Chart> ret, ETimeSpan timeSpan, ETransactionType transactionType, Repository repository) {
+    private void getData(IChangingData<Chart> ret, Calendar start, Calendar end, ETransactionType transactionType, Repository repository) {
         IChangingData<ERepositoryReturnStatus> status = repository.reloadAccountsWithStatus();
 
         status.observe((newStatus) -> {
@@ -72,7 +72,7 @@ public class ProxyChartFactory extends AChartFactory {
                     }
 
                     try {
-                        ret.setData(chartFactory.create(transactions, timeSpan, transactionType));
+                        ret.setData(chartFactory.create(transactions, start, end, transactionType));
                     } catch (RuntimeException e) {
                         Log.d("ProxyChartFactory",
                                 "Caught a runtime error while generating chart, returning proxy.");
@@ -109,8 +109,8 @@ public class ProxyChartFactory extends AChartFactory {
      * @return a chart to be displayed
      */
     @Override
-    public Chart create(List<Transaction> transactions, ETimeSpan timeSpan, ETransactionType transactionType) {
-        return chartFactory.create(transactions, timeSpan, transactionType);
+    public Chart create(List<Transaction> transactions, Calendar start, Calendar end, ETransactionType transactionType) {
+        return chartFactory.create(transactions, start, end, transactionType);
     }
 
     /**
@@ -122,11 +122,11 @@ public class ProxyChartFactory extends AChartFactory {
      *
      * @return a chart; either the proxy or a generated chart.
      */
-    public IChangingData<Chart> generateChart(Repository repository, ETimeSpan timeSpan, ETransactionType transactionType) {
+    public IChangingData<Chart> generateChart(Repository repository, Calendar start, Calendar end, ETransactionType transactionType) {
         Chart proxy = this.createProxyChart();
         IChangingData<Chart> ret = new ChangingData<>(proxy);
 
-        getData(ret, timeSpan, transactionType, repository);
+        getData(ret, start, end, transactionType, repository);
 
         return ret;
     }
