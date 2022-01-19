@@ -10,11 +10,12 @@ import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataExistsException;
 
 public class CategoryAdd extends ACategoryActivity implements ICategoryActivityContract.IView {
 
-  private final CategoryAddPresenter presenter = new CategoryAddPresenter(Repository.getInstance());
+  private CategoryAddPresenter presenter;
   private LifecycleHandler<CategoryAdd> lifecycleHandler;
 
   @Override
   protected void setup() {
+    this.presenter =  CategoryAddPresenter.create(Repository.getInstance());
     radioIncome.toggle();
     deleteButton.setVisibility(View.GONE);
     submitButton.setText(R.string.create_category);
