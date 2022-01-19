@@ -10,12 +10,13 @@ import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataExistsException;
 
 public class AccountAdd extends AAccountActivity implements IAccountActivityContract.IView{
 
-  private final AccountAddPresenter presenter = new AccountAddPresenter(Repository.getInstance());
+  private AccountAddPresenter presenter;
 
   private LifecycleHandler<AccountAdd> lifecycleHandler;
 
   @Override
   protected void setup() {
+    presenter = AccountAddPresenter.create(Repository.getInstance());
     lifecycleHandler = new LifecycleHandler<>(presenter, this);
   }
 

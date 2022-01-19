@@ -2,6 +2,9 @@ package at.ac.univie.se2.ws21.team0404.app.ui.account.accountdetails;
 
 import android.util.Log;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.function.Function;
+
 import at.ac.univie.se2.ws21.team0404.app.database.ERepositoryReturnStatus;
 import at.ac.univie.se2.ws21.team0404.app.database.Repository;
 import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
@@ -17,9 +20,26 @@ public class AccountEditPresenter extends ABasePresenter<IView> implements
 
   private final Repository repository;
 
+  private static Function<Repository, AccountEditPresenter> factory = AccountEditPresenter::new;
+
+  public static AccountEditPresenter create(Repository repository){
+    return factory.apply(repository);
+  }
+
   public AccountEditPresenter(Repository repository) {
     this.repository = repository;
   }
+
+  /**
+   * Allows replacing the factory for dependency injection during unit tests
+   *
+   * @param factory mocked factory
+   */
+  public static void setFactory(
+          Function<Repository, AccountEditPresenter> factory) {
+    AccountEditPresenter.factory = factory;
+  }
+
 
   @Override
   public void clickedSave(@Nullable AppAccount account) {
