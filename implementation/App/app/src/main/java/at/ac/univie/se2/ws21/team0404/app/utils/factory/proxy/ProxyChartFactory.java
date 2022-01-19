@@ -43,7 +43,20 @@ public class ProxyChartFactory extends AChartFactory {
         List<DataEntry> dataEntryList = new ArrayList<>();
         dataEntryList.add(new ValueDataEntry("Loading", 100));
 
-        return  instantiateChart(dataEntryList);
+        return instantiateChart(dataEntryList);
+    }
+
+    /**
+     * For Proxy Pattern. used to generate an error chart in case data cannot be fetched
+     * or an error occurs.
+     *
+     * @return a proxy chart, which displays loading.
+     */
+    public Chart createErrorChart() {
+        List<DataEntry> dataEntryList = new ArrayList<>();
+        dataEntryList.add(new ValueDataEntry("Error", 50));
+
+        return instantiateChart(dataEntryList);
     }
 
     /**
@@ -51,7 +64,8 @@ public class ProxyChartFactory extends AChartFactory {
      * Mutates {@param ret} with the new data.
      *
      * @param ret the chart to fetch and update data for
-     * @param timeSpan time span of the chart
+     * @param start start of the time span for the chart
+     * @param end end of the time span for the chart
      * @param transactionType type of transactions to consider
      * @param repository the repository to fetch from
      */
@@ -76,12 +90,14 @@ public class ProxyChartFactory extends AChartFactory {
                     } catch (RuntimeException e) {
                         Log.d("ProxyChartFactory",
                                 "Caught a runtime error while generating chart, returning proxy.");
+                        ret.setData(createErrorChart());
                         return;
                     }
                     Log.d("ProxyChartFactory", "Successfully created chart!");
                     break;
                 case ERROR:
                     Log.e("ProxyChartFactory", "Error while executing!");
+                    ret.setData(createErrorChart());
                     break;
                 case UPDATING:
                     Log.d("ProxyChartFactory", "Deploying proxy");
@@ -104,7 +120,8 @@ public class ProxyChartFactory extends AChartFactory {
      * Creates a real chart using the internal {@link ARealChartFactory}.
      *
      * @param transactions transactions to display in the chart
-     * @param timeSpan time span of the chart
+     * @param start start of the time span for the chart
+     * @param end end of the time span for the chart
      * @param transactionType type of transactions to consider
      * @return a chart to be displayed
      */
@@ -117,7 +134,9 @@ public class ProxyChartFactory extends AChartFactory {
      * Generates a chart or a proxy chart for a given time span and transaction type.
      * The data comes from the ProxyChartFactory's internal repository.
      *
-     * @param timeSpan the time span to consider
+     * @param repository the repository to obtain data from
+     * @param start start of the time span for the chart
+     * @param end end of the time span for the chart
      * @param transactionType the type of transactions to consider
      *
      * @return a chart; either the proxy or a generated chart.
