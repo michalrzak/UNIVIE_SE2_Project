@@ -9,7 +9,10 @@
         <entry key="app/src/main/res/layout/activity_add_or_edit_category.xml" value="0.3138586956521739" />
         <entry key="app/src/main/res/layout/activity_list.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_transaction_details.xml" value="0.3138586956521739" />
+        <entry key="app/src/main/res/layout/listitem.xml" value="0.1556508577194753" />
         <entry key="app/src/main/res/layout/listitem_account.xml" value="0.1415237134207871" />
+        <entry key="app/src/main/res/layout/sample_pie_chart_proxy.xml" value="0.13446014127144298" />
+        <entry key="app/src/main/res/layout/transaction_listitem.xml" value="0.536" />
         <entry key="app/src/main/res/menu/category_menu_icon.xml" value="0.35625" />
         <entry key="app/src/main/res/menu/delete_menu_icon.xml" value="0.2869791666666667" />
         <entry key="app/src/main/res/menu/edit_menu_icon.xml" value="0.35625" />
@@ -62,7 +65,7 @@
       </value>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
