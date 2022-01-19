@@ -23,6 +23,9 @@ import at.ac.univie.se2.ws21.team0404.app.utils.factory.ETimeSpan;
 public class ChartActivity extends AppCompatActivity implements IChartActivityContract.IView{
 
     private final ChartActivityPresenter presenter = new ChartActivityPresenter(Repository.getInstance());
+    private AnyChartView anyChartView;
+
+    private Chart chart;
 
     private LifecycleHandler<ChartActivity> lifecycleHandler;
 
@@ -30,6 +33,8 @@ public class ChartActivity extends AppCompatActivity implements IChartActivityCo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chart);
+
+        anyChartView = findViewById(R.id.chart);
 
         lifecycleHandler = new LifecycleHandler<>(presenter, this);
 
@@ -51,7 +56,7 @@ public class ChartActivity extends AppCompatActivity implements IChartActivityCo
         presenter.setFactory(chartType);
 
         // temporary to see that stuff are working
-        setTitle(chartType + " Chart, " + timeSpan + ", " + timeSpan.getValue() +  ", " + transactionType.toString());
+        setTitle(chartType + " Chart, " + timeSpan + ", " + transactionType.toString());
 
         presenter.generateChart(timeSpan, transactionType);
     }
@@ -67,16 +72,23 @@ public class ChartActivity extends AppCompatActivity implements IChartActivityCo
     @Override
     public void setChart(Chart chart) {
         AnyChartView anyChartView = findViewById(R.id.chart);
-        anyChartView.setChart(chart);
+        if (this.chart != null) {
+            this.chart.dispose();
+            anyChartView.clear();
+            anyChartView.invalidate();
+            anyChartView.setChart(chart);
+            findViewById(R.id.chart_constraint_layout).invalidate();
+            return;
+        }
+
+        this.chart = chart;
+
+        anyChartView.setChart(this.chart);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        switch (item.getItemId()) {
-            default:
-                finish();
-                return true;
-        }
+        finish();
+        return true;
     }
 }
