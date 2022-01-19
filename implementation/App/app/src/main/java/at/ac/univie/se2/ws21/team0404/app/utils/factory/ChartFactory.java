@@ -18,10 +18,22 @@ import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
 import at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
 
+/**
+ * An Abstract class to be used to make initialization of {@link Chart} objects easier.
+ * To add a new chart type, subclass it and implement all the needed methods
+ */
 public abstract class ChartFactory {
 
     private final static String noCategory = "No Category";
 
+    /**
+     * This is the method that outside classes can call to receive the {@link Chart} object
+     *
+     * @param transactions a list of {@link Transaction} that are going to be included in the chart
+     * @param start beginning of the desired time frame
+     * @param end end of the the desired time frame
+     * @param transactionType type of transactions to be filtered out
+     */
     public Chart create(List<Transaction> transactions, Calendar start, Calendar end, ETransactionType transactionType){
 
         List<DataEntry> data = processData(transactions, start, end, transactionType);
@@ -29,7 +41,16 @@ public abstract class ChartFactory {
         return instantiateChart(data);
     }
 
-    private List<DataEntry> processData(List<Transaction> transactions, Calendar start, Calendar end, ETransactionType transactionType){
+    /**
+     * Can be overridden in the subclasses if the target chart type requires differently processed data
+     *
+     * @param transactions Transactions that are going to be included in the chart
+     * @param start beginning of the desired time frame
+     * @param end end of the the desired time frame
+     * @param transactionType type of transactions to be filtered out
+     * @return data that is processed and can be used in {@link #instantiateChart(List)}
+     */
+    protected List<DataEntry> processData(List<Transaction> transactions, Calendar start, Calendar end, ETransactionType transactionType){
         Map<String, Integer> filteredResult = new HashMap<>();
         Calendar transactionCalender = Calendar.getInstance();
         for (Transaction transaction : transactions){
@@ -75,5 +96,10 @@ public abstract class ChartFactory {
         return formattedData;
     }
 
+    /**
+     * When this is implemented it will return the specific {@link Chart} object of the subclass
+     * @param data prepared data that can be used directly with the {@link Chart} object
+     * @return specific implementation of {@link Chart}
+     */
     protected abstract Chart instantiateChart(List<DataEntry> data);
 }

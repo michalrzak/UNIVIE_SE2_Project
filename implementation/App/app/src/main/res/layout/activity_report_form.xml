@@ -59,7 +59,9 @@
         android:layout_height="55dp"
         android:layout_marginTop="48dp"
         android:ems="10"
+        android:hint="@string/hint_report"
         android:inputType="number"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/report_date_picker" />
