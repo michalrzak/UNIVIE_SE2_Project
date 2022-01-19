@@ -141,7 +141,7 @@ public class AppAccount {
       return false;
     }
     AppAccount that = (AppAccount) o;
-    return id == that.getId() || (name.equals(that.getName()) && type == that.getType());
+    return id == that.getId() || name.equals(that.getName());
   }
 
 }
