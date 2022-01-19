@@ -35,7 +35,7 @@ public class CategoryEdit extends ACategoryActivity implements ICategoryActivity
         .getParcelableExtra(EIntents.CATEGORY.toString());
     assert (passedCategory != null);
 
-    presenter = new CategoryEditPresenter(passedCategory, Repository.getInstance());
+    presenter = CategoryEditPresenter.create(passedCategory, Repository.getInstance());
 
     editTextCategoryName.setText(passedCategory.getName());
     deleteButton.setVisibility(View.VISIBLE);

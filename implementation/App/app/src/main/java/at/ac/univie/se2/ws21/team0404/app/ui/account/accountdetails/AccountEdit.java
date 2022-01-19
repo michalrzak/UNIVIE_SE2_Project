@@ -18,12 +18,13 @@ public class AccountEdit extends AAccountActivity implements IAccountActivityCon
   private AppAccount intentExtraAppAccount;
 
   private LifecycleHandler<AccountEdit> lifecycleHandler;
-  private final AccountEditPresenter presenter = new AccountEditPresenter(Repository.getInstance());
+  private AccountEditPresenter presenter;
 
   @Override
   protected void setup() {
     intentExtraAppAccount = getIntent().getParcelableExtra(EIntents.ACCOUNT.toString());
     assert (intentExtraAppAccount != null);
+    presenter = AccountEditPresenter.create(Repository.getInstance());
     accountNameField.setText(intentExtraAppAccount.getName());
     accountLimitField.setText(String.valueOf(intentExtraAppAccount.getSpendingLimit()));
     accountTypeSpinner

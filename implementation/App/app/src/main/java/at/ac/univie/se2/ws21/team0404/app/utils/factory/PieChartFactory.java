@@ -7,9 +7,9 @@ import com.anychart.core.Chart;
 
 import java.util.List;
 
-public class PieChartFactory extends ChartFactory{
+public class PieChartFactory extends ARealChartFactory {
     @Override
-    protected Chart instantiateChart(List<DataEntry> data) {
+    public Chart instantiateChart(List<DataEntry> data) {
         Pie pie = AnyChart.pie();
         pie.data(data);
         pie.title("Pie Chart");

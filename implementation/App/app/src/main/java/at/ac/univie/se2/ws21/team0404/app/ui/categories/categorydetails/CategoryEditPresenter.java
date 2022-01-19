@@ -1,14 +1,15 @@
 package at.ac.univie.se2.ws21.team0404.app.ui.categories.categorydetails;
 
 import android.util.Log;
+
+import java.util.function.BiFunction;
+
 import at.ac.univie.se2.ws21.team0404.app.database.ERepositoryReturnStatus;
 import at.ac.univie.se2.ws21.team0404.app.database.Repository;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
 import at.ac.univie.se2.ws21.team0404.app.ui.ABasePresenter;
 import at.ac.univie.se2.ws21.team0404.app.utils.IChangingData;
 import at.ac.univie.se2.ws21.team0404.app.utils.Nullable;
-import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistException;
-import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataExistsException;
 
 public class CategoryEditPresenter extends
     ABasePresenter<ICategoryActivityContract.IView> implements
@@ -22,6 +23,23 @@ public class CategoryEditPresenter extends
     this.editing = editing;
     this.repository = repository;
   }
+
+  private static BiFunction<Category, Repository, CategoryEditPresenter> factory = CategoryEditPresenter::new;
+
+  public static CategoryEditPresenter create(Category category, Repository repository) {
+    return factory.apply(category, repository);
+  }
+
+  /**
+   * Allows replacing the factory for dependency injection during unit tests
+   *
+   * @param factory mocked factory
+   */
+  public static void setFactory(
+          BiFunction<Category, Repository, CategoryEditPresenter> factory) {
+    CategoryEditPresenter.factory = factory;
+  }
+
 
   @Override
   public void clickedSave(@Nullable Category category) {

@@ -34,4 +34,5 @@
     <string name="date">Date</string>
     <string name="generate_chart">Generate Chart</string>
     <string name="hint_report">Days to include in the search after the date</string>
+  <string name="no_category"><![CDATA[<no category>]]></string>
 </resources>

@@ -14,15 +14,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import at.ac.univie.se2.ws21.team0404.app.database.Repository;
+import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
 import at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
+import at.ac.univie.se2.ws21.team0404.app.utils.ChangingData;
+import at.ac.univie.se2.ws21.team0404.app.utils.IChangingData;
+import at.ac.univie.se2.ws21.team0404.app.utils.iterator.AccountCollection;
+import at.ac.univie.se2.ws21.team0404.app.utils.iterator.IIterator;
 
 /**
  * An Abstract class to be used to make initialization of {@link Chart} objects easier.
  * To add a new chart type, subclass it and implement all the needed methods
  */
-public abstract class ChartFactory {
+public abstract class ARealChartFactory extends AChartFactory {
 
     private final static String noCategory = "No Category";
 
@@ -101,5 +107,20 @@ public abstract class ChartFactory {
      * @param data prepared data that can be used directly with the {@link Chart} object
      * @return specific implementation of {@link Chart}
      */
-    protected abstract Chart instantiateChart(List<DataEntry> data);
+    public abstract Chart instantiateChart(List<DataEntry> data);
+
+    @Override
+    public IChangingData<Chart> generateChart(Repository repository, Calendar start, Calendar end, ETransactionType transactionType) {
+        List<AppAccount> accounts = repository.getAccountList().getData();
+        AccountCollection collection = new AccountCollection(accounts);
+        IIterator<AppAccount> iterator = collection.createIterator();
+        List<Transaction> transactions = new ArrayList<>();
+
+        while (iterator.hasNext()) {
+            AppAccount account = iterator.next();
+            transactions.addAll(repository.getTransactionList(account).getData());
+        }
+
+        return new ChangingData<>(create(transactions, start, end, transactionType));
+    }
 }

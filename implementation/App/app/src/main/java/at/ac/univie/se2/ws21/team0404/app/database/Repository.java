@@ -1,14 +1,5 @@
 package at.ac.univie.se2.ws21.team0404.app.database;
 
-import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
-import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
-import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
-import at.ac.univie.se2.ws21.team0404.app.utils.ChangingData;
-import at.ac.univie.se2.ws21.team0404.app.utils.ChangingDataOnMainThread;
-import at.ac.univie.se2.ws21.team0404.app.utils.IChangingData;
-import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
-import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.SingletonAlreadyInstantiatedException;
-import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.SingletonNotInstantiatedException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +9,17 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
+
+import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
+import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
+import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
+import at.ac.univie.se2.ws21.team0404.app.utils.ChangingData;
+import at.ac.univie.se2.ws21.team0404.app.utils.ChangingDataOnMainThread;
+import at.ac.univie.se2.ws21.team0404.app.utils.IChangingData;
+import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
+import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistException;
+import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.SingletonAlreadyInstantiatedException;
+import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.SingletonNotInstantiatedException;
 
 /**
  * Singleton, used to access data from the database. Implements the strategy pattern and allows to
@@ -301,6 +303,47 @@ public class Repository {
         transaction -> (long) transaction.getAmount() * (transaction.getType().getSign())).sum();
     owner.setBalance(amount);
     updateAppAccount(owner);
+  }
+
+  /**
+   * Tries to refresh the local account list with fresh data from the database.
+   *
+   * @return a in {@link IChangingData} wrapped {@link ERepositoryReturnStatus}. May be observed to
+   * handle the execution status of the query.
+   */
+  public IChangingData<ERepositoryReturnStatus> reloadAccountsWithStatus() {
+    return databaseAccessor(() -> {
+      accountList.setData(new ArrayList<>(databaseStrategy.getAccounts()));
+      reloadTransactionsBlocking();
+      return null;
+    });
+  }
+
+  private void reloadTransactionsBlocking() {
+    for (AppAccount account: accountList.getData()) {
+      if (!transactionList.containsKey(account.getId())) {
+        transactionList.put(account.getId(), new ChangingDataOnMainThread<>(new ChangingData<>(new ArrayList<>())));
+        transactionList.get(account.getId()).observe(data -> {
+          /* This is a hacky approach to fix an issue. The account, from which the balance is calculated
+           * is only set into the observer when the Transaction list gets created, this means that the
+           * account contains the information which was contained when it was first assigned here.
+           * Thus if calculateBalance is called, we need it would overwrite the changes to the account
+           * (e.g. the name change) with the old changes, saved in this lambda.
+           *
+           * To fix this the account is fetched from the accountList again.
+           */
+          AppAccount acc = accountList.getData().stream()
+                  .filter(account1 -> account1.getId().equals(account.getId())).findFirst().get();
+          calcAccountBalance(acc);
+        });
+      }
+      try {
+        transactionList.get(account.getId())
+                .setData(new ArrayList<>(getDatabase().getTransactions(account)));
+      } catch (DataDoesNotExistException e) {}
+
+    }
+
   }
 
   private void reloadAccounts() {

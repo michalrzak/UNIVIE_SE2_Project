@@ -15,7 +15,8 @@ import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 import at.ac.univie.se2.ws21.team0404.app.utils.IChangingData;
 import java.util.List;
 
-public class CategoryList extends AListActivity<Category, CategoryListViewHolder, CategoryListPresenter> {
+public class CategoryList extends AListActivity<Category, CategoryListViewHolder, CategoryListPresenter>
+implements ICategoryListContract.IView {
 
   @Override
   protected ListAdapter<Category, CategoryListViewHolder> getAdapter() {
@@ -26,7 +27,7 @@ public class CategoryList extends AListActivity<Category, CategoryListViewHolder
 
   @Override
   protected CategoryListPresenter getPresenter() {
-    return new CategoryListPresenter(Repository.getInstance());
+    return CategoryListPresenter.create(Repository.getInstance());
   }
 
   @Override

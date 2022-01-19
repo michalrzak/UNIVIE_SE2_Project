@@ -7,9 +7,9 @@ import com.anychart.core.Chart;
 
 import java.util.List;
 
-public class BarChartFactory extends ChartFactory{
+public class BarChartFactory extends ARealChartFactory {
     @Override
-    protected Chart instantiateChart(List<DataEntry> data) {
+    public Chart instantiateChart(List<DataEntry> data) {
         Cartesian bar = AnyChart.column();
         bar.title("Bar Chart");
         bar.column(data);

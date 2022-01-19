@@ -1,67 +1,55 @@
 package at.ac.univie.se2.ws21.team0404.app.ui.report;
 
-import com.anychart.core.Chart;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import com.anychart.core.Chart;
 
 import at.ac.univie.se2.ws21.team0404.app.database.Repository;
-import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType;
-import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
+import at.ac.univie.se2.ws21.team0404.app.utils.factory.AChartFactory;
+import at.ac.univie.se2.ws21.team0404.app.utils.factory.proxy.ProxyChartFactory;
 import at.ac.univie.se2.ws21.team0404.app.ui.ABasePresenter;
+import at.ac.univie.se2.ws21.team0404.app.utils.IChangingData;
 import at.ac.univie.se2.ws21.team0404.app.utils.factory.BarChartFactory;
-import at.ac.univie.se2.ws21.team0404.app.utils.factory.ChartFactory;
 import at.ac.univie.se2.ws21.team0404.app.utils.factory.EChartType;
 import at.ac.univie.se2.ws21.team0404.app.utils.factory.PieChartFactory;
-import at.ac.univie.se2.ws21.team0404.app.utils.iterator.AccountCollection;
-import at.ac.univie.se2.ws21.team0404.app.utils.iterator.IIterator;
 
 public class ChartActivityPresenter
         extends ABasePresenter<IChartActivityContract.IView>
         implements IChartActivityContract.IPresenter {
 
-    private ChartFactory chartFactory;
+    private AChartFactory AChartFactory;
     private final Repository repository;
+    IChangingData<Chart> chartChangingData;
 
 
     public ChartActivityPresenter(Repository repository){
         this.repository = repository;
+        this.AChartFactory = new ProxyChartFactory(new PieChartFactory());
     }
 
+    // CHANGED
     @Override
     public void generateChart(Calendar start, Calendar end, ETransactionType transactionType) {
-        List<AppAccount> accounts = repository.getAccountList().getData();
-        AccountCollection collection = new AccountCollection(accounts);
-        IIterator<AppAccount> iterator = collection.createIterator();
-        List<Transaction> transactions = new ArrayList<>();
+        chartChangingData = AChartFactory.generateChart(this.repository, start, end, transactionType);
 
-        while (iterator.hasNext()){
-            AppAccount account = iterator.next();
-            transactions.addAll(repository.getTransactionList(account).getData());
-        }
-
-        Chart chart;
-        try{
-            chart = chartFactory.create(transactions, start, end, transactionType);
-        } catch (RuntimeException e) {
-            view.closeActivity();
-            return;
-        }
-        assert (chart != null);
-
-        view.setChart(chart);
+        chartChangingData.observe((newChart) -> {
+            Log.d("Chart observer", "Changing chart!");
+            view.setChart(newChart);
+        });
     }
 
     @Override
     public void setFactory(EChartType chartType) {
         switch (chartType)  {
             case PIE:
-                chartFactory = new PieChartFactory();
+                AChartFactory = new ProxyChartFactory(new PieChartFactory());
                 break;
             case BAR:
-                chartFactory = new BarChartFactory();
+                AChartFactory = new ProxyChartFactory(new BarChartFactory());
                 break;
         }
     }
