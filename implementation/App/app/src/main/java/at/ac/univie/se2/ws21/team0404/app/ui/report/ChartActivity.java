@@ -42,16 +42,12 @@ public class ChartActivity extends AppCompatActivity implements IChartActivityCo
         EChartType chartType = (EChartType) intent.getSerializableExtra(EIntents.CHART_TYPE.toString());
         assert(chartType != null);
 
-        ETimeSpan timeSpan = (ETimeSpan) intent.getSerializableExtra(EIntents.TIME_SPAN.toString());
-        assert(timeSpan != null);
-
         ETransactionType transactionType = (ETransactionType) intent.getSerializableExtra(EIntents.TRANSACTION_TYPE.toString());
         assert(transactionType != null);
 
-        presenter.setFactory(chartType);
+        long timeSpan = intent.getLongExtra(EIntents.TIME_SPAN.toString(), 0);
 
-        // temporary to see that stuff are working
-        setTitle(chartType + " Chart, " + timeSpan + ", " + timeSpan.getValue() +  ", " + transactionType.toString());
+        presenter.setFactory(chartType);
 
         presenter.generateChart(timeSpan, transactionType);
     }
@@ -60,7 +56,7 @@ public class ChartActivity extends AppCompatActivity implements IChartActivityCo
     public void closeActivity() {
         Toast.makeText(getApplicationContext(),
                 "No Transaction matching the parameters were found. Try again!",
-                Toast.LENGTH_LONG).show();
+                Toast.LENGTH_SHORT).show();
         finish();
     }
 

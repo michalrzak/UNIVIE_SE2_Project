@@ -1,5 +1,7 @@
 package at.ac.univie.se2.ws21.team0404.app.utils.factory;
 
+import android.util.Log;
+
 import com.anychart.chart.common.dataentry.DataEntry;
 import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.anychart.core.Chart;
@@ -20,17 +22,23 @@ public abstract class ChartFactory {
 
     private final static String noCategory = "No Category";
 
-    public Chart create(List<Transaction> transactions, ETimeSpan timeSpan, ETransactionType transactionType){
+    public Chart create(List<Transaction> transactions, long timeSpan, ETransactionType transactionType){
 
         List<DataEntry> data = processData(transactions, timeSpan, transactionType);
 
         return instantiateChart(data);
     }
 
-    private List<DataEntry> processData(List<Transaction> transactions, ETimeSpan timeSpan, ETransactionType transactionType){
+    private List<DataEntry> processData(List<Transaction> transactions, long timeSpan, ETransactionType transactionType){
         Calendar targetCalender = Calendar.getInstance();
         targetCalender.setTime(new Date());
-        targetCalender.add(Calendar.DAY_OF_MONTH, -timeSpan.getValue());
+        if (timeSpan == 0)
+            timeSpan--;
+        targetCalender.add(Calendar.MINUTE, (int) -(timeSpan));
+        targetCalender.set(Calendar.SECOND, 0);
+        targetCalender.add(Calendar.SECOND, -1);
+
+        Log.d("report", "target: " + targetCalender.getTime().toString());
 
         Map<String, Integer> filteredResult = new HashMap<>();
         Calendar transactionCalender = Calendar.getInstance();
@@ -42,6 +50,7 @@ public abstract class ChartFactory {
                 continue;
 
             transactionCalender.setTime(transaction.getDate());
+            Log.d("report", transactionCalender.getTime().toString());
             if (!transactionCalender.after(targetCalender))
                 continue;
 

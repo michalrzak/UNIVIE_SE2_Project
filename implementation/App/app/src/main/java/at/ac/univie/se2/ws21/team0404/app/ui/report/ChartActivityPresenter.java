@@ -13,7 +13,6 @@ import at.ac.univie.se2.ws21.team0404.app.ui.ABasePresenter;
 import at.ac.univie.se2.ws21.team0404.app.utils.factory.BarChartFactory;
 import at.ac.univie.se2.ws21.team0404.app.utils.factory.ChartFactory;
 import at.ac.univie.se2.ws21.team0404.app.utils.factory.EChartType;
-import at.ac.univie.se2.ws21.team0404.app.utils.factory.ETimeSpan;
 import at.ac.univie.se2.ws21.team0404.app.utils.factory.PieChartFactory;
 import at.ac.univie.se2.ws21.team0404.app.utils.iterator.AccountCollection;
 import at.ac.univie.se2.ws21.team0404.app.utils.iterator.IIterator;
@@ -31,7 +30,7 @@ public class ChartActivityPresenter
     }
 
     @Override
-    public void generateChart(ETimeSpan timeSpan, ETransactionType transactionType) {
+    public void generateChart(long timeSpan, ETransactionType transactionType) {
         List<AppAccount> accounts = repository.getAccountList().getData();
         AccountCollection collection = new AccountCollection(accounts);
         IIterator<AppAccount> iterator = collection.createIterator();

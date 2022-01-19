@@ -14,7 +14,7 @@ public interface IChartActivityContract {
     }
 
     interface IPresenter extends IBaseContract.IPresenter<IView>{
-        void generateChart(ETimeSpan timeSpan, ETransactionType transactionType);
+        void generateChart(long timeSpan, ETransactionType transactionType);
         void setFactory(EChartType chartType);
     }
 }
