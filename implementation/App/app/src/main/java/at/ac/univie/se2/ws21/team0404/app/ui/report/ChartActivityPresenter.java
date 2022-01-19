@@ -3,6 +3,7 @@ package at.ac.univie.se2.ws21.team0404.app.ui.report;
 import com.anychart.core.Chart;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import at.ac.univie.se2.ws21.team0404.app.database.Repository;
@@ -30,7 +31,7 @@ public class ChartActivityPresenter
     }
 
     @Override
-    public void generateChart(long timeSpan, ETransactionType transactionType) {
+    public void generateChart(Calendar start, Calendar end, ETransactionType transactionType) {
         List<AppAccount> accounts = repository.getAccountList().getData();
         AccountCollection collection = new AccountCollection(accounts);
         IIterator<AppAccount> iterator = collection.createIterator();
@@ -43,7 +44,7 @@ public class ChartActivityPresenter
 
         Chart chart;
         try{
-            chart = chartFactory.create(transactions, timeSpan, transactionType);
+            chart = chartFactory.create(transactions, start, end, transactionType);
         } catch (RuntimeException e) {
             view.closeActivity();
             return;

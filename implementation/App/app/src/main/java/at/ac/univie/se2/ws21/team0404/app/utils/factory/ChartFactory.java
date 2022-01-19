@@ -22,24 +22,14 @@ public abstract class ChartFactory {
 
     private final static String noCategory = "No Category";
 
-    public Chart create(List<Transaction> transactions, long timeSpan, ETransactionType transactionType){
+    public Chart create(List<Transaction> transactions, Calendar start, Calendar end, ETransactionType transactionType){
 
-        List<DataEntry> data = processData(transactions, timeSpan, transactionType);
+        List<DataEntry> data = processData(transactions, start, end, transactionType);
 
         return instantiateChart(data);
     }
 
-    private List<DataEntry> processData(List<Transaction> transactions, long timeSpan, ETransactionType transactionType){
-        Calendar targetCalender = Calendar.getInstance();
-        targetCalender.setTime(new Date());
-        if (timeSpan == 0)
-            timeSpan--;
-        targetCalender.add(Calendar.MINUTE, (int) -(timeSpan));
-        targetCalender.set(Calendar.SECOND, 0);
-        targetCalender.add(Calendar.SECOND, -1);
-
-        Log.d("report", "target: " + targetCalender.getTime().toString());
-
+    private List<DataEntry> processData(List<Transaction> transactions, Calendar start, Calendar end, ETransactionType transactionType){
         Map<String, Integer> filteredResult = new HashMap<>();
         Calendar transactionCalender = Calendar.getInstance();
         for (Transaction transaction : transactions){
@@ -51,7 +41,8 @@ public abstract class ChartFactory {
 
             transactionCalender.setTime(transaction.getDate());
             Log.d("report", transactionCalender.getTime().toString());
-            if (!transactionCalender.after(targetCalender))
+
+            if (!(transactionCalender.after(start) && transactionCalender.before(end)))
                 continue;
 
             if (optionalCategory.isPresent()){
@@ -74,7 +65,7 @@ public abstract class ChartFactory {
         }
 
         if (filteredResult.isEmpty())
-            throw new RuntimeException("No Matching Data");
+            throw new RuntimeException("ChartFactory: No Matching Data");
 
         List<DataEntry> formattedData = new ArrayList<>();
         for (Map.Entry<String, Integer> entry : filteredResult.entrySet()) {

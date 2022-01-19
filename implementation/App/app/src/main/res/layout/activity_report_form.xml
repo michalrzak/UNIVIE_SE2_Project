@@ -10,7 +10,7 @@
         android:id="@+id/report_date_picker"
         android:layout_width="310dp"
         android:layout_height="55dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="48dp"
         android:clickable="false"
         android:ems="10"
         android:focusable="false"
@@ -26,18 +26,18 @@
         android:id="@+id/submit_report_button"
         android:layout_width="180dp"
         android:layout_height="70dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="56dp"
         android:text="@string/generate_chart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/report_date_picker" />
+        app:layout_constraintTop_toBottomOf="@+id/report_days_field" />
 
     <Spinner
         android:id="@+id/chart_type_spinner"
         android:layout_width="310dp"
         android:layout_height="55dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,10 +47,21 @@
         android:id="@+id/report_transaction_type_spinner"
         android:layout_width="310dp"
         android:layout_height="55dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chart_type_spinner" />
+
+    <EditText
+        android:id="@+id/report_days_field"
+        android:layout_width="310dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="48dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/report_date_picker" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

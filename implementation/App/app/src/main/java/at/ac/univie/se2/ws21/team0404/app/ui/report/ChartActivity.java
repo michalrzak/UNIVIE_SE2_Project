@@ -2,6 +2,7 @@ package at.ac.univie.se2.ws21.team0404.app.ui.report;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -12,13 +13,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.anychart.AnyChartView;
 import com.anychart.core.Chart;
 
+import java.util.Calendar;
+
 import at.ac.univie.se2.ws21.team0404.app.R;
 import at.ac.univie.se2.ws21.team0404.app.database.Repository;
 import at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType;
 import at.ac.univie.se2.ws21.team0404.app.utils.EIntents;
 import at.ac.univie.se2.ws21.team0404.app.utils.android.LifecycleHandler;
 import at.ac.univie.se2.ws21.team0404.app.utils.factory.EChartType;
-import at.ac.univie.se2.ws21.team0404.app.utils.factory.ETimeSpan;
 
 public class ChartActivity extends AppCompatActivity implements IChartActivityContract.IView{
 
@@ -45,11 +47,12 @@ public class ChartActivity extends AppCompatActivity implements IChartActivityCo
         ETransactionType transactionType = (ETransactionType) intent.getSerializableExtra(EIntents.TRANSACTION_TYPE.toString());
         assert(transactionType != null);
 
-        long timeSpan = intent.getLongExtra(EIntents.TIME_SPAN.toString(), 0);
+        Calendar start = (Calendar) intent.getSerializableExtra(EIntents.START_DATE.toString());
+        Calendar end = (Calendar) intent.getSerializableExtra(EIntents.END_DATE.toString());
 
         presenter.setFactory(chartType);
 
-        presenter.generateChart(timeSpan, transactionType);
+        presenter.generateChart(start, end, transactionType);
     }
 
     @Override
