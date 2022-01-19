@@ -2,6 +2,15 @@ package at.ac.univie.se2.ws21.team0404.app.database;
 
 import android.database.sqlite.SQLiteException;
 import android.util.Log;
+
+import java.util.Collection;
+import java.util.Date;
+import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+
 import at.ac.univie.se2.ws21.team0404.app.database.room.AccountDao;
 import at.ac.univie.se2.ws21.team0404.app.database.room.AppRoomDatabase;
 import at.ac.univie.se2.ws21.team0404.app.database.room.CategoryDao;
@@ -17,13 +26,6 @@ import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
 import at.ac.univie.se2.ws21.team0404.app.utils.NonNull;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataDoesNotExistException;
 import at.ac.univie.se2.ws21.team0404.app.utils.exceptions.DataExistsException;
-import java.util.Collection;
-import java.util.UUID;
-import java.util.Date;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 
 /**
@@ -206,7 +208,7 @@ public class RoomDatabase implements IDatabase {
       RoomTransaction roomTransaction = new RoomTransaction(oldId,
           updatedTransaction.getCategory().map(Category::getId).orElse(null),
           updatedTransaction.getType(), updatedTransaction.getAmount(),
-          updatedTransaction.getName(), owner.getId(), new Date());
+          updatedTransaction.getName(), owner.getId(), updatedTransaction.getDate());
       transactionDao.updateTransaction(roomTransaction);
     } catch (SQLiteException e) {
       Log.w(LOG_TAG,
