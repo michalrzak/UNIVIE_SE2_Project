@@ -12,14 +12,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import at.ac.univie.se2.ws21.team0404.app.database.Repository;
+import at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount;
 import at.ac.univie.se2.ws21.team0404.app.model.categories.Category;
 import at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType;
 import at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction;
+import at.ac.univie.se2.ws21.team0404.app.utils.ChangingData;
+import at.ac.univie.se2.ws21.team0404.app.utils.IChangingData;
+import at.ac.univie.se2.ws21.team0404.app.utils.iterator.AccountCollection;
+import at.ac.univie.se2.ws21.team0404.app.utils.iterator.IIterator;
 
-public abstract class ChartFactory {
-
-    private final static String noCategory = "No Category";
-
+public abstract class ARealChartFactory extends AChartFactory {
     public Chart create(List<Transaction> transactions, ETimeSpan timeSpan, ETransactionType transactionType){
 
         List<DataEntry> data = processData(transactions, timeSpan, transactionType);
@@ -75,5 +78,20 @@ public abstract class ChartFactory {
         return formattedData;
     }
 
-    protected abstract Chart instantiateChart(List<DataEntry> data);
+    public abstract Chart instantiateChart(List<DataEntry> data);
+
+    @Override
+    public IChangingData<Chart> generateChart(Repository repository, ETimeSpan timeSpan, ETransactionType transactionType) {
+        List<AppAccount> accounts = repository.getAccountList().getData();
+        AccountCollection collection = new AccountCollection(accounts);
+        IIterator<AppAccount> iterator = collection.createIterator();
+        List<Transaction> transactions = new ArrayList<>();
+
+        while (iterator.hasNext()) {
+            AppAccount account = iterator.next();
+            transactions.addAll(repository.getTransactionList(account).getData());
+        }
+
+        return new ChangingData<>(create(transactions, timeSpan, transactionType));
+    }
 }
