@@ -142,8 +142,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <pre>public class <span class="typeNameLabel">ParcelableTransaction</span>
 extends <a href="../transaction/Transaction.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.transaction">Transaction</a>
 implements android.os.Parcelable</pre>
-<div class="block">A subclass of transaction, which implements the parcelable interface and allows to send these
- objects through intents.</div>
+<div class="block">Used to be able to send <a href="../transaction/Transaction.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.transaction"><code>Transaction</code></a> through Intents as Parcels.</div>
 </li>
 </ul>
 </div>
@@ -218,10 +217,11 @@ implements android.os.Parcelable</pre>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>&nbsp;</code></td>
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(at.ac.univie.se2.ws21.team0404.app.model.categories.Category,at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType,int,java.lang.String)">ParcelableTransaction</a></span>&#8203;(<a href="../categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>&nbsp;category,
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(at.ac.univie.se2.ws21.team0404.app.model.categories.Category,at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType,int,java.lang.String,java.util.Date)">ParcelableTransaction</a></span>&#8203;(<a href="../categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>&nbsp;category,
                      <a href="../common/ETransactionType.html" title="enum in at.ac.univie.se2.ws21.team0404.app.model.common">ETransactionType</a>&nbsp;type,
                      int&nbsp;amount,
-                     java.lang.String&nbsp;name)</code></th>
+                     java.lang.String&nbsp;name,
+                     java.util.Date&nbsp;date)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor">
@@ -264,14 +264,14 @@ implements android.os.Parcelable</pre>
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;at.ac.univie.se2.ws21.team0404.app.model.transaction.<a href="../transaction/Transaction.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.transaction">Transaction</a></h3>
-<code><a href="../transaction/Transaction.html#equals(java.lang.Object)">equals</a>, <a href="../transaction/Transaction.html#getAmount()">getAmount</a>, <a href="../transaction/Transaction.html#getCategory()">getCategory</a>, <a href="../transaction/Transaction.html#getId()">getId</a>, <a href="../transaction/Transaction.html#getName()">getName</a>, <a href="../transaction/Transaction.html#getRawCategory()">getRawCategory</a>, <a href="../transaction/Transaction.html#getType()">getType</a>, <a href="../transaction/Transaction.html#hashCode()">hashCode</a>, <a href="../transaction/Transaction.html#setAmount(int)">setAmount</a>, <a href="../transaction/Transaction.html#setCategory(at.ac.univie.se2.ws21.team0404.app.model.categories.Category)">setCategory</a>, <a href="../transaction/Transaction.html#setName(java.lang.String)">setName</a>, <a href="../transaction/Transaction.html#setType(at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType)">setType</a></code></li>
+<code><a href="../transaction/Transaction.html#equals(java.lang.Object)">equals</a>, <a href="../transaction/Transaction.html#getAmount()">getAmount</a>, <a href="../transaction/Transaction.html#getCategory()">getCategory</a>, <a href="../transaction/Transaction.html#getDate()">getDate</a>, <a href="../transaction/Transaction.html#getId()">getId</a>, <a href="../transaction/Transaction.html#getName()">getName</a>, <a href="../transaction/Transaction.html#getRawCategory()">getRawCategory</a>, <a href="../transaction/Transaction.html#getType()">getType</a>, <a href="../transaction/Transaction.html#hashCode()">hashCode</a>, <a href="../transaction/Transaction.html#setAmount(int)">setAmount</a>, <a href="../transaction/Transaction.html#setCategory(at.ac.univie.se2.ws21.team0404.app.model.categories.Category)">setCategory</a>, <a href="../transaction/Transaction.html#setDate(java.util.Date)">setDate</a>, <a href="../transaction/Transaction.html#setName(java.lang.String)">setName</a>, <a href="../transaction/Transaction.html#setType(at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType)">setType</a>, <a href="../transaction/Transaction.html#toString()">toString</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, finalize, getClass, notify, notifyAll, toString, wait, wait, wait</code></li>
+<code>clone, finalize, getClass, notify, notifyAll, wait, wait, wait</code></li>
 </ul>
 </li>
 </ul>
@@ -308,7 +308,7 @@ implements android.os.Parcelable</pre>
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;(at.ac.univie.se2.ws21.team0404.app.model.categories.Category,at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType,int,java.lang.String)">
+<a id="&lt;init&gt;(at.ac.univie.se2.ws21.team0404.app.model.categories.Category,at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType,int,java.lang.String,java.util.Date)">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -319,7 +319,8 @@ implements android.os.Parcelable</pre>
                              <a href="../../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
                              <a href="../common/ETransactionType.html" title="enum in at.ac.univie.se2.ws21.team0404.app.model.common">ETransactionType</a>&nbsp;type,
                              int&nbsp;amount,
-                             java.lang.String&nbsp;name)</pre>
+                             java.lang.String&nbsp;name,
+                             java.util.Date&nbsp;date)</pre>
 </li>
 </ul>
 <a id="&lt;init&gt;(at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction)">

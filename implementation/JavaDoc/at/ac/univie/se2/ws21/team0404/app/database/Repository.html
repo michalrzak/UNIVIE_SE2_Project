@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":9,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":9,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10};
+var data = {"i0":9,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":9,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -132,6 +132,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">Repository</span>
 extends java.lang.Object</pre>
+<div class="block">Singleton, used to access data from the database. Implements the strategy pattern and allows to
+ set different <a href="IDatabase.html" title="interface in at.ac.univie.se2.ws21.team0404.app.database"><code>IDatabase</code></a> strategies.
+ <p>
+ Executes all access to the database on a separate thread.</div>
 </li>
 </ul>
 </div>
@@ -155,77 +159,111 @@ extends java.lang.Object</pre>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#create(at.ac.univie.se2.ws21.team0404.app.database.IDatabase)">create</a></span>&#8203;(<a href="IDatabase.html" title="interface in at.ac.univie.se2.ws21.team0404.app.database">IDatabase</a>&nbsp;databaseStrategy)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Creates the singleton if it does not exist, or throws an exception</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>void</code></td>
+<td class="colFirst"><code><a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils">IChangingData</a>&lt;<a href="ERepositoryReturnStatus.html" title="enum in at.ac.univie.se2.ws21.team0404.app.database">ERepositoryReturnStatus</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createAppAccount(at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount)">createAppAccount</a></span>&#8203;(<a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;appAccount)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Tries to create the passed account on the database.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>void</code></td>
+<td class="colFirst"><code><a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils">IChangingData</a>&lt;<a href="ERepositoryReturnStatus.html" title="enum in at.ac.univie.se2.ws21.team0404.app.database">ERepositoryReturnStatus</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createCategory(at.ac.univie.se2.ws21.team0404.app.model.categories.Category)">createCategory</a></span>&#8203;(<a href="../model/categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>&nbsp;category)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Tries to create the passed category on the database.</div>
+</td>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><code>void</code></td>
+<td class="colFirst"><code><a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils">IChangingData</a>&lt;<a href="ERepositoryReturnStatus.html" title="enum in at.ac.univie.se2.ws21.team0404.app.database">ERepositoryReturnStatus</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createTransaction(at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount,at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction)">createTransaction</a></span>&#8203;(<a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;owner,
                  <a href="../model/transaction/Transaction.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.transaction">Transaction</a>&nbsp;transaction)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Tries to create a transaction on the database.</div>
+</td>
 </tr>
 <tr id="i4" class="altColor">
-<td class="colFirst"><code>void</code></td>
+<td class="colFirst"><code><a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils">IChangingData</a>&lt;<a href="ERepositoryReturnStatus.html" title="enum in at.ac.univie.se2.ws21.team0404.app.database">ERepositoryReturnStatus</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deleteAppAccount(at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount)">deleteAppAccount</a></span>&#8203;(<a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;appAccount)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Tries to delete the passed account from the database.</div>
+</td>
 </tr>
 <tr id="i5" class="rowColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deleteTransaction(at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount,int)">deleteTransaction</a></span>&#8203;(<a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;owner,
-                 int&nbsp;idToBeDeleted)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colFirst"><code><a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils">IChangingData</a>&lt;<a href="ERepositoryReturnStatus.html" title="enum in at.ac.univie.se2.ws21.team0404.app.database">ERepositoryReturnStatus</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deleteTransaction(at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount,java.util.UUID)">deleteTransaction</a></span>&#8203;(<a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;owner,
+                 java.util.UUID&nbsp;idToBeDeleted)</code></th>
+<td class="colLast">
+<div class="block">Tries to delete the passed transaction from the database.</div>
+</td>
 </tr>
 <tr id="i6" class="altColor">
 <td class="colFirst"><code><a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils">IChangingData</a>&lt;java.util.List&lt;<a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&gt;&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getAccountList()">getAccountList</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Retrieve the list of saved accounts in the database.</div>
+</td>
 </tr>
 <tr id="i7" class="rowColor">
 <td class="colFirst"><code><a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils">IChangingData</a>&lt;java.util.List&lt;<a href="../model/categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>&gt;&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCategoryList()">getCategoryList</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Retrieve the list of saved categories in the database.</div>
+</td>
 </tr>
 <tr id="i8" class="altColor">
 <td class="colFirst"><code>static <a href="Repository.html" title="class in at.ac.univie.se2.ws21.team0404.app.database">Repository</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getInstance()">getInstance</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Gets the singleton instance or throws an exception if no instance exists</div>
+</td>
 </tr>
 <tr id="i9" class="rowColor">
 <td class="colFirst"><code><a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils">IChangingData</a>&lt;java.util.List&lt;<a href="../model/transaction/Transaction.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.transaction">Transaction</a>&gt;&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTransactionList(at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount)">getTransactionList</a></span>&#8203;(<a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;account)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Retrieve the list of saved transactions in the database.</div>
+</td>
 </tr>
 <tr id="i10" class="altColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setDatabaseStrategy(at.ac.univie.se2.ws21.team0404.app.database.IDatabase)">setDatabaseStrategy</a></span>&#8203;(<a href="IDatabase.html" title="interface in at.ac.univie.se2.ws21.team0404.app.database">IDatabase</a>&nbsp;databaseStrategy)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colFirst"><code><a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils">IChangingData</a>&lt;<a href="ERepositoryReturnStatus.html" title="enum in at.ac.univie.se2.ws21.team0404.app.database">ERepositoryReturnStatus</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#reloadAccountsWithStatus()">reloadAccountsWithStatus</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Tries to refresh the local account list with fresh data from the database.</div>
+</td>
 </tr>
 <tr id="i11" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updateAppAccount(at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount)">updateAppAccount</a></span>&#8203;(<a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;newAccount)</code></th>
-<td class="colLast">&nbsp;</td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setDatabaseStrategy(at.ac.univie.se2.ws21.team0404.app.database.IDatabase)">setDatabaseStrategy</a></span>&#8203;(<a href="IDatabase.html" title="interface in at.ac.univie.se2.ws21.team0404.app.database">IDatabase</a>&nbsp;databaseStrategy)</code></th>
+<td class="colLast">
+<div class="block">Sets the strategy to be used for database requests</div>
+</td>
 </tr>
 <tr id="i12" class="altColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updateCategory(java.lang.String,at.ac.univie.se2.ws21.team0404.app.model.categories.Category)">updateCategory</a></span>&#8203;(java.lang.String&nbsp;categoryName,
-              <a href="../model/categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>&nbsp;category)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colFirst"><code><a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils">IChangingData</a>&lt;<a href="ERepositoryReturnStatus.html" title="enum in at.ac.univie.se2.ws21.team0404.app.database">ERepositoryReturnStatus</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updateAppAccount(at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount)">updateAppAccount</a></span>&#8203;(<a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;newAccount)</code></th>
+<td class="colLast">
+<div class="block">Tries to update the passed account on the database.</div>
+</td>
 </tr>
 <tr id="i13" class="rowColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updateTransaction(at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount,int,at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction)">updateTransaction</a></span>&#8203;(<a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;owner,
-                 int&nbsp;oldId,
+<td class="colFirst"><code><a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils">IChangingData</a>&lt;<a href="ERepositoryReturnStatus.html" title="enum in at.ac.univie.se2.ws21.team0404.app.database">ERepositoryReturnStatus</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updateCategory(at.ac.univie.se2.ws21.team0404.app.model.categories.Category)">updateCategory</a></span>&#8203;(<a href="../model/categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>&nbsp;category)</code></th>
+<td class="colLast">
+<div class="block">Tries to update the passed category on the database.</div>
+</td>
+</tr>
+<tr id="i14" class="altColor">
+<td class="colFirst"><code><a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils">IChangingData</a>&lt;<a href="ERepositoryReturnStatus.html" title="enum in at.ac.univie.se2.ws21.team0404.app.database">ERepositoryReturnStatus</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updateTransaction(at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount,java.util.UUID,at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction)">updateTransaction</a></span>&#8203;(<a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;owner,
+                 java.util.UUID&nbsp;oldId,
                  <a href="../model/transaction/Transaction.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.transaction">Transaction</a>&nbsp;updatedTransaction)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Tries to update the transaction with the passed id on the database.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -258,6 +296,13 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>create</h4>
 <pre class="methodSignature">public static&nbsp;void&nbsp;create&#8203;(<a href="IDatabase.html" title="interface in at.ac.univie.se2.ws21.team0404.app.database">IDatabase</a>&nbsp;databaseStrategy)</pre>
+<div class="block">Creates the singleton if it does not exist, or throws an exception</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>databaseStrategy</code> - the database strategy to be used by the repository</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../utils/exceptions/SingletonAlreadyInstantiatedException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">SingletonAlreadyInstantiatedException</a></code> - if the singleton is already instantiated</dd>
+</dl>
 </li>
 </ul>
 <a id="getInstance()">
@@ -267,6 +312,13 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getInstance</h4>
 <pre class="methodSignature">public static&nbsp;<a href="Repository.html" title="class in at.ac.univie.se2.ws21.team0404.app.database">Repository</a>&nbsp;getInstance()</pre>
+<div class="block">Gets the singleton instance or throws an exception if no instance exists</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the singleton of <a href="Repository.html" title="class in at.ac.univie.se2.ws21.team0404.app.database"><code>Repository</code></a></dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../utils/exceptions/SingletonNotInstantiatedException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">SingletonNotInstantiatedException</a></code> - if the singleton was not instantiated</dd>
+</dl>
 </li>
 </ul>
 <a id="setDatabaseStrategy(at.ac.univie.se2.ws21.team0404.app.database.IDatabase)">
@@ -276,6 +328,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>setDatabaseStrategy</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;setDatabaseStrategy&#8203;(<a href="IDatabase.html" title="interface in at.ac.univie.se2.ws21.team0404.app.database">IDatabase</a>&nbsp;databaseStrategy)</pre>
+<div class="block">Sets the strategy to be used for database requests</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>databaseStrategy</code> - the database strategy to be used by the repository</dd>
+</dl>
 </li>
 </ul>
 <a id="getAccountList()">
@@ -285,6 +342,12 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getAccountList</h4>
 <pre class="methodSignature">public&nbsp;<a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils">IChangingData</a>&lt;java.util.List&lt;<a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&gt;&gt;&nbsp;getAccountList()</pre>
+<div class="block">Retrieve the list of saved accounts in the database. The list is wrapped in a <a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils"><code>IChangingData</code></a> observer, to allow to more easily modify this list from other parts of the code
+ and to more easily let all classes have up to date lists of accounts</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the list of accounts saved in the database wrapped in <a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils"><code>IChangingData</code></a></dd>
+</dl>
 </li>
 </ul>
 <a id="getCategoryList()">
@@ -294,6 +357,12 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getCategoryList</h4>
 <pre class="methodSignature">public&nbsp;<a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils">IChangingData</a>&lt;java.util.List&lt;<a href="../model/categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>&gt;&gt;&nbsp;getCategoryList()</pre>
+<div class="block">Retrieve the list of saved categories in the database. The list is wrapped in a <a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils"><code>IChangingData</code></a> observer, to allow to more easily modify this list from other parts of the code
+ and to more easily let all classes have up to date lists of accounts</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the list of categories saved in the database wrapped in <a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils"><code>IChangingData</code></a></dd>
+</dl>
 </li>
 </ul>
 <a id="getTransactionList(at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount)">
@@ -302,12 +371,16 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getTransactionList</h4>
-<pre class="methodSignature">public&nbsp;<a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils">IChangingData</a>&lt;java.util.List&lt;<a href="../model/transaction/Transaction.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.transaction">Transaction</a>&gt;&gt;&nbsp;getTransactionList&#8203;(<a href="../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
-                                                                     <a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;account)
-                                                              throws <a href="../utils/exceptions/DataDoesNotExistException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataDoesNotExistException</a></pre>
+<pre class="methodSignature"><a href="../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
+public&nbsp;<a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils">IChangingData</a>&lt;java.util.List&lt;<a href="../model/transaction/Transaction.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.transaction">Transaction</a>&gt;&gt;&nbsp;getTransactionList&#8203;(<a href="../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
+                                                                     <a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;account)</pre>
+<div class="block">Retrieve the list of saved transactions in the database. The list is wrapped in a <a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils"><code>IChangingData</code></a> observer, to allow to more easily modify this list from other parts of the code
+ and to more easily let all classes have up to date lists of accounts</div>
 <dl>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../utils/exceptions/DataDoesNotExistException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataDoesNotExistException</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>account</code> - the account whose transactions should be retrieved</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the list of transactions saved in the database wrapped in <a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils"><code>IChangingData</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -317,12 +390,15 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>createAppAccount</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;createAppAccount&#8203;(<a href="../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
-                             <a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;appAccount)
-                      throws <a href="../utils/exceptions/DataExistsException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataExistsException</a></pre>
+<pre class="methodSignature">public&nbsp;<a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils">IChangingData</a>&lt;<a href="ERepositoryReturnStatus.html" title="enum in at.ac.univie.se2.ws21.team0404.app.database">ERepositoryReturnStatus</a>&gt;&nbsp;createAppAccount&#8203;(<a href="../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
+                                                               <a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;appAccount)</pre>
+<div class="block">Tries to create the passed account on the database.</div>
 <dl>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../utils/exceptions/DataExistsException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataExistsException</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>appAccount</code> - the account to be tried to be inserted on the database</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a in <a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils"><code>IChangingData</code></a> wrapped <a href="ERepositoryReturnStatus.html" title="enum in at.ac.univie.se2.ws21.team0404.app.database"><code>ERepositoryReturnStatus</code></a>. May be observed to
+ handle the execution status of the query.</dd>
 </dl>
 </li>
 </ul>
@@ -332,12 +408,15 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>updateAppAccount</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;updateAppAccount&#8203;(<a href="../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
-                             <a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;newAccount)
-                      throws <a href="../utils/exceptions/DataDoesNotExistException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataDoesNotExistException</a></pre>
+<pre class="methodSignature">public&nbsp;<a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils">IChangingData</a>&lt;<a href="ERepositoryReturnStatus.html" title="enum in at.ac.univie.se2.ws21.team0404.app.database">ERepositoryReturnStatus</a>&gt;&nbsp;updateAppAccount&#8203;(<a href="../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
+                                                               <a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;newAccount)</pre>
+<div class="block">Tries to update the passed account on the database.</div>
 <dl>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../utils/exceptions/DataDoesNotExistException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataDoesNotExistException</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>newAccount</code> - the account to be tried to be inserted on the database</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a in <a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils"><code>IChangingData</code></a> wrapped <a href="ERepositoryReturnStatus.html" title="enum in at.ac.univie.se2.ws21.team0404.app.database"><code>ERepositoryReturnStatus</code></a>. May be observed to
+ handle the execution status of the query.</dd>
 </dl>
 </li>
 </ul>
@@ -347,28 +426,35 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>deleteAppAccount</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;deleteAppAccount&#8203;(<a href="../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
-                             <a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;appAccount)
-                      throws <a href="../utils/exceptions/DataDoesNotExistException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataDoesNotExistException</a></pre>
+<pre class="methodSignature">public&nbsp;<a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils">IChangingData</a>&lt;<a href="ERepositoryReturnStatus.html" title="enum in at.ac.univie.se2.ws21.team0404.app.database">ERepositoryReturnStatus</a>&gt;&nbsp;deleteAppAccount&#8203;(<a href="../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
+                                                               <a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;appAccount)</pre>
+<div class="block">Tries to delete the passed account from the database.</div>
 <dl>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../utils/exceptions/DataDoesNotExistException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataDoesNotExistException</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>appAccount</code> - the account to be tried to be deleted from the database</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a in <a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils"><code>IChangingData</code></a> wrapped <a href="ERepositoryReturnStatus.html" title="enum in at.ac.univie.se2.ws21.team0404.app.database"><code>ERepositoryReturnStatus</code></a>. May be observed to
+ handle the execution status of the query.</dd>
 </dl>
 </li>
 </ul>
-<a id="deleteTransaction(at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount,int)">
+<a id="deleteTransaction(at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount,java.util.UUID)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>deleteTransaction</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;deleteTransaction&#8203;(<a href="../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
-                              <a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;owner,
-                              int&nbsp;idToBeDeleted)
-                       throws <a href="../utils/exceptions/DataDoesNotExistException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataDoesNotExistException</a></pre>
+<pre class="methodSignature">public&nbsp;<a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils">IChangingData</a>&lt;<a href="ERepositoryReturnStatus.html" title="enum in at.ac.univie.se2.ws21.team0404.app.database">ERepositoryReturnStatus</a>&gt;&nbsp;deleteTransaction&#8203;(<a href="../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
+                                                                <a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;owner,
+                                                                java.util.UUID&nbsp;idToBeDeleted)</pre>
+<div class="block">Tries to delete the passed transaction from the database.</div>
 <dl>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../utils/exceptions/DataDoesNotExistException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataDoesNotExistException</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>owner</code> - the owner of the to be deleted transaction</dd>
+<dd><code>idToBeDeleted</code> - the id of the account to be deleted</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a in <a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils"><code>IChangingData</code></a> wrapped <a href="ERepositoryReturnStatus.html" title="enum in at.ac.univie.se2.ws21.team0404.app.database"><code>ERepositoryReturnStatus</code></a>. May be observed to
+ handle the execution status of the query.</dd>
 </dl>
 </li>
 </ul>
@@ -378,66 +464,91 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>createCategory</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;createCategory&#8203;(<a href="../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
-                           <a href="../model/categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>&nbsp;category)
-                    throws <a href="../utils/exceptions/DataExistsException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataExistsException</a></pre>
+<pre class="methodSignature">public&nbsp;<a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils">IChangingData</a>&lt;<a href="ERepositoryReturnStatus.html" title="enum in at.ac.univie.se2.ws21.team0404.app.database">ERepositoryReturnStatus</a>&gt;&nbsp;createCategory&#8203;(<a href="../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
+                                                             <a href="../model/categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>&nbsp;category)</pre>
+<div class="block">Tries to create the passed category on the database.</div>
 <dl>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../utils/exceptions/DataExistsException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataExistsException</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>category</code> - the category to be tried to be inserted on the database</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a in <a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils"><code>IChangingData</code></a> wrapped <a href="ERepositoryReturnStatus.html" title="enum in at.ac.univie.se2.ws21.team0404.app.database"><code>ERepositoryReturnStatus</code></a>. May be observed to
+ handle the execution status of the query.</dd>
 </dl>
 </li>
 </ul>
-<a id="updateCategory(java.lang.String,at.ac.univie.se2.ws21.team0404.app.model.categories.Category)">
+<a id="updateCategory(at.ac.univie.se2.ws21.team0404.app.model.categories.Category)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>updateCategory</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;updateCategory&#8203;(<a href="../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
-                           java.lang.String&nbsp;categoryName,
-                           <a href="../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
-                           <a href="../model/categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>&nbsp;category)
-                    throws <a href="../utils/exceptions/DataDoesNotExistException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataDoesNotExistException</a>,
-                           <a href="../utils/exceptions/DataExistsException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataExistsException</a></pre>
+<pre class="methodSignature">public&nbsp;<a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils">IChangingData</a>&lt;<a href="ERepositoryReturnStatus.html" title="enum in at.ac.univie.se2.ws21.team0404.app.database">ERepositoryReturnStatus</a>&gt;&nbsp;updateCategory&#8203;(<a href="../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
+                                                             <a href="../model/categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>&nbsp;category)</pre>
+<div class="block">Tries to update the passed category on the database.</div>
 <dl>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../utils/exceptions/DataDoesNotExistException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataDoesNotExistException</a></code></dd>
-<dd><code><a href="../utils/exceptions/DataExistsException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataExistsException</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>category</code> - the category to be tried to be updated on the database</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a in <a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils"><code>IChangingData</code></a> wrapped <a href="ERepositoryReturnStatus.html" title="enum in at.ac.univie.se2.ws21.team0404.app.database"><code>ERepositoryReturnStatus</code></a>. May be observed to
+ handle the execution status of the query.</dd>
 </dl>
 </li>
 </ul>
-<a id="updateTransaction(at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount,int,at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction)">
+<a id="updateTransaction(at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount,java.util.UUID,at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>updateTransaction</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;updateTransaction&#8203;(<a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;owner,
-                              int&nbsp;oldId,
-                              <a href="../model/transaction/Transaction.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.transaction">Transaction</a>&nbsp;updatedTransaction)
-                       throws <a href="../utils/exceptions/DataDoesNotExistException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataDoesNotExistException</a></pre>
+<pre class="methodSignature">public&nbsp;<a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils">IChangingData</a>&lt;<a href="ERepositoryReturnStatus.html" title="enum in at.ac.univie.se2.ws21.team0404.app.database">ERepositoryReturnStatus</a>&gt;&nbsp;updateTransaction&#8203;(<a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;owner,
+                                                                java.util.UUID&nbsp;oldId,
+                                                                <a href="../model/transaction/Transaction.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.transaction">Transaction</a>&nbsp;updatedTransaction)</pre>
+<div class="block">Tries to update the transaction with the passed id on the database.</div>
 <dl>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../utils/exceptions/DataDoesNotExistException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataDoesNotExistException</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>owner</code> - the owner of the to be updated transaction</dd>
+<dd><code>oldId</code> - the id of the transaction to be updated</dd>
+<dd><code>updatedTransaction</code> - the new transaction that shuld be inserted instead of the transaction
+                           with oldId</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a in <a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils"><code>IChangingData</code></a> wrapped <a href="ERepositoryReturnStatus.html" title="enum in at.ac.univie.se2.ws21.team0404.app.database"><code>ERepositoryReturnStatus</code></a>. May be observed to
+ handle the execution status of the query.</dd>
 </dl>
 </li>
 </ul>
 <a id="createTransaction(at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount,at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>createTransaction</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;createTransaction&#8203;(<a href="../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
-                              <a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;owner,
-                              <a href="../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
-                              <a href="../model/transaction/Transaction.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.transaction">Transaction</a>&nbsp;transaction)
-                       throws <a href="../utils/exceptions/DataExistsException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataExistsException</a>,
-                              <a href="../utils/exceptions/DataDoesNotExistException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataDoesNotExistException</a></pre>
+<pre class="methodSignature">public&nbsp;<a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils">IChangingData</a>&lt;<a href="ERepositoryReturnStatus.html" title="enum in at.ac.univie.se2.ws21.team0404.app.database">ERepositoryReturnStatus</a>&gt;&nbsp;createTransaction&#8203;(<a href="../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
+                                                                <a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;owner,
+                                                                <a href="../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
+                                                                <a href="../model/transaction/Transaction.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.transaction">Transaction</a>&nbsp;transaction)</pre>
+<div class="block">Tries to create a transaction on the database.</div>
 <dl>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../utils/exceptions/DataExistsException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataExistsException</a></code></dd>
-<dd><code><a href="../utils/exceptions/DataDoesNotExistException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataDoesNotExistException</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>owner</code> - the owner of the to be newly created transaction</dd>
+<dd><code>transaction</code> - the transaction to be inserted to the database</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a in <a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils"><code>IChangingData</code></a> wrapped <a href="ERepositoryReturnStatus.html" title="enum in at.ac.univie.se2.ws21.team0404.app.database"><code>ERepositoryReturnStatus</code></a>. May be observed to
+ handle the execution status of the query.</dd>
+</dl>
+</li>
+</ul>
+<a id="reloadAccountsWithStatus()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>reloadAccountsWithStatus</h4>
+<pre class="methodSignature">public&nbsp;<a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils">IChangingData</a>&lt;<a href="ERepositoryReturnStatus.html" title="enum in at.ac.univie.se2.ws21.team0404.app.database">ERepositoryReturnStatus</a>&gt;&nbsp;reloadAccountsWithStatus()</pre>
+<div class="block">Tries to refresh the local account list with fresh data from the database.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a in <a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils"><code>IChangingData</code></a> wrapped <a href="ERepositoryReturnStatus.html" title="enum in at.ac.univie.se2.ws21.team0404.app.database"><code>ERepositoryReturnStatus</code></a>. May be observed to
+ handle the execution status of the query.</dd>
 </dl>
 </li>
 </ul>

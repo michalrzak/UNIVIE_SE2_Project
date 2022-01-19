@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -146,7 +146,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li>androidx.appcompat.app.AppCompatActivity</li>
 <li>
 <ul class="inheritance">
-<li><a href="../../AListActivity.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui">at.ac.univie.se2.ws21.team0404.app.ui.AListActivity</a>&lt;<a href="../../../model/categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>,&#8203;<a href="CategoryListViewHolder.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui.categories.categorylist">CategoryListViewHolder</a>&gt;</li>
+<li><a href="../../AListActivity.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui">at.ac.univie.se2.ws21.team0404.app.ui.AListActivity</a>&lt;<a href="../../../model/categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>,&#8203;<a href="CategoryListViewHolder.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui.categories.categorylist">CategoryListViewHolder</a>,&#8203;<a href="CategoryListPresenter.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui.categories.categorylist">CategoryListPresenter</a>&gt;</li>
 <li>
 <ul class="inheritance">
 <li>at.ac.univie.se2.ws21.team0404.app.ui.categories.categorylist.CategoryList</li>
@@ -176,11 +176,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <dl>
 <dt>All Implemented Interfaces:</dt>
-<dd><code>android.content.ComponentCallbacks</code>, <code>android.content.ComponentCallbacks2</code>, <code>android.view.KeyEvent.Callback</code>, <code>android.view.LayoutInflater.Factory</code>, <code>android.view.LayoutInflater.Factory2</code>, <code>android.view.View.OnCreateContextMenuListener</code>, <code>android.view.Window.Callback</code>, <code>androidx.activity.contextaware.ContextAware</code>, <code>androidx.activity.OnBackPressedDispatcherOwner</code>, <code>androidx.activity.result.ActivityResultCaller</code>, <code>androidx.activity.result.ActivityResultRegistryOwner</code>, <code>androidx.appcompat.app.ActionBarDrawerToggle.DelegateProvider</code>, <code>androidx.appcompat.app.AppCompatCallback</code>, <code>androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback</code>, <code>androidx.core.app.ActivityCompat.RequestPermissionsRequestCodeValidator</code>, <code>androidx.core.app.TaskStackBuilder.SupportParentable</code>, <code>androidx.core.view.KeyEventDispatcher.Component</code>, <code>androidx.lifecycle.HasDefaultViewModelProviderFactory</code>, <code>androidx.lifecycle.LifecycleOwner</code>, <code>androidx.lifecycle.ViewModelStoreOwner</code>, <code>androidx.savedstate.SavedStateRegistryOwner</code></dd>
+<dd><code>android.content.ComponentCallbacks</code>, <code>android.content.ComponentCallbacks2</code>, <code>android.view.KeyEvent.Callback</code>, <code>android.view.LayoutInflater.Factory</code>, <code>android.view.LayoutInflater.Factory2</code>, <code>android.view.View.OnCreateContextMenuListener</code>, <code>android.view.Window.Callback</code>, <code>androidx.activity.contextaware.ContextAware</code>, <code>androidx.activity.OnBackPressedDispatcherOwner</code>, <code>androidx.activity.result.ActivityResultCaller</code>, <code>androidx.activity.result.ActivityResultRegistryOwner</code>, <code>androidx.appcompat.app.ActionBarDrawerToggle.DelegateProvider</code>, <code>androidx.appcompat.app.AppCompatCallback</code>, <code>androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback</code>, <code>androidx.core.app.ActivityCompat.RequestPermissionsRequestCodeValidator</code>, <code>androidx.core.app.TaskStackBuilder.SupportParentable</code>, <code>androidx.core.view.KeyEventDispatcher.Component</code>, <code>androidx.lifecycle.HasDefaultViewModelProviderFactory</code>, <code>androidx.lifecycle.LifecycleOwner</code>, <code>androidx.lifecycle.ViewModelStoreOwner</code>, <code>androidx.savedstate.SavedStateRegistryOwner</code>, <code><a href="ICategoryListContract.IView.html" title="interface in at.ac.univie.se2.ws21.team0404.app.ui.categories.categorylist">ICategoryListContract.IView</a></code>, <code><a href="../../IBaseContract.IView.html" title="interface in at.ac.univie.se2.ws21.team0404.app.ui">IBaseContract.IView</a></code>, <code><a href="../../IListActivityContract.IView.html" title="interface in at.ac.univie.se2.ws21.team0404.app.ui">IListActivityContract.IView</a>&lt;<a href="../../../model/categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>&gt;</code></dd>
 </dl>
 <hr>
 <pre>public class <span class="typeNameLabel">CategoryList</span>
-extends <a href="../../AListActivity.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui">AListActivity</a>&lt;<a href="../../../model/categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>,&#8203;<a href="CategoryListViewHolder.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui.categories.categorylist">CategoryListViewHolder</a>&gt;</pre>
+extends <a href="../../AListActivity.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui">AListActivity</a>&lt;<a href="../../../model/categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>,&#8203;<a href="CategoryListViewHolder.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui.categories.categorylist">CategoryListViewHolder</a>,&#8203;<a href="CategoryListPresenter.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui.categories.categorylist">CategoryListPresenter</a>&gt;
+implements <a href="ICategoryListContract.IView.html" title="interface in at.ac.univie.se2.ws21.team0404.app.ui.categories.categorylist">ICategoryListContract.IView</a></pre>
 </li>
 </ul>
 </div>
@@ -216,7 +217,7 @@ extends <a href="../../AListActivity.html" title="class in at.ac.univie.se2.ws21
 <!--   -->
 </a>
 <h3>Fields inherited from class&nbsp;at.ac.univie.se2.ws21.team0404.app.ui.<a href="../../AListActivity.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui">AListActivity</a></h3>
-<code><a href="../../AListActivity.html#passedIntent">passedIntent</a></code></li>
+<code><a href="../../AListActivity.html#passedIntent">passedIntent</a>, <a href="../../AListActivity.html#presenter">presenter</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a id="fields.inherited.from.class.android.app.Activity">
@@ -286,25 +287,31 @@ extends <a href="../../AListActivity.html" title="class in at.ac.univie.se2.ws21
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>protected java.lang.Runnable</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getFabRedirect()">getFabRedirect</a></span>()</code></th>
-<td class="colLast">
-<div class="block">When this will get implemented it will return the class of the Activity, which should be
- redirected to, after clicking on the floating action button.</div>
-</td>
-</tr>
-<tr id="i2" class="altColor">
-<td class="colFirst"><code>protected <a href="../../../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils">IChangingData</a>&lt;java.util.List&lt;<a href="../../../model/categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>&gt;&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getList()">getList</a></span>()</code></th>
-<td class="colLast">
-<div class="block">When this will get implemented it will return the list which will get used by the recyclerview</div>
-</td>
-</tr>
-<tr id="i3" class="rowColor">
 <td class="colFirst"><code>protected int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getListTitle()">getListTitle</a></span>()</code></th>
 <td class="colLast">
 <div class="block">When this will get implemented it will return the id of the target R.string resource</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>protected <a href="CategoryListPresenter.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui.categories.categorylist">CategoryListPresenter</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPresenter()">getPresenter</a></span>()</code></th>
+<td class="colLast">
+<div class="block">When this will get implemented it will return the presenter to be used by this class.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#showFabRedirect()">showFabRedirect</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Tell the view to show the Floating Action Button redirect</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#showListItemRedirect(at.ac.univie.se2.ws21.team0404.app.model.categories.Category)">showListItemRedirect</a></span>&#8203;(<a href="../../../model/categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>&nbsp;item)</code></th>
+<td class="colLast">
+<div class="block">Tell the view to show the redirect to the item passed.</div>
 </td>
 </tr>
 </table>
@@ -313,7 +320,7 @@ extends <a href="../../AListActivity.html" title="class in at.ac.univie.se2.ws21
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;at.ac.univie.se2.ws21.team0404.app.ui.<a href="../../AListActivity.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui">AListActivity</a></h3>
-<code><a href="../../AListActivity.html#onCreate(android.os.Bundle)">onCreate</a>, <a href="../../AListActivity.html#onFabClick(android.view.View)">onFabClick</a>, <a href="../../AListActivity.html#onOptionsItemSelected(android.view.MenuItem)">onOptionsItemSelected</a></code></li>
+<code><a href="../../AListActivity.html#onCreate(android.os.Bundle)">onCreate</a>, <a href="../../AListActivity.html#onFabClick(android.view.View)">onFabClick</a>, <a href="../../AListActivity.html#onOptionsItemSelected(android.view.MenuItem)">onOptionsItemSelected</a>, <a href="../../AListActivity.html#showList(java.util.List)">showList</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.androidx.appcompat.app.AppCompatActivity">
@@ -379,6 +386,13 @@ extends <a href="../../AListActivity.html" title="class in at.ac.univie.se2.ws21
 <code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
 </ul>
 <ul class="blockList">
+<li class="blockList"><a id="methods.inherited.from.class.at.ac.univie.se2.ws21.team0404.app.ui.IListActivityContract.IView">
+<!--   -->
+</a>
+<h3>Methods inherited from interface&nbsp;at.ac.univie.se2.ws21.team0404.app.ui.<a href="../../IListActivityContract.IView.html" title="interface in at.ac.univie.se2.ws21.team0404.app.ui">IListActivityContract.IView</a></h3>
+<code><a href="../../IListActivityContract.IView.html#showList(java.util.List)">showList</a></code></li>
+</ul>
+<ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.android.view.Window.Callback">
 <!--   -->
 </a>
@@ -420,24 +434,6 @@ extends <a href="../../AListActivity.html" title="class in at.ac.univie.se2.ws21
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="getFabRedirect()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getFabRedirect</h4>
-<pre class="methodSignature">protected&nbsp;java.lang.Runnable&nbsp;getFabRedirect()</pre>
-<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../AListActivity.html#getFabRedirect()">AListActivity</a></code></span></div>
-<div class="block">When this will get implemented it will return the class of the Activity, which should be
- redirected to, after clicking on the floating action button.</div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../AListActivity.html#getFabRedirect()">getFabRedirect</a></code>&nbsp;in class&nbsp;<code><a href="../../AListActivity.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui">AListActivity</a>&lt;<a href="../../../model/categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>,&#8203;<a href="CategoryListViewHolder.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui.categories.categorylist">CategoryListViewHolder</a>&gt;</code></dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>Class of the activity, which will be shown once clicked on the FAB</dd>
-</dl>
-</li>
-</ul>
 <a id="getAdapter()">
 <!--   -->
 </a>
@@ -450,33 +446,33 @@ extends <a href="../../AListActivity.html" title="class in at.ac.univie.se2.ws21
  Activity</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../AListActivity.html#getAdapter()">getAdapter</a></code>&nbsp;in class&nbsp;<code><a href="../../AListActivity.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui">AListActivity</a>&lt;<a href="../../../model/categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>,&#8203;<a href="CategoryListViewHolder.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui.categories.categorylist">CategoryListViewHolder</a>&gt;</code></dd>
+<dd><code><a href="../../AListActivity.html#getAdapter()">getAdapter</a></code>&nbsp;in class&nbsp;<code><a href="../../AListActivity.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui">AListActivity</a>&lt;<a href="../../../model/categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>,&#8203;<a href="CategoryListViewHolder.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui.categories.categorylist">CategoryListViewHolder</a>,&#8203;<a href="CategoryListPresenter.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui.categories.categorylist">CategoryListPresenter</a>&gt;</code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Instance of the specific adapter</dd>
 </dl>
 </li>
 </ul>
-<a id="getList()">
+<a id="getPresenter()">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>getList</h4>
-<pre class="methodSignature">protected&nbsp;<a href="../../../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils">IChangingData</a>&lt;java.util.List&lt;<a href="../../../model/categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>&gt;&gt;&nbsp;getList()</pre>
-<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../AListActivity.html#getList()">AListActivity</a></code></span></div>
-<div class="block">When this will get implemented it will return the list which will get used by the recyclerview</div>
+<h4>getPresenter</h4>
+<pre class="methodSignature">protected&nbsp;<a href="CategoryListPresenter.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui.categories.categorylist">CategoryListPresenter</a>&nbsp;getPresenter()</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../AListActivity.html#getPresenter()">AListActivity</a></code></span></div>
+<div class="block">When this will get implemented it will return the presenter to be used by this class.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../AListActivity.html#getList()">getList</a></code>&nbsp;in class&nbsp;<code><a href="../../AListActivity.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui">AListActivity</a>&lt;<a href="../../../model/categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>,&#8203;<a href="CategoryListViewHolder.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui.categories.categorylist">CategoryListViewHolder</a>&gt;</code></dd>
+<dd><code><a href="../../AListActivity.html#getPresenter()">getPresenter</a></code>&nbsp;in class&nbsp;<code><a href="../../AListActivity.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui">AListActivity</a>&lt;<a href="../../../model/categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>,&#8203;<a href="CategoryListViewHolder.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui.categories.categorylist">CategoryListViewHolder</a>,&#8203;<a href="CategoryListPresenter.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui.categories.categorylist">CategoryListPresenter</a>&gt;</code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>List\<ModelClass\> used by the recycler view</dd>
+<dd>presenter to be used</dd>
 </dl>
 </li>
 </ul>
 <a id="getListTitle()">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>getListTitle</h4>
 <pre class="methodSignature">protected&nbsp;int&nbsp;getListTitle()</pre>
@@ -484,9 +480,42 @@ extends <a href="../../AListActivity.html" title="class in at.ac.univie.se2.ws21
 <div class="block">When this will get implemented it will return the id of the target R.string resource</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../AListActivity.html#getListTitle()">getListTitle</a></code>&nbsp;in class&nbsp;<code><a href="../../AListActivity.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui">AListActivity</a>&lt;<a href="../../../model/categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>,&#8203;<a href="CategoryListViewHolder.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui.categories.categorylist">CategoryListViewHolder</a>&gt;</code></dd>
+<dd><code><a href="../../AListActivity.html#getListTitle()">getListTitle</a></code>&nbsp;in class&nbsp;<code><a href="../../AListActivity.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui">AListActivity</a>&lt;<a href="../../../model/categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>,&#8203;<a href="CategoryListViewHolder.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui.categories.categorylist">CategoryListViewHolder</a>,&#8203;<a href="CategoryListPresenter.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui.categories.categorylist">CategoryListPresenter</a>&gt;</code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>int id of the R.string</dd>
+</dl>
+</li>
+</ul>
+<a id="showListItemRedirect(at.ac.univie.se2.ws21.team0404.app.model.categories.Category)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>showListItemRedirect</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;showListItemRedirect&#8203;(@NonNull
+                                 <a href="../../../model/categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>&nbsp;item)</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../IListActivityContract.IView.html#showListItemRedirect(T)">IListActivityContract.IView</a></code></span></div>
+<div class="block">Tell the view to show the redirect to the item passed.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../IListActivityContract.IView.html#showListItemRedirect(T)">showListItemRedirect</a></code>&nbsp;in interface&nbsp;<code><a href="../../IListActivityContract.IView.html" title="interface in at.ac.univie.se2.ws21.team0404.app.ui">IListActivityContract.IView</a>&lt;<a href="../../../model/categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>item</code> - the item from witch the redirect should be figured out, cannot be null</dd>
+</dl>
+</li>
+</ul>
+<a id="showFabRedirect()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>showFabRedirect</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;showFabRedirect()</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../IListActivityContract.IView.html#showFabRedirect()">IListActivityContract.IView</a></code></span></div>
+<div class="block">Tell the view to show the Floating Action Button redirect</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../IListActivityContract.IView.html#showFabRedirect()">showFabRedirect</a></code>&nbsp;in interface&nbsp;<code><a href="../../IListActivityContract.IView.html" title="interface in at.ac.univie.se2.ws21.team0404.app.ui">IListActivityContract.IView</a>&lt;<a href="../../../model/categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>&gt;</code></dd>
 </dl>
 </li>
 </ul>

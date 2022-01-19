@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":10,"i5":10,"i6":10};
+var data = {"i0":6,"i1":6,"i2":6,"i3":10,"i4":10,"i5":10,"i6":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -115,7 +115,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <main role="main">
 <div class="header">
 <div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">at.ac.univie.se2.ws21.team0404.app.ui</a></div>
-<h2 title="Class AListActivity" class="title">Class AListActivity&lt;ModelClass,&#8203;ViewHolder extends androidx.recyclerview.widget.RecyclerView.ViewHolder&gt;</h2>
+<h2 title="Class AListActivity" class="title">Class AListActivity&lt;ModelClass,&#8203;ViewHolder extends androidx.recyclerview.widget.RecyclerView.ViewHolder,&#8203;Presenter extends <a href="IListActivityContract.IPresenter.html" title="interface in at.ac.univie.se2.ws21.team0404.app.ui">IListActivityContract.IPresenter</a>&lt;ModelClass&gt;&gt;</h2>
 </div>
 <div class="contentContainer">
 <ul class="inheritance">
@@ -146,7 +146,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li>androidx.appcompat.app.AppCompatActivity</li>
 <li>
 <ul class="inheritance">
-<li>at.ac.univie.se2.ws21.team0404.app.ui.AListActivity&lt;ModelClass,&#8203;ViewHolder&gt;</li>
+<li>at.ac.univie.se2.ws21.team0404.app.ui.AListActivity&lt;ModelClass,&#8203;ViewHolder,&#8203;Presenter&gt;</li>
 </ul>
 </li>
 </ul>
@@ -170,16 +170,27 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul class="blockList">
 <li class="blockList">
 <dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>ModelClass</code> - The class of the items that will be displayed</dd>
+<dd><code>ViewHolder</code> - The ViewHolder class used by this Activity, needs to be created individually
+                     for each class subclassing this</dd>
+<dd><code>Presenter</code> - The presenter implementing {@link IListActivityContract.IPresenter<ModelClass>>}
+                     interface</dd>
+</dl>
+<dl>
 <dt>All Implemented Interfaces:</dt>
-<dd><code>android.content.ComponentCallbacks</code>, <code>android.content.ComponentCallbacks2</code>, <code>android.view.KeyEvent.Callback</code>, <code>android.view.LayoutInflater.Factory</code>, <code>android.view.LayoutInflater.Factory2</code>, <code>android.view.View.OnCreateContextMenuListener</code>, <code>android.view.Window.Callback</code>, <code>androidx.activity.contextaware.ContextAware</code>, <code>androidx.activity.OnBackPressedDispatcherOwner</code>, <code>androidx.activity.result.ActivityResultCaller</code>, <code>androidx.activity.result.ActivityResultRegistryOwner</code>, <code>androidx.appcompat.app.ActionBarDrawerToggle.DelegateProvider</code>, <code>androidx.appcompat.app.AppCompatCallback</code>, <code>androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback</code>, <code>androidx.core.app.ActivityCompat.RequestPermissionsRequestCodeValidator</code>, <code>androidx.core.app.TaskStackBuilder.SupportParentable</code>, <code>androidx.core.view.KeyEventDispatcher.Component</code>, <code>androidx.lifecycle.HasDefaultViewModelProviderFactory</code>, <code>androidx.lifecycle.LifecycleOwner</code>, <code>androidx.lifecycle.ViewModelStoreOwner</code>, <code>androidx.savedstate.SavedStateRegistryOwner</code></dd>
+<dd><code>android.content.ComponentCallbacks</code>, <code>android.content.ComponentCallbacks2</code>, <code>android.view.KeyEvent.Callback</code>, <code>android.view.LayoutInflater.Factory</code>, <code>android.view.LayoutInflater.Factory2</code>, <code>android.view.View.OnCreateContextMenuListener</code>, <code>android.view.Window.Callback</code>, <code>androidx.activity.contextaware.ContextAware</code>, <code>androidx.activity.OnBackPressedDispatcherOwner</code>, <code>androidx.activity.result.ActivityResultCaller</code>, <code>androidx.activity.result.ActivityResultRegistryOwner</code>, <code>androidx.appcompat.app.ActionBarDrawerToggle.DelegateProvider</code>, <code>androidx.appcompat.app.AppCompatCallback</code>, <code>androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback</code>, <code>androidx.core.app.ActivityCompat.RequestPermissionsRequestCodeValidator</code>, <code>androidx.core.app.TaskStackBuilder.SupportParentable</code>, <code>androidx.core.view.KeyEventDispatcher.Component</code>, <code>androidx.lifecycle.HasDefaultViewModelProviderFactory</code>, <code>androidx.lifecycle.LifecycleOwner</code>, <code>androidx.lifecycle.ViewModelStoreOwner</code>, <code>androidx.savedstate.SavedStateRegistryOwner</code>, <code><a href="IBaseContract.IView.html" title="interface in at.ac.univie.se2.ws21.team0404.app.ui">IBaseContract.IView</a></code>, <code><a href="IListActivityContract.IView.html" title="interface in at.ac.univie.se2.ws21.team0404.app.ui">IListActivityContract.IView</a>&lt;ModelClass&gt;</code></dd>
 </dl>
 <dl>
 <dt>Direct Known Subclasses:</dt>
-<dd><code><a href="account/accountList/AccountList.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui.account.accountList">AccountList</a></code>, <code><a href="categories/categorylist/CategoryList.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui.categories.categorylist">CategoryList</a></code>, <code><a href="transactions/transactionlist/TransactionList.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui.transactions.transactionlist">TransactionList</a></code></dd>
+<dd><code><a href="account/accountlist/AccountList.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui.account.accountlist">AccountList</a></code>, <code><a href="categories/categorylist/CategoryList.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui.categories.categorylist">CategoryList</a></code>, <code><a href="transactions/transactionlist/TransactionList.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui.transactions.transactionlist">TransactionList</a></code></dd>
 </dl>
 <hr>
-<pre>public abstract class <span class="typeNameLabel">AListActivity&lt;ModelClass,&#8203;ViewHolder extends androidx.recyclerview.widget.RecyclerView.ViewHolder&gt;</span>
-extends androidx.appcompat.app.AppCompatActivity</pre>
+<pre>public abstract class <span class="typeNameLabel">AListActivity&lt;ModelClass,&#8203;ViewHolder extends androidx.recyclerview.widget.RecyclerView.ViewHolder,&#8203;Presenter extends <a href="IListActivityContract.IPresenter.html" title="interface in at.ac.univie.se2.ws21.team0404.app.ui">IListActivityContract.IPresenter</a>&lt;ModelClass&gt;&gt;</span>
+extends androidx.appcompat.app.AppCompatActivity
+implements <a href="IListActivityContract.IView.html" title="interface in at.ac.univie.se2.ws21.team0404.app.ui">IListActivityContract.IView</a>&lt;ModelClass&gt;</pre>
+<div class="block">An Abstract Class used to be able to more easily create Activities, which display lists. To
+ correctly use this class subclass it and implement all needed methods</div>
 </li>
 </ul>
 </div>
@@ -220,6 +231,11 @@ extends androidx.appcompat.app.AppCompatActivity</pre>
 <tr class="altColor">
 <td class="colFirst"><code>protected android.content.Intent</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#passedIntent">passedIntent</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected <a href="AListActivity.html" title="type parameter in AListActivity">Presenter</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#presenter">presenter</a></span></code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -291,41 +307,39 @@ extends androidx.appcompat.app.AppCompatActivity</pre>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>protected abstract java.lang.Runnable</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getFabRedirect()">getFabRedirect</a></span>()</code></th>
-<td class="colLast">
-<div class="block">When this will get implemented it will return the class of the Activity, which should be
- redirected to, after clicking on the floating action button.</div>
-</td>
-</tr>
-<tr id="i2" class="altColor">
-<td class="colFirst"><code>protected abstract <a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils">IChangingData</a>&lt;java.util.List&lt;<a href="AListActivity.html" title="type parameter in AListActivity">ModelClass</a>&gt;&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getList()">getList</a></span>()</code></th>
-<td class="colLast">
-<div class="block">When this will get implemented it will return the list which will get used by the recyclerview</div>
-</td>
-</tr>
-<tr id="i3" class="rowColor">
 <td class="colFirst"><code>protected abstract int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getListTitle()">getListTitle</a></span>()</code></th>
 <td class="colLast">
 <div class="block">When this will get implemented it will return the id of the target R.string resource</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>protected abstract <a href="AListActivity.html" title="type parameter in AListActivity">Presenter</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getPresenter()">getPresenter</a></span>()</code></th>
+<td class="colLast">
+<div class="block">When this will get implemented it will return the presenter to be used by this class.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>protected void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onCreate(android.os.Bundle)">onCreate</a></span>&#8203;(android.os.Bundle&nbsp;savedInstanceState)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onFabClick(android.view.View)">onFabClick</a></span>&#8203;(android.view.View&nbsp;view)</code></th>
-<td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onOptionsItemSelected(android.view.MenuItem)">onOptionsItemSelected</a></span>&#8203;(android.view.MenuItem&nbsp;item)</code></th>
 <td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#showList(java.util.List)">showList</a></span>&#8203;(java.util.List&lt;<a href="AListActivity.html" title="type parameter in AListActivity">ModelClass</a>&gt;&nbsp;list)</code></th>
+<td class="colLast">
+<div class="block">Tell the View to display the passed list</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -392,6 +406,13 @@ extends androidx.appcompat.app.AppCompatActivity</pre>
 <code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait</code></li>
 </ul>
 <ul class="blockList">
+<li class="blockList"><a id="methods.inherited.from.class.at.ac.univie.se2.ws21.team0404.app.ui.IListActivityContract.IView">
+<!--   -->
+</a>
+<h3>Methods inherited from interface&nbsp;at.ac.univie.se2.ws21.team0404.app.ui.<a href="IListActivityContract.IView.html" title="interface in at.ac.univie.se2.ws21.team0404.app.ui">IListActivityContract.IView</a></h3>
+<code><a href="IListActivityContract.IView.html#showFabRedirect()">showFabRedirect</a>, <a href="IListActivityContract.IView.html#showListItemRedirect(T)">showListItemRedirect</a></code></li>
+</ul>
+<ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.android.view.Window.Callback">
 <!--   -->
 </a>
@@ -417,10 +438,19 @@ extends androidx.appcompat.app.AppCompatActivity</pre>
 <a id="passedIntent">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>passedIntent</h4>
 <pre>protected&nbsp;android.content.Intent passedIntent</pre>
+</li>
+</ul>
+<a id="presenter">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>presenter</h4>
+<pre>protected&nbsp;<a href="AListActivity.html" title="type parameter in AListActivity">Presenter</a> extends <a href="IListActivityContract.IPresenter.html" title="interface in at.ac.univie.se2.ws21.team0404.app.ui">IListActivityContract.IPresenter</a>&lt;<a href="AListActivity.html" title="type parameter in AListActivity">ModelClass</a>&gt; presenter</pre>
 </li>
 </ul>
 </li>
@@ -452,21 +482,6 @@ extends androidx.appcompat.app.AppCompatActivity</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="getFabRedirect()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getFabRedirect</h4>
-<pre class="methodSignature">protected abstract&nbsp;java.lang.Runnable&nbsp;getFabRedirect()</pre>
-<div class="block">When this will get implemented it will return the class of the Activity, which should be
- redirected to, after clicking on the floating action button.</div>
-<dl>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>Class of the activity, which will be shown once clicked on the FAB</dd>
-</dl>
-</li>
-</ul>
 <a id="getAdapter()">
 <!--   -->
 </a>
@@ -482,17 +497,17 @@ extends androidx.appcompat.app.AppCompatActivity</pre>
 </dl>
 </li>
 </ul>
-<a id="getList()">
+<a id="getPresenter()">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>getList</h4>
-<pre class="methodSignature">protected abstract&nbsp;<a href="../utils/IChangingData.html" title="interface in at.ac.univie.se2.ws21.team0404.app.utils">IChangingData</a>&lt;java.util.List&lt;<a href="AListActivity.html" title="type parameter in AListActivity">ModelClass</a>&gt;&gt;&nbsp;getList()</pre>
-<div class="block">When this will get implemented it will return the list which will get used by the recyclerview</div>
+<h4>getPresenter</h4>
+<pre class="methodSignature">protected abstract&nbsp;<a href="AListActivity.html" title="type parameter in AListActivity">Presenter</a>&nbsp;getPresenter()</pre>
+<div class="block">When this will get implemented it will return the presenter to be used by this class.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>List\<ModelClass\> used by the recycler view</dd>
+<dd>presenter to be used</dd>
 </dl>
 </li>
 </ul>
@@ -523,6 +538,23 @@ extends androidx.appcompat.app.AppCompatActivity</pre>
 </dl>
 </li>
 </ul>
+<a id="showList(java.util.List)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>showList</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;showList&#8203;(@NonNull
+                     java.util.List&lt;<a href="AListActivity.html" title="type parameter in AListActivity">ModelClass</a>&gt;&nbsp;list)</pre>
+<div class="block">Tell the View to display the passed list</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="IListActivityContract.IView.html#showList(java.util.List)">showList</a></code>&nbsp;in interface&nbsp;<code><a href="IListActivityContract.IView.html" title="interface in at.ac.univie.se2.ws21.team0404.app.ui">IListActivityContract.IView</a>&lt;<a href="AListActivity.html" title="type parameter in AListActivity">ModelClass</a>&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>list</code> - the list to be displayed, cannot be null</dd>
+</dl>
+</li>
+</ul>
 <a id="onFabClick(android.view.View)">
 <!--   -->
 </a>
@@ -530,6 +562,10 @@ extends androidx.appcompat.app.AppCompatActivity</pre>
 <li class="blockList">
 <h4>onFabClick</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;onFabClick&#8203;(android.view.View&nbsp;view)</pre>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>view</code> - </dd>
+</dl>
 </li>
 </ul>
 <a id="onOptionsItemSelected(android.view.MenuItem)">

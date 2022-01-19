@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -131,7 +131,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <dl>
 <dt>Direct Known Subclasses:</dt>
-<dd><code><a href="../android/ParcelableAppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.android">ParcelableAppAccount</a></code></dd>
+<dd><code><a href="../android/ParcelableAppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.android">ParcelableAppAccount</a></code>, <code><a href="../../database/room/model/RoomAppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.database.room.model">RoomAppAccount</a></code></dd>
 </dl>
 <hr>
 <pre>public class <span class="typeNameLabel">AppAccount</span>
@@ -156,29 +156,32 @@ extends java.lang.Object</pre>
 <table class="memberSummary">
 <caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
 <tr>
-<th class="colFirst" scope="col">Modifier</th>
-<th class="colSecond" scope="col">Constructor</th>
+<th class="colFirst" scope="col">Constructor</th>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>&nbsp;</code></td>
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(java.lang.String,at.ac.univie.se2.ws21.team0404.app.model.account.EAccountType)">AppAccount</a></span>&#8203;(java.lang.String&nbsp;name,
-          <a href="EAccountType.html" title="enum in at.ac.univie.se2.ws21.team0404.app.model.account">EAccountType</a>&nbsp;type)</code></th>
-<td class="colLast">&nbsp;</td>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount)">AppAccount</a></span>&#8203;(<a href="AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;oldAccount)</code></th>
+<td class="colLast">
+<div class="block">Copy constructor.</div>
+</td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>protected </code></td>
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(java.lang.String,at.ac.univie.se2.ws21.team0404.app.model.account.EAccountType,int)">AppAccount</a></span>&#8203;(java.lang.String&nbsp;name,
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(java.lang.String,at.ac.univie.se2.ws21.team0404.app.model.account.EAccountType,double)">AppAccount</a></span>&#8203;(java.lang.String&nbsp;name,
           <a href="EAccountType.html" title="enum in at.ac.univie.se2.ws21.team0404.app.model.account">EAccountType</a>&nbsp;type,
-          int&nbsp;id)</code></th>
-<td class="colLast">&nbsp;</td>
+          double&nbsp;spendingLimit)</code></th>
+<td class="colLast">
+<div class="block">Constructs a new AppAccount, autogenerating an ID and using a default balance.</div>
+</td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>&nbsp;</code></td>
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(java.lang.String,at.ac.univie.se2.ws21.team0404.app.model.account.EAccountType,at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount)">AppAccount</a></span>&#8203;(java.lang.String&nbsp;name,
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(java.lang.String,at.ac.univie.se2.ws21.team0404.app.model.account.EAccountType,java.util.UUID,double,double)">AppAccount</a></span>&#8203;(java.lang.String&nbsp;name,
           <a href="EAccountType.html" title="enum in at.ac.univie.se2.ws21.team0404.app.model.account">EAccountType</a>&nbsp;type,
-          <a href="AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;oldAccount)</code></th>
-<td class="colLast">&nbsp;</td>
+          java.util.UUID&nbsp;id,
+          double&nbsp;spendingLimit,
+          double&nbsp;balance)</code></th>
+<td class="colLast">
+<div class="block">Constructs a new AppAccount given all parameters.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -204,31 +207,56 @@ extends java.lang.Object</pre>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>int</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getId()">getId</a></span>()</code></th>
+<td class="colFirst"><code>double</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getBalance()">getBalance</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
+<td class="colFirst"><code>java.util.UUID</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getId()">getId</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getName()">getName</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>double</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSpendingLimit()">getSpendingLimit</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code><a href="ESpendingLevel.html" title="enum in at.ac.univie.se2.ws21.team0404.app.model.account">ESpendingLevel</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSpendingLimitStatus()">getSpendingLimitStatus</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
 <td class="colFirst"><code><a href="EAccountType.html" title="enum in at.ac.univie.se2.ws21.team0404.app.model.account">EAccountType</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getType()">getType</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hashCode()">hashCode</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setBalance(double)">setBalance</a></span>&#8203;(double&nbsp;balance)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setName(java.lang.String)">setName</a></span>&#8203;(java.lang.String&nbsp;newName)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i10" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSpendingLimit(double)">setSpendingLimit</a></span>&#8203;(double&nbsp;spendingLimit)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setType(at.ac.univie.se2.ws21.team0404.app.model.account.EAccountType)">setType</a></span>&#8203;(<a href="EAccountType.html" title="enum in at.ac.univie.se2.ws21.team0404.app.model.account">EAccountType</a>&nbsp;newType)</code></th>
 <td class="colLast">&nbsp;</td>
@@ -257,19 +285,7 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;(java.lang.String,at.ac.univie.se2.ws21.team0404.app.model.account.EAccountType)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>AppAccount</h4>
-<pre>public&nbsp;AppAccount&#8203;(<a href="../../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
-                  java.lang.String&nbsp;name,
-                  <a href="../../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
-                  <a href="EAccountType.html" title="enum in at.ac.univie.se2.ws21.team0404.app.model.account">EAccountType</a>&nbsp;type)</pre>
-</li>
-</ul>
-<a id="&lt;init&gt;(java.lang.String,at.ac.univie.se2.ws21.team0404.app.model.account.EAccountType,at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount)">
+<a id="&lt;init&gt;(java.lang.String,at.ac.univie.se2.ws21.team0404.app.model.account.EAccountType,java.util.UUID,double,double)">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -280,20 +296,54 @@ extends java.lang.Object</pre>
                   <a href="../../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
                   <a href="EAccountType.html" title="enum in at.ac.univie.se2.ws21.team0404.app.model.account">EAccountType</a>&nbsp;type,
                   <a href="../../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
-                  <a href="AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;oldAccount)</pre>
+                  java.util.UUID&nbsp;id,
+                  double&nbsp;spendingLimit,
+                  double&nbsp;balance)</pre>
+<div class="block">Constructs a new AppAccount given all parameters. Validates the name and throws an
+ `IllegalArgumentException` if the name is invalid</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>name</code> - name of the AppAccount. Must be longer than 0</dd>
+<dd><code>type</code> - EAccountType of the account.</dd>
+<dd><code>id</code> - an id to be given to the account</dd>
+<dd><code>spendingLimit</code> - the spending limit of the account</dd>
+<dd><code>balance</code> - the balance of the account.</dd>
+</dl>
 </li>
 </ul>
-<a id="&lt;init&gt;(java.lang.String,at.ac.univie.se2.ws21.team0404.app.model.account.EAccountType,int)">
+<a id="&lt;init&gt;(java.lang.String,at.ac.univie.se2.ws21.team0404.app.model.account.EAccountType,double)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>AppAccount</h4>
+<pre>public&nbsp;AppAccount&#8203;(<a href="../../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
+                  java.lang.String&nbsp;name,
+                  <a href="../../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
+                  <a href="EAccountType.html" title="enum in at.ac.univie.se2.ws21.team0404.app.model.account">EAccountType</a>&nbsp;type,
+                  double&nbsp;spendingLimit)</pre>
+<div class="block">Constructs a new AppAccount, autogenerating an ID and using a default balance.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>name</code> - name of the AppAccount. Must be longer than 0</dd>
+<dd><code>type</code> - EAccountType of the account.</dd>
+<dd><code>spendingLimit</code> - the spending limit of the account</dd>
+</dl>
+</li>
+</ul>
+<a id="&lt;init&gt;(at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>AppAccount</h4>
-<pre>protected&nbsp;AppAccount&#8203;(<a href="../../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
-                     java.lang.String&nbsp;name,
-                     <a href="../../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
-                     <a href="EAccountType.html" title="enum in at.ac.univie.se2.ws21.team0404.app.model.account">EAccountType</a>&nbsp;type,
-                     int&nbsp;id)</pre>
+<pre>public&nbsp;AppAccount&#8203;(<a href="../../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
+                  <a href="AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;oldAccount)</pre>
+<div class="block">Copy constructor.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>oldAccount</code> - the account to be copied</dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -350,7 +400,53 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getId</h4>
-<pre class="methodSignature">public&nbsp;int&nbsp;getId()</pre>
+<pre class="methodSignature"><a href="../../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
+public&nbsp;java.util.UUID&nbsp;getId()</pre>
+</li>
+</ul>
+<a id="getSpendingLimit()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSpendingLimit</h4>
+<pre class="methodSignature">public&nbsp;double&nbsp;getSpendingLimit()</pre>
+</li>
+</ul>
+<a id="setSpendingLimit(double)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setSpendingLimit</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setSpendingLimit&#8203;(double&nbsp;spendingLimit)</pre>
+</li>
+</ul>
+<a id="getBalance()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getBalance</h4>
+<pre class="methodSignature">public&nbsp;double&nbsp;getBalance()</pre>
+</li>
+</ul>
+<a id="setBalance(double)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setBalance</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setBalance&#8203;(double&nbsp;balance)</pre>
+</li>
+</ul>
+<a id="getSpendingLimitStatus()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSpendingLimitStatus</h4>
+<pre class="methodSignature">public&nbsp;<a href="ESpendingLevel.html" title="enum in at.ac.univie.se2.ws21.team0404.app.model.account">ESpendingLevel</a>&nbsp;getSpendingLimitStatus()</pre>
 </li>
 </ul>
 <a id="hashCode()">

@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -153,33 +153,35 @@ extends java.lang.Object</pre>
 <table class="memberSummary">
 <caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
 <tr>
-<th class="colFirst" scope="col">Modifier</th>
-<th class="colSecond" scope="col">Constructor</th>
+<th class="colFirst" scope="col">Constructor</th>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>protected </code></td>
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(int,at.ac.univie.se2.ws21.team0404.app.model.categories.Category,at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType,int,java.lang.String)">Transaction</a></span>&#8203;(int&nbsp;id,
-           <a href="../categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>&nbsp;category,
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(at.ac.univie.se2.ws21.team0404.app.model.categories.Category,at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType,int,java.lang.String,java.util.Date)">Transaction</a></span>&#8203;(<a href="../categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>&nbsp;category,
            <a href="../common/ETransactionType.html" title="enum in at.ac.univie.se2.ws21.team0404.app.model.common">ETransactionType</a>&nbsp;type,
            int&nbsp;amount,
-           java.lang.String&nbsp;name)</code></th>
+           java.lang.String&nbsp;name,
+           java.util.Date&nbsp;date)</code></th>
 <td class="colLast">
-<div class="block">Allow subclasses to define constructors, which also set the ID</div>
+<div class="block">Constructs a Transaction and autogenerates an id.</div>
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>&nbsp;</code></td>
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(at.ac.univie.se2.ws21.team0404.app.model.categories.Category,at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType,int,java.lang.String)">Transaction</a></span>&#8203;(<a href="../categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>&nbsp;category,
-           <a href="../common/ETransactionType.html" title="enum in at.ac.univie.se2.ws21.team0404.app.model.common">ETransactionType</a>&nbsp;type,
-           int&nbsp;amount,
-           java.lang.String&nbsp;name)</code></th>
-<td class="colLast">&nbsp;</td>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction)">Transaction</a></span>&#8203;(<a href="Transaction.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.transaction">Transaction</a>&nbsp;transaction)</code></th>
+<td class="colLast">
+<div class="block">Copy constructor that constructs a Transaction from another.</div>
+</td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>&nbsp;</code></td>
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction)">Transaction</a></span>&#8203;(<a href="Transaction.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.transaction">Transaction</a>&nbsp;transaction)</code></th>
-<td class="colLast">&nbsp;</td>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(java.util.UUID,at.ac.univie.se2.ws21.team0404.app.model.categories.Category,at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType,int,java.lang.String,java.util.Date)">Transaction</a></span>&#8203;(java.util.UUID&nbsp;id,
+           <a href="../categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>&nbsp;category,
+           <a href="../common/ETransactionType.html" title="enum in at.ac.univie.se2.ws21.team0404.app.model.common">ETransactionType</a>&nbsp;type,
+           int&nbsp;amount,
+           java.lang.String&nbsp;name,
+           java.util.Date&nbsp;date)</code></th>
+<td class="colLast">
+<div class="block">Allow to define constructors, which also set the ID</div>
+</td>
 </tr>
 </table>
 </li>
@@ -213,54 +215,69 @@ extends java.lang.Object</pre>
 <td class="colFirst"><code>java.util.Optional&lt;<a href="../categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getCategory()">getCategory</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Not every transaction needs to have a category assigned.</div>
+<div class="block">Returns the category of the transaction.</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><code>int</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getId()">getId</a></span>()</code></th>
+<td class="colFirst"><code>java.util.Date</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDate()">getDate</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i4" class="altColor">
+<td class="colFirst"><code>java.util.UUID</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getId()">getId</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getName()">getName</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>protected <a href="../categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRawCategory()">getRawCategory</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Allow subclasses to access the Category object without the Optional.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code><a href="../common/ETransactionType.html" title="enum in at.ac.univie.se2.ws21.team0404.app.model.common">ETransactionType</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getType()">getType</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hashCode()">hashCode</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setAmount(int)">setAmount</a></span>&#8203;(int&nbsp;newAmount)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setCategory(at.ac.univie.se2.ws21.team0404.app.model.categories.Category)">setCategory</a></span>&#8203;(<a href="../categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>&nbsp;newCategory)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i11" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setDate(java.util.Date)">setDate</a></span>&#8203;(java.util.Date&nbsp;date)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setName(java.lang.String)">setName</a></span>&#8203;(java.lang.String&nbsp;name)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setType(at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType)">setType</a></span>&#8203;(<a href="../common/ETransactionType.html" title="enum in at.ac.univie.se2.ws21.team0404.app.model.common">ETransactionType</a>&nbsp;newType)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i14" class="altColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -269,7 +286,7 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, finalize, getClass, notify, notifyAll, toString, wait, wait, wait</code></li>
+<code>clone, finalize, getClass, notify, notifyAll, wait, wait, wait</code></li>
 </ul>
 </li>
 </ul>
@@ -287,7 +304,35 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;(at.ac.univie.se2.ws21.team0404.app.model.categories.Category,at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType,int,java.lang.String)">
+<a id="&lt;init&gt;(java.util.UUID,at.ac.univie.se2.ws21.team0404.app.model.categories.Category,at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType,int,java.lang.String,java.util.Date)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>Transaction</h4>
+<pre>public&nbsp;Transaction&#8203;(java.util.UUID&nbsp;id,
+                   <a href="../../utils/Nullable.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@Nullable</a>
+                   <a href="../categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>&nbsp;category,
+                   <a href="../../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
+                   <a href="../common/ETransactionType.html" title="enum in at.ac.univie.se2.ws21.team0404.app.model.common">ETransactionType</a>&nbsp;type,
+                   int&nbsp;amount,
+                   <a href="../../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
+                   java.lang.String&nbsp;name,
+                   <a href="../../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
+                   java.util.Date&nbsp;date)</pre>
+<div class="block">Allow to define constructors, which also set the ID</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>id</code> - id of the transaction. Needs to be unique in the DB</dd>
+<dd><code>category</code> - category of the transaction.</dd>
+<dd><code>type</code> - type of the transaction.</dd>
+<dd><code>amount</code> - amount of the transaction</dd>
+<dd><code>name</code> - name of the transaction</dd>
+<dd><code>date</code> - date of transaction</dd>
+</dl>
+</li>
+</ul>
+<a id="&lt;init&gt;(at.ac.univie.se2.ws21.team0404.app.model.categories.Category,at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType,int,java.lang.String,java.util.Date)">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -298,30 +343,17 @@ extends java.lang.Object</pre>
                    <a href="../../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
                    <a href="../common/ETransactionType.html" title="enum in at.ac.univie.se2.ws21.team0404.app.model.common">ETransactionType</a>&nbsp;type,
                    int&nbsp;amount,
-                   java.lang.String&nbsp;name)</pre>
-</li>
-</ul>
-<a id="&lt;init&gt;(int,at.ac.univie.se2.ws21.team0404.app.model.categories.Category,at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType,int,java.lang.String)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>Transaction</h4>
-<pre>protected&nbsp;Transaction&#8203;(int&nbsp;id,
-                      <a href="../../utils/Nullable.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@Nullable</a>
-                      <a href="../categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>&nbsp;category,
-                      <a href="../../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
-                      <a href="../common/ETransactionType.html" title="enum in at.ac.univie.se2.ws21.team0404.app.model.common">ETransactionType</a>&nbsp;type,
-                      int&nbsp;amount,
-                      <a href="../../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
-                      java.lang.String&nbsp;name)</pre>
-<div class="block">Allow subclasses to define constructors, which also set the ID</div>
+                   <a href="../../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
+                   java.lang.String&nbsp;name,
+                   <a href="../../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
+                   java.util.Date&nbsp;date)</pre>
+<div class="block">Constructs a Transaction and autogenerates an id.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>id</code> - id of the transaction. Needs to be unique in the DB</dd>
 <dd><code>category</code> - category of the transaction.</dd>
 <dd><code>type</code> - type of the transaction.</dd>
 <dd><code>amount</code> - amount of the transaction</dd>
+<dd><code>date</code> - the date of the transaction</dd>
 </dl>
 </li>
 </ul>
@@ -331,7 +363,13 @@ extends java.lang.Object</pre>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>Transaction</h4>
-<pre>public&nbsp;Transaction&#8203;(<a href="Transaction.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.transaction">Transaction</a>&nbsp;transaction)</pre>
+<pre>public&nbsp;Transaction&#8203;(<a href="../../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
+                   <a href="Transaction.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.transaction">Transaction</a>&nbsp;transaction)</pre>
+<div class="block">Copy constructor that constructs a Transaction from another.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>transaction</code> - transaction to copy.</dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -350,7 +388,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getId</h4>
-<pre class="methodSignature">public&nbsp;int&nbsp;getId()</pre>
+<pre class="methodSignature">public&nbsp;java.util.UUID&nbsp;getId()</pre>
 </li>
 </ul>
 <a id="getCategory()">
@@ -361,21 +399,12 @@ extends java.lang.Object</pre>
 <h4>getCategory</h4>
 <pre class="methodSignature"><a href="../../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
 public&nbsp;java.util.Optional&lt;<a href="../categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>&gt;&nbsp;getCategory()</pre>
-<div class="block">Not every transaction needs to have a category assigned. (See FR3 for reference)</div>
+<div class="block">Returns the category of the transaction. Not every transaction needs to have a category
+ assigned. (See FR3 for reference)</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Optional category</dd>
 </dl>
-</li>
-</ul>
-<a id="setCategory(at.ac.univie.se2.ws21.team0404.app.model.categories.Category)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setCategory</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;setCategory&#8203;(<a href="../../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
-                        <a href="../categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>&nbsp;newCategory)</pre>
 </li>
 </ul>
 <a id="getType()">
@@ -388,16 +417,6 @@ public&nbsp;java.util.Optional&lt;<a href="../categories/Category.html" title="c
 public&nbsp;<a href="../common/ETransactionType.html" title="enum in at.ac.univie.se2.ws21.team0404.app.model.common">ETransactionType</a>&nbsp;getType()</pre>
 </li>
 </ul>
-<a id="setType(at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setType</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;setType&#8203;(<a href="../../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
-                    <a href="../common/ETransactionType.html" title="enum in at.ac.univie.se2.ws21.team0404.app.model.common">ETransactionType</a>&nbsp;newType)</pre>
-</li>
-</ul>
 <a id="getAmount()">
 <!--   -->
 </a>
@@ -405,15 +424,6 @@ public&nbsp;<a href="../common/ETransactionType.html" title="enum in at.ac.univi
 <li class="blockList">
 <h4>getAmount</h4>
 <pre class="methodSignature">public&nbsp;int&nbsp;getAmount()</pre>
-</li>
-</ul>
-<a id="setAmount(int)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setAmount</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;setAmount&#8203;(int&nbsp;newAmount)</pre>
 </li>
 </ul>
 <a id="getName()">
@@ -425,6 +435,35 @@ public&nbsp;<a href="../common/ETransactionType.html" title="enum in at.ac.univi
 <pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getName()</pre>
 </li>
 </ul>
+<a id="setType(at.ac.univie.se2.ws21.team0404.app.model.common.ETransactionType)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setType</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setType&#8203;(<a href="../../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
+                    <a href="../common/ETransactionType.html" title="enum in at.ac.univie.se2.ws21.team0404.app.model.common">ETransactionType</a>&nbsp;newType)</pre>
+</li>
+</ul>
+<a id="setCategory(at.ac.univie.se2.ws21.team0404.app.model.categories.Category)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setCategory</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setCategory&#8203;(<a href="../../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
+                        <a href="../categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>&nbsp;newCategory)</pre>
+</li>
+</ul>
+<a id="setAmount(int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setAmount</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setAmount&#8203;(int&nbsp;newAmount)</pre>
+</li>
+</ul>
 <a id="setName(java.lang.String)">
 <!--   -->
 </a>
@@ -433,6 +472,24 @@ public&nbsp;<a href="../common/ETransactionType.html" title="enum in at.ac.univi
 <h4>setName</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;setName&#8203;(<a href="../../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
                     java.lang.String&nbsp;name)</pre>
+</li>
+</ul>
+<a id="getDate()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getDate</h4>
+<pre class="methodSignature">public&nbsp;java.util.Date&nbsp;getDate()</pre>
+</li>
+</ul>
+<a id="setDate(java.util.Date)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setDate</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setDate&#8203;(java.util.Date&nbsp;date)</pre>
 </li>
 </ul>
 <a id="getRawCategory()">
@@ -467,13 +524,27 @@ protected&nbsp;<a href="../categories/Category.html" title="class in at.ac.univi
 <a id="equals(java.lang.Object)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>equals</h4>
 <pre class="methodSignature">public&nbsp;boolean&nbsp;equals&#8203;(java.lang.Object&nbsp;o)</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
 <dd><code>equals</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+</dl>
+</li>
+</ul>
+<a id="toString()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>toString</h4>
+<pre class="methodSignature"><a href="../../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
+public&nbsp;java.lang.String&nbsp;toString()</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code>toString</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
 </dl>
 </li>
 </ul>

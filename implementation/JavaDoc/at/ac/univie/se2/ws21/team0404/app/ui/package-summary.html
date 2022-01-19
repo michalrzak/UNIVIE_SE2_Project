@@ -128,6 +128,20 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Contract interface for all MVP view classes.</div>
 </td>
 </tr>
+<tr class="altColor">
+<th class="colFirst" scope="row"><a href="IListActivityContract.html" title="interface in at.ac.univie.se2.ws21.team0404.app.ui">IListActivityContract</a></th>
+<td class="colLast">
+<div class="block">The base contract to be used by classes implementing <a href="AListActivity.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui"><code>AListActivity</code></a>.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colFirst" scope="row"><a href="IListActivityContract.IPresenter.html" title="interface in at.ac.univie.se2.ws21.team0404.app.ui">IListActivityContract.IPresenter</a>&lt;T&gt;</th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<th class="colFirst" scope="row"><a href="IListActivityContract.IView.html" title="interface in at.ac.univie.se2.ws21.team0404.app.ui">IListActivityContract.IView</a>&lt;T&gt;</th>
+<td class="colLast">&nbsp;</td>
+</tr>
 </tbody>
 </table>
 </li>
@@ -148,8 +162,16 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="rowColor">
-<th class="colFirst" scope="row"><a href="AListActivity.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui">AListActivity</a>&lt;ModelClass,&#8203;ViewHolder extends androidx.recyclerview.widget.RecyclerView.ViewHolder&gt;</th>
-<td class="colLast">&nbsp;</td>
+<th class="colFirst" scope="row"><a href="AListActivity.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui">AListActivity</a>&lt;ModelClass,&#8203;ViewHolder extends androidx.recyclerview.widget.RecyclerView.ViewHolder,&#8203;Presenter extends <a href="IListActivityContract.IPresenter.html" title="interface in at.ac.univie.se2.ws21.team0404.app.ui">IListActivityContract.IPresenter</a>&lt;ModelClass&gt;&gt;</th>
+<td class="colLast">
+<div class="block">An Abstract Class used to be able to more easily create Activities, which display lists.</div>
+</td>
+</tr>
+<tr class="altColor">
+<th class="colFirst" scope="row"><a href="AListActivityPresenter.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui">AListActivityPresenter</a>&lt;T&gt;</th>
+<td class="colLast">
+<div class="block">An abstract presenter class that can be used to more simply implement presenters for the <a href="AListActivity.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui"><code>AListActivity</code></a></div>
+</td>
 </tr>
 </tbody>
 </table>

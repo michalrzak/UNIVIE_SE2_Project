@@ -152,29 +152,40 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addAccount(at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount)">addAccount</a></span>&#8203;(<a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;newAccount)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Adds the provided account to the database</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addCategory(at.ac.univie.se2.ws21.team0404.app.model.categories.Category)">addCategory</a></span>&#8203;(<a href="../model/categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>&nbsp;newCategory)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Adds the provided category to the database</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addTransaction(at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount,at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction)">addTransaction</a></span>&#8203;(<a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;owner,
               <a href="../model/transaction/Transaction.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.transaction">Transaction</a>&nbsp;newTransaction)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Adds the provided transaction to the database and assigns owner as its owner/</div>
+</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deleteAccount(at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount)">deleteAccount</a></span>&#8203;(<a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;account)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Deletes the provided account from the database</div>
+</td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deleteTransaction(at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount,int)">deleteTransaction</a></span>&#8203;(<a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;owner,
-                 int&nbsp;idToBeDeleted)</code></th>
-<td class="colLast">&nbsp;</td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deleteTransaction(at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount,java.util.UUID)">deleteTransaction</a></span>&#8203;(<a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;owner,
+                 java.util.UUID&nbsp;idToBeDeleted)</code></th>
+<td class="colLast">
+<div class="block">Deletes the transaction with the given id idToBeDeleted and owner owner
+ from the database</div>
+</td>
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code>java.util.Collection&lt;<a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&gt;</code></td>
@@ -194,20 +205,26 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <tr id="i8" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updateAccount(at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount)">updateAccount</a></span>&#8203;(<a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;newAccount)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Updates the given account on the database</div>
+</td>
 </tr>
 <tr id="i9" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updateCategory(java.lang.String,at.ac.univie.se2.ws21.team0404.app.model.categories.Category)">updateCategory</a></span>&#8203;(java.lang.String&nbsp;categoryName,
-              <a href="../model/categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>&nbsp;newCategory)</code></th>
-<td class="colLast">&nbsp;</td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updateCategory(at.ac.univie.se2.ws21.team0404.app.model.categories.Category)">updateCategory</a></span>&#8203;(<a href="../model/categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>&nbsp;newCategory)</code></th>
+<td class="colLast">
+<div class="block">Updates the given category on the database</div>
+</td>
 </tr>
 <tr id="i10" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updateTransaction(at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount,int,at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction)">updateTransaction</a></span>&#8203;(<a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;owner,
-                 int&nbsp;oldId,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updateTransaction(at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount,java.util.UUID,at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction)">updateTransaction</a></span>&#8203;(<a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;owner,
+                 java.util.UUID&nbsp;oldId,
                  <a href="../model/transaction/Transaction.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.transaction">Transaction</a>&nbsp;updatedTransaction)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Updates the transaction with the id in oldId and owner owner to the value
+ passed in newTransaction</div>
+</td>
 </tr>
 </table>
 </li>
@@ -271,9 +288,13 @@ java.util.Collection&lt;<a href="../model/categories/Category.html" title="class
 <pre class="methodSignature">void&nbsp;addAccount&#8203;(<a href="../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
                 <a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;newAccount)
          throws <a href="../utils/exceptions/DataExistsException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataExistsException</a></pre>
+<div class="block">Adds the provided account to the database</div>
 <dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>newAccount</code> - the account to be added to the database</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../utils/exceptions/DataExistsException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataExistsException</a></code></dd>
+<dd><code><a href="../utils/exceptions/DataExistsException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataExistsException</a></code> - if an account with the key of {@param newAccount} already exists on
+                             the database</dd>
 </dl>
 </li>
 </ul>
@@ -285,9 +306,13 @@ java.util.Collection&lt;<a href="../model/categories/Category.html" title="class
 <h4>deleteAccount</h4>
 <pre class="methodSignature">void&nbsp;deleteAccount&#8203;(<a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;account)
             throws <a href="../utils/exceptions/DataDoesNotExistException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataDoesNotExistException</a></pre>
+<div class="block">Deletes the provided account from the database</div>
 <dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>account</code> - the account to be deleted from the database</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../utils/exceptions/DataDoesNotExistException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataDoesNotExistException</a></code></dd>
+<dd><code><a href="../utils/exceptions/DataDoesNotExistException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataDoesNotExistException</a></code> - if an account with the key of {@param account} does not exist
+                                   on the database</dd>
 </dl>
 </li>
 </ul>
@@ -300,9 +325,13 @@ java.util.Collection&lt;<a href="../model/categories/Category.html" title="class
 <pre class="methodSignature">void&nbsp;updateAccount&#8203;(<a href="../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
                    <a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;newAccount)
             throws <a href="../utils/exceptions/DataDoesNotExistException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataDoesNotExistException</a></pre>
+<div class="block">Updates the given account on the database</div>
 <dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>newAccount</code> - the account, whose id already exists on the database, which will be updated</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../utils/exceptions/DataDoesNotExistException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataDoesNotExistException</a></code></dd>
+<dd><code><a href="../utils/exceptions/DataDoesNotExistException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataDoesNotExistException</a></code> - if an account with the id of newAccount does not
+                                   exist on the database</dd>
 </dl>
 </li>
 </ul>
@@ -318,10 +347,16 @@ java.util.Collection&lt;<a href="../model/categories/Category.html" title="class
                     <a href="../model/transaction/Transaction.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.transaction">Transaction</a>&nbsp;newTransaction)
              throws <a href="../utils/exceptions/DataExistsException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataExistsException</a>,
                     <a href="../utils/exceptions/DataDoesNotExistException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataDoesNotExistException</a></pre>
+<div class="block">Adds the provided transaction to the database and assigns owner as its owner/</div>
 <dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>owner</code> - the account to be assigned as owner of newTransaction, cannot
+                       be null</dd>
+<dd><code>newTransaction</code> - the transaction to be added to the database, cannot be null</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../utils/exceptions/DataExistsException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataExistsException</a></code></dd>
-<dd><code><a href="../utils/exceptions/DataDoesNotExistException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataDoesNotExistException</a></code></dd>
+<dd><code><a href="../utils/exceptions/DataExistsException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataExistsException</a></code> - if a transaction with the id of newTransaction and
+                                   the owner owner already exists on the database</dd>
+<dd><code><a href="../utils/exceptions/DataDoesNotExistException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataDoesNotExistException</a></code> - if owner does not exist on the databse</dd>
 </dl>
 </li>
 </ul>
@@ -331,48 +366,69 @@ java.util.Collection&lt;<a href="../model/categories/Category.html" title="class
 <ul class="blockList">
 <li class="blockList">
 <h4>addCategory</h4>
-<pre class="methodSignature">void&nbsp;addCategory&#8203;(<a href="../model/categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>&nbsp;newCategory)
+<pre class="methodSignature">void&nbsp;addCategory&#8203;(<a href="../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
+                 <a href="../model/categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>&nbsp;newCategory)
           throws <a href="../utils/exceptions/DataExistsException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataExistsException</a></pre>
+<div class="block">Adds the provided category to the database</div>
 <dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>newCategory</code> - the category to be inserted to the database, cannot be null</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../utils/exceptions/DataExistsException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataExistsException</a></code></dd>
+<dd><code><a href="../utils/exceptions/DataExistsException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataExistsException</a></code> - if the provided category already exists on the database</dd>
 </dl>
 </li>
 </ul>
-<a id="updateCategory(java.lang.String,at.ac.univie.se2.ws21.team0404.app.model.categories.Category)">
+<a id="updateCategory(at.ac.univie.se2.ws21.team0404.app.model.categories.Category)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>updateCategory</h4>
-<pre class="methodSignature">void&nbsp;updateCategory&#8203;(java.lang.String&nbsp;categoryName,
+<pre class="methodSignature">void&nbsp;updateCategory&#8203;(<a href="../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
                     <a href="../model/categories/Category.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.categories">Category</a>&nbsp;newCategory)
              throws <a href="../utils/exceptions/DataDoesNotExistException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataDoesNotExistException</a>,
                     <a href="../utils/exceptions/DataExistsException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataExistsException</a></pre>
+<div class="block">Updates the given category on the database</div>
 <dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>newCategory</code> - the category to be updated on the database, cannot be null</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../utils/exceptions/DataDoesNotExistException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataDoesNotExistException</a></code></dd>
-<dd><code><a href="../utils/exceptions/DataExistsException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataExistsException</a></code></dd>
+<dd><code><a href="../utils/exceptions/DataDoesNotExistException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataDoesNotExistException</a></code> - if a category with the id of the passed category does not
+                                   exist on the database</dd>
+<dd><code><a href="../utils/exceptions/DataExistsException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataExistsException</a></code> - if a category with the name of the new category already
+                                   exists on the database</dd>
 </dl>
 </li>
 </ul>
-<a id="updateTransaction(at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount,int,at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction)">
+<a id="updateTransaction(at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount,java.util.UUID,at.ac.univie.se2.ws21.team0404.app.model.transaction.Transaction)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>updateTransaction</h4>
-<pre class="methodSignature">void&nbsp;updateTransaction&#8203;(<a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;owner,
-                       int&nbsp;oldId,
+<pre class="methodSignature">void&nbsp;updateTransaction&#8203;(<a href="../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
+                       <a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;owner,
+                       <a href="../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
+                       java.util.UUID&nbsp;oldId,
+                       <a href="../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
                        <a href="../model/transaction/Transaction.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.transaction">Transaction</a>&nbsp;updatedTransaction)
                 throws <a href="../utils/exceptions/DataDoesNotExistException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataDoesNotExistException</a></pre>
+<div class="block">Updates the transaction with the id in oldId and owner owner to the value
+ passed in newTransaction</div>
 <dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>owner</code> - the owner of the transaction to be updated, cannot be null</dd>
+<dd><code>oldId</code> - the id of the transaction to be updated, cannot be null</dd>
+<dd><code>updatedTransaction</code> - the transaction, which will be inserted inplace of the old
+                           transaction</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../utils/exceptions/DataDoesNotExistException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataDoesNotExistException</a></code></dd>
+<dd><code><a href="../utils/exceptions/DataDoesNotExistException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataDoesNotExistException</a></code> - if an account owner or a transaction with
+                                   owner oldId pair does not exist on the
+                                   database</dd>
 </dl>
 </li>
 </ul>
-<a id="deleteTransaction(at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount,int)">
+<a id="deleteTransaction(at.ac.univie.se2.ws21.team0404.app.model.account.AppAccount,java.util.UUID)">
 <!--   -->
 </a>
 <ul class="blockListLast">
@@ -380,11 +436,18 @@ java.util.Collection&lt;<a href="../model/categories/Category.html" title="class
 <h4>deleteTransaction</h4>
 <pre class="methodSignature">void&nbsp;deleteTransaction&#8203;(<a href="../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
                        <a href="../model/account/AppAccount.html" title="class in at.ac.univie.se2.ws21.team0404.app.model.account">AppAccount</a>&nbsp;owner,
-                       int&nbsp;idToBeDeleted)
+                       <a href="../utils/NonNull.html" title="annotation in at.ac.univie.se2.ws21.team0404.app.utils">@NonNull</a>
+                       java.util.UUID&nbsp;idToBeDeleted)
                 throws <a href="../utils/exceptions/DataDoesNotExistException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataDoesNotExistException</a></pre>
+<div class="block">Deletes the transaction with the given id idToBeDeleted and owner owner
+ from the database</div>
 <dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>owner</code> - the owner of the transaction to be deleted, cannot be null</dd>
+<dd><code>idToBeDeleted</code> - the id of the transaction to be deleted, cannot be null</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../utils/exceptions/DataDoesNotExistException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataDoesNotExistException</a></code></dd>
+<dd><code><a href="../utils/exceptions/DataDoesNotExistException.html" title="class in at.ac.univie.se2.ws21.team0404.app.utils.exceptions">DataDoesNotExistException</a></code> - if the owner owner or the idToBeDeleted
+                                   does not exist on the database</dd>
 </dl>
 </li>
 </ul>

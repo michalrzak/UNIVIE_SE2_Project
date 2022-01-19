@@ -137,6 +137,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt>All Implemented Interfaces:</dt>
 <dd><code><a href="IBaseContract.IPresenter.html" title="interface in at.ac.univie.se2.ws21.team0404.app.ui">IBaseContract.IPresenter</a>&lt;V&gt;</code>, <code><a href="IBaseContract.IPresenterLifecycle.html" title="interface in at.ac.univie.se2.ws21.team0404.app.ui">IBaseContract.IPresenterLifecycle</a>&lt;V&gt;</code></dd>
 </dl>
+<dl>
+<dt>Direct Known Subclasses:</dt>
+<dd><code><a href="account/accountdetails/AccountAddPresenter.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui.account.accountdetails">AccountAddPresenter</a></code>, <code><a href="account/accountdetails/AccountEditPresenter.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui.account.accountdetails">AccountEditPresenter</a></code>, <code><a href="AListActivityPresenter.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui">AListActivityPresenter</a></code>, <code><a href="categories/categorydetails/CategoryAddPresenter.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui.categories.categorydetails">CategoryAddPresenter</a></code>, <code><a href="categories/categorydetails/CategoryEditPresenter.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui.categories.categorydetails">CategoryEditPresenter</a></code>, <code><a href="report/ChartActivityPresenter.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui.report">ChartActivityPresenter</a></code>, <code><a href="report/ReportFormPresenter.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui.report">ReportFormPresenter</a></code>, <code><a href="transactions/transactiondetails/TransactionAddPresenter.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui.transactions.transactiondetails">TransactionAddPresenter</a></code>, <code><a href="transactions/transactiondetails/TransactionEditPresenter.html" title="class in at.ac.univie.se2.ws21.team0404.app.ui.transactions.transactiondetails">TransactionEditPresenter</a></code></dd>
+</dl>
 <hr>
 <pre>public abstract class <span class="typeNameLabel">ABasePresenter&lt;V extends <a href="IBaseContract.IView.html" title="interface in at.ac.univie.se2.ws21.team0404.app.ui">IBaseContract.IView</a>&gt;</span>
 extends java.lang.Object
@@ -348,8 +352,8 @@ implements <a href="IBaseContract.IPresenter.html" title="interface in at.ac.uni
 <ul class="blockList">
 <li class="blockList">
 <h4>setView</h4>
-<pre class="methodSignature">public final&nbsp;void&nbsp;setView&#8203;(@NonNull
-                          <a href="ABasePresenter.html" title="type parameter in ABasePresenter">V</a>&nbsp;view)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;setView&#8203;(@NonNull
+                    <a href="ABasePresenter.html" title="type parameter in ABasePresenter">V</a>&nbsp;view)</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="IBaseContract.IPresenterLifecycle.html#setView(V)">setView</a></code>&nbsp;in interface&nbsp;<code><a href="IBaseContract.IPresenterLifecycle.html" title="interface in at.ac.univie.se2.ws21.team0404.app.ui">IBaseContract.IPresenterLifecycle</a>&lt;<a href="ABasePresenter.html" title="type parameter in ABasePresenter">V</a> extends <a href="IBaseContract.IView.html" title="interface in at.ac.univie.se2.ws21.team0404.app.ui">IBaseContract.IView</a>&gt;</code></dd>
@@ -362,7 +366,7 @@ implements <a href="IBaseContract.IPresenter.html" title="interface in at.ac.uni
 <ul class="blockList">
 <li class="blockList">
 <h4>onCreate</h4>
-<pre class="methodSignature">public final&nbsp;void&nbsp;onCreate()</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;onCreate()</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="IBaseContract.IPresenterLifecycle.html#onCreate()">onCreate</a></code>&nbsp;in interface&nbsp;<code><a href="IBaseContract.IPresenterLifecycle.html" title="interface in at.ac.univie.se2.ws21.team0404.app.ui">IBaseContract.IPresenterLifecycle</a>&lt;<a href="ABasePresenter.html" title="type parameter in ABasePresenter">V</a> extends <a href="IBaseContract.IView.html" title="interface in at.ac.univie.se2.ws21.team0404.app.ui">IBaseContract.IView</a>&gt;</code></dd>
@@ -375,7 +379,7 @@ implements <a href="IBaseContract.IPresenter.html" title="interface in at.ac.uni
 <ul class="blockList">
 <li class="blockList">
 <h4>onStart</h4>
-<pre class="methodSignature">public final&nbsp;void&nbsp;onStart()</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;onStart()</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="IBaseContract.IPresenterLifecycle.html#onStart()">onStart</a></code>&nbsp;in interface&nbsp;<code><a href="IBaseContract.IPresenterLifecycle.html" title="interface in at.ac.univie.se2.ws21.team0404.app.ui">IBaseContract.IPresenterLifecycle</a>&lt;<a href="ABasePresenter.html" title="type parameter in ABasePresenter">V</a> extends <a href="IBaseContract.IView.html" title="interface in at.ac.univie.se2.ws21.team0404.app.ui">IBaseContract.IView</a>&gt;</code></dd>
@@ -388,7 +392,7 @@ implements <a href="IBaseContract.IPresenter.html" title="interface in at.ac.uni
 <ul class="blockList">
 <li class="blockList">
 <h4>onStop</h4>
-<pre class="methodSignature">public final&nbsp;void&nbsp;onStop()</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;onStop()</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="IBaseContract.IPresenterLifecycle.html#onStop()">onStop</a></code>&nbsp;in interface&nbsp;<code><a href="IBaseContract.IPresenterLifecycle.html" title="interface in at.ac.univie.se2.ws21.team0404.app.ui">IBaseContract.IPresenterLifecycle</a>&lt;<a href="ABasePresenter.html" title="type parameter in ABasePresenter">V</a> extends <a href="IBaseContract.IView.html" title="interface in at.ac.univie.se2.ws21.team0404.app.ui">IBaseContract.IView</a>&gt;</code></dd>
@@ -401,7 +405,7 @@ implements <a href="IBaseContract.IPresenter.html" title="interface in at.ac.uni
 <ul class="blockList">
 <li class="blockList">
 <h4>onDestroy</h4>
-<pre class="methodSignature">public final&nbsp;void&nbsp;onDestroy()</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;onDestroy()</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="IBaseContract.IPresenterLifecycle.html#onDestroy()">onDestroy</a></code>&nbsp;in interface&nbsp;<code><a href="IBaseContract.IPresenterLifecycle.html" title="interface in at.ac.univie.se2.ws21.team0404.app.ui">IBaseContract.IPresenterLifecycle</a>&lt;<a href="ABasePresenter.html" title="type parameter in ABasePresenter">V</a> extends <a href="IBaseContract.IView.html" title="interface in at.ac.univie.se2.ws21.team0404.app.ui">IBaseContract.IView</a>&gt;</code></dd>
